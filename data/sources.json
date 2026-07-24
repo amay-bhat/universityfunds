@@ -1,1 +1,102 @@
-[]
+[
+  {
+    "id": "yale-endowment-report-2004",
+    "title": "The Yale Endowment 2004",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20141101074609/http://investments.yale.edu/images/documents/Yale_Endowment_04.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Five-year highlights table; source for FY2000-FY2004 allocations, returns and market values. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/images/documents/Yale_Endowment_04.pdf"
+  },
+  {
+    "id": "yale-endowment-report-2009",
+    "title": "The Yale Endowment 2009",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20130918135313/http://investments.yale.edu/images/documents/Yale_Endowment_09.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Five-year highlights table; source for FY2005-FY2009. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/images/documents/Yale_Endowment_09.pdf"
+  },
+  {
+    "id": "yale-endowment-report-2014",
+    "title": "The Yale Endowment 2014",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20150330053124/http://investments.yale.edu/images/documents/Yale_Endowment_14.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Five-year highlights table; source for FY2010-FY2014. This edition splits Real Assets into Natural Resources and Real Estate; the two sum to the single Real Assets figure the earlier reports published for the same years. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/images/documents/Yale_Endowment_14.pdf"
+  },
+  {
+    "id": "yale-endowment-report-2015",
+    "title": "The Yale Endowment 2015",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20160417083659/http://investments.yale.edu/images/documents/Yale_Endowment_15.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Five-year highlights table; source for FY2015. This edition splits Private Equity into Leveraged Buyouts and Venture Capital; the two sum to the single Private Equity figure the 2014 report published for the overlapping years. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/images/documents/Yale_Endowment_15.pdf"
+  },
+  {
+    "id": "yale-endowment-report-2020",
+    "title": "The Yale Endowment 2020",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20250322044125/https://investments.yale.edu/wp-content/uploads/2024/10/2020YaleEndowment.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Five-year highlights table; source for FY2016-FY2020. This is the LAST Yale endowment report to publish an asset-allocation percentage table, which is why curated allocations stop at FY2020. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/wp-content/uploads/2024/10/2020YaleEndowment.pdf"
+  },
+  {
+    "id": "yale-endowment-report-2021",
+    "title": "The Yale Endowment 2021",
+    "publisher": "Yale Investments Office",
+    "url": "https://web.archive.org/web/20230312023702/https://investments.yale.edu/s/2021-Endowment-Report.pdf",
+    "documentType": "annual_report",
+    "page": "Endowment Highlights (p. 2 of PDF)",
+    "accessedDate": "2026-07-24",
+    "notes": "Source for the FY2021 return (40.2%) and market value ($42,282.9M) only. This edition (the David Swensen memorial report) does not publish an asset-allocation percentage table, so no FY2021 allocation rows are curated. Yale removed its endowment-report archive when it rebuilt investments.yale.edu, so this cites the Internet Archive capture of the original PDF. Original URL: investments.yale.edu/s/2021-Endowment-Report.pdf"
+  },
+  {
+    "id": "yale-news-fy2022-return",
+    "title": "Yale reports investment return for fiscal 2022",
+    "publisher": "Yale News (Yale University)",
+    "url": "https://news.yale.edu/2022/10/04/yale-reports-investment-return-fiscal-2022",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Return 0.8%; market value $41.4B at June 30, 2022. Yale no longer publishes an endowment report, so market value is as-reported rounded to $0.1B (recorded here as 41400)."
+  },
+  {
+    "id": "yale-news-fy2023-return",
+    "title": "Yale reports investment return for fiscal 2023",
+    "publisher": "Yale News (Yale University)",
+    "url": "https://news.yale.edu/2023/10/10/yale-reports-investment-return-fiscal-2023",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Return 1.8%; market value $40.7B at June 30, 2023. As-reported, rounded to $0.1B."
+  },
+  {
+    "id": "yale-news-fy2024-return",
+    "title": "Yale reports investment return for fiscal 2024",
+    "publisher": "Yale News (Yale University)",
+    "url": "https://news.yale.edu/2024/10/25/yale-reports-investment-return-fiscal-2024",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Return 5.7%; market value $41.4B at June 30, 2024. As-reported, rounded to $0.1B."
+  },
+  {
+    "id": "yale-news-fy2025-return",
+    "title": "Yale reports investment return for fiscal 2025",
+    "publisher": "Yale News (Yale University)",
+    "url": "https://news.yale.edu/2025/10/24/yale-reports-investment-return-fiscal-2025",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Return 11.1%; market value $44.1B at June 30, 2025. As-reported, rounded to $0.1B."
+  }
+]

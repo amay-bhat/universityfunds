@@ -1,4 +1,1044 @@
 {
-  "allocations": [],
-  "endowmentReturns": []
+  "allocations": [
+    {
+      "fiscalYear": 2000,
+      "category": "us_public_equity",
+      "pct": 14.2,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2000,
+      "category": "intl_public_equity",
+      "pct": 9.0,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2000,
+      "category": "fixed_income_cash",
+      "pct": 17.5,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2000,
+      "category": "absolute_return",
+      "pct": 19.5,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2000,
+      "category": "private_equity_vc",
+      "pct": 25.0,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2000,
+      "category": "real_assets",
+      "pct": 14.9,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "us_public_equity",
+      "pct": 15.5,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "intl_public_equity",
+      "pct": 10.6,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "fixed_income_cash",
+      "pct": 16.0,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "absolute_return",
+      "pct": 22.9,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "private_equity_vc",
+      "pct": 18.2,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "category": "real_assets",
+      "pct": 16.8,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "us_public_equity",
+      "pct": 15.4,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "intl_public_equity",
+      "pct": 12.8,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "fixed_income_cash",
+      "pct": 10.3,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "absolute_return",
+      "pct": 26.5,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "private_equity_vc",
+      "pct": 14.4,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "category": "real_assets",
+      "pct": 20.5,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "us_public_equity",
+      "pct": 14.9,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "intl_public_equity",
+      "pct": 14.6,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "fixed_income_cash",
+      "pct": 9.5,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "absolute_return",
+      "pct": 25.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "private_equity_vc",
+      "pct": 14.9,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "category": "real_assets",
+      "pct": 20.9,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "us_public_equity",
+      "pct": 14.8,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "intl_public_equity",
+      "pct": 14.8,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "fixed_income_cash",
+      "pct": 10.9,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "absolute_return",
+      "pct": 26.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "private_equity_vc",
+      "pct": 14.5,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "category": "real_assets",
+      "pct": 18.8,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "us_public_equity",
+      "pct": 14.1,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "intl_public_equity",
+      "pct": 13.7,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "fixed_income_cash",
+      "pct": 6.8,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "absolute_return",
+      "pct": 25.7,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "private_equity_vc",
+      "pct": 14.8,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "real_assets",
+      "pct": 25.0,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "us_public_equity",
+      "pct": 11.6,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "intl_public_equity",
+      "pct": 14.6,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "fixed_income_cash",
+      "pct": 6.3,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "absolute_return",
+      "pct": 23.3,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "private_equity_vc",
+      "pct": 16.4,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "category": "real_assets",
+      "pct": 27.8,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "us_public_equity",
+      "pct": 11.0,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "intl_public_equity",
+      "pct": 14.1,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "fixed_income_cash",
+      "pct": 5.9,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "absolute_return",
+      "pct": 23.3,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "private_equity_vc",
+      "pct": 18.7,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "category": "real_assets",
+      "pct": 27.1,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "us_public_equity",
+      "pct": 10.1,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "intl_public_equity",
+      "pct": 15.2,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "fixed_income_cash",
+      "pct": 0.1,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "absolute_return",
+      "pct": 25.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "private_equity_vc",
+      "pct": 20.2,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "real_assets",
+      "pct": 29.3,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "us_public_equity",
+      "pct": 7.5,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "intl_public_equity",
+      "pct": 9.8,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "fixed_income_cash",
+      "pct": 2.1,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "absolute_return",
+      "pct": 24.3,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "private_equity_vc",
+      "pct": 24.3,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "category": "real_assets",
+      "pct": 32.0,
+      "sourceLabel": "Real Assets",
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "us_public_equity",
+      "pct": 7.0,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "intl_public_equity",
+      "pct": 9.9,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "fixed_income_cash",
+      "pct": 4.4,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "absolute_return",
+      "pct": 21.0,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "private_equity_vc",
+      "pct": 30.3,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "real_assets",
+      "pct": 27.5,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "us_public_equity",
+      "pct": 6.7,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "intl_public_equity",
+      "pct": 9.0,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "fixed_income_cash",
+      "pct": 2.8,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "absolute_return",
+      "pct": 17.5,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "private_equity_vc",
+      "pct": 35.1,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "category": "real_assets",
+      "pct": 28.9,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "us_public_equity",
+      "pct": 5.8,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "intl_public_equity",
+      "pct": 7.8,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "fixed_income_cash",
+      "pct": 6.6,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "absolute_return",
+      "pct": 14.5,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "private_equity_vc",
+      "pct": 35.3,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "real_assets",
+      "pct": 30.0,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "us_public_equity",
+      "pct": 5.9,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "intl_public_equity",
+      "pct": 9.8,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "fixed_income_cash",
+      "pct": 6.5,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "absolute_return",
+      "pct": 17.8,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "private_equity_vc",
+      "pct": 32.0,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "real_assets",
+      "pct": 28.1,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "us_public_equity",
+      "pct": 3.9,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "intl_public_equity",
+      "pct": 11.5,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "fixed_income_cash",
+      "pct": 8.4,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "absolute_return",
+      "pct": 17.4,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "private_equity_vc",
+      "pct": 33.0,
+      "sourceLabel": "Private Equity",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "category": "real_assets",
+      "pct": 25.8,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "us_public_equity",
+      "pct": 3.9,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "intl_public_equity",
+      "pct": 14.7,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "fixed_income_cash",
+      "pct": 7.7,
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "absolute_return",
+      "pct": 20.5,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "private_equity_vc",
+      "pct": 32.5,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "real_assets",
+      "pct": 20.7,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "us_public_equity",
+      "pct": 4.0,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "intl_public_equity",
+      "pct": 14.9,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "fixed_income_cash",
+      "pct": 7.2,
+      "sourceLabel": "Cash & Fixed Income",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "absolute_return",
+      "pct": 22.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "private_equity_vc",
+      "pct": 30.9,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "real_assets",
+      "pct": 20.9,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "us_public_equity",
+      "pct": 3.9,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "intl_public_equity",
+      "pct": 15.2,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "fixed_income_cash",
+      "pct": 5.8,
+      "sourceLabel": "Cash & Fixed Income",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "absolute_return",
+      "pct": 25.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "private_equity_vc",
+      "pct": 31.3,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "real_assets",
+      "pct": 18.7,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "us_public_equity",
+      "pct": 3.5,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "intl_public_equity",
+      "pct": 15.3,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "fixed_income_cash",
+      "pct": 4.7,
+      "sourceLabel": "Cash & Fixed Income",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "absolute_return",
+      "pct": 26.1,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "private_equity_vc",
+      "pct": 33.1,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "category": "real_assets",
+      "pct": 17.3,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "us_public_equity",
+      "pct": 2.7,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "intl_public_equity",
+      "pct": 13.7,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "fixed_income_cash",
+      "pct": 8.4,
+      "sourceLabel": "Cash & Fixed Income",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "absolute_return",
+      "pct": 23.2,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "private_equity_vc",
+      "pct": 37.0,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "real_assets",
+      "pct": 15.0,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "us_public_equity",
+      "pct": 2.3,
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "intl_public_equity",
+      "pct": 11.4,
+      "sourceLabel": "Foreign Equity",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "fixed_income_cash",
+      "pct": 13.7,
+      "sourceLabel": "Cash & Fixed Income",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "absolute_return",
+      "pct": 21.6,
+      "sourceLabel": "Absolute Return",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "private_equity_vc",
+      "pct": 38.4,
+      "sourceLabel": "Leveraged Buyouts + Venture Capital",
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "real_assets",
+      "pct": 12.5,
+      "sourceLabel": "Natural Resources + Real Estate",
+      "sourceId": "yale-endowment-report-2020"
+    }
+  ],
+  "endowmentReturns": [
+    {
+      "fiscalYear": 2000,
+      "returnPct": 41.0,
+      "marketValueUsdMillions": 10084.9,
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2001,
+      "returnPct": 9.2,
+      "marketValueUsdMillions": 10725.1,
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2002,
+      "returnPct": 0.7,
+      "marketValueUsdMillions": 10523.6,
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2003,
+      "returnPct": 8.8,
+      "marketValueUsdMillions": 11034.6,
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2004,
+      "returnPct": 19.4,
+      "marketValueUsdMillions": 12747.2,
+      "sourceId": "yale-endowment-report-2004"
+    },
+    {
+      "fiscalYear": 2005,
+      "returnPct": 22.3,
+      "marketValueUsdMillions": 15224.9,
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2006,
+      "returnPct": 22.9,
+      "marketValueUsdMillions": 18030.6,
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2007,
+      "returnPct": 28.0,
+      "marketValueUsdMillions": 22530.2,
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "returnPct": 4.5,
+      "marketValueUsdMillions": 22869.7,
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2009,
+      "returnPct": -24.6,
+      "marketValueUsdMillions": 16326.6,
+      "sourceId": "yale-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "returnPct": 8.9,
+      "marketValueUsdMillions": 16652.1,
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2011,
+      "returnPct": 21.9,
+      "marketValueUsdMillions": 19374.4,
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2012,
+      "returnPct": 4.7,
+      "marketValueUsdMillions": 19344.6,
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "returnPct": 12.5,
+      "marketValueUsdMillions": 20780.0,
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2014,
+      "returnPct": 20.2,
+      "marketValueUsdMillions": 23894.8,
+      "sourceId": "yale-endowment-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "returnPct": 11.5,
+      "marketValueUsdMillions": 25572.1,
+      "sourceId": "yale-endowment-report-2015"
+    },
+    {
+      "fiscalYear": 2016,
+      "returnPct": 3.4,
+      "marketValueUsdMillions": 25408.6,
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2017,
+      "returnPct": 11.3,
+      "marketValueUsdMillions": 27176.1,
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2018,
+      "returnPct": 12.3,
+      "marketValueUsdMillions": 29351.1,
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2019,
+      "returnPct": 5.7,
+      "marketValueUsdMillions": 30314.8,
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "returnPct": 6.8,
+      "marketValueUsdMillions": 31201.7,
+      "sourceId": "yale-endowment-report-2020"
+    },
+    {
+      "fiscalYear": 2021,
+      "returnPct": 40.2,
+      "marketValueUsdMillions": 42282.9,
+      "sourceId": "yale-endowment-report-2021"
+    },
+    {
+      "fiscalYear": 2022,
+      "returnPct": 0.8,
+      "marketValueUsdMillions": 41400.0,
+      "sourceId": "yale-news-fy2022-return"
+    },
+    {
+      "fiscalYear": 2023,
+      "returnPct": 1.8,
+      "marketValueUsdMillions": 40700.0,
+      "sourceId": "yale-news-fy2023-return"
+    },
+    {
+      "fiscalYear": 2024,
+      "returnPct": 5.7,
+      "marketValueUsdMillions": 41400.0,
+      "sourceId": "yale-news-fy2024-return"
+    },
+    {
+      "fiscalYear": 2025,
+      "returnPct": 11.1,
+      "marketValueUsdMillions": 44100.0,
+      "sourceId": "yale-news-fy2025-return"
+    }
+  ]
 }

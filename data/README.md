@@ -34,6 +34,35 @@ Schools don't report allocations the same way, and a given school's own categori
 
 **When curating a school-year (tasks 1.3–1.6):** map every line item the school actually reported into one of these 7 categories, and put the school's own original wording in `sourceLabel` so the normalization decision stays auditable. `pct` values for a given school + fiscal year should sum to ~100 (the seed script validates this, task 1.2).
 
+### Yale label mapping (task 1.3)
+
+Yale's own reporting categories changed three times over the period, which is exactly why the normalized set exists. Every Yale line item maps as follows:
+
+| Yale's published label | Years used | → category |
+|---|---|---|
+| Domestic Equity | FY2000–FY2020 | `us_public_equity` |
+| Foreign Equity | FY2000–FY2020 | `intl_public_equity` |
+| Fixed Income | FY2000–FY2015 | `fixed_income_cash` |
+| Cash | FY2000–FY2015 | `fixed_income_cash` |
+| Cash & Fixed Income | FY2016–FY2020 | `fixed_income_cash` |
+| Absolute Return | FY2000–FY2020 | `absolute_return` |
+| Private Equity | FY2000–FY2014 | `private_equity_vc` |
+| Leveraged Buyouts | FY2015–FY2020 | `private_equity_vc` |
+| Venture Capital | FY2015–FY2020 | `private_equity_vc` |
+| Real Assets | FY2000–FY2009 | `real_assets` |
+| Natural Resources | FY2010–FY2020 | `real_assets` |
+| Real Estate | FY2010–FY2020 | `real_assets` |
+
+Three things this mapping gets right, each verified against an overlapping report:
+
+- **Yale reports a *negative* Cash weight in some years** (-3.9% in FY2008, -1.9% in FY2009, -1.1% in FY2011) because the portfolio was effectively levered. Fixed Income and Cash are summed into one category, which keeps every stored `pct` non-negative. If a future school-year has a *combined* negative, the seed validator will reject it and the decision needs revisiting — don't silently clamp it to zero.
+- Summing Fixed Income + Cash is not our invention: Yale itself merged the two into a single "Cash & Fixed Income" line from FY2016, and for the overlapping years the split figures sum to exactly Yale's own merged figure (FY2016: 4.9 + 2.3 = 7.2 ✓; FY2017: 4.6 + 1.2 = 5.8 ✓; FY2018: 4.2 + 0.5 = 4.7 ✓).
+- Likewise Natural Resources + Real Estate sums to the older single "Real Assets" figure (FY2010: 8.8 + 18.7 = 27.5 ✓), and Leveraged Buyouts + Venture Capital sums to the older single "Private Equity" figure (FY2014: 19.3 + 13.7 = 33.0 ✓).
+
+**Coverage caveat:** Yale allocations are curated for **FY2000–FY2020 only**. The 2020 edition was the last Yale endowment report to publish an asset-allocation percentage table — the 2021 edition dropped it, and Yale has published no endowment report since, only a return/market-value press release. Returns and market values *are* curated for the full FY2000–FY2025. See the `TASKS.md` build log for the open decision on how to handle FY2021–FY2025 allocations.
+
+One Yale footnote that does **not** affect us: the 2002 report notes "Prior to 1999, Real Assets included only real estate. Oil and gas and timber were classified as Private Equity." Our series starts at FY2000, after that reclassification.
+
 ## `schools/<id>.json` shape
 
 ```json
@@ -144,4 +173,11 @@ Warnings (printed, don't block):
 
 ## Everything currently in this folder
 
-`schools.json` is filled in (real, non-financial metadata) and seeded into Neon. Every other file (`sources.json`, `schools/*.json`, `benchmark_returns.json`, `proxy_mappings.json`) is still an empty template — populating them with real, cited numbers is tasks 1.3–1.7.
+| File | State |
+|---|---|
+| `schools.json` | Filled (real, non-financial metadata), seeded. |
+| `sources.json` | 10 Yale citations (task 1.3). Grows with each curation task. |
+| `schools/yale.json` | Filled: 126 allocation rows (FY2000–FY2020) + 26 return/market-value rows (FY2000–FY2025). |
+| `schools/{harvard,stanford,mit,princeton}.json` | Empty templates — tasks 1.5–1.6. |
+| `benchmark_returns.json` | Empty template — task 1.4. |
+| `proxy_mappings.json` | Empty template — task 1.7. |

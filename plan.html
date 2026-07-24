@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endowment Investing Tool — Project Plan</title>
+<style>
+  :root {
+    --bg: #fdfdfb;
+    --text: #1f2430;
+    --muted: #5c6470;
+    --accent: #1a5fb4;
+    --card: #ffffff;
+    --border: #e3e6ea;
+    --highlight: #eef4fc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171c;
+      --text: #e8eaf0;
+      --muted: #9aa3b0;
+      --accent: #6aa5e8;
+      --card: #1d2129;
+      --border: #333a45;
+      --highlight: #1f2a3a;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  header { margin-bottom: 2.5rem; }
+  h1 { font-size: 1.9rem; margin-bottom: 0.4rem; }
+  .subtitle { color: var(--muted); font-size: 1.05rem; }
+  .meta { color: var(--muted); font-size: 0.85rem; margin-top: 0.6rem; }
+  h2 {
+    font-size: 1.3rem;
+    margin: 2.2rem 0 0.9rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--border);
+  }
+  p { margin-bottom: 0.9rem; }
+  section.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+  ol.decisions { counter-reset: item; list-style: none; }
+  ol.decisions > li {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem 0.9rem 3.2rem;
+    margin-bottom: 0.7rem;
+    position: relative;
+  }
+  ol.decisions > li::before {
+    counter-increment: item;
+    content: counter(item);
+    position: absolute;
+    left: 1rem;
+    top: 0.95rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .decision-title { font-weight: 700; }
+  .decision-body { color: var(--muted); font-size: 0.95rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .model-name { font-weight: 700; white-space: nowrap; }
+  ol.steps { padding-left: 1.4rem; }
+  ol.steps li { margin-bottom: 0.7rem; }
+  ul.rules { padding-left: 1.4rem; }
+  ul.rules li { margin-bottom: 0.55rem; }
+  .callout {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.1rem;
+    margin: 1.2rem 0;
+  }
+  .callout strong { color: var(--accent); }
+  code {
+    background: var(--highlight);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.88em;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .status-next { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Endowment Investing Tool — Project Plan</h1>
+  <p class="subtitle">A free web app that shows everyday investors how famous university endowments invest, and what a buy-it-yourself version of those strategies looks like.</p>
+  <p class="meta">Drafted July 23, 2026 · Status: planning docs written (PRD.md, TASKS.md, CLAUDE.md) — ready for human review, then build</p>
+</header>
+
+<h2>What We're Building</h2>
+<section class="card">
+  <p>An open-to-anyone website (no accounts, no sign-up) where a curious DIY investor can explore how the most famous university endowments — Yale, Harvard, Stanford, MIT, Princeton — have invested over the decades, see that strategy translated into normal funds anyone can buy, and compare it honestly against simple index investing.</p>
+  <p>It is an <strong>education tool, not financial advice</strong>: it never tailors anything to an individual's money, which keeps it useful, fast to build, and safely on the right side of the line.</p>
+</section>
+
+<h2>Decisions Made (Brainstorm Summary)</h2>
+<ol class="decisions">
+  <li>
+    <div class="decision-title">Audience: everyday DIY investors</div>
+    <div class="decision-body">People managing their own retirement or brokerage accounts who are curious how the pros invest.</div>
+  </li>
+  <li>
+    <div class="decision-title">Core experience: all three features, kept thin</div>
+    <div class="decision-body">A history explorer (allocations and returns decade by decade), a "copy the pros" translator (the strategy rebuilt with ordinary funds), and head-to-head comparisons (endowment style vs. simple indexing). Usage tells us which to deepen later.</div>
+  </li>
+  <li>
+    <div class="decision-title">Schools: 5–6 famous ones, deep history</div>
+    <div class="decision-body">Yale, Harvard, Stanford, MIT, Princeton, possibly one more. Depth beats breadth; more schools can come later.</div>
+  </li>
+  <li>
+    <div class="decision-title">Personal-ness: look, don't touch</div>
+    <div class="decision-body">No accounts, no personalization, nothing tailored to a specific person's finances. Education, not advice.</div>
+  </li>
+  <li>
+    <div class="decision-title">Goal: portfolio piece / learning project</div>
+    <div class="decision-body">Ship free, fast, and public. If people love it, that's validation to build on.</div>
+  </li>
+  <li>
+    <div class="decision-title">Data: hand-curated dataset</div>
+    <div class="decision-body">Numbers typed from annual reports and industry studies into clean seed files in the repo, every figure with a cited source, updated yearly. A seed script loads them into the database. No scraping, no live market feeds in v1.</div>
+  </li>
+  <li>
+    <div class="decision-title">Tech: Next.js on Vercel, Neon database</div>
+    <div class="decision-body">A Next.js web app with interactive charts, hosted on Vercel (Pro plan), using Vercel-native components wherever possible. Neon Postgres holds the dataset via Vercel's native integration.</div>
+  </li>
+</ol>
+
+<h2>Hosting &amp; Infrastructure</h2>
+<section class="card">
+  <table>
+    <thead>
+      <tr><th>Piece</th><th>Choice</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="model-name">Hosting</td>
+        <td>Vercel (Pro plan)</td>
+        <td>Prefer Vercel-native components throughout: Next.js as the framework, plus Vercel's built-in analytics and integrations where they fit.</td>
+      </tr>
+      <tr>
+        <td class="model-name">Code repo</td>
+        <td><code>github.com/amaybhat-creator/universityfunds</code></td>
+        <td>Vercel connects directly to this GitHub repo, so every push to the main branch deploys automatically, and pull requests get preview links.</td>
+      </tr>
+      <tr>
+        <td class="model-name">Database</td>
+        <td>Neon (Postgres)</td>
+        <td>Added through Vercel's native Neon integration, which wires the connection details into the app automatically.</td>
+      </tr>
+      <tr>
+        <td class="model-name">Source of truth for data</td>
+        <td>Seed files in the repo</td>
+        <td>The hand-curated numbers and their citations live as versioned files in the repo; a seed script loads them into Neon. The database serves the app, but the repo files remain the auditable master copy.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<h2>How We'll Build It: The "Docs Conduct" Workflow (Option B)</h2>
+<section class="card">
+  <p>No model acts as an always-on manager. Instead, the planning documents in the repo hold the plan and the current state, and each AI model is brought in only for the work it's best at. The human presses the switch between them — which costs nothing.</p>
+</section>
+
+<table>
+  <thead>
+    <tr><th>Model</th><th>Role</th><th>When It Runs</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="model-name">Fable 5</td>
+      <td>Planner &amp; reviewer. Writes the PRD, task breakdown, and handoff notes; later reviews finished phases, adjusts the plan, and unblocks anything hard.</td>
+      <td>Short, focused sessions at decision points only.</td>
+    </tr>
+    <tr>
+      <td class="model-name">Sonnet 5</td>
+      <td>Builder. Picks up one task at a time from the task list, reads the planning docs for context, builds, checks the task off.</td>
+      <td>The bulk of all sessions — the workhorse.</td>
+    </tr>
+    <tr>
+      <td class="model-name">Opus</td>
+      <td>Bench player. Called in only if a specific problem proves genuinely hard (most likely candidate: the copycat-portfolio math).</td>
+      <td>Rarely, if ever.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>Why this saves tokens:</strong> a standing conductor re-reads the entire growing conversation on every turn, so the priciest model becomes the highest-volume one. With the plan living in files instead, any fresh cheap session can read the docs and know everything — no history to drag around, no context to re-explain.
+</div>
+
+<h2>The Session Protocol</h2>
+<section class="card">
+  <ol class="steps">
+    <li><strong>Fable session (short) — planning.</strong> Write three documents into the repo: the lean PRD, the task checklist (each task small and self-contained), and handoff notes (CLAUDE.md) so any fresh session can pick up cold. <strong>Done July 23, 2026.</strong></li>
+    <li><strong>Switch to Sonnet, fresh session — building.</strong> "Read the docs, do task 1." Then task 2, task 3, and so on — clearing the conversation between tasks so history never bloats. <span class="status-next">← Next, after human review of the docs.</span></li>
+    <li><strong>Checkpoint — switch back to Fable (short).</strong> When a phase completes or Sonnet gets stuck: Fable reads the docs and the code, reviews the work, updates the plan, and hands back.</li>
+    <li><strong>Repeat</strong> steps 2–3 until v1 ships.</li>
+  </ol>
+</section>
+
+<h2>Working Rules</h2>
+<section class="card">
+  <ul class="rules">
+    <li>Every task must be written so a fresh session with zero conversation history can complete it from the docs alone.</li>
+    <li>Builder sessions update the task checklist as they finish, so the docs always reflect true state.</li>
+    <li>Keep Fable sessions short and purposeful: review, decide, update docs, hand off.</li>
+    <li>Don't reach for Opus preemptively — only when Sonnet has actually struggled with a specific problem.</li>
+    <li>The dataset is the project's foundation: every number gets a cited source before it enters a data file.</li>
+    <li>All copy stays educational in tone — the tool describes history and mechanics, never tells anyone what to do with their money.</li>
+  </ul>
+</section>
+
+<h2>Immediate Next Steps</h2>
+<section class="card">
+  <ol class="steps">
+    <li>Fable drafts the lean PRD (1–2 pages: problem, audience, the three thin features, out-of-scope list, definition of done for v1).</li>
+    <li>Fable drafts the task checklist and CLAUDE.md handoff notes.</li>
+    <li>Human reviews and approves the docs.</li>
+    <li>Set up the plumbing: turn this folder into a git repo pointed at <code>amaybhat-creator/universityfunds</code>, connect the repo to Vercel, and add the Neon integration from the Vercel dashboard.</li>
+    <li>Switch to Sonnet and start task 1.</li>
+  </ol>
+</section>
+
+</body>
+</html>

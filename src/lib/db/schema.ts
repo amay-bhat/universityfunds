@@ -1,3 +1,91 @@
-// Placeholder — real schema designed in TASKS.md task 1.1 (schools, allocations,
-// endowment_returns, benchmark_returns, proxy_mappings, sources).
-export {};
+import {
+  pgTable,
+  text,
+  integer,
+  numeric,
+  serial,
+  unique,
+} from "drizzle-orm/pg-core";
+
+// Dimension tables — natural (slug) primary keys, stable across curation sessions.
+
+export const schools = pgTable("schools", {
+  id: text("id").primaryKey(), // slug, e.g. "yale"
+  name: text("name").notNull(), // e.g. "Yale University"
+  managerName: text("manager_name"), // e.g. "Yale Investments Office"
+  website: text("website"),
+});
+
+export const sources = pgTable("sources", {
+  id: text("id").primaryKey(), // slug, e.g. "yale-annual-report-fy2023"
+  title: text("title").notNull(),
+  publisher: text("publisher"), // e.g. "Yale Investments Office"
+  url: text("url"),
+  documentType: text("document_type").notNull(), // annual_report | nacubo_study | financial_statement | academic_paper | other
+  page: text("page"), // page number/range within the document, if applicable
+  accessedDate: text("accessed_date"), // ISO date (YYYY-MM-DD) — when the curator pulled this figure
+  notes: text("notes"),
+});
+
+// Fact tables — surrogate serial keys.
+
+export const allocations = pgTable(
+  "allocations",
+  {
+    id: serial("id").primaryKey(),
+    schoolId: text("school_id")
+      .notNull()
+      .references(() => schools.id),
+    fiscalYear: integer("fiscal_year").notNull(), // year the fiscal year ENDS (FY2025 = July 2024–June 2025)
+    category: text("category").notNull(), // one of ALLOCATION_CATEGORIES (src/lib/constants.ts)
+    pct: numeric("pct", { precision: 6, scale: 3 }).notNull(),
+    sourceLabel: text("source_label"), // the school's own original wording for this line item, for audit traceability
+    sourceId: text("source_id")
+      .notNull()
+      .references(() => sources.id),
+  },
+  (t) => [unique().on(t.schoolId, t.fiscalYear, t.category)],
+);
+
+export const endowmentReturns = pgTable(
+  "endowment_returns",
+  {
+    id: serial("id").primaryKey(),
+    schoolId: text("school_id")
+      .notNull()
+      .references(() => schools.id),
+    fiscalYear: integer("fiscal_year").notNull(),
+    returnPct: numeric("return_pct", { precision: 6, scale: 3 }),
+    marketValueUsdMillions: numeric("market_value_usd_millions", {
+      precision: 12,
+      scale: 2,
+    }),
+    sourceId: text("source_id")
+      .notNull()
+      .references(() => sources.id),
+  },
+  (t) => [unique().on(t.schoolId, t.fiscalYear)],
+);
+
+export const benchmarkReturns = pgTable(
+  "benchmark_returns",
+  {
+    id: serial("id").primaryKey(),
+    series: text("series").notNull(), // one of BENCHMARK_SERIES (src/lib/constants.ts)
+    fiscalYear: integer("fiscal_year").notNull(),
+    returnPct: numeric("return_pct", { precision: 6, scale: 3 }).notNull(),
+    sourceId: text("source_id")
+      .notNull()
+      .references(() => sources.id),
+  },
+  (t) => [unique().on(t.series, t.fiscalYear)],
+);
+
+export const proxyMappings = pgTable("proxy_mappings", {
+  category: text("category").primaryKey(), // one of ALLOCATION_CATEGORIES
+  etfTicker: text("etf_ticker").notNull(),
+  etfName: text("etf_name").notNull(),
+  rationale: text("rationale").notNull(), // plain-English: why this ETF represents the category
+  honestyNote: text("honesty_note").notNull(), // plain-English: what this proxy can't actually replicate
+  sourceId: text("source_id").references(() => sources.id),
+});

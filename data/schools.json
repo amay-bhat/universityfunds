@@ -1,0 +1,32 @@
+[
+  {
+    "id": "yale",
+    "name": "Yale University",
+    "managerName": "Yale Investments Office",
+    "website": "https://investments.yale.edu"
+  },
+  {
+    "id": "harvard",
+    "name": "Harvard University",
+    "managerName": "Harvard Management Company",
+    "website": "https://www.hmc.harvard.edu"
+  },
+  {
+    "id": "stanford",
+    "name": "Stanford University",
+    "managerName": "Stanford Management Company",
+    "website": "https://smc.stanford.edu"
+  },
+  {
+    "id": "mit",
+    "name": "Massachusetts Institute of Technology",
+    "managerName": "MIT Investment Management Company",
+    "website": "https://mitimco.mit.edu"
+  },
+  {
+    "id": "princeton",
+    "name": "Princeton University",
+    "managerName": "Princeton University Investment Company",
+    "website": "https://princo.princeton.edu"
+  }
+]

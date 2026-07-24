@@ -108,6 +108,40 @@ Series ids: `sp500`, `intl_equity`, `us_aggregate_bond`, `hedge_fund_index`, `pu
 
 Exactly one row per category (7 total) — this is populated in task 1.7.
 
+## Seeding (`npm run seed`)
+
+`scripts/seed.ts` reads this folder and loads it into Neon.
+
+| Command | What it does |
+|---|---|
+| `npm run seed` | Validate, then write to Neon. |
+| `npx tsx scripts/seed.ts --dry-run` | Validate only — no database connection needed. Use this while curating. |
+| `npx tsx scripts/seed.ts --dry-run --data-dir <path>` | Validate a different folder (used to test the validator against deliberately bad fixtures). |
+
+Two behaviours worth knowing:
+
+- **Nothing is written unless every check passes.** All files are validated up front and the script exits non-zero with a list of errors before opening a connection, so a bad edit can never half-update the database.
+- **Re-seeding is idempotent, and deletions propagate.** Rows are upserted on their natural key (so ids stay stable), and any row in the database whose natural key is no longer in these files is pruned. Deleting a row here really does remove it from the database — which is what "these files are the source of truth" has to mean.
+
+### What gets validated
+
+Errors (block the write):
+
+- Each file parses as JSON and has the documented shape; every required field is present and the right type.
+- `schools.json` ids are unique and match `SCHOOL_IDS` in `src/lib/constants.ts` exactly, in both directions — the data and the app's typed `SchoolId` union can't drift apart.
+- `sources.json` ids are unique; `documentType` is one of the five allowed values.
+- `category` is one of the 7 `ALLOCATION_CATEGORIES`; `series` is one of the 7 `BENCHMARK_SERIES`.
+- `fiscalYear` is a whole year between 1970 and next year.
+- `pct` is between 0 and 100; `returnPct` is within `(-100, 200]` (you can't lose more than everything, and the upper bound catches a decimal-point slip like `400` for `40.0`); `marketValueUsdMillions` is not negative.
+- No duplicate rows on the keys the database enforces: (school, fiscal year, category), (school, fiscal year), (series, fiscal year), (category).
+- **Every `sourceId` resolves to an entry in `sources.json`** — this is PRD rule 2 ("no citation, no number") enforced mechanically.
+- **Allocations for a school-year sum to 100% ± 1.0 percentage point.** Published tables are rounded, so exact 100 is rare; anything further out is a curation error. The tolerance is `ALLOCATION_SUM_TOLERANCE_PCT` at the top of `scripts/seed.ts` — if a real, correctly-transcribed report legitimately sums outside it, widen the constant and say why in the `TASKS.md` build log rather than nudging a number to fit.
+
+Warnings (printed, don't block):
+
+- A category is used in allocations but has no ETF proxy mapping yet (expected until task 1.7).
+- A source is in `sources.json` but nothing cites it (it would show up on the Methodology page in task 6.1 as dead weight).
+
 ## Everything currently in this folder
 
-`schools.json` is filled in (real, non-financial metadata). Every other file (`sources.json`, `schools/*.json`, `benchmark_returns.json`, `proxy_mappings.json`) is an empty template — populating them with real, cited numbers is tasks 1.2–1.7.
+`schools.json` is filled in (real, non-financial metadata) and seeded into Neon. Every other file (`sources.json`, `schools/*.json`, `benchmark_returns.json`, `proxy_mappings.json`) is still an empty template — populating them with real, cited numbers is tasks 1.3–1.7.

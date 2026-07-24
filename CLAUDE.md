@@ -4,16 +4,19 @@ Free, public, no-login web app showing everyday DIY investors how famous univers
 
 ## Read these first, in order
 
-1. `PRD.md` — what we're building, the non-negotiable rules, definition of done.
-2. `TASKS.md` — the task checklist. Pick the first unchecked task, do only it, check it off, log notes.
-3. `plan.html` — human-readable overview (context only; PRD wins on conflicts).
+1. `CONSTITUTION.md` — how decisions get made when the human isn't in the room. The Articles you must not break, the decisions reserved for the human, and the escalation procedure to use **instead of stopping** when you have a question.
+2. `PRD.md` — what we're building, the non-negotiable rules, definition of done.
+3. `TASKS.md` — the task checklist. Pick the first unchecked task, do only it, check it off, log notes.
+4. `plan.html` — human-readable overview (context only; PRD wins on conflicts).
 
 ## Workflow (important)
 
 - This project uses a **docs-conduct workflow**: no conversation history carries between sessions. These files are the only memory. Keep them true: check off finished tasks, append to the Build log in `TASKS.md`.
-- One task per session (unless trivially small). If blocked, write the blocker in the Build log and stop.
+- One task per session (unless trivially small).
+- **Don't stop to ask a question — escalate it.** Answer it yourself first (options, recommendation, reasoning), then spawn a subagent one model tier up (Sonnet → Opus → Fable) for an independent answer. If that answer breaks no Article, treat it as the human's decision and keep working. Stop for the human only when the answer would break an Article, or the decision is reserved by `CONSTITUTION.md` Part 2. Full procedure in `CONSTITUTION.md` Part 3; log every proxied decision per Part 4.
+- If genuinely blocked (no answer available at any tier, or a Part 2 decision), write the blocker in the Build log and stop.
 - Tasks marked `[H]` are for the human (Vercel dashboard etc.) — skip them and tell the user.
-- Checkpoints in `TASKS.md` mean: stop, tell the user to switch to Fable for review.
+- Checkpoints in `TASKS.md` mean: stop, tell the user to switch to Fable for review. Checkpoints are **not** escalatable — they are human review gates, not questions, so the escalation procedure doesn't route around them.
 
 ## Stack
 

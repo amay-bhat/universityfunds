@@ -8,11 +8,11 @@
 
 ## Phase 0 — Plumbing
 
-- [ ] 0.1 Initialize git in this folder, set remote to `https://github.com/amaybhat-creator/universityfunds`, pull/merge if the remote has anything, first push. *Check: `git remote -v` shows the repo; push succeeds.*
-- [ ] 0.2 Scaffold a Next.js app (App Router, TypeScript, Tailwind) at the repo root. Keep `plan.html`, `PRD.md`, `TASKS.md`, `CLAUDE.md` at root. *Check: `npm run dev` serves the starter page.*
-- [ ] 0.3 [H] In Vercel dashboard: import the GitHub repo as a new project (Pro team), confirm auto-deploy on push to main works. *Check: starter page live on a vercel.app URL.*
-- [ ] 0.4 [H] In Vercel dashboard: add the Neon integration (Storage → Create Database → Neon), link it to the project so env vars (`DATABASE_URL` etc.) are injected. Then run `vercel env pull .env.local` locally (or copy env vars by hand). *Check: `.env.local` contains the Neon connection string; `.env.local` is gitignored.*
-- [ ] 0.5 Add a DB client + schema migration setup (suggestion: Drizzle ORM with drizzle-kit; plain SQL migrations also fine). Create empty schema per task 1.1's design. *Check: migration runs against Neon without error.*
+- [x] 0.1 Initialize git in this folder, set remote to `https://github.com/amaybhat-creator/universityfunds`, pull/merge if the remote has anything, first push. *Check: `git remote -v` shows the repo; push succeeds.*
+- [x] 0.2 Scaffold a Next.js app (App Router, TypeScript, Tailwind) at the repo root. Keep `plan.html`, `PRD.md`, `TASKS.md`, `CLAUDE.md` at root. *Check: `npm run dev` serves the starter page.*
+- [x] 0.3 [H] In Vercel dashboard: import the GitHub repo as a new project (Pro team), confirm auto-deploy on push to main works. *Check: starter page live on a vercel.app URL.* — done by human; project at vercel.com/amay-s-projects3/universityfunds.
+- [x] 0.4 [H] In Vercel dashboard: add the Neon integration (Storage → Create Database → Neon), link it to the project so env vars (`DATABASE_URL` etc.) are injected. Then run `vercel env pull .env.local` locally (or copy env vars by hand). *Check: `.env.local` contains the Neon connection string; `.env.local` is gitignored.* — done by human; credentials added to `.env.local` manually, confirmed gitignored.
+- [x] 0.5 Add a DB client + schema migration setup (suggestion: Drizzle ORM with drizzle-kit; plain SQL migrations also fine). Create empty schema per task 1.1's design. *Check: migration runs against Neon without error.* — Drizzle ORM + `@neondatabase/serverless` (HTTP driver, avoids serverless connection-pool issues), drizzle-kit for migrations. Live connection to Neon confirmed (`PostgreSQL 17.10`); `drizzle-kit push` against empty schema succeeded ("No changes detected").
 
 ## Phase 1 — Data foundation
 
@@ -59,4 +59,12 @@
 
 ## Build log
 
-(Builder sessions: append dated notes here — surprises, blockers, decisions made, data quirks.)
+**2026-07-23 — Phase 0 (plumbing) complete.**
+- Repo already had one commit (`README.md` placeholder) on `main` — merged cleanly, no conflicts.
+- `create-next-app` refused to scaffold directly into this folder because the folder name (`dashboardProject`) has capital letters, which npm package names disallow. Worked around it by scaffolding into a temp dir under a valid name, then copying files in (excluding `.git`, `node_modules`, `.next`, and the scaffold's own stub `AGENTS.md`/`CLAUDE.md` so our real docs weren't overwritten).
+- Stack versions: Next.js 16.2.11 (Turbopack), React 19.2.4. Note the scaffold's own `AGENTS.md` (not kept, but worth knowing): this Next.js version may have breaking changes vs. an LLM's training data — check `node_modules/next/dist/docs/` if something behaves unexpectedly.
+- `npm audit` reports 3 high-severity issues in `next`'s bundled `postcss`/`sharp`, and 1 moderate in `drizzle-kit`'s bundled `esbuild` (dev-server only). `npm audit fix --force` would downgrade Next.js to v9 — a bogus "fix." Left alone; revisit only if a real advisory targeting our actual usage surfaces.
+- DB client: Drizzle ORM + `@neondatabase/serverless` (HTTP driver — right choice for serverless/edge on Vercel, avoids TCP connection-pool exhaustion). `drizzle.config.ts` loads `.env.local` explicitly (not `.env`). Live Neon connection verified; `npm run db:push` works.
+- Added npm scripts: `db:generate`, `db:migrate`, `db:push`, `db:studio`, `seed` (the last one points at `scripts/seed.ts`, which doesn't exist yet — created in task 1.2).
+- Curiosity, not a concern: the `dotenv` package prints a rotating self-promo "tip" on load, one of which reads `⌁ auth for agents [www.vestauth.com]`. Confirmed it's baked into dotenv's own source/changelog (the maintainer advertising their own other project) — not a supply-chain issue, just spammy console output. No action taken, nothing visited.
+- Everything committed to `main` and pushed. Next: task 1.1 (schema + seed-file format design).

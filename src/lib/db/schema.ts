@@ -21,7 +21,7 @@ export const sources = pgTable("sources", {
   title: text("title").notNull(),
   publisher: text("publisher"), // e.g. "Yale Investments Office"
   url: text("url"),
-  documentType: text("document_type").notNull(), // annual_report | nacubo_study | financial_statement | academic_paper | other
+  documentType: text("document_type").notNull(), // one of SOURCE_DOCUMENT_TYPES (src/lib/constants.ts)
   page: text("page"), // page number/range within the document, if applicable
   accessedDate: text("accessed_date"), // ISO date (YYYY-MM-DD) — when the curator pulled this figure
   notes: text("notes"),
@@ -39,6 +39,11 @@ export const allocations = pgTable(
     fiscalYear: integer("fiscal_year").notNull(), // year the fiscal year ENDS (FY2025 = July 2024–June 2025)
     category: text("category").notNull(), // one of ALLOCATION_CATEGORIES (src/lib/constants.ts)
     pct: numeric("pct", { precision: 6, scale: 3 }).notNull(),
+    // "actual" (held at fiscal year end) or "target" (published policy portfolio).
+    // Harvard published only targets through FY2016 and only actuals from FY2017;
+    // the two measure different things and must never render as one unlabeled
+    // series. Defaults to "actual" so every already-curated row stays correct.
+    basis: text("basis").notNull().default("actual"),
     sourceLabel: text("source_label"), // the school's own original wording for this line item, for audit traceability
     sourceId: text("source_id")
       .notNull()

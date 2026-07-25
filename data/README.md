@@ -61,6 +61,31 @@ Three things this mapping gets right, each verified against an overlapping repor
 
 **Coverage caveat:** Yale allocations are curated for **FY2000–FY2020 only**. The 2020 edition was the last Yale endowment report to publish an asset-allocation percentage table — the 2021 edition dropped it, and Yale has published no endowment report since, only a return/market-value press release. Returns and market values *are* curated for the full FY2000–FY2025. This is settled, not open: see the `[PROXY DECISION]` entry under task 1.3 in the `TASKS.md` build log.
 
+## Granularity rule (all schools)
+
+Decided during task 1.5 (see the `[PROXY DECISION]` in the `TASKS.md` build log). Schools don't just stop disclosing at different times — they disclose at different *levels of detail*, and in both directions.
+
+**Curate at the granularity the school published. Never finer, never coarser.**
+
+- Splitting a combined figure into finer categories is inventing data (Article 5) — even a school's own split from a neighbouring year doesn't license it.
+- Coarsening everyone to match the least detailed discloser destroys real information, which is a quiet cousin of dishonesty.
+
+So when a school publishes public equity as a single line with no US/international split, use the coarse `public_equity` category. **A school-year uses `public_equity` OR (`us_public_equity` + `intl_public_equity`) — never both**, or the equity sleeve is counted twice; the seed validator rejects the mix.
+
+`public_equity` maps to its own benchmark series, `global_equity`, so the one-category-one-benchmark-one-ETF invariant still holds. That instrument is chosen in **task 1.7** alongside the ETF proxy, per task 1.4's principle that the two must be the same instrument. Front-runner is Vanguard Total World (`VT`/`VTWSX`), whose first full fiscal year is FY2009 — enough for every year currently needed, since Harvard's unsplit years begin FY2017. If a school turns out to need unsplit public equity before FY2009, that stretch is a documented gap, not a blend.
+
+## Target vs actual: the `basis` field
+
+Allocation rows carry `basis`: `"actual"` (what the school held at fiscal year end) or `"target"` (a policy-portfolio weight it published as an aim). Omit the field and it defaults to `"actual"`.
+
+Both are real, citable figures, but they measure different things — intention versus holdings — so:
+
+- **Every row in one school-year must share one basis** (validator-enforced). A year is either the mix held or the mix targeted, never a blend.
+- **The two must never render as one unlabeled series.** Target years get visually distinct treatment plus a boundary annotation on the chart, a "(target mix)" marker in the Translator year picker, the basis in any copycat vintage label, and the full explanation on the Methodology page — where "policy portfolio" and "target allocation" also get their plain-English definitions (Article 3).
+- A copycat backtest **may** start from a target year — "what if you held the mix Harvard said it was aiming for" is a coherent question — as long as every label says *target*.
+
+Dropping target years instead would have discarded 17 years of published, citable Harvard figures over a difference that a flag and an annotation disclose completely. Article 4 forbids splicing bases silently, not labelling them.
+
 ## Coverage rule (all schools)
 
 Decided during task 1.3 and binding on tasks 1.5–1.6. Each school discloses differently, so **each school's allocation coverage will end in a different year. That is expected output, not a failure.**
@@ -87,6 +112,7 @@ One Yale footnote that does **not** affect us: the 2002 report notes "Prior to 1
       "fiscalYear": 2023,
       "category": "us_public_equity",
       "pct": 15.5,
+      "basis": "actual",
       "sourceLabel": "U.S. Equity",
       "sourceId": "yale-annual-report-fy2023"
     }
@@ -102,7 +128,7 @@ One Yale footnote that does **not** affect us: the 2002 report notes "Prior to 1
 }
 ```
 
-`marketValueUsdMillions` is always in **millions of USD** (so Yale at ~$40.7B is `40700`).
+`marketValueUsdMillions` is always in **millions of USD** (so Yale at ~$40.7B is `40700`). `basis` is optional and defaults to `"actual"` — see the target-vs-actual section above.
 
 ## `sources.json` shape
 

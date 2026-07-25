@@ -55,7 +55,7 @@ Yale's own reporting categories changed three times over the period, which is ex
 
 Three things this mapping gets right, each verified against an overlapping report:
 
-- **Yale reports a *negative* Cash weight in some years** (-3.9% in FY2008, -1.9% in FY2009, -1.1% in FY2011) because the portfolio was effectively levered. Fixed Income and Cash are summed into one category, which keeps every stored `pct` non-negative. If a future school-year has a *combined* negative, the seed validator will reject it and the decision needs revisiting — don't silently clamp it to zero.
+- **Yale reports a *negative* Cash weight in some years** (-3.9% in FY2008, -1.9% in FY2009, -1.1% in FY2011) because the portfolio was effectively levered. Fixed Income and Cash are summed into one category, which happens to keep every stored Yale `pct` non-negative (FY2008 stores 0.1). If a future school-year has a *combined* negative, **store it as published** — the validator accepts `pct` down to -25, warns on every negative, and requires a `sourceLabel` on it. Do not clamp to zero, and do not merge across risk classes to make it non-negative: both misstate the categories involved, which is what Article 4 forbids. Settled by the `[PROXY DECISION]` logged under task 1.2.
 - Summing Fixed Income + Cash is not our invention: Yale itself merged the two into a single "Cash & Fixed Income" line from FY2016, and for the overlapping years the split figures sum to exactly Yale's own merged figure (FY2016: 4.9 + 2.3 = 7.2 ✓; FY2017: 4.6 + 1.2 = 5.8 ✓; FY2018: 4.2 + 0.5 = 4.7 ✓).
 - Likewise Natural Resources + Real Estate sums to the older single "Real Assets" figure (FY2010: 8.8 + 18.7 = 27.5 ✓), and Leveraged Buyouts + Venture Capital sums to the older single "Private Equity" figure (FY2014: 19.3 + 13.7 = 33.0 ✓).
 
@@ -200,21 +200,29 @@ This is consequential and belongs to **task 1.7**, not 1.4, because the benchmar
 ]
 ```
 
-Exactly one row per category (7 total) — this is populated in task 1.7.
+Exactly one row per category in `ALLOCATION_CATEGORIES` that any school actually uses — this is populated in task 1.7.
 
 ## Seeding (`npm run seed`)
 
-`scripts/seed.ts` reads this folder and loads it into Neon.
+`scripts/seed.ts` reads this folder and loads it into Neon; the validation lives in
+`scripts/lib/seed-validate.ts`.
 
 | Command | What it does |
 |---|---|
+| `npm run seed:dry` | Validate only — no database connection needed. **Use this while curating.** |
 | `npm run seed` | Validate, then write to Neon. |
-| `npx tsx scripts/seed.ts --dry-run` | Validate only — no database connection needed. Use this while curating. |
-| `npx tsx scripts/seed.ts --dry-run --data-dir <path>` | Validate a different folder (used to test the validator against deliberately bad fixtures). |
+| `npm run seed:verify` | Run the validator against deliberately-broken copies of this folder and check every rule still fires. Run it after changing `scripts/lib/seed-validate.ts`. |
+| `npx tsx scripts/seed.ts --dry-run --data-dir <path>` | Validate a different folder. |
 
-Two behaviours worth knowing:
+**Do not type `npm run seed --dry-run`.** npm treats `--dry-run` as its own flag and
+never passes it through, so the script would see only `--write` and would write.
+The script now detects that exact mistake and refuses to write, but the command to
+reach for is `npm run seed:dry`.
 
-- **Nothing is written unless every check passes.** All files are validated up front and the script exits non-zero with a list of errors before opening a connection, so a bad edit can never half-update the database.
+Three behaviours worth knowing:
+
+- **Nothing is written unless every check passes.** All files are validated up front and the script exits non-zero with a list of errors before the database module is even imported, so a failed check can never touch Neon.
+- **The write itself is one transaction.** Every insert and delete goes into a single `db.batch(...)`, so a failure partway through rolls back instead of leaving the tables half-updated. Writing is also opt-in: a bare `npx tsx scripts/seed.ts` validates and stops, because the write prunes (below) and must never happen by accident.
 - **Re-seeding is idempotent, and deletions propagate.** Rows are upserted on their natural key (so ids stay stable), and any row in the database whose natural key is no longer in these files is pruned. Deleting a row here really does remove it from the database — which is what "these files are the source of truth" has to mean.
 
 ### What gets validated
@@ -222,19 +230,31 @@ Two behaviours worth knowing:
 Errors (block the write):
 
 - Each file parses as JSON and has the documented shape; every required field is present and the right type.
+- **No unknown fields.** A key outside the documented set is an error, with a did-you-mean. This matters most for *optional* fields: `"return_pct"` (snake_case, as the database column is named) or `"sourceLable"` would otherwise pass silently and store NULL over a figure you had already researched and cited.
+- Every file in `data/schools/` is named `<school-id>.json` for a school in `SCHOOL_IDS`. A file nobody points at is never read, so without this a filename typo would silently discard a whole school's curation — and the prune step would then delete its rows.
 - `schools.json` ids are unique and match `SCHOOL_IDS` in `src/lib/constants.ts` exactly, in both directions — the data and the app's typed `SchoolId` union can't drift apart.
 - `sources.json` ids are unique; `documentType` is one of the five allowed values.
-- `category` is one of the 7 `ALLOCATION_CATEGORIES`; `series` is one of the 7 `BENCHMARK_SERIES`.
-- `fiscalYear` is a whole year between 1970 and next year.
-- `pct` is between 0 and 100; `returnPct` is within `(-100, 200]` (you can't lose more than everything, and the upper bound catches a decimal-point slip like `400` for `40.0`); `marketValueUsdMillions` is not negative.
+- **A source carries a `url` or a `page`.** PRD rule 2 asks for "source document + page/URL": a title-only citation resolves but nobody can re-check it, which is the whole point of citing it.
+- `category` is one of the `ALLOCATION_CATEGORIES`; `series` is one of the `BENCHMARK_SERIES`; `basis` is `actual` or `target` (defaults to `actual` when the key is absent).
+- `fiscalYear` is a whole year between 1970 and the most recent **closed** fiscal year. Fiscal years end June 30, so before July the current calendar year's FY has not closed and no school can have reported it.
+- `pct` is between -25 and 100. The floor is negative on purpose — see the levered-weight note above and the `[PROXY DECISION]` under task 1.2. A negative `pct` additionally **requires** a `sourceLabel`, and always prints a warning.
+- `returnPct` is within `(-100, 200]` — you can't lose more than everything, and the upper bound catches a decimal-point slip like `400` for `40.0`.
+- `marketValueUsdMillions` is between 100 and 1,000,000. This field is in **millions**, and the band is what catches a unit slip: `40.7` (billions) and `40700000` (thousands) are both wrong by three orders of magnitude while looking entirely plausible, and neither would be caught by anything else.
+- No number carries more decimal places than its column stores (`pct` and `returnPct` 3, `marketValueUsdMillions` 2). Postgres silently rounds past the scale rather than erroring, which would leave these files and the database quietly disagreeing about a figure nobody re-checked.
+- `accessedDate` is an ISO `YYYY-MM-DD` date; a `url` is an http(s) URL.
+- An `endowmentReturns` row has at least one of `returnPct` / `marketValueUsdMillions`. A row with a citation and no number looks like coverage to every downstream query while holding nothing — the exact inverse of "no citation, no number".
 - No duplicate rows on the keys the database enforces: (school, fiscal year, category), (school, fiscal year), (series, fiscal year), (category).
-- **Every `sourceId` resolves to an entry in `sources.json`** — this is PRD rule 2 ("no citation, no number") enforced mechanically.
-- **Allocations for a school-year sum to 100% ± 1.0 percentage point.** Published tables are rounded, so exact 100 is rare; anything further out is a curation error. The tolerance is `ALLOCATION_SUM_TOLERANCE_PCT` at the top of `scripts/seed.ts` — if a real, correctly-transcribed report legitimately sums outside it, widen the constant and say why in the `TASKS.md` build log rather than nudging a number to fit.
+- **Every `sourceId` resolves to an entry in `sources.json`** — this is PRD rule 2 ("no citation, no number") enforced mechanically, from the files, so it holds under `seed:dry` with no database.
+- **Allocations for a school-year sum to 100% ± 1.0 percentage point.** Published tables are rounded, so exact 100 is rare; anything further out is a curation error. The tolerance is `ALLOCATION_SUM_TOLERANCE_PCT` in `scripts/lib/seed-validate.ts` — if a real, correctly-transcribed report legitimately sums outside it, widen the constant and say why in the `TASKS.md` build log rather than nudging a number to fit. If another check already rejected a row in that year, the sum message says so, because the total it printed is missing that row.
 
 Warnings (printed, don't block):
 
+- **A negative `pct`** — read as levered exposure, stored as published. Confirm the source really shows a negative, and note that it activates the display obligations in tasks 3.2, 4.2 and 6.1.
+- **A whole return series inside ±1** — almost certainly entered as fractions (`0.196` for 19.6%). A single sub-1% year is real (Yale's FY2023 was 1.8%), so this only fires on three or more values that are all fractional. Nothing else catches this: unlike a mis-scaled `pct`, there is no sum rule to back it up, and the backtest would just compound near-zero returns and report that indexing went nowhere.
+- **A category-year with no benchmark row for its mapped series** — the copycat backtest (task 4.1) would silently drop that slice of the portfolio while the page claims to model the whole allocation. Expected for `hedge_fund_index` and `public_pe_index` until task 1.7 settles them.
 - A category is used in allocations but has no ETF proxy mapping yet (expected until task 1.7).
 - A source is in `sources.json` but nothing cites it (it would show up on the Methodology page in task 6.1 as dead weight).
+- An id or name had surrounding whitespace and was trimmed (a padded id would otherwise half-match its own references, with the difference invisible in an editor).
 
 ## Everything currently in this folder
 

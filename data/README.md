@@ -61,6 +61,58 @@ Three things this mapping gets right, each verified against an overlapping repor
 
 **Coverage caveat:** Yale allocations are curated for **FY2000–FY2020 only**. The 2020 edition was the last Yale endowment report to publish an asset-allocation percentage table — the 2021 edition dropped it, and Yale has published no endowment report since, only a return/market-value press release. Returns and market values *are* curated for the full FY2000–FY2025. This is settled, not open: see the `[PROXY DECISION]` entry under task 1.3 in the `TASKS.md` build log.
 
+### Harvard label mapping (task 1.5)
+
+Harvard changed *what* it disclosed, not just how it labelled it. Two distinct regimes:
+
+| Harvard's published label | Years | → category |
+|---|---|---|
+| Domestic Equity / Domestic Equities | FY2005–FY2016 (target) | `us_public_equity` |
+| Foreign Equity/Equities + Emerging Markets / Emerging Market(s) Equity | FY2005–FY2016 (target) | `intl_public_equity` |
+| **Public Equity / Public equities** | FY2017–FY2025 (actual) | **`public_equity`** — no geography split published |
+| Private Equity / Equities | both | `private_equity_vc` |
+| Absolute Return (targets) / Hedge Funds (actuals) | both | `absolute_return` |
+| Commodities, Public Commodities, Natural Resources, Real Estate, Other Real Assets (& Private Debt) | both | `real_assets` |
+| Domestic/Foreign Bonds, High Yield, Inflation-Indexed/Linked Bonds, Fixed Income, Bonds/TIPS, Cash, Cash & Other | both | `fixed_income_cash` |
+
+Harvard's target years carry **negative Cash** (−5% in FY2005 and FY2008), the same published leverage Yale shows. Netted within `fixed_income_cash` it stays positive in every year.
+
+**Coverage — four distinct gaps, all real:**
+
+| Years | State | Why |
+|---|---|---|
+| FY2000–FY2004, FY2006, FY2007, FY2009, FY2011, FY2014 | **no allocation** | HMC published policy portfolios as "evolution" tables with *spot* years, never an annual series. Only the printed columns are curated. |
+| FY2005, FY2008, FY2010, FY2012, FY2013, FY2015, FY2016 | target | Policy Portfolio / Strategic Asset Allocation, `basis: "target"` |
+| FY2018 | **no allocation** | Never published: the FY2018 letter's table describes July 1 2017, and the FY2019 letter's describes June 30 2019. FY2018's year-end was skipped. |
+| FY2022 | **no allocation** | The FY2022 letter contains no allocation table at all, and the FY2022 financial report reprints that same letter. |
+| FY2017, FY2019–FY2021, FY2023–FY2025 | actual | `basis: "actual"` |
+
+Returns and market values are curated **FY2011–FY2025** only. FY2000–FY2010 are not yet sourced — HMC's older reports don't carry a multi-year returns table the way Yale's did, so those years need Harvard's University Financial Reports year by year. Outstanding work, not a decided gap.
+
+#### Harvard as-of dating (why these years and not others)
+
+HMC printed an as-of date on exactly two of its allocation tables and none of the rest, so the dating had to be established by evidence. Getting it wrong would shift six years of the series by one year, invisibly.
+
+- **FY2018 report** — explicit: "Asset Class **July 1, 2017** Allocation". Start-of-year, and the only such table. Curated as FY2017.
+- **FY2025 report** — explicit: "**As of June 30, 2025**, the portfolio composition was as follows". Year-end.
+- **FY2019–FY2024 reports** — no as-of wording anywhere in the document.
+
+The six undated tables were assigned to **fiscal-year end** by reconciling each against Harvard's own audited financial statements, comparing only the overlay-free asset classes (private equity, real estate, natural resources) where fair value ≈ exposure. Public equity and hedge funds are *excluded* from the test because HMC's percentages are exposure-based and include index hedges, so NAV cannot check them.
+
+| HMC table (PE / RE / NR) | vs its own June 30 | vs prior July 1 |
+|---|---|---|
+| FY2019: 20 / 8 / 4 | 21.9 / 7.9 / 4.2 ✓ | 19.0 / 8.9 / 5.0 |
+| FY2020: 23.0 / 7.1 / 2.6 | 23.3 / 6.8 / 2.8 ✓ | 21.9 / 7.9 / 4.2 ✗ |
+| FY2021: 34 / 5 / 1 | 34.1 / 4.8 / 0.8 ✓ | **23.3** / 6.8 / 2.8 ✗✗ |
+| FY2023: 39 / 5 / 1 | 39.5 / 5.1 / 0.73 ✓ | 37.4 / 5.6 / 0.74 |
+| FY2024: 39 / 5 / <1 | 38.8 / 5.0 / 0.72 ✓ | 39.5 / 5.1 / 0.73 |
+
+FY2021 settles it alone: 34% private equity **did not exist** at July 1 2020 (23.3%) and did at June 30 2021 (34.1%), after private equity returned 77% during FY2021. The method was validated against both explicitly dated tables before being trusted. HMC's own present-tense prose agrees in each year, and Harvard Magazine's October 2019 write-up reads the FY19 table the same way — corroboration only; no figure is sourced to it.
+
+**The audited NAV figures are dating evidence, never data.** No percentage is derived from them — that derivation is rejected elsewhere in this file for good reason. This is the same evidentiary move as Yale's overlap-verified category merges.
+
+**Rounding:** FY2019, FY2024 and FY2025 sum to 101% in HMC's own tables. Stored as published; nothing nudged. They sit exactly at the validator's ±1.0pp boundary and pass.
+
 ## Granularity rule (all schools)
 
 Decided during task 1.5 (see the `[PROXY DECISION]` in the `TASKS.md` build log). Schools don't just stop disclosing at different times — they disclose at different *levels of detail*, and in both directions.
@@ -96,6 +148,7 @@ Decided during task 1.3 and binding on tasks 1.5–1.6. Each school discloses di
 - **Returns and market values run independently** to their own coverage, which is usually longer, because schools keep reporting returns after they stop reporting allocations.
 - **Label the coverage end at every point of display** — on the allocation chart itself, in the Translator's year picker, and in full on the Methodology page. Not caption-only: when the returns chart next to it runs five years longer, the reader notices and deserves the explanation at that moment.
 - Record each school's coverage end and the reason in this file and in the build log.
+- **An undated disclosure may be assigned to a fiscal year only on documented evidence, never by default.** Acceptable evidence, in order of preference: (a) explicit as-of wording in the same or a companion primary document; (b) reconciliation against an independent audited primary series (financial-statement fair values), tested on overlay-free asset classes only, and validated against at least one explicitly dated disclosure from the same publisher before being trusted. If neither exists, the year is a gap. Never attribute by publication year alone, and never place a convention changeover by narrative inference. Publication-year attribution is a *hypothesis to test*, not a finding. (Established by the Harvard as-of dating decision in task 1.5.)
 
 **Why derivation from NAV tables is rejected, not merely caveated.** For Yale the excluded categories are cash and directly-held fixed income (~7.5% of the FY2024 endowment: $41.3B total vs. a $38.2B NAV subtotal). Normalizing to the subtotal pushes `fixed_income_cash` toward zero and inflates every risk-asset category by roughly 8% relative — producing a "copycat" portfolio with almost no bonds, for a school whose own policy holds roughly 30% in market-insensitive assets. That is a number pointing the wrong way, not a number needing a footnote, and no amount of disclosure fixes it. There is also a basis mismatch that reconciliation may not cure at all: the endowment-report percentages are **economic exposure including leverage** (which is why Yale reports *negative* Cash weights in FY2008/09/11), whereas NAV tables are accounting values.
 

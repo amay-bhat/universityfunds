@@ -1,4 +1,712 @@
 {
-  "allocations": [],
-  "endowmentReturns": []
+  "allocations": [
+    {
+      "fiscalYear": 2005,
+      "category": "us_public_equity",
+      "pct": 15.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equities",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "intl_public_equity",
+      "pct": 15.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equities + Emerging Markets",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "fixed_income_cash",
+      "pct": 22.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Bonds + Foreign Bonds + High Yield + Inflation-Indexed Bonds + Cash",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "absolute_return",
+      "pct": 12.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "private_equity_vc",
+      "pct": 13.0,
+      "basis": "target",
+      "sourceLabel": "Private Equities",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2005,
+      "category": "real_assets",
+      "pct": 23.0,
+      "basis": "target",
+      "sourceLabel": "Commodities + Real Estate",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "us_public_equity",
+      "pct": 12.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "intl_public_equity",
+      "pct": 22.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equity + Emerging Markets Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "fixed_income_cash",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "absolute_return",
+      "pct": 18.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "private_equity_vc",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2008,
+      "category": "real_assets",
+      "pct": 26.0,
+      "basis": "target",
+      "sourceLabel": "Public Commodities + Natural Resources + Real Estate",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "us_public_equity",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equities",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "intl_public_equity",
+      "pct": 22.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equities + Emerging Markets",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "fixed_income_cash",
+      "pct": 15.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Bonds + Foreign Bonds + High Yield + Inflation-Indexed Bonds + Cash",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "absolute_return",
+      "pct": 16.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "private_equity_vc",
+      "pct": 13.0,
+      "basis": "target",
+      "sourceLabel": "Private Equities",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "category": "real_assets",
+      "pct": 23.0,
+      "basis": "target",
+      "sourceLabel": "Commodities + Real Estate",
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "us_public_equity",
+      "pct": 12.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equities",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "intl_public_equity",
+      "pct": 24.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equities + Emerging Markets",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "fixed_income_cash",
+      "pct": 13.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Bonds + Foreign Bonds + High Yield + Inflation-Indexed Bonds + Cash",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "absolute_return",
+      "pct": 16.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "private_equity_vc",
+      "pct": 12.0,
+      "basis": "target",
+      "sourceLabel": "Private Equities",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "category": "real_assets",
+      "pct": 23.0,
+      "basis": "target",
+      "sourceLabel": "Commodities + Real Estate",
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "us_public_equity",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "intl_public_equity",
+      "pct": 22.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equity + Emerging Markets Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "fixed_income_cash",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "absolute_return",
+      "pct": 15.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "private_equity_vc",
+      "pct": 16.0,
+      "basis": "target",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2013,
+      "category": "real_assets",
+      "pct": 25.0,
+      "basis": "target",
+      "sourceLabel": "Public Commodities + Natural Resources + Real Estate",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "us_public_equity",
+      "pct": 11.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "intl_public_equity",
+      "pct": 22.0,
+      "basis": "target",
+      "sourceLabel": "Foreign Equity + Emerging Markets Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "fixed_income_cash",
+      "pct": 10.0,
+      "basis": "target",
+      "sourceLabel": "Fixed Income + Cash",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "absolute_return",
+      "pct": 16.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "private_equity_vc",
+      "pct": 18.0,
+      "basis": "target",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "category": "real_assets",
+      "pct": 23.0,
+      "basis": "target",
+      "sourceLabel": "Public Commodities + Natural Resources + Real Estate",
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "us_public_equity",
+      "pct": 10.5,
+      "basis": "target",
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "intl_public_equity",
+      "pct": 18.5,
+      "basis": "target",
+      "sourceLabel": "Foreign Equity + Emerging Market Equity",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "fixed_income_cash",
+      "pct": 12.5,
+      "basis": "target",
+      "sourceLabel": "Domestic Bonds + Foreign Bonds + Inflation-Linked Bonds + High-Yield Bonds",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "absolute_return",
+      "pct": 14.0,
+      "basis": "target",
+      "sourceLabel": "Absolute Return",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "private_equity_vc",
+      "pct": 20.0,
+      "basis": "target",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2016,
+      "category": "real_assets",
+      "pct": 24.5,
+      "basis": "target",
+      "sourceLabel": "Real Estate + Natural Resources",
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "public_equity",
+      "pct": 31.0,
+      "basis": "actual",
+      "sourceLabel": "Public Equity",
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "fixed_income_cash",
+      "pct": 11.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPS + Cash",
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "absolute_return",
+      "pct": 21.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge Funds",
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "private_equity_vc",
+      "pct": 16.0,
+      "basis": "actual",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2017,
+      "category": "real_assets",
+      "pct": 21.0,
+      "basis": "actual",
+      "sourceLabel": "Real Estate + Natural Resources + Other Real Assets & Private Debt",
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "public_equity",
+      "pct": 26.0,
+      "basis": "actual",
+      "sourceLabel": "Public Equity",
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "fixed_income_cash",
+      "pct": 8.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPS + Cash & Other",
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "absolute_return",
+      "pct": 33.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge Funds",
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "private_equity_vc",
+      "pct": 20.0,
+      "basis": "actual",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2019,
+      "category": "real_assets",
+      "pct": 14.0,
+      "basis": "actual",
+      "sourceLabel": "Real Estate + Natural Resources + Other Real Assets",
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "public_equity",
+      "pct": 18.9,
+      "basis": "actual",
+      "sourceLabel": "Public Equity",
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "fixed_income_cash",
+      "pct": 10.7,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPS + Cash & Other",
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "absolute_return",
+      "pct": 36.4,
+      "basis": "actual",
+      "sourceLabel": "Hedge Funds",
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "private_equity_vc",
+      "pct": 23.0,
+      "basis": "actual",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2020,
+      "category": "real_assets",
+      "pct": 11.0,
+      "basis": "actual",
+      "sourceLabel": "Real Estate + Natural Resources + Other Real Assets",
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2021,
+      "category": "public_equity",
+      "pct": 14.0,
+      "basis": "actual",
+      "sourceLabel": "Public Equity",
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2021,
+      "category": "fixed_income_cash",
+      "pct": 12.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPS + Cash & Other",
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2021,
+      "category": "absolute_return",
+      "pct": 33.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge Funds",
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2021,
+      "category": "private_equity_vc",
+      "pct": 34.0,
+      "basis": "actual",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2021,
+      "category": "real_assets",
+      "pct": 7.0,
+      "basis": "actual",
+      "sourceLabel": "Real Estate + Natural Resources + Other Real Assets",
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2023,
+      "category": "public_equity",
+      "pct": 11.0,
+      "basis": "actual",
+      "sourceLabel": "Public Equity",
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2023,
+      "category": "fixed_income_cash",
+      "pct": 11.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPS + Cash and Other",
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2023,
+      "category": "absolute_return",
+      "pct": 31.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge Funds",
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2023,
+      "category": "private_equity_vc",
+      "pct": 39.0,
+      "basis": "actual",
+      "sourceLabel": "Private Equity",
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2023,
+      "category": "real_assets",
+      "pct": 8.0,
+      "basis": "actual",
+      "sourceLabel": "Real Estate + Natural Resources + Other Real Assets",
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2024,
+      "category": "public_equity",
+      "pct": 14.0,
+      "basis": "actual",
+      "sourceLabel": "Public equities",
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2024,
+      "category": "fixed_income_cash",
+      "pct": 8.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPs + Cash",
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2024,
+      "category": "absolute_return",
+      "pct": 32.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge funds",
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2024,
+      "category": "private_equity_vc",
+      "pct": 39.0,
+      "basis": "actual",
+      "sourceLabel": "Private equity",
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2024,
+      "category": "real_assets",
+      "pct": 8.0,
+      "basis": "actual",
+      "sourceLabel": "Real estate + Other real assets",
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2025,
+      "category": "public_equity",
+      "pct": 14.0,
+      "basis": "actual",
+      "sourceLabel": "Public equities",
+      "sourceId": "hmc-annual-report-2025"
+    },
+    {
+      "fiscalYear": 2025,
+      "category": "fixed_income_cash",
+      "pct": 7.0,
+      "basis": "actual",
+      "sourceLabel": "Bonds/TIPs + Cash",
+      "sourceId": "hmc-annual-report-2025"
+    },
+    {
+      "fiscalYear": 2025,
+      "category": "absolute_return",
+      "pct": 31.0,
+      "basis": "actual",
+      "sourceLabel": "Hedge funds",
+      "sourceId": "hmc-annual-report-2025"
+    },
+    {
+      "fiscalYear": 2025,
+      "category": "private_equity_vc",
+      "pct": 41.0,
+      "basis": "actual",
+      "sourceLabel": "Private equity",
+      "sourceId": "hmc-annual-report-2025"
+    },
+    {
+      "fiscalYear": 2025,
+      "category": "real_assets",
+      "pct": 8.0,
+      "basis": "actual",
+      "sourceLabel": "Real estate + Other real assets",
+      "sourceId": "hmc-annual-report-2025"
+    }
+  ],
+  "endowmentReturns": [
+    {
+      "fiscalYear": 2011,
+      "returnPct": 21.4,
+      "marketValueUsdMillions": 32000,
+      "sourceId": "hmc-annual-report-2011"
+    },
+    {
+      "fiscalYear": 2012,
+      "returnPct": -0.05,
+      "marketValueUsdMillions": 30700,
+      "sourceId": "hmc-annual-report-2012"
+    },
+    {
+      "fiscalYear": 2013,
+      "returnPct": 11.3,
+      "marketValueUsdMillions": 32700,
+      "sourceId": "hmc-annual-report-2013"
+    },
+    {
+      "fiscalYear": 2014,
+      "returnPct": 15.4,
+      "marketValueUsdMillions": 36400,
+      "sourceId": "hmc-annual-report-2014"
+    },
+    {
+      "fiscalYear": 2015,
+      "returnPct": 5.8,
+      "marketValueUsdMillions": 37600,
+      "sourceId": "hmc-annual-report-2015"
+    },
+    {
+      "fiscalYear": 2016,
+      "returnPct": -2.0,
+      "marketValueUsdMillions": 35700,
+      "sourceId": "hmc-annual-report-2016"
+    },
+    {
+      "fiscalYear": 2017,
+      "returnPct": 8.1,
+      "marketValueUsdMillions": 37100,
+      "sourceId": "hmc-annual-report-2017"
+    },
+    {
+      "fiscalYear": 2018,
+      "returnPct": 10.0,
+      "marketValueUsdMillions": 39200,
+      "sourceId": "hmc-annual-report-2018"
+    },
+    {
+      "fiscalYear": 2019,
+      "returnPct": 6.5,
+      "marketValueUsdMillions": 40900,
+      "sourceId": "hmc-annual-report-2019"
+    },
+    {
+      "fiscalYear": 2020,
+      "returnPct": 7.3,
+      "marketValueUsdMillions": 41900,
+      "sourceId": "hmc-annual-report-2020"
+    },
+    {
+      "fiscalYear": 2021,
+      "returnPct": 33.6,
+      "marketValueUsdMillions": 53200,
+      "sourceId": "hmc-annual-report-2021"
+    },
+    {
+      "fiscalYear": 2022,
+      "returnPct": -1.8,
+      "marketValueUsdMillions": 50900,
+      "sourceId": "hmc-annual-report-2022"
+    },
+    {
+      "fiscalYear": 2023,
+      "returnPct": 2.9,
+      "marketValueUsdMillions": 50700,
+      "sourceId": "hmc-annual-report-2023"
+    },
+    {
+      "fiscalYear": 2024,
+      "returnPct": 9.6,
+      "marketValueUsdMillions": 53200,
+      "sourceId": "hmc-annual-report-2024"
+    },
+    {
+      "fiscalYear": 2025,
+      "returnPct": 11.9,
+      "marketValueUsdMillions": 56900,
+      "sourceId": "hmc-annual-report-2025"
+    }
+  ]
 }

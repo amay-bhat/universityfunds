@@ -148,5 +148,165 @@
     "page": null,
     "accessedDate": "2026-07-24",
     "notes": "Series for the `cash` benchmark. FRED publishes an annualized monthly rate, not a return series, so the fiscal-year return is computed by compounding the twelve monthly rates from July of the prior year through June: prod(1 + rate/1200) - 1. This is an approximation of a rolling T-bill's total return, accurate to a few basis points, and is the only derived figure among the benchmark series."
+  },
+  {
+    "id": "hmc-endowment-report-2009",
+    "title": "HMC Endowment Report 2009",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20100701225821/http://www.hmc.harvard.edu/docs/2009%20HMC%20Endowment%20Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Policy Portfolio evolution table (1995 / 2005 / 2010 columns); source for the FY2005 and FY2010 target allocations. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2011",
+    "title": "HMC Annual Endowment Report 2011",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20111002035753/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2011.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Policy Portfolio evolution table (1995 / 2005 / 2012 columns); source for the FY2012 target allocation, and for the FY2011 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2012",
+    "title": "HMC Annual Endowment Report 2012",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20121020232526/http://hmc.harvard.edu/docs/Final_Annual_Report_2012.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2012 return and market value. The return is stated as 98 basis points above the -1.03% Policy Portfolio benchmark, i.e. -0.05%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2013",
+    "title": "HMC Annual Endowment Report 2013",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20131107005725/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2013.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2013 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2014",
+    "title": "HMC Annual Endowment Report 2014",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20141006032720/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2014.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Policy Portfolio table with 2015 / 2013 / 2008 columns; source for those three target allocations, and for the FY2014 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2015",
+    "title": "HMC Annual Endowment Report 2015",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20151010065845/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2015.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2015 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2016",
+    "title": "HMC Annual Endowment Report 2016",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20160924085600/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2016.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2016 Strategic Asset Allocation (target), and the FY2016 return and market value. The return is printed as \"(2.0)%\" \u2014 accounting parentheses, i.e. NEGATIVE 2.0%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2017",
+    "title": "HMC Annual Endowment Report 2017",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20171115181133/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2017.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2017 return and market value. Narvekar's first letter; it contains no allocation table. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2018",
+    "title": "HMC Annual Endowment Report FY2018",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20230606132304/https://www.hmc.harvard.edu/wp-content/uploads/2019/03/FY18_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed verbatim \"Asset Class  July 1, 2017 Allocation  HMC Return\" \u2014 the one HMC table with an explicit as-of date, and the only start-of-year one. Curated as FY2017 (June 30 to July 1, 2017 spans no trading day). Also the source for the FY2018 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2019",
+    "title": "HMC Annual Endowment Report FY2019",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20230316162404/https://www.hmc.harvard.edu/wp-content/uploads/2019/10/FY19-HMC-Annual-Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed only \"Asset Class / Allocation\" \u2014 no as-of date printed anywhere in the document. Assigned to June 30, 2019 by reconciliation against Harvard's audited FY2019 financial report (private equity / real estate / natural resources fair-value shares match the year-end figure and not the start-of-year alternative); see data/README.md \u2192 Harvard as-of dating. Also the FY2019 return and market value. HMC's own figures sum to 101%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2020",
+    "title": "HMC Annual Endowment Report FY2020",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20230606125623/https://www.hmc.harvard.edu/wp-content/uploads/2020/10/FY20_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed only \"Asset Class / Allocation\" \u2014 no as-of date printed anywhere in the document. Assigned to June 30, 2020 by reconciliation against Harvard's audited FY2020 financial report (private equity / real estate / natural resources fair-value shares match the year-end figure and not the start-of-year alternative); see data/README.md \u2192 Harvard as-of dating. Also the FY2020 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2021",
+    "title": "HMC Annual Endowment Report FY2021",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20211125233549/https://www.hmc.harvard.edu/wp-content/uploads/2021/10/FY21_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed only \"Asset Class / Allocation\" \u2014 no as-of date printed anywhere in the document. Assigned to June 30, 2021 by reconciliation against Harvard's audited FY2021 financial report (private equity / real estate / natural resources fair-value shares match the year-end figure and not the start-of-year alternative); see data/README.md \u2192 Harvard as-of dating. This is the year that settles the dating question: 34% private equity did not exist at July 1, 2020 (23.3%) but did at June 30, 2021 (34.1%), after private equity returned 77%. Also the FY2021 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2022",
+    "title": "HMC Annual Endowment Report FY2022",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20221013171304/https://www.hmc.harvard.edu/wp-content/uploads/2022/10/FY22_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2022 return and market value. This letter contains NO allocation table at all, which is why FY2022 has no allocation rows. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2023",
+    "title": "HMC Annual Endowment Report FY2023",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20231101153537/https://www.hmc.harvard.edu/wp-content/uploads/2023/10/FY23_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed only \"Asset Class / Allocation\" \u2014 no as-of date printed anywhere in the document. Assigned to June 30, 2023 by reconciliation against Harvard's audited FY2023 financial report (private equity / real estate / natural resources fair-value shares match the year-end figure and not the start-of-year alternative); see data/README.md \u2192 Harvard as-of dating. Also the FY2023 return and market value. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2024",
+    "title": "HMC Annual Endowment Report FY2024",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20241024074042/https://www.hmc.harvard.edu/wp-content/uploads/2024/10/FY24_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table headed only \"Asset Class / Allocation\" \u2014 no as-of date printed anywhere in the document. Assigned to June 30, 2024 by reconciliation against Harvard's audited FY2024 financial report (private equity / real estate / natural resources fair-value shares match the year-end figure and not the start-of-year alternative); see data/README.md \u2192 Harvard as-of dating. Also the FY2024 return and market value. HMC's own figures sum to 101%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-annual-report-2025",
+    "title": "HMC Annual Endowment Report FY2025",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20251016224657/https://www.hmc.harvard.edu/wp-content/uploads/2025/10/FY25_HMC_Annual_Report.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "Allocation table introduced verbatim by \"As of June 30, 2025, the portfolio composition was as follows\" \u2014 explicitly fiscal-year-end. Curated at HMC's own top-level lines; it also sub-splits hedge funds and private equity, and its own totals are used. Also the FY2025 return and market value. HMC's own figures sum to 101%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
   }
 ]

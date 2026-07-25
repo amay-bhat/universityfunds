@@ -619,6 +619,24 @@
   ],
   "endowmentReturns": [
     {
+      "fiscalYear": 2007,
+      "returnPct": 23.0,
+      "marketValueUsdMillions": 34900,
+      "sourceId": "hmc-john-harvard-letter-2007"
+    },
+    {
+      "fiscalYear": 2008,
+      "returnPct": 8.6,
+      "marketValueUsdMillions": 36900,
+      "sourceId": "hmc-john-harvard-letter-2008"
+    },
+    {
+      "fiscalYear": 2009,
+      "returnPct": -27.3,
+      "marketValueUsdMillions": 26000,
+      "sourceId": "hmc-endowment-report-2009"
+    },
+    {
       "fiscalYear": 2011,
       "returnPct": 21.4,
       "marketValueUsdMillions": 32000,

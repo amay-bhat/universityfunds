@@ -87,7 +87,7 @@ Harvard's target years carry **negative Cash** (−5% in FY2005 and FY2008), the
 | FY2022 | **no allocation** | The FY2022 letter contains no allocation table at all, and the FY2022 financial report reprints that same letter. |
 | FY2017, FY2019–FY2021, FY2023–FY2025 | actual | `basis: "actual"` |
 
-Returns and market values are curated **FY2011–FY2025** only. FY2000–FY2010 are not yet sourced — HMC's older reports don't carry a multi-year returns table the way Yale's did, so those years need Harvard's University Financial Reports year by year. Outstanding work, not a decided gap.
+Returns and market values are curated for **FY2007–FY2009 and FY2011–FY2025** (18 years). Two holes remain, both outstanding work rather than decided gaps: **FY2000–FY2006**, and **FY2010**. HMC's older reports carry no multi-year returns table the way Yale's did, so each of those years needs its own primary document — the John Harvard Letter for that year, or Harvard's University Financial Report. FY2010 is the awkward one: it sits *inside* the curated range, so the returns chart will show a hole until it is sourced.
 
 #### Harvard as-of dating (why these years and not others)
 

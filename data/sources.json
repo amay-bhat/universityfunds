@@ -308,5 +308,25 @@
     "page": null,
     "accessedDate": "2026-07-25",
     "notes": "Allocation table introduced verbatim by \"As of June 30, 2025, the portfolio composition was as follows\" \u2014 explicitly fiscal-year-end. Curated at HMC's own top-level lines; it also sub-splits hedge funds and private equity, and its own totals are used. Also the FY2025 return and market value. HMC's own figures sum to 101%. Cited via the Internet Archive: hmc.harvard.edu no longer serves the older reports and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-john-harvard-letter-2007",
+    "title": "The John Harvard Letter, Fiscal Year 2007",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20100701214927/http://www.hmc.harvard.edu/docs/John%20Harvard%20Letter%20FY07%20-%20Final.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2007 return (23.0%) and endowment value. The FY2008 letter independently confirms the year-end value as $34.9 billion at July 1, 2007. Cited via the Internet Archive."
+  },
+  {
+    "id": "hmc-john-harvard-letter-2008",
+    "title": "The John Harvard Letter, Fiscal Year 2008",
+    "publisher": "Harvard Management Company",
+    "url": "https://web.archive.org/web/20100701230216/http://www.hmc.harvard.edu/docs/2008%20John%20Harvard%20Letter.pdf",
+    "documentType": "annual_report",
+    "page": null,
+    "accessedDate": "2026-07-25",
+    "notes": "FY2008 return (8.6%, net of all fees and expenses) and the endowment value rising from $34.9bn at July 1 2007 to $36.9bn. Cited via the Internet Archive."
   }
 ]

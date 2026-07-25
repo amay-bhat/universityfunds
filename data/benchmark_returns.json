@@ -1,1 +1,782 @@
-[]
+[
+  {
+    "series": "cash",
+    "fiscalYear": 2000,
+    "returnPct": 5.359,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2001,
+    "returnPct": 5.249,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2002,
+    "returnPct": 2.148,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2003,
+    "returnPct": 1.301,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2004,
+    "returnPct": 0.964,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2005,
+    "returnPct": 2.246,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2006,
+    "returnPct": 4.148,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2007,
+    "returnPct": 4.993,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2008,
+    "returnPct": 2.878,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2009,
+    "returnPct": 0.545,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2010,
+    "returnPct": 0.117,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2011,
+    "returnPct": 0.117,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2012,
+    "returnPct": 0.048,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2013,
+    "returnPct": 0.082,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2014,
+    "returnPct": 0.044,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2015,
+    "returnPct": 0.024,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2016,
+    "returnPct": 0.177,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2017,
+    "returnPct": 0.553,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2018,
+    "returnPct": 1.42,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2019,
+    "returnPct": 2.284,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2020,
+    "returnPct": 1.209,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2021,
+    "returnPct": 0.071,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2022,
+    "returnPct": 0.371,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2023,
+    "returnPct": 4.178,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2024,
+    "returnPct": 5.391,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "cash",
+    "fiscalYear": 2025,
+    "returnPct": 4.55,
+    "sourceId": "bench-tb3ms"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2000,
+    "returnPct": 17.053,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2001,
+    "returnPct": -23.512,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2002,
+    "returnPct": -9.006,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2003,
+    "returnPct": -3.876,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2004,
+    "returnPct": 32.854,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2005,
+    "returnPct": 15.007,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2006,
+    "returnPct": 27.595,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2007,
+    "returnPct": 29.426,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2008,
+    "returnPct": -8.07,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2009,
+    "returnPct": -30.468,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2010,
+    "returnPct": 8.627,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2011,
+    "returnPct": 30.933,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2012,
+    "returnPct": -14.554,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2013,
+    "returnPct": 13.491,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2014,
+    "returnPct": 22.335,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2015,
+    "returnPct": -4.642,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2016,
+    "returnPct": -9.233,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2017,
+    "returnPct": 19.997,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2018,
+    "returnPct": 7.02,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2019,
+    "returnPct": 0.496,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2020,
+    "returnPct": -4.162,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2021,
+    "returnPct": 36.442,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2022,
+    "returnPct": -19.008,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2023,
+    "returnPct": 12.183,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2024,
+    "returnPct": 10.868,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "intl_equity",
+    "fiscalYear": 2025,
+    "returnPct": 18.227,
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2000,
+    "returnPct": 3.77,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2001,
+    "returnPct": 22.754,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2002,
+    "returnPct": 15.55,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2003,
+    "returnPct": 3.864,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2004,
+    "returnPct": 25.719,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2005,
+    "returnPct": 32.189,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2006,
+    "returnPct": 19.244,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2007,
+    "returnPct": 11.738,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2008,
+    "returnPct": -13.824,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2009,
+    "returnPct": -42.548,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2010,
+    "returnPct": 54.928,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2011,
+    "returnPct": 33.88,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2012,
+    "returnPct": 12.948,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2013,
+    "returnPct": 8.796,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2014,
+    "returnPct": 13.187,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2015,
+    "returnPct": 5.051,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2016,
+    "returnPct": 23.735,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2017,
+    "returnPct": -2.079,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2018,
+    "returnPct": 2.096,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2019,
+    "returnPct": 11.992,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2020,
+    "returnPct": -7.119,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2021,
+    "returnPct": 34.16,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2022,
+    "returnPct": -8.17,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2023,
+    "returnPct": -4.101,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2024,
+    "returnPct": 4.608,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "reit",
+    "fiscalYear": 2025,
+    "returnPct": 10.166,
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2000,
+    "returnPct": 7.249,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2001,
+    "returnPct": -14.83,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2002,
+    "returnPct": -17.988,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2003,
+    "returnPct": 0.252,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2004,
+    "returnPct": 19.11,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2005,
+    "returnPct": 6.323,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2006,
+    "returnPct": 8.63,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2007,
+    "returnPct": 20.589,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2008,
+    "returnPct": -13.12,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2009,
+    "returnPct": -26.214,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2010,
+    "returnPct": 14.43,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2011,
+    "returnPct": 30.692,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2012,
+    "returnPct": 5.448,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2013,
+    "returnPct": 20.597,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2014,
+    "returnPct": 24.609,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2015,
+    "returnPct": 7.423,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2016,
+    "returnPct": 3.993,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2017,
+    "returnPct": 17.896,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2018,
+    "returnPct": 14.374,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2019,
+    "returnPct": 10.417,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2020,
+    "returnPct": 7.505,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2021,
+    "returnPct": 40.794,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2022,
+    "returnPct": -10.616,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2023,
+    "returnPct": 19.594,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2024,
+    "returnPct": 24.556,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "sp500",
+    "fiscalYear": 2025,
+    "returnPct": 15.164,
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2000,
+    "returnPct": 4.657,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2001,
+    "returnPct": 11.594,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2002,
+    "returnPct": 7.25,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2003,
+    "returnPct": 9.414,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2004,
+    "returnPct": 0.152,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2005,
+    "returnPct": 6.718,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2006,
+    "returnPct": -1.007,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2007,
+    "returnPct": 6.105,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2008,
+    "returnPct": 7.274,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2009,
+    "returnPct": 6.154,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2010,
+    "returnPct": 9.165,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2011,
+    "returnPct": 3.564,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2012,
+    "returnPct": 7.483,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2013,
+    "returnPct": -0.944,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2014,
+    "returnPct": 4.175,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2015,
+    "returnPct": 1.605,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2016,
+    "returnPct": 6.024,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2017,
+    "returnPct": -0.539,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2018,
+    "returnPct": -0.606,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2019,
+    "returnPct": 7.757,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2020,
+    "returnPct": 8.874,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2021,
+    "returnPct": -0.505,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2022,
+    "returnPct": -10.474,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2023,
+    "returnPct": -0.985,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2024,
+    "returnPct": 2.677,
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "us_aggregate_bond",
+    "fiscalYear": 2025,
+    "returnPct": 5.936,
+    "sourceId": "bench-vbmfx"
+  }
+]

@@ -133,6 +133,30 @@ One Yale footnote that does **not** affect us: the 2002 report notes "Prior to 1
 
 Series ids: `sp500`, `intl_equity`, `us_aggregate_bond`, `hedge_fund_index`, `public_pe_index`, `reit`, `cash` (`src/lib/constants.ts` → `BENCHMARK_SERIES`).
 
+### Instruments behind each series (task 1.4)
+
+Fiscal-year total return = last observation on or before June 30 ÷ same for the prior June 30, − 1. Dividends reinvested. Full citations and per-series method notes are in `sources.json`.
+
+| Series | Instrument | Covered | Why this one |
+|---|---|---|---|
+| `sp500` | S&P 500 **Total Return** Index (`^SP500TR`) | FY2000–FY2025 | The index level already includes reinvested dividends; price-only `^GSPC` would understate returns by roughly 2pp a year. |
+| `us_aggregate_bond` | Vanguard Total Bond Market Index, Investor (`VBMFX`) | FY2000–FY2025 | Stands in for the Bloomberg US Aggregate, which isn't freely redistributable. Chosen over the BND ETF (2007) for full-window coverage. |
+| `intl_equity` | Vanguard Total International Stock Index, Investor (`VGTSX`) | FY2000–FY2025 | Developed + emerging combined, matching how `intl_public_equity` is defined. Chosen over VXUS (2011) and EFA (2001). |
+| `reit` | Vanguard Real Estate Index, Investor (`VGSIX`) | FY2000–FY2025 | Chosen over VNQ (2004) for coverage. **Listed REITs only** — see the honesty note below. |
+| `cash` | 3-Month T-Bill rate, `TB3MS` via FRED | FY2000–FY2025 | FRED gives an annualized monthly *rate*, so the FY return compounds the twelve monthly rates: `prod(1 + rate/1200) − 1`. The only derived series here. |
+| `hedge_fund_index` | **none — gap** | — | See below. |
+| `public_pe_index` | **none — gap** | — | See below. |
+
+**Instrument-selection principle** (`[JUDGMENT CALL]`, reversible by re-seeding): prefer the longest continuous history over the most familiar ticker, because one consistent basis across FY2000–FY2025 matters more than using today's popular ETF. Every instrument chosen is a low-cost index fund a DIY investor could actually have held — which keeps the benchmark series and the copycat's returns the same thing rather than two different things.
+
+**Two series are deliberately empty.** No freely-citable, retail-investable series exists for `absolute_return` (hedge funds) or `private_equity_vc` back to FY2000: HFRI and Cambridge Associates are paywalled and non-redistributable, and the investable substitutes start far too late (PSP 2006, QAI 2009). Per Article 5 the gap stays rather than being filled with something invented.
+
+This is consequential and belongs to **task 1.7**, not 1.4, because the benchmark series and the ETF proxy for a category must be the *same instrument* or the copycat comparison is incoherent. Task 1.7 therefore decides both at once, and it inherits a real constraint: those two categories are roughly **half of Yale's portfolio in every year**, so whatever it picks (or declines to pick) determines how much of the copycat can honestly be shown. A defensible outcome is that the copycat covers only the publicly-replicable sleeve and shows the rest as an explicit gap — which is a more honest answer than a fake hedge-fund proxy, and one Article 4 would prefer.
+
+**Honesty note carried forward to task 1.7:** `reit` is *listed* real estate. It does not represent the direct real estate, timber, and energy holdings that make up much of an endowment's real-assets sleeve. Real, but a weak proxy — flag it as such.
+
+**FY2026 is available but not curated.** The benchmark instruments already have complete FY2026 data (fiscal year ended 30 June 2026), but no school has reported FY2026 yet — Yale's release lands each October — so task 1.4's scope stops at FY2025 to avoid a benchmark series running ahead of every school's returns.
+
 **Composite benchmarks (S&P 500 alone, 60/40, 70/30) shown in the Comparisons feature are NOT stored here** — they're computed at query time by the backtest engine (task 4.1) from `sp500` + `us_aggregate_bond`, so there's one source of truth per underlying series instead of duplicated composite figures that could drift out of sync.
 
 ## `proxy_mappings.json` shape

@@ -98,5 +98,55 @@
     "page": null,
     "accessedDate": "2026-07-24",
     "notes": "Return 11.1%; market value $44.1B at June 30, 2025. As-reported, rounded to $0.1B."
+  },
+  {
+    "id": "bench-sp500tr",
+    "title": "S&P 500 Total Return Index (^SP500TR) daily price history",
+    "publisher": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/^SP500TR/history",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Series for the `sp500` benchmark. Fiscal-year total return computed as the ratio of the last observation on or before June 30 of the fiscal year to the last observation on or before June 30 of the prior fiscal year, minus 1. Dividends are reinvested (index level is itself total return). The total-return version of the S&P 500, so the index level already includes reinvested dividends; the price-only ^GSPC would understate returns by roughly 2pp a year."
+  },
+  {
+    "id": "bench-vbmfx",
+    "title": "Vanguard Total Bond Market Index Fund Investor Shares (VBMFX) daily price history",
+    "publisher": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/VBMFX/history",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Series for the `us_aggregate_bond` benchmark. Fiscal-year total return computed as the ratio of the last observation on or before June 30 of the fiscal year to the last observation on or before June 30 of the prior fiscal year, minus 1. Dividends are reinvested (adjusted close). Stands in for the Bloomberg US Aggregate Bond Index, which is not freely redistributable. Chosen over the BND ETF because BND only launched in 2007 and this fund's history reaches 1986, covering the full FY2000-FY2025 window on one consistent basis."
+  },
+  {
+    "id": "bench-vgtsx",
+    "title": "Vanguard Total International Stock Index Fund Investor Shares (VGTSX) daily price history",
+    "publisher": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/VGTSX/history",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Series for the `intl_equity` benchmark. Fiscal-year total return computed as the ratio of the last observation on or before June 30 of the fiscal year to the last observation on or before June 30 of the prior fiscal year, minus 1. Dividends are reinvested (adjusted close). Developed plus emerging markets combined, matching how the `intl_public_equity` allocation category is defined. Chosen over the VXUS ETF (2011) and EFA (2001) for full FY2000-FY2025 coverage."
+  },
+  {
+    "id": "bench-vgsix",
+    "title": "Vanguard Real Estate Index Fund Investor Shares (VGSIX) daily price history",
+    "publisher": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/VGSIX/history",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Series for the `reit` benchmark. Fiscal-year total return computed as the ratio of the last observation on or before June 30 of the fiscal year to the last observation on or before June 30 of the prior fiscal year, minus 1. Dividends are reinvested (adjusted close). Listed US REITs. Chosen over the VNQ ETF (2004) for full FY2000-FY2025 coverage. Note this is listed real estate only -- it does not represent the direct real estate, timber and energy holdings that make up much of an endowment's real-assets sleeve, which is an honesty note task 1.7 must carry."
+  },
+  {
+    "id": "bench-tb3ms",
+    "title": "3-Month Treasury Bill Secondary Market Rate, Discount Basis (TB3MS)",
+    "publisher": "Board of Governors of the Federal Reserve System, via FRED (Federal Reserve Bank of St. Louis)",
+    "url": "https://fred.stlouisfed.org/series/TB3MS",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-24",
+    "notes": "Series for the `cash` benchmark. FRED publishes an annualized monthly rate, not a return series, so the fiscal-year return is computed by compounding the twelve monthly rates from July of the prior year through June: prod(1 + rate/1200) - 1. This is an approximation of a rolling T-bill's total return, accurate to a few basis points, and is the only derived figure among the benchmark series."
   }
 ]

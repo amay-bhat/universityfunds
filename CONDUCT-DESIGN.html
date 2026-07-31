@@ -1,0 +1,642 @@
+<title>Conduct — Design Document</title>
+
+<!--
+  Design document for the Conduct framework (escalation OS + conductor/ledger
+  orchestration). Drafted from the brainstorm of 2026-07-30. Status: DRAFT —
+  the Kernel binds nothing until the human signs it (adoption is itself a
+  reserved power, Part 2 §5).
+
+  Published as a claude.ai Artifact; the artifact runtime supplies the
+  doctype/head/body wrapper, so this file starts at <title>.
+-->
+
+<style>
+  :root {
+    /* Warm-grey paper with a legal-register oxblood accent — deliberately
+       distinct from the STATUS page's cool blue ledger identity. */
+    --ground:      #F7F6F3;
+    --surface:     #FFFFFF;
+    --surface-sunk:#EFEDE8;
+    --ink:         #1C1A17;
+    --ink-2:       #56514A;
+    --ink-3:       #837D74;
+    --rule:        #E4E1DB;
+    --rule-strong: #CBC6BD;
+    --accent:      #8A3033;
+    --accent-soft: #F3E7E6;
+    --good:        #17754A;
+
+    --serif: "Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:      #14120F;
+      --surface:     #1C1A16;
+      --surface-sunk:#22201B;
+      --ink:         #E9E5DE;
+      --ink-2:       #ABA49A;
+      --ink-3:       #837D74;
+      --rule:        #2C2924;
+      --rule-strong: #3D3931;
+      --accent:      #D08A85;
+      --accent-soft: #33211F;
+      --good:        #4CAE77;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground:#F7F6F3; --surface:#FFFFFF; --surface-sunk:#EFEDE8;
+    --ink:#1C1A17; --ink-2:#56514A; --ink-3:#837D74;
+    --rule:#E4E1DB; --rule-strong:#CBC6BD;
+    --accent:#8A3033; --accent-soft:#F3E7E6; --good:#17754A;
+  }
+  :root[data-theme="dark"] {
+    --ground:#14120F; --surface:#1C1A16; --surface-sunk:#22201B;
+    --ink:#E9E5DE; --ink-2:#ABA49A; --ink-3:#837D74;
+    --rule:#2C2924; --rule-strong:#3D3931;
+    --accent:#D08A85; --accent-soft:#33211F; --good:#4CAE77;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+  }
+
+  /* ---------- masthead ---------- */
+  .draft-banner {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    display: inline-block;
+    padding: .3rem .7rem;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.9rem);
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 .75rem;
+    text-wrap: balance;
+  }
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--ink-2);
+    max-width: 40ch;
+    line-height: 1.45;
+    margin: 0 0 1.5rem;
+    text-wrap: balance;
+  }
+  .provenance {
+    font-family: var(--mono);
+    font-size: .74rem;
+    color: var(--ink-3);
+    display: flex; flex-wrap: wrap; gap: .3rem 1.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: .75rem 0;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    font-family: var(--sans);
+    font-size: .88rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+  .toc ol { margin: 0; padding-left: 1.4rem; }
+  .toc li { margin: .25rem 0; break-inside: avoid; }
+  .toc a { color: var(--ink-2); text-decoration: none; }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+  @media (max-width: 34rem) { .toc { columns: 1; } }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 3.25rem; }
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+  }
+  h2 .no {
+    font-family: var(--mono);
+    font-size: .85rem;
+    font-weight: 400;
+    color: var(--accent);
+    display: block;
+    letter-spacing: .08em;
+    margin-bottom: .35rem;
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 1.75rem 0 .5rem;
+  }
+  p { margin: 0 0 1rem; max-width: 65ch; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.4rem; max-width: 62ch; }
+  li { margin-bottom: .4rem; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  .pull {
+    font-size: 1.12rem;
+    line-height: 1.5;
+    border-left: 3px solid var(--accent);
+    padding: .25rem 0 .25rem 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--ink);
+    max-width: 58ch;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: .82em;
+    background: var(--surface-sunk);
+    padding: .1em .35em;
+    border-radius: 2px;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: .8rem;
+    line-height: 1.55;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin: 0 0 1rem;
+  }
+  pre code { background: none; padding: 0; }
+
+  .scroller { overflow-x: auto; margin: 0 0 1rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: var(--sans);
+    font-size: .88rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    min-width: 34rem;
+  }
+  th, td {
+    text-align: left;
+    padding: .55rem .85rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--ink-3);
+    background: var(--surface-sunk);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td:first-child { white-space: nowrap; }
+  .k { font-family: var(--mono); font-size: .8rem; color: var(--accent); white-space: nowrap; }
+
+  /* ---------- chain strip ---------- */
+  .chain {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: .85rem;
+    margin: 1.25rem 0 1.5rem;
+  }
+  .chain .node {
+    border: 1px solid var(--rule-strong);
+    background: var(--surface);
+    padding: .45rem .9rem;
+  }
+  .chain .node.human { border-color: var(--accent); color: var(--accent); }
+  .chain .arrow { color: var(--ink-3); }
+
+  .mermaid { margin: 1rem 0 1.5rem; }
+
+  .note {
+    font-family: var(--sans);
+    font-size: .86rem;
+    color: var(--ink-2);
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding: .75rem 1rem;
+    margin: 1rem 0 1.25rem;
+    max-width: 62ch;
+  }
+
+  footer {
+    border-top: 2px solid var(--ink);
+    padding-top: 1.5rem;
+    font-family: var(--sans);
+    font-size: .85rem;
+    color: var(--ink-3);
+  }
+  .signature {
+    font-family: var(--mono);
+    font-size: .82rem;
+    color: var(--ink-2);
+    border: 1px dashed var(--rule-strong);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .sig-line {
+    display: inline-block;
+    border-bottom: 1px solid var(--ink-3);
+    min-width: 16rem;
+    margin: 0 .5rem;
+  }
+  footer ul.sources { padding-left: 1.2rem; }
+  footer ul.sources li { margin-bottom: .2rem; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="draft-banner">Draft — binds nothing until the human signs the Kernel</div>
+  <h1>Conduct</h1>
+  <p class="subtitle">An operating system for autonomous engineering work: a governance kernel, an escalation chain, a work ledger, and a conductor — one human at the top.</p>
+  <div class="provenance">
+    <span>Drafted 30 July 2026</span>
+    <span>Author: Fable 5, from a brainstorm with the owner</span>
+    <span>Pilot ground: universityfunds repo</span>
+    <span>kernel-version: 0.1-draft</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <ol>
+    <li><a href="#problem">Problem statement</a></li>
+    <li><a href="#premise">The honest premise</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#kernel">The Kernel</a></li>
+    <li><a href="#chain">The Chain — escalation</a></li>
+    <li><a href="#ledger">The Ledger &amp; the Conductor</a></li>
+    <li><a href="#gates">Gates &amp; human touchpoints</a></li>
+    <li><a href="#telemetry">Observability &amp; telemetry</a></li>
+    <li><a href="#failures">Failure modes</a></li>
+    <li><a href="#build">Build plan</a></li>
+    <li><a href="#invocation">Naming &amp; invocation</a></li>
+    <li><a href="#evidence">Evidence base</a></li>
+    <li><a href="#notbuilt">Deliberately not built</a></li>
+  </ol>
+</nav>
+
+<section id="problem">
+  <h2><span class="no">§ 1</span>Problem statement</h2>
+  <p>One engineer runs autonomous coding agents across two machines, several repositories, and a rotating cast of models (Sonnet, Opus, Fable — switched mid-day, mid-task). The work is real: multi-week projects with correctness-critical output. Three problems compound:</p>
+  <ul>
+    <li><strong>Decision routing.</strong> Autonomous work constantly generates judgment calls. Interrupting the human for each one destroys the value of autonomy; never interrupting risks decisions the human would not have made — spending money, publishing, distorting data. There is currently no principled rule for which questions stop the line and which don't.</li>
+    <li><strong>Governance doesn't travel.</strong> One project (the pilot repo) has a real constitution with teeth. Every other project has nothing. Rules written per-repo don't protect the next repo; rules written globally tend to decay into "don't do bad things," which no check can enforce.</li>
+    <li><strong>Attention is the bottleneck.</strong> The human's review capacity is the scarcest resource in the system. Unstructured interruptions, unlogged decisions, and status buried in a 200-line build log all spend it badly.</li>
+  </ul>
+  <p>And one problem already observed, not hypothesized: <strong>two autonomous sessions collided</strong> in the pilot repo — same four files, concurrent edits, three writes failed mid-flight. It resolved by luck. The current workflow assumes one session at a time and says so; at any real scale of parallel agents, that assumption is a defect.</p>
+  <p class="pull">Conduct exists to spend the human's attention only on constitutional violations, reserved powers, and review gates — while keeping every proxied decision auditable and reversible.</p>
+</section>
+
+<section id="premise">
+  <h2><span class="no">§ 2</span>The honest premise</h2>
+  <p>The scalable-oversight literature worries about weak models judging strong ones. Conduct runs the easy direction — strong judges weak — so <em>judge capability</em> is not the residual risk. The residual risk is <strong>correlation</strong>: Sonnet, Opus, and Fable share a training lineage. Measured same-family judging bias is severe — judges inflate own-family win rates to 75–93% where independent judges score ~40% — and ensembling within one family fixes variance while leaving the shared systematic bias intact.</p>
+  <p>Three design consequences run through everything below:</p>
+  <ul>
+    <li><strong>Evidence-diversity substitutes for model-diversity.</strong> In an all-Claude stack, agreement between tiers never certifies a fact. Primary documents do. Rulings on factual premises must be grounded in sources, and the senior's first duty is to attack what the junior <em>couldn't</em> verify.</li>
+    <li><strong>Structure beats instruction.</strong> Anchoring research finds judges shift measurably toward provided hints, stronger models anchor <em>more</em> consistently, and prompt-level debiasing ("please be independent") barely works. So the protocol blinds structurally — the senior rules before seeing the junior's recommendation — rather than asking nicely.</li>
+    <li><strong>Gate on decision properties, never on model confidence.</strong> Cascade-routing research shows LLM confidence is miscalibrated and prompt-sensitive; thresholds don't transfer. The escalation floor is therefore property-based and deterministic: reversibility, materiality, constitutional proximity.</li>
+  </ul>
+  <p>The honest claim the system can make: <em>it catches the errors a smarter reviewer catches, and it cannot certify facts by agreement alone.</em> It is capability uplift, not independence. The human remains the only uncorrelated check in the loop.</p>
+</section>
+
+<section id="architecture">
+  <h2><span class="no">§ 3</span>Architecture</h2>
+  <p>One sentence: <strong>Sonnet executes, Opus conducts, Fable audits at gates, the human governs vision and reserved powers</strong> — and the durable artifact underneath all of them is the ledger, not any agent.</p>
+  <p>Five named parts across two planes:</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Part</th><th>Plane</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Kernel</strong></td><td>decision</td><td>Universal articles K1–K6 + the reserved list. User-scope, versioned, human-signed.</td></tr>
+      <tr><td><strong>Chain</strong></td><td>decision</td><td>The escalation path for judgment calls: Sonnet → Opus → Fable → human. The exception handler.</td></tr>
+      <tr><td><strong>Ledger</strong></td><td>work</td><td>The implementation plan as a durable record: tasks, states, leases, briefs, acceptance checks, budgets, provenance.</td></tr>
+      <tr><td><strong>Conductor</strong></td><td>work</td><td>A stateless Opus scheduler over the ledger: decompose, route, verify, integrate, log. Never implements.</td></tr>
+      <tr><td><strong>Gates</strong></td><td>both</td><td>Human checkpoints with a Fable audit: phase reviews, proxy-decision sweeps, scope rulings.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="chain" role="img" aria-label="Escalation chain: Sonnet to Opus to Fable to Human">
+    <span class="node">Sonnet</span><span class="arrow">→</span>
+    <span class="node">Opus</span><span class="arrow">→</span>
+    <span class="node">Fable</span><span class="arrow">→</span>
+    <span class="node human">Human</span>
+  </div>
+
+  <ul>
+    <li><strong>Haiku does not participate.</strong> Autonomous mode under Conduct requires Sonnet or above; a session on a lesser or unknown model doesn't run autonomously.</li>
+    <li><strong>Tier is resolved at escalation time</strong> from the session's declared model via a lookup table — never "if you are Sonnet" self-narration. The owner switches models several times a day; the table absorbs it. Unknown model → treated conservatively as below Sonnet. Editing the table is a kernel amendment: the human's.</li>
+    <li><strong>Vision documents (BRD, PRD, persona journeys) are commander's intent.</strong> Workers never interpret them directly — the conductor is the sole translator of vision into task briefs, or ten workers ship ten interpretations.</li>
+  </ul>
+</section>
+
+<section id="kernel">
+  <h2><span class="no">§ 4</span>The Kernel</h2>
+  <p>Two layers, because "doesn't break the constitution" is only a real test when the constitution has teeth — and domain teeth don't generalize. The <strong>kernel</strong> (user scope, both machines) carries the procedure plus the articles that stay checkable in any project. <strong>Project articles</strong> (repo scope) add domain content — the pilot repo's citation rule, plain-English rule, honest-numbers rule. A project with no articles still gets the kernel, which is most of the protection.</p>
+
+  <h3>Part 1 — Universal articles</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Article</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td class="k">K1</td><td><strong>No fabricated evidence.</strong> Never claim a test passed that didn't run, a citation that wasn't read, a number that wasn't sourced, a "works" that wasn't verified.</td></tr>
+      <tr><td class="k">K2</td><td><strong>Faithful reporting.</strong> Failures reported as failures; skipped steps named as skipped.</td></tr>
+      <tr><td class="k">K3</td><td><strong>Honest gaps.</strong> A gap stays a gap — no silent interpolation, carry-forward, or plausible filler in data, docs, or test coverage.</td></tr>
+      <tr><td class="k">K4</td><td><strong>Reversibility discipline.</strong> Distinguish one-way from two-way doors before walking through.</td></tr>
+      <tr><td class="k">K5</td><td><strong>The log is memory.</strong> An unlogged proxied decision is a protocol failure regardless of whether the decision was right.</td></tr>
+      <tr><td class="k">K6</td><td><strong>Scope as written.</strong> No silent narrowing, widening, or transformation; deliver what can be delivered and name what was left out.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Part 2 — Reserved to the human</h3>
+  <p>No tier may approve these, ever. The reserved check runs <em>first, at both tiers, before any escalation</em> — the failure to fear is not a bad ruling but a reserved decision laundered through the chain and stamped "settled."</p>
+  <ul>
+    <li>Money and billing.</li>
+    <li>Irreversible or outward-facing actions: force-push, history rewrite, deletion of repos/branches/production data, making anything public, publishing, messaging third parties.</li>
+    <li>Secrets and credentials.</li>
+    <li>Legal and compliance posture.</li>
+    <li>Amending the kernel or any project constitution — <em>including adopting it: kernel v1.0 binds only on the human's signature.</em></li>
+    <li>Product identity and what "done" means.</li>
+    <li>Anything a project marks <code>[H]</code>.</li>
+  </ul>
+  <p>Universal because they are defined by <em>consequence</em>, not domain.</p>
+</section>
+
+<section id="chain">
+  <h2><span class="no">§ 5</span>The Chain — <code>escalate()</code></h2>
+
+  <h3>Step 0 — The floor (property-based, deterministic)</h3>
+  <p class="pull">Escalate iff at least two of: <strong>(a)</strong> different answers produce materially different work; <strong>(b)</strong> the wrong answer is expensive to unwind; <strong>(c)</strong> the question touches a kernel or project article. Reserved matters skip the chain entirely → human.</p>
+  <p>Everything below the floor: decide, log one line as <code>[JUDGMENT CALL]</code>, keep moving. A protocol that fires on trivia is slower and costlier than just asking — that defeats the purpose.</p>
+
+  <h3>Step 1 — The junior answers first</h3>
+  <p>Before escalating, the junior writes: the question in one sentence; 2–4 real options; its recommendation and reasoning, including <em>what would have to be true for another option to win</em> (the anti-strawman device — it forces the junior to state the kill condition for its own preference); an article-by-article self-check; and explicit <strong>Verified / Couldn't-verify</strong> lists. Roughly half of escalations die at this step. That is the point.</p>
+
+  <h3>Step 2 — Two-phase blind ruling</h3>
+  <p>The senior is a freshly-spawned subagent one tier up, with no conversation history — by design: it forces every premise to be explicit and therefore auditable.</p>
+  <ul>
+    <li><strong>Phase 1 (blind):</strong> the senior receives only the question, the evidence, the neutral options, and the verified/couldn't-verify lists. No recommendation. It writes a preliminary ruling.</li>
+    <li><strong>Phase 2 (reconcile):</strong> the junior's recommendation and reasoning are revealed in a second message. The senior attacks the <em>couldn't-verify list first</em> — premises before conclusions, primary sources where feasible — then issues the final ruling, stating whether Phase 2 changed its mind and why.</li>
+  </ul>
+  <p>Cost: one extra message to an already-running agent. Yield: real blinding (which instruction-level mitigation demonstrably fails to provide), plus a free anchoring meter — the preliminary→final delta, logged.</p>
+
+  <pre class="mermaid">
+flowchart TD
+  Q[Fork detected] --> R{Reserved matter?}
+  R -- yes --> H[Human — ELI25-SE interrupt]
+  R -- no --> F{Floor: 2 of 3 properties?}
+  F -- no --> J[Decide · log JUDGMENT CALL]
+  F -- yes --> B[Junior self-brief:<br/>options · recommendation · verified/couldn't-verify]
+  B --> P1[Senior Phase 1 — blind:<br/>question + evidence only → preliminary ruling]
+  P1 --> P2[Senior Phase 2 — reconcile:<br/>brief revealed · attack couldn't-verify · final ruling]
+  P2 --> V{Junior re-checks ruling<br/>against articles}
+  V -- clears --> X[Execute · log PROXY DECISION + telemetry]
+  V -- breach --> N{Higher tier exists?}
+  N -- yes --> B
+  N -- no --> H
+  </pre>
+
+  <h3>Step 3 — The junior's veto</h3>
+  <p>The junior independently checks the ruling against the articles before executing. Clears → it is treated as the human's answer; execute, log. Breaks an article → refuse, escalate again with both positions attached. Two checks, because the second one is the only thing between a confident wrong answer and the repo. When both positions are constitutional but disagree, the senior governs and the <strong>dissent goes on the record</strong> — a losing argument that turns out right is worth having in the log.</p>
+
+  <h3>Step 4 — Stay productive; never guess to stay busy</h3>
+  <p>While waiting, keep working on everything that doesn't depend on the answer, without baking in assumptions that are expensive to unwind. If unblocked work runs out, idle. Guessing to stay busy is worse than idling.</p>
+
+  <h3>The storm brake</h3>
+  <p>Three escalations inside one task means the task specification is the problem, not the questions. The next interrupt goes to the human as a <em>scope</em> question instead of burning the chain a fourth time.</p>
+
+  <h3>Two registers</h3>
+  <ul>
+    <li><strong>Tier-to-tier: maximum fidelity.</strong> Full domain detail, exact quotes, primary sources. Starving the senior is how confident wrong answers happen.</li>
+    <li><strong>Human-facing: ELI25-SE.</strong> Systems vocabulary assumed (FK, idempotency, race, migration); <em>domain</em> consequences translated. One guard, because engineering framing can launder stakes — "should this column be nullable?" reads as preference when the real question is "can we publish a citation that doesn't contain the number?" Hence the mandatory <em>Rule in play</em> line.</li>
+  </ul>
+
+  <pre><code>DECISION NEEDED — &lt;one line&gt;
+Blocks: &lt;what's stopped&gt; · Reversible: &lt;cheap|expensive, why&gt;
+Rule in play: &lt;which article, and what breaks if we get this wrong&gt;
+
+&lt;2–3 sentences of context, domain translated&gt;
+
+A) &lt;label&gt; — outcome. Cost/risk.
+B) &lt;label&gt; — ...
+RECOMMEND B — &lt;one sentence&gt;
+Verified: &lt;checked&gt; · Couldn't verify: &lt;and why it matters&gt;
+If no answer: &lt;see rule below&gt;</code></pre>
+
+  <div class="note"><strong>The "if no answer" rule.</strong> Timeout defaults are legal only for courtesy asks. For reserved or constitutional interrupts the line reads <strong>"I stop here"</strong> — there is no timeout that defaults past a reserved power, or the reserved list is decoration.</div>
+</section>
+
+<section id="ledger">
+  <h2><span class="no">§ 6</span>The Ledger &amp; the Conductor</h2>
+
+  <h3>The ledger is the system</h3>
+  <p>The pilot repo proved this in miniature: a prose ledger (<code>TASKS.md</code> + build log) carried work across sessions with zero shared memory for a week, through three model switches. The design test for the real thing:</p>
+  <p class="pull">Kill the conductor at any moment; a fresh conductor reads the ledger and resumes losslessly. If that fails, state leaked into an agent's context and what's been built is a fragile god-agent.</p>
+  <pre><code>task:        id · title · brief (objective + boundaries + context pointers)
+state:       todo | claimed | in-progress | blocked | review | done
+deps:        [task ids]        ← the parallelism frontier falls out of this
+tier:        sonnet | opus     ← routing decision, recorded not implied
+lease:       agent id + timestamp + expiry     ← the missing primitive
+acceptance:  machine-checkable wherever possible
+budget:      token / time cap
+provenance:  commits, decisions, artifacts produced</code></pre>
+  <p><strong>Leases exist because two sessions actually collided.</strong> Combined with file-ownership boundaries in each brief and worktree isolation for anything shared, the merge surface is designed to zero rather than reviewed to zero. Integration is where multi-agent coding empirically dies, so merges serialize through the conductor.</p>
+
+  <h3>Routing: properties, not quotas</h3>
+  <p>The observed split — roughly 20–30% Opus-grade, 70–80% Sonnet-grade — is an <em>outcome</em>, never a policy. Routing is property-based:</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Route up (Opus)</th><th>Route down (Sonnet)</th></tr></thead>
+    <tbody>
+      <tr><td>First-of-its-kind work</td><td>An exemplar exists in the repo <em>(the strongest single predictor)</em></td></tr>
+      <tr><td>Design decisions with lasting consequences</td><td>Clear spec + machine acceptance check</td></tr>
+      <tr><td>Cross-cutting changes; ambiguous spec</td><td>Local blast radius</td></tr>
+      <tr><td>Data-integrity / security surface</td><td>Mechanical transforms; scoped research with a defined output schema</td></tr>
+      <tr><td>Anything that edits the ledger or plan itself</td><td>Nth-of-its-kind, rails already built</td></tr>
+    </tbody>
+  </table></div>
+  <p class="pull">The Sonnet-shaped 80% is manufactured, not found. The conductor's highest-leverage activity is spending Opus tokens building rails — validators, templates, precedent decisions — that convert the next N tasks into Sonnet work.</p>
+  <p>Proof from the pilot repo: curating the first school (Yale) was Opus-grade — novel sourcing, category normalization, four escalations. Curating the last three is now largely Sonnet-grade <em>because</em> the intervening work built the rails: a hardened validator that mechanically catches unit slips and typos, documented label mappings, and precedent rulings for every known fork (negative weights, undated tables, target-vs-actual bases).</p>
+
+  <h3>Two different "up"s — never conflated</h3>
+  <ul>
+    <li>Question about <em>this task's spec or scope</em> → the <strong>conductor</strong> (work plane), which amends the brief or the ledger.</li>
+    <li>Question about <em>a rule or consequence</em> → the <strong>Chain</strong> (decision plane), logged as <code>[PROXY DECISION]</code>.</li>
+  </ul>
+  <p>Conflating them makes the conductor both a bottleneck and a judgment launderer. Kept separate, the Chain is simply the work plane's exception handler: ledger = normal flow, escalation = exception flow, reserved list = the interrupts that always reach the human.</p>
+
+  <h3>Conductor hygiene</h3>
+  <ul>
+    <li><strong>Never implements.</strong> The moment it writes code its context bloats and its routing judgment degrades. Decompose, route, verify, integrate, update ledger, interrupt human. Nothing else.</li>
+    <li><strong>Never trusts "done."</strong> Worker self-report is what K1/K2 exist for. Acceptance checks run outside the worker; deterministic verification (validators, tests) beats LLM judgment wherever available, and building more of it is rail-laying.</li>
+    <li><strong>Samples, doesn't re-review.</strong> The dangerous misroute is <em>confident mediocrity</em> — an Opus-shaped task given to Sonnet doesn't fail loudly; it produces plausible work that looks done. Mitigation: spot-check a random slice of Sonnet output at Opus depth, statistical-process-control style. Full review would erase the economics.</li>
+    <li><strong>Coalesces interrupts.</strong> Questions batch into digests at natural boundaries. The human's attention budget is the system's scarcest resource.</li>
+  </ul>
+
+  <h3>Economics, honestly</h3>
+  <p>Multi-agent orchestration costs roughly <strong>15×</strong> the tokens of single-agent chat (Anthropic's own figure for its research system). It pays on parallelizable work with cheap verification and burns money on serial, tightly-coupled work. The dependency graph in the ledger exposes the parallelism frontier; budgets live per task and per phase; a task that blows its budget twice is a mis-scoped task — a conductor problem to fix by re-decomposition, not a worker problem to fix by retrying harder.</p>
+</section>
+
+<section id="gates">
+  <h2><span class="no">§ 7</span>Gates &amp; human touchpoints</h2>
+  <p>Gates are review points in the ledger, not questions — the Chain never routes around them. At each gate, <strong>Fable audits</strong>: phase output diffed against the vision documents, the accumulated <code>[PROXY DECISION]</code> log swept, drift named. Then the human rules on whatever the audit surfaced plus anything reserved.</p>
+  <p>Total human touchpoints for the whole framework build: <strong>sign the kernel → eyeball three pilot briefs → read one pilot digest → Checkpoint review → approve the install.</strong> Everything else arrives only through the reserved list or an ELI25-SE interrupt. In steady state the day compresses to: glance at the STATUS artifact, skim <code>[PROXY DECISION]</code> entries, answer the digest.</p>
+</section>
+
+<section id="telemetry">
+  <h2><span class="no">§ 8</span>Observability &amp; telemetry</h2>
+  <ul>
+    <li><strong>The STATUS artifact</strong> (already live for the pilot repo) is the pull-side view: rendered from the ledger at every step, never hand-edited into disagreement with it. The ledger stays authoritative.</li>
+    <li><strong>Every proxy decision logs telemetry:</strong> tokens, wall-clock, and outcome ∈ {ratified, modified, overturned, premise-refuted, sent-to-HITL} — plus the Phase-1→Phase-2 delta as an anchoring meter.</li>
+    <li><strong>The single health metric is ratification rate.</strong> Near 100% → the check is decorative (floor too low, or anchoring). Near 0% → briefs are starving the senior, or the floor is too high. The pilot repo's observed rate — the senior materially changed three of four escalations — sits where a healthy system sits.</li>
+  </ul>
+</section>
+
+<section id="failures">
+  <h2><span class="no">§ 9</span>Failure modes → countermeasures</h2>
+  <div class="scroller"><table>
+    <thead><tr><th>Failure</th><th>Countermeasure</th></tr></thead>
+    <tbody>
+      <tr><td>Ratification theater</td><td>Two-phase blinding; ratification-rate metric; refutation stance in Phase 2</td></tr>
+      <tr><td>Reserved-power laundering</td><td>Reserved check first, at both tiers; no timeout defaults on reserved interrupts</td></tr>
+      <tr><td>Correlated family blind spots</td><td>Evidence-diversity rule: facts certified by documents, never by agreement</td></tr>
+      <tr><td>Junior shapes the brief</td><td>Phase-1 blind ruling; mandatory "what would make another option win"</td></tr>
+      <tr><td>Senior trusts junior's facts</td><td>Couldn't-verify list attacked first</td></tr>
+      <tr><td>Confident mediocrity (misrouted down)</td><td>Sampled spot-checks at Opus depth; routing rubric tuned on pilot telemetry</td></tr>
+      <tr><td>Worker collision / merge hell</td><td>Leases; file-ownership per brief; worktrees; serialized integration</td></tr>
+      <tr><td>Escalation storm</td><td>≥3 per task → scope question to the human</td></tr>
+      <tr><td>Vision drift across workers</td><td>Conductor as sole translator of vision → briefs; vision audit at gates</td></tr>
+      <tr><td>Conductor context bloat</td><td>Statelessness test; conductor never implements; session-per-ledger-pass</td></tr>
+      <tr><td>Mid-session model switch</td><td>Tier resolved at escalation time from the declared model</td></tr>
+      <tr><td>Stale tier table / unknown model</td><td>Conservative default (below Sonnet); table edits reserved</td></tr>
+      <tr><td>Cross-machine drift</td><td>Version-stamped kernel; one dotfiles source</td></tr>
+      <tr><td>Log rot / second sources of truth</td><td>Append-only tagged log; checkpoint sweeps; artifacts rendered from the ledger, never parallel to it</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="build">
+  <h2><span class="no">§ 10</span>Build plan — end to end</h2>
+  <p>Meta-rule: <strong>the system is built under its own rules.</strong> Rails first, pilot before install, machine-checkable acceptance at every step, human signature on the irreversible bits. If the construction can't follow its own rules, the rules are wrong.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Phase</th><th>Builds</th><th>Acceptance check</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong></td><td>Decision plane: kernel + <code>escalate</code> skill + brief templates; pilot repo's constitution refactored to kernel-reference + project articles</td><td><strong>Golden replay</strong> — the four historically-logged escalations re-run through the new protocol on paper; outcomes should reproduce; every divergence adjudicated as bug or improvement</td></tr>
+      <tr><td><strong>B</strong></td><td>Work-plane rails: routing rubric (1 page), task-brief template, lease conventions in the existing ledger, <code>conduct</code> skill</td><td>Conductor decomposes the pilot task into briefs <em>without executing</em>; the human eyeballs them</td></tr>
+      <tr><td><strong>C</strong></td><td>Decision plane goes live</td><td>Next real escalation runs two-phase; telemetry fields populated</td></tr>
+      <tr><td><strong>D</strong></td><td>Work-plane pilot: 3 Sonnet workers (one school each, file-ownership isolation), 1 Opus sampler, Chain live, validator as acceptance gate</td><td>Validator green; sampler clean; telemetry captured; one coalesced digest to the human</td></tr>
+      <tr><td><strong>E</strong></td><td>Checkpoint review + system retrospective</td><td>Scope questions answered; floor and rubric tuned; kernel v1.0 → v1.1</td></tr>
+      <tr><td><strong>F</strong></td><td>User-scope install, both machines, via one dotfiles repo; fresh-project template</td><td>Same kernel version resolves on Mac and Windows</td></tr>
+      <tr><td><strong>G</strong></td><td>Remaining product phases run under the full system</td><td>Serial phases stay serial (no fan-out theater); parallel phases fan out; telemetry per phase</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Kill criteria — declared before the pilot, so they can't be negotiated after</h3>
+  <ul>
+    <li>Ratification rate ≈ 100% → the check is decorative.</li>
+    <li>Sampler finds systematic quality misses the validator didn't → routing rubric wrong.</li>
+    <li>Any worker bypasses an acceptance check → K1/K2 breach; halt everything.</li>
+    <li>Cost &gt; 2× the single-session baseline without a quality gain → don't install.</li>
+  </ul>
+  <p>Any of these fires → fix before Phase F, or don't install. <strong>A pilot that can't fail is theater.</strong></p>
+  <p>Calendar-honest: Phases A+B are a day of sessions, D is a day, E is an hour of the human's time, F is an hour. The system exists inside a week; G is production.</p>
+</section>
+
+<section id="invocation">
+  <h2><span class="no">§ 11</span>Naming &amp; invocation</h2>
+  <p>The name was already latent in the pilot repo, whose instructions have said <em>"docs-conduct workflow"</em> since day one. The framework is that idea generalized: <strong>Conduct</strong>.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>/conduct</code></td><td>Read the ledger, claim the next unblocked work, run autonomously until a gate, a reserved interrupt, or the budget. The 95% case.</td></tr>
+      <tr><td><code>/conduct plan</code></td><td>Decompose only — show the briefs, spend no worker tokens. Phase B's acceptance check, kept as a permanent dry-run mode.</td></tr>
+      <tr><td><code>/conduct 1.6</code></td><td>Conduct one specific task and stop.</td></tr>
+      <tr><td><code>/conduct until &lt;gate&gt;</code> · <code>/conduct +500k</code></td><td>Explicit stop conditions.</td></tr>
+      <tr><td><code>/conduct init</code></td><td>Scaffold a fresh repo: project-articles skeleton, ledger conventions, decisions log.</td></tr>
+      <tr><td><code>/escalate</code></td><td>The agents' syscall — fires automatically at the floor; the human types it only to force a question onto the record.</td></tr>
+    </tbody>
+  </table></div>
+  <pre><code>~/.claude/skills/escalate/SKILL.md          # kernel + chain protocol + templates
+~/.claude/skills/conduct/SKILL.md           # conductor loop + rubric + brief template
+~/.claude/CLAUDE.md                         # ~5-line stanza wiring the floor trigger
+%USERPROFILE%\.claude\...                   # identical layout on Windows
+                                            # one dotfiles repo; kernel version-stamped</code></pre>
+  <p>Skills own the verbs; files keep their nouns — the ledger stays <code>TASKS.md</code> (or <code>LEDGER.md</code> in fresh repos), the rules stay <code>CONSTITUTION.md</code>.</p>
+</section>
+
+<section id="evidence">
+  <h2><span class="no">§ 12</span>Evidence base</h2>
+  <h3>From the pilot repo (observed, not hypothesized)</h3>
+  <ul>
+    <li>Four formal escalations logged in full; the senior materially changed three (modified bounds; overturned an option on primary evidence; added the forward-run allowance). Ratification ≈ 25% — the mechanism earns its cost.</li>
+    <li>The most valuable ruling (dating Harvard's undated tables) was won by <em>documents</em> — reconciliation against audited financials — not by seniority. Institutionalized as the evidence-diversity rule.</li>
+    <li>Two concurrent sessions collided on four files; three writes failed mid-flight. Institutionalized as leases + ownership + serialized integration.</li>
+    <li>Adversarial fresh-context verification killed 10 of 28 and 5 of 37 findings produced by the same model family — the pattern behind Phase-2 refutation and the top-tier refuter.</li>
+    <li>A prose ledger carried a multi-week build across memory-less sessions and three model switches — the statelessness proof.</li>
+    <li>Rails converted Opus-work into Sonnet-work: first school curated with four escalations; last three now routine because the validator, mappings, and precedents exist.</li>
+  </ul>
+  <h3>From the research</h3>
+  <ul>
+    <li>Same-family LLM judges inflate own-family win rates to 75–93% vs ~40% under independent judges; within-family ensembling does not remove the shared bias → evidence-diversity over agreement. (<a href="https://arxiv.org/html/2604.22891v2">self-preference bias</a>, <a href="https://arxiv.org/pdf/2508.06709">measuring self-bias</a>)</li>
+    <li>Judges anchor on provided hints; stronger models anchor more consistently; prompt-level mitigation largely ineffective → structural two-phase blinding. (<a href="https://arxiv.org/pdf/2505.15392">anchoring effect of LLMs</a>, <a href="https://arxiv.org/pdf/2511.05766">anchors in the machine</a>)</li>
+    <li>LLM confidence is miscalibrated and prompt-sensitive; thresholds don't transfer → property-based escalation floor. (<a href="https://arxiv.org/html/2605.18796">calibrated cascade routing</a>, <a href="https://arxiv.org/html/2603.04445v2">routing &amp; cascading survey</a>)</li>
+    <li>Debate and hierarchical supervision help weaker parties oversee stronger ones; Conduct runs the easier direction and inherits the machinery. (<a href="https://arxiv.org/abs/2501.13124">debate helps weak-to-strong</a>, <a href="https://arxiv.org/html/2504.18530v1">scaling laws for scalable oversight</a>)</li>
+    <li>Orchestrator-worker multi-agent systems: large quality gains at ≈15× token cost — pays on parallelizable, verifiable work. (Anthropic's multi-agent research system)</li>
+  </ul>
+</section>
+
+<section id="notbuilt">
+  <h2><span class="no">§ 13</span>Deliberately not built (yet)</h2>
+  <p>Integrator role · vision-audit agent · QC sampling ratios · machine-readable ledger tooling · scheduled/cron autonomy (an explicitly human-opt-in cost decision) · cross-repo fleet management.</p>
+  <p>Each component above earned its place by an <em>observed</em> failure — leases exist because sessions actually collided; golden replay exists because four decisions were actually logged. These wait for the failure that demands them. Premature orchestration machinery is its own tax.</p>
+</section>
+
+<footer>
+  <div class="signature">
+    Kernel v1.0 binds only on human adoption (Part 2 §5 — including its birth).<br><br>
+    Signed: <span class="sig-line">&nbsp;</span> Date: <span class="sig-line" style="min-width:8rem">&nbsp;</span>
+  </div>
+  <p><strong>Status:</strong> draft for review. Next concrete step on the owner's word: Phase A — write the kernel and <code>escalate</code> skill, run the golden replay, present for signature.</p>
+  <p>Sources:</p>
+  <ul class="sources">
+    <li><a href="https://arxiv.org/html/2604.22891v2">Quantifying and Mitigating Self-Preference Bias of LLM Judges</a></li>
+    <li><a href="https://arxiv.org/pdf/2508.06709">A Statistical Method to Measure Self-Bias in LLM-as-a-Judge</a></li>
+    <li><a href="https://arxiv.org/pdf/2505.15392">Understanding the Anchoring Effect of LLMs</a></li>
+    <li><a href="https://arxiv.org/pdf/2511.05766">Anchors in the Machine: Anchoring Bias in LLMs</a></li>
+    <li><a href="https://arxiv.org/pdf/2408.09235">Reference-Guided Verdict: LLMs-as-Judges</a></li>
+    <li><a href="https://arxiv.org/html/2605.18796">UCCI: Calibrated Uncertainty for Cost-Optimal LLM Cascade Routing</a></li>
+    <li><a href="https://arxiv.org/html/2603.04445v2">Dynamic Model Routing and Cascading: A Survey</a></li>
+    <li><a href="https://arxiv.org/abs/2501.13124">Debate Helps Weak-to-Strong Generalization</a></li>
+    <li><a href="https://arxiv.org/html/2504.18530v1">Scaling Laws for Scalable Oversight</a></li>
+  </ul>
+</footer>
+
+</div>

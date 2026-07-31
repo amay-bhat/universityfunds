@@ -1,0 +1,821 @@
+<title>Build Status — University Endowment Investing Explorer</title>
+
+<!--
+  Generated from TASKS.md. TASKS.md remains the single source of truth for
+  project state; this page is a rendering of it, never an independent record.
+  If the two disagree, TASKS.md is right and this page is stale.
+
+  Published as a claude.ai Artifact, which supplies the doctype/head/body
+  wrapper — hence no <!DOCTYPE>/<html>/<body> tags here.
+-->
+
+<style>
+  :root {
+    /* Ground & ink — cool blue-grey bias, chosen against the warm-cream default */
+    --ground:      #F6F7F9;
+    --surface:     #FFFFFF;
+    --surface-sunk:#F0F2F5;
+    --ink:         #151A21;
+    --ink-2:       #4C5663;
+    --ink-3:       #7B8593;
+    --rule:        #E3E7EC;
+    --rule-strong: #CDD4DC;
+    --accent:      #1F5F8B;
+
+    /* Status — reserved, never reused as decoration. Validated for contrast
+       and normal-vision separation; each pairs with a label and a glyph. */
+    --st-done:     #17754A;
+    --st-part:     #B26E00;
+    --st-block:    #A3232C;
+    --st-idle:     #6F7A88;
+    --st-done-bg:  #E8F2EC;
+    --st-part-bg:  #F8EFDF;
+    --st-block-bg: #F7E8E8;
+    --st-idle-bg:  #EDEFF2;
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:      #0F1216;
+      --surface:     #161A20;
+      --surface-sunk:#1B2027;
+      --ink:         #E5E9EF;
+      --ink-2:       #A2ACB9;
+      --ink-3:       #7B8593;
+      --rule:        #252B33;
+      --rule-strong: #333B45;
+      --accent:      #7FB3D5;
+      --st-done:     #4CAE77;
+      --st-part:     #E0A63C;
+      --st-block:    #E0665C;
+      --st-idle:     #7B8593;
+      --st-done-bg:  #16281F;
+      --st-part-bg:  #2A2216;
+      --st-block-bg: #2C1B1A;
+      --st-idle-bg:  #1E232A;
+    }
+  }
+
+  /* The viewer's explicit toggle must win over the OS preference, both ways. */
+  :root[data-theme="light"] {
+    --ground:#F6F7F9; --surface:#FFFFFF; --surface-sunk:#F0F2F5;
+    --ink:#151A21; --ink-2:#4C5663; --ink-3:#7B8593;
+    --rule:#E3E7EC; --rule-strong:#CDD4DC; --accent:#1F5F8B;
+    --st-done:#17754A; --st-part:#B26E00; --st-block:#A3232C; --st-idle:#6F7A88;
+    --st-done-bg:#E8F2EC; --st-part-bg:#F8EFDF; --st-block-bg:#F7E8E8; --st-idle-bg:#EDEFF2;
+  }
+  :root[data-theme="dark"] {
+    --ground:#0F1216; --surface:#161A20; --surface-sunk:#1B2027;
+    --ink:#E5E9EF; --ink-2:#A2ACB9; --ink-3:#7B8593;
+    --rule:#252B33; --rule-strong:#333B45; --accent:#7FB3D5;
+    --st-done:#4CAE77; --st-part:#E0A63C; --st-block:#E0665C; --st-idle:#7B8593;
+    --st-done-bg:#16281F; --st-part-bg:#2A2216; --st-block-bg:#2C1B1A; --st-idle-bg:#1E232A;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead { display: flex; flex-direction: column; gap: .75rem; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .standfirst {
+    color: var(--ink-2);
+    max-width: 62ch;
+    font-size: 1.03rem;
+  }
+  .provenance {
+    font-family: var(--mono);
+    font-size: .74rem;
+    color: var(--ink-3);
+    border-top: 1px solid var(--rule);
+    padding-top: .75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1.25rem;
+  }
+
+  /* ---------- summary tiles ---------- */
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .tile {
+    background: var(--surface);
+    padding: 1.15rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+  }
+  .tile-label {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .tile-value {
+    font-family: var(--serif);
+    font-size: 2rem;
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .tile-value .of { font-size: 1.1rem; color: var(--ink-3); }
+  .tile-note { font-size: .82rem; color: var(--ink-2); }
+  .tile-value.attn { color: var(--st-block); }
+
+  /* ---------- section furniture ---------- */
+
+  section { display: flex; flex-direction: column; gap: 1rem; }
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .lede { color: var(--ink-2); max-width: 68ch; font-size: .95rem; margin: 0; }
+
+  /* ---------- needs-you ---------- */
+
+  .action {
+    display: flex;
+    gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--st-block);
+    padding: 1.1rem 1.25rem;
+  }
+  .action-idx {
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--st-block);
+    padding-top: .18rem;
+    flex-shrink: 0;
+  }
+  .action-body { display: flex; flex-direction: column; gap: .35rem; }
+  .action-title { font-weight: 600; font-size: .97rem; }
+  .action-title .ref {
+    font-family: var(--mono);
+    font-size: .78rem;
+    font-weight: 400;
+    color: var(--ink-3);
+    margin-left: .5rem;
+  }
+  .action-body p { margin: 0; color: var(--ink-2); font-size: .92rem; }
+  .action-body code {
+    font-family: var(--mono);
+    font-size: .84em;
+    background: var(--surface-sunk);
+    padding: .08em .35em;
+    border-radius: 2px;
+  }
+
+  /* ---------- phase register ---------- */
+
+  .register { border: 1px solid var(--rule); background: var(--surface); }
+  .phase { border-top: 1px solid var(--rule); }
+  .phase:first-child { border-top: 0; }
+
+  .phase-head {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: .85rem 1.25rem;
+    border-left: 3px solid var(--stripe, var(--st-idle));
+  }
+  .phase-num {
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .phase-name { font-weight: 600; font-size: 1rem; }
+  .phase-name .qual { font-weight: 400; color: var(--ink-3); font-size: .88rem; }
+  .phase-count {
+    font-family: var(--mono);
+    font-size: .8rem;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* progress meter: thin mark, rounded data-end, anchored left */
+  .meter {
+    height: 6px;
+    background: var(--surface-sunk);
+    grid-column: 2 / -1;
+    position: relative;
+  }
+  .meter-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--stripe, var(--st-idle));
+    border-radius: 0 3px 3px 0;
+  }
+  .meter-row {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    gap: 1rem;
+    padding: 0 1.25rem .9rem;
+    border-left: 3px solid var(--stripe, var(--st-idle));
+  }
+
+  .tasks {
+    list-style: none;
+    margin: 0;
+    padding: 0 1.25rem 1rem 1.25rem;
+    border-left: 3px solid var(--stripe, var(--st-idle));
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+  }
+  .task {
+    display: grid;
+    grid-template-columns: 2.5rem 1.15rem 1fr;
+    gap: 1rem .6rem;
+    align-items: baseline;
+    padding: .3rem 0;
+    font-size: .92rem;
+  }
+  .task-id {
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .glyph {
+    font-family: var(--mono);
+    font-size: .82rem;
+    line-height: 1.7;
+    text-align: center;
+  }
+  .task-text { color: var(--ink-2); }
+  .task.is-done .task-text { color: var(--ink); }
+  .task.is-part .task-text { color: var(--ink); }
+  .g-done  { color: var(--st-done); }
+  .g-part  { color: var(--st-part); }
+  .g-block { color: var(--st-block); }
+  .g-idle  { color: var(--st-idle); }
+  .task-note {
+    grid-column: 3;
+    font-size: .85rem;
+    color: var(--ink-3);
+    margin-top: .1rem;
+  }
+
+  .gate {
+    display: flex;
+    gap: .6rem;
+    align-items: baseline;
+    padding: .8rem 1.25rem;
+    border-left: 3px solid var(--rule-strong);
+    background: var(--surface-sunk);
+    border-top: 1px solid var(--rule);
+    font-size: .9rem;
+  }
+  .gate-tag {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    flex-shrink: 0;
+  }
+  .gate span:last-child { color: var(--ink-2); }
+
+  /* ---------- key ---------- */
+
+  .key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.4rem;
+    font-size: .85rem;
+    color: var(--ink-2);
+  }
+  .key-item { display: flex; align-items: baseline; gap: .4rem; }
+  .key-item .glyph { text-align: left; }
+
+  /* ---------- data table ---------- */
+
+  .scroller { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; min-width: 40rem; }
+  th, td { text-align: left; padding: .6rem .9rem; border-bottom: 1px solid var(--rule); }
+  thead th {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 400;
+    background: var(--surface-sunk);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.span { font-family: var(--mono); font-size: .84rem; color: var(--ink-2); white-space: nowrap; }
+  .row-name { font-weight: 600; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .04em;
+    padding: .15rem .45rem;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .p-done  { color: var(--st-done);  background: var(--st-done-bg); }
+  .p-part  { color: var(--st-part);  background: var(--st-part-bg); }
+  .p-block { color: var(--st-block); background: var(--st-block-bg); }
+  .p-idle  { color: var(--st-idle);  background: var(--st-idle-bg); }
+
+  /* ---------- decisions ---------- */
+
+  .decisions { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--rule); background: var(--surface); }
+  .decision { display: flex; flex-direction: column; gap: .3rem; padding: .9rem 1.25rem; border-top: 1px solid var(--rule); }
+  .decision:first-child { border-top: 0; }
+  .decision-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; }
+  .decision-q { font-weight: 600; font-size: .94rem; }
+  .decision-by {
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .decision p { margin: 0; font-size: .89rem; color: var(--ink-2); }
+
+  footer {
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 1.25rem;
+    font-size: .86rem;
+    color: var(--ink-3);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  footer code { font-family: var(--mono); font-size: .85em; }
+  footer strong { color: var(--ink-2); font-weight: 600; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 34rem) {
+    .phase-head, .meter-row, .task { grid-template-columns: 2.2rem 1fr; }
+    .phase-count { grid-column: 2; }
+    .meter, .meter-row .meter { grid-column: 2; }
+    .task { grid-template-columns: 2.2rem 1.15rem 1fr; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Build status</div>
+    <h1>University Endowment Investing Explorer</h1>
+    <p class="standfirst">
+      A free, public site showing how Yale, Harvard, Stanford, MIT and Princeton actually
+      invested over 25 years, what a buy-it-yourself ETF version of each mix would look like,
+      and how that compares with simply holding an index fund. Education, not financial advice.
+    </p>
+    <div class="provenance">
+      <span>Rendered from TASKS.md</span>
+      <span>30 July 2026</span>
+      <span>Phase 1 of 6 &middot; data foundation</span>
+    </div>
+  </header>
+
+  <div class="tiles">
+    <div class="tile">
+      <div class="tile-label">Tasks complete</div>
+      <div class="tile-value">9<span class="of">&thinsp;/&thinsp;25</span></div>
+      <div class="tile-note">Phase 0 done, Phase 1 four of seven</div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Schools curated</div>
+      <div class="tile-value">1<span class="of">&thinsp;/&thinsp;5</span></div>
+      <div class="tile-note">Yale complete, Harvard part-way</div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Cited data points</div>
+      <div class="tile-value">377</div>
+      <div class="tile-note">Across 33 source documents</div>
+    </div>
+    <div class="tile">
+      <div class="tile-label">Waiting on you</div>
+      <div class="tile-value attn">3</div>
+      <div class="tile-note">A toggle, a review gate, a signature</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>Waiting on you</h2>
+    <p class="lede">
+      None of these can be done by a build session — a dashboard setting, a judgement about
+      what version one means, and a constitutional signature are all reserved to you.
+    </p>
+
+    <div class="action">
+      <div class="action-idx">6.4</div>
+      <div class="action-body">
+        <div class="action-title">Turn off Vercel Deployment Protection<span class="ref">Settings &rarr; Deployment Protection</span></div>
+        <p>
+          The production URL currently answers every logged-out visitor with a redirect to a
+          Vercel login, and sends <code>x-robots-tag: noindex</code>. Nobody outside the team can
+          see the site, which contradicts the &ldquo;free, public, no-login&rdquo; requirement.
+          Set Vercel Authentication to <strong>Disabled</strong> for Production. Verified still
+          gated as of this render.
+        </p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-idx">K</div>
+      <div class="action-body">
+        <div class="action-title">Sign the Conduct kernel; approve the pilot<span class="ref">conduct/ADOPTION.md &middot; conduct/briefs/1.6/</span></div>
+        <p>
+          The Conduct framework (escalation chain + conductor) is built, its golden replay
+          passed 4/4, and a cold-start conductor produced the three curation briefs for
+          Stanford, MIT and Princeton. Adopting the kernel &mdash; including its birth &mdash;
+          is reserved to you, as is launching the ~670k-token pilot. Three pre-flight
+          questions ride along: fold Harvard&rsquo;s remaining returns into the pilot, fix the
+          citation-split schema first or defer, and adopt the parallel-session rule.
+        </p>
+      </div>
+    </div>
+
+    <div class="action">
+      <div class="action-idx">A</div>
+      <div class="action-body">
+        <div class="action-title">Checkpoint A &mdash; two scope questions<span class="ref">before any UI is built</span></div>
+        <p>
+          The plan asks for allocation charts spanning FY2000&ndash;FY2025, but no school
+          publishes that far. <strong>Yale</strong> stopped disclosing its allocation mix after
+          FY2020. <strong>Harvard&rsquo;s</strong> pre-2017 figures are published <em>targets</em>
+          (its policy portfolio), not what it actually held. Both are curated and labelled as
+          such. Bless that reading of &ldquo;version one&rdquo; or override it &mdash; the data is
+          curated to each school&rsquo;s real disclosure limit either way, so nothing is wasted.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Where the build is</h2>
+
+    <div class="key">
+      <span class="key-item"><span class="glyph g-done">&#10003;</span> done</span>
+      <span class="key-item"><span class="glyph g-part">&#9686;</span> part-way</span>
+      <span class="key-item"><span class="glyph g-block">&#9650;</span> needs you</span>
+      <span class="key-item"><span class="glyph g-idle">&#9675;</span> not started</span>
+    </div>
+
+    <div class="register">
+
+      <!-- Phase 0 -->
+      <div class="phase" style="--stripe: var(--st-done)">
+        <div class="phase-head">
+          <div class="phase-num">00</div>
+          <div class="phase-name">Plumbing</div>
+          <div class="phase-count">5 / 5</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
+        <ul class="tasks">
+          <li class="task is-done"><span class="task-id">0.1&ndash;0.5</span><span class="glyph g-done">&#10003;</span><span class="task-text">Git repo, Next.js app, Vercel deploy, Neon Postgres and migration tooling &mdash; all wired and auto-deploying on push</span></li>
+        </ul>
+      </div>
+
+      <!-- Phase 1 -->
+      <div class="phase" style="--stripe: var(--st-part)">
+        <div class="phase-head">
+          <div class="phase-num">01</div>
+          <div class="phase-name">Data foundation <span class="qual">&mdash; current</span></div>
+          <div class="phase-count">4 / 7</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:57%"></div></div></div>
+        <ul class="tasks">
+          <li class="task is-done"><span class="task-id">1.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Database schema and seed-file format designed</span></li>
+          <li class="task is-done"><span class="task-id">1.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Seed script with validation &mdash; a number without a citation is rejected outright</span>
+            <span class="task-note">Later hardened after a code review: writing is now opt-in, the write is one transaction, and 27 validator rules are regression-tested.</span>
+          </li>
+          <li class="task is-done"><span class="task-id">1.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Yale curated &mdash; 25 years of allocations and returns from the annual reports</span></li>
+          <li class="task is-done"><span class="task-id">1.4</span><span class="glyph g-done">&#10003;</span><span class="task-text">Benchmark series curated &mdash; what the S&amp;P 500, bonds, international equity, REITs and cash actually returned each fiscal year</span></li>
+          <li class="task is-part"><span class="task-id">1.5</span><span class="glyph g-part">&#9686;</span><span class="task-text">Harvard &mdash; allocations complete, returns part-way</span>
+            <span class="task-note">Eight years of returns still missing (FY2000&ndash;FY2006 and FY2010). Harvard&rsquo;s older reports carry no multi-year table, so each year needs its own archived document.</span>
+          </li>
+          <li class="task"><span class="task-id">1.6</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Curate Stanford, MIT and Princeton</span></li>
+          <li class="task"><span class="task-id">1.7</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Choose the ETF standing in for each asset class, and say plainly where the stand-in is weak</span>
+            <span class="task-note">Also settles the three benchmark series deliberately left empty: no freely-citable, investable hedge-fund or private-equity series reaches back to FY2000.</span>
+          </li>
+        </ul>
+        <div class="gate">
+          <span class="gate-tag">Gate &middot; Checkpoint A</span>
+          <span>You review the schema and data quality before any interface is built on top of it.</span>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase" style="--stripe: var(--st-idle)">
+        <div class="phase-head">
+          <div class="phase-num">02</div>
+          <div class="phase-name">App skeleton</div>
+          <div class="phase-count">0 / 2</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <ul class="tasks">
+          <li class="task"><span class="task-id">2.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Site shell &mdash; navigation, footer, disclaimer, works on a phone</span></li>
+          <li class="task"><span class="task-id">2.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Typed functions to read the curated data back out of the database</span></li>
+        </ul>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase" style="--stripe: var(--st-idle)">
+        <div class="phase-head">
+          <div class="phase-num">03</div>
+          <div class="phase-name">History Explorer</div>
+          <div class="phase-count">0 / 3</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <ul class="tasks">
+          <li class="task"><span class="task-id">3.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">A page per school &mdash; plain-English story, headline figures</span></li>
+          <li class="task"><span class="task-id">3.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">How each school&rsquo;s mix shifted over time, with the end of disclosure marked on the chart itself</span></li>
+          <li class="task"><span class="task-id">3.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Annual returns, with an S&amp;P 500 overlay</span></li>
+        </ul>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="phase" style="--stripe: var(--st-idle)">
+        <div class="phase-head">
+          <div class="phase-num">04</div>
+          <div class="phase-name">The Translator <span class="qual">&mdash; the point of the site</span></div>
+          <div class="phase-count">0 / 3</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <ul class="tasks">
+          <li class="task"><span class="task-id">4.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Backtest engine &mdash; given a school&rsquo;s mix, what the ETF copycat would have returned</span>
+            <span class="task-note">The most correctness-critical code in the project. Expected values are computed by hand, not by the code under test.</span>
+          </li>
+          <li class="task"><span class="task-id">4.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Endowment mix beside the buy-it-yourself version, with fine print on what a copycat cannot replicate</span></li>
+          <li class="task"><span class="task-id">4.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Growth of $10,000 &mdash; copycat against what the school actually did</span></li>
+        </ul>
+      </div>
+
+      <!-- Phase 5 -->
+      <div class="phase" style="--stripe: var(--st-idle)">
+        <div class="phase-head">
+          <div class="phase-num">05</div>
+          <div class="phase-name">Comparisons</div>
+          <div class="phase-count">0 / 1</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <ul class="tasks">
+          <li class="task"><span class="task-id">5.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Endowment against copycat against the S&amp;P 500 against a 60/40 split, head to head</span></li>
+        </ul>
+      </div>
+
+      <!-- Phase 6 -->
+      <div class="phase" style="--stripe: var(--st-block)">
+        <div class="phase-head">
+          <div class="phase-num">06</div>
+          <div class="phase-name">Polish and ship</div>
+          <div class="phase-count">0 / 4</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <ul class="tasks">
+          <li class="task"><span class="task-id">6.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Methodology page &mdash; every source listed, every gap explained in plain English</span></li>
+          <li class="task"><span class="task-id">6.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Disclaimer and plain-English pass over all copy</span></li>
+          <li class="task"><span class="task-id">6.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Production checks &mdash; speed, accessibility, phone walkthrough, real page title</span></li>
+          <li class="task is-part"><span class="task-id">6.4</span><span class="glyph g-block">&#9650;</span><span class="task-text">Turn off Deployment Protection so the site is actually reachable</span>
+            <span class="task-note">Yours &mdash; a dashboard setting a build session is not permitted to change.</span>
+          </li>
+        </ul>
+        <div class="gate">
+          <span class="gate-tag">Gate &middot; Checkpoint B</span>
+          <span>Final review against the definition of done.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>What is actually in the database</h2>
+    <p class="lede">
+      Every figure below is loaded from hand-curated files and carries a citation to a specific
+      document and page. Gaps are real gaps &mdash; nothing is estimated, interpolated, or carried
+      forward from a neighbouring year to make a series look complete.
+    </p>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Source</th>
+            <th scope="col">Allocation rows</th>
+            <th scope="col">Years covered</th>
+            <th scope="col">Return rows</th>
+            <th scope="col">Years covered</th>
+            <th scope="col">State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-name">Yale</td>
+            <td class="num">126</td>
+            <td class="span">FY2000&ndash;FY2020</td>
+            <td class="num">26</td>
+            <td class="span">FY2000&ndash;FY2025</td>
+            <td><span class="pill p-done">&#10003; complete</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">Harvard</td>
+            <td class="num">77</td>
+            <td class="span">FY2005&ndash;FY2025</td>
+            <td class="num">18</td>
+            <td class="span">FY2007&ndash;FY2025, gaps</td>
+            <td><span class="pill p-part">&#9686; part-way</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">Stanford</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td><span class="pill p-idle">&#9675; task 1.6</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">MIT</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td><span class="pill p-idle">&#9675; task 1.6</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">Princeton</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td><span class="pill p-idle">&#9675; task 1.6</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">Benchmark series</td>
+            <td class="num">130</td>
+            <td class="span">5 of 8 series</td>
+            <td class="num">&mdash;</td>
+            <td class="span">FY2000&ndash;FY2025</td>
+            <td><span class="pill p-part">&#9686; 3 deferred</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">ETF stand-ins</td>
+            <td class="num">0</td>
+            <td class="span">&mdash;</td>
+            <td class="num">&mdash;</td>
+            <td class="span">&mdash;</td>
+            <td><span class="pill p-idle">&#9675; task 1.7</span></td>
+          </tr>
+          <tr>
+            <td class="row-name">Source documents</td>
+            <td class="num">33</td>
+            <td class="span">annual reports, letters, index data</td>
+            <td class="num">&mdash;</td>
+            <td class="span">&mdash;</td>
+            <td><span class="pill p-done">&#10003; all resolve</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Judgement calls made along the way</h2>
+    <p class="lede">
+      Five questions were too consequential to answer casually and too specific to guess at.
+      Each was escalated to a stronger model for an independent answer, and each is recorded in
+      full &mdash; the question, the options, both recommendations, and what would justify
+      revisiting it.
+    </p>
+    <div class="decisions">
+      <div class="decision">
+        <div class="decision-head">
+          <span class="decision-q">Yale stopped publishing its mix after FY2020. Fill the gap or leave it?</span>
+          <span class="decision-by">Leave it</span>
+        </div>
+        <p>
+          Percentages could have been derived from Yale&rsquo;s financial statements, but that
+          table excludes cash and directly-held bonds &mdash; so the derived mix would have handed
+          a reader a &ldquo;Yale portfolio&rdquo; with almost no bonds, for a school that holds
+          roughly 30% in them. A footnote cannot repair a number that points the wrong way.
+        </p>
+      </div>
+      <div class="decision">
+        <div class="decision-head">
+          <span class="decision-q">Harvard reports one combined equity line where the schema splits US from international.</span>
+          <span class="decision-by">Store it as published</span>
+        </div>
+        <p>
+          Added one coarser category rather than splitting Harvard&rsquo;s figure with a guessed
+          ratio, or merging the categories for everyone. Merging would have left no honest
+          benchmark before 2009, when no cheap global equity fund yet existed &mdash; degrading
+          Yale&rsquo;s good data to accommodate Harvard&rsquo;s coarser reporting.
+        </p>
+      </div>
+      <div class="decision">
+        <div class="decision-head">
+          <span class="decision-q">Six Harvard tables carry no date. Which fiscal year do they belong to?</span>
+          <span class="decision-by">Settled with evidence</span>
+        </div>
+        <p>
+          Rather than ruling on it, each undated table was reconciled against Harvard&rsquo;s
+          audited statements. FY2021 was decisive on its own: the 34% private-equity figure did
+          not exist at the start of that year and did at the end. Guessing by publication year
+          would have shifted six years of the series by one, invisibly.
+        </p>
+      </div>
+      <div class="decision">
+        <div class="decision-head">
+          <span class="decision-q">Yale reports a negative cash weight in some years. Is that a typo to clean up?</span>
+          <span class="decision-by">Real, so keep it</span>
+        </div>
+        <p>
+          It is genuine borrowing &mdash; the portfolio was leveraged. Clamping it to zero or
+          folding it into another category would misstate both. The validator now accepts
+          negatives, warns on every one, and requires the school&rsquo;s own wording for the line.
+        </p>
+      </div>
+      <div class="decision">
+        <div class="decision-head">
+          <span class="decision-q">Two hedge-fund and private-equity benchmark series have no honest source.</span>
+          <span class="decision-by">Left empty on purpose</span>
+        </div>
+        <p>
+          No freely-citable, actually-investable series reaches back to FY2000. Since these two
+          categories are about half of Yale&rsquo;s portfolio every year, this decides how much of
+          the copycat comparison can honestly be shown at all &mdash; so it is bundled into the
+          ETF choice in task 1.7 rather than filled with a plausible-looking substitute.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <strong>TASKS.md is the source of truth.</strong> This page is rendered from it. If the two
+      ever disagree, the checklist is right and this page is stale &mdash; it is regenerated as
+      work lands, never edited by hand into disagreement.
+    </div>
+    <div>
+      Counts verified directly against the seed files and the live database at render time:
+      <code>9/25</code> tasks, <code>377</code> cited data points, <code>27/27</code> validator
+      checks passing. Not financial advice.
+    </div>
+  </footer>
+
+</div>

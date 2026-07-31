@@ -1,3 +1,11 @@
+| `sources.json` | 95 citations across all five schools + benchmarks. Grows with each curation task. |
+| `schools/yale.json` | 126 allocation rows (FY2000–FY2020, actual) + 26 return/market-value rows (FY2000–FY2025). |
+| `schools/harvard.json` | 77 allocation rows (FY2005–FY2016 target, FY2017–FY2025 actual; FY2018/FY2022 never published) + 26 return/market-value rows (FY2000–FY2025, complete). |
+| `schools/stanford.json` | 26 market-value rows (FY2000–FY2025, Aug-31 fiscal year). No allocations or returns — Merged Pool gap, see the Stanford section. |
+| `schools/mit.json` | 42 allocation rows (FY2001/03/04 Pool A actual; FY2008 target; FY2013–15 actual) + 26 return/market-value rows (FY2000–FY2025, complete). |
+| `schools/princeton.json` | 104 allocation rows (FY2005–FY2018, FY2020–FY2023, actual) + 24 return/market-value rows (FY2001–FY2025 with FY2000/FY2003 gaps). |
+| `benchmark_returns.json` | 130 rows: 5 of 8 series complete FY2000–FY2025; `hedge_fund_index`/`public_pe_index`/`global_equity` deliberately empty — task 1.7. |
+| `proxy_mappings.json` | Empty template — task 1.7. |
 # Data — Seed Files (Source of Truth)
 
 Everything in this folder is hand-curated and versioned in git. It is the **source of truth** for the app — `npm run seed` (task 1.2) reads these files and loads them into Neon. Never edit the database directly; edit these files and re-seed.
@@ -16,7 +24,7 @@ Everything in this folder is hand-curated and versioned in git. It is the **sour
 
 ## Fiscal years
 
-Every school's fiscal year ends **June 30**. `fiscalYear` is always **the year the fiscal year ends** — FY2025 means July 2024–June 2025. All benchmark series are aligned to the same July–June year, not calendar years, so a school's return and its benchmark comparison for "FY2025" cover the identical 12 months.
+Four of the five schools' fiscal years end **June 30**. **Stanford's ends August 31** — its endowment market values are as of that date, ~2 months offset from the July–June year every other series uses (Stanford's investment *returns* are reported as of June 30, but none are curated — see the Stanford section). The offset is disclosed at the point of display (tasks 3.2/6.1); Stanford rows are labelled with Stanford's own fiscal-year naming (`fiscalYear` 2025 = Sep 2024–Aug 2025). For the other four schools: `fiscalYear` is always **the year the fiscal year ends** — FY2025 means July 2024–June 2025. All benchmark series are aligned to the same July–June year, not calendar years, so a school's return and its benchmark comparison for "FY2025" cover the identical 12 months.
 
 ## Allocation categories (normalized)
 
@@ -112,6 +120,355 @@ FY2021 settles it alone: 34% private equity **did not exist** at July 1 2020 (23
 **The audited NAV figures are dating evidence, never data.** No percentage is derived from them — that derivation is rejected elsewhere in this file for good reason. This is the same evidentiary move as Yale's overlap-verified category merges.
 
 **Rounding:** FY2019, FY2024 and FY2025 sum to 101% in HMC's own tables. Stored as published; nothing nudged. They sit exactly at the validator's ±1.0pp boundary and pass.
+
+### Stanford label mapping (task 1.6)
+
+**No allocation rows are curated for Stanford. This is a deliberate, documented gap, not an oversight — see the Merged Pool finding below, which is why there is no label-mapping table here the way there is for Yale and Harvard.**
+
+#### The Merged Pool is not the Endowment (why allocations and returns are both empty)
+
+Stanford's own investment office, Stanford Management Company (SMC), does not manage or report on "the Endowment" as a standalone portfolio. Every percentage SMC publishes — its asset-allocation table and its annualized-return table — describes **the Merged Pool**, a larger, structurally distinct commingled investment vehicle. Stanford's own words, quoted verbatim from its annual investment-report brochures (e.g. the 2016 report, page 5): *"MERGED POOL COMPOSITION (as of August 31, 2016) — Hospitals 8%, Endowment 73%, Non-Endowment 19%."* The Endowment is the largest single participant in the Merged Pool, but never all of it: across the seven years checked (FY2016–FY2022) the Endowment's share of the Merged Pool ranges from 73–75%, with the remainder held by Stanford Health Care / Stanford Medicine Children's Health ("Hospitals") and by "Non-Endowment" funds (expendable funds, donor-advised funds, life-income gifts, pending funds).
+
+This is the same class of error the Yale NAV-subtotal derivation was rejected for (see the coverage rule above) — using Merged Pool data to describe "Stanford's endowment" would silently substitute one measurement universe for another — except here the mismatch is larger (Merged Pool includes ~25% non-endowment money, versus Yale's ~7.5% NAV exclusion) and it touches **both allocations and returns**, not just allocations:
+
+- **Allocations.** SMC has never published an Endowment-specific allocation table in any document found. Every allocation table located (SMC investment reports 2016–2022, all archived) is headed "MERGED POOL POLICY ASSET ALLOCATION" and is explicitly a **target** ("Policy Asset Allocation... exposure targets"), never an actual holding. No table for any year describes the Endowment's own composition.
+- **Returns.** SMC's "Trailing Annualized Returns" table is headed "Stanford's Merged Pool" in every year checked; no Endowment-specific percentage return is ever published. This is not a labeling nicety: the Endowment's own audited investment experience genuinely differs from the Merged Pool's reported return, because (a) part of the Endowment (~12–15% in FY2016–2019 per Stanford's audited financial statements) is invested directly in real estate on Stanford's lands, **outside the Merged Pool entirely**, and (b) the Endowment's cash-flow timing (gifts in, payout distributions out) differs from the Merged Pool's blended flows from Hospitals and Non-Endowment funds. Quantitative check: Stanford's audited FY2024 Consolidated Financial Statements report the University endowment's "Total investment returns, net" as $2,020,189 thousand against a beginning balance of $36,494,893 thousand — a simple-return-equivalent of roughly 5.5%, materially below the Merged Pool's own reported FY2024 return of **8.4%** (Chief Investment Officer, Oct 2024, citing SMC). A ~2.9 percentage-point gap in one year is not rounding noise; it confirms the two series are genuinely different performance experiences, not merely differently labeled.
+- **Market values are the one figure Stanford discloses for the Endowment itself**, distinctly from the Merged Pool, in its audited Consolidated Financial Statements (the "Endowments" note, "University endowment" line) — but at a **different as-of date** than the Merged Pool figure and than every other school in this project (see the as-of dating subsection below).
+
+Per this task's domain-risk guidance (percentages that exist only for a pool that isn't the endowment are a stop-and-report condition, not a judgment call for the curating session to resolve unilaterally), this session did not curate Stanford allocations or returns from Merged Pool data, and did not derive an Endowment return from the audited dollar figures (that would repeat the NAV-derivation error this project has already rejected once). **This is flagged for the conductor/human as the primary finding of this unit** — see the curation report for the options considered. What Stanford **does** publish, on a clean single-entity basis with no measurement-universe mixing, is the Endowment's own year-end market value, and that is what is curated here.
+
+#### Coverage
+
+| Fiscal years | State | Why |
+|---|---|---|
+| FY2000–FY2025 | **no allocation** | SMC publishes only Merged Pool policy targets (see above); no Endowment-specific allocation table exists in any year checked. |
+| FY2000–FY2025 | **no return** | SMC publishes only the Merged Pool's percentage return; no Endowment-specific percentage return exists, and deriving one from audited dollar figures would repeat the NAV-derivation error this project already rejects (see the coverage rule above). Quantitatively confirmed to differ from the Merged Pool return by ~2.9pp in FY2024 (see above) — not a labeling-only gap. |
+| FY2000–FY2025 | **market value: full coverage** | Stanford's audited Consolidated Financial Statements report the "University endowment" year-end balance every year, distinctly from the Merged Pool, from 13 financial-report documents (some giving two years each, several confirmed by overlapping reports to the dollar). |
+
+Every `endowmentReturns` row for Stanford therefore carries `marketValueUsdMillions` + `marketValueSourceId` only; `returnPct`/`returnSourceId` are absent for all 26 years. This is a valid row shape per the schema (a row needs at least one of the two figures) and is the honest representation of what Stanford discloses about the Endowment specifically, as opposed to the Merged Pool.
+
+#### Stanford as-of dating (fiscal-year-end offset, not table dating)
+
+No allocation table was curated, so there is no undated-table question of the kind Harvard's dating section resolves. There is a related but distinct wrinkle worth recording: **Stanford's own fiscal year ends August 31**, not June 30 like the other four schools in this project. Stanford's press releases state this explicitly: *"Stanford University reported returns on its investment portfolio as of June 30, 2025, and the value of its endowment as of the close of its fiscal year, August 31, 2025."* The Merged Pool's return and market value are reported as of June 30 (aligning with this project's July–June fiscal-year convention), but the **Endowment's own market value is reported as of August 31** — about two months later than every other figure in this project labeled with the same fiscal year. The `marketValueUsdMillions` figures curated here for "FY2000"–"FY2025" are Stanford's own August 31 fiscal-year-end values for that label (e.g. "FY2025" = August 31, 2025), not June-30 values. This offset is small relative to typical year-over-year moves but is a real, if minor, basis wrinkle worth surfacing wherever Stanford's market-value series is displayed next to the other four schools' June-30 figures (carried forward to tasks 3.2/6.1, alongside the coverage-end and target/actual display obligations already established for Yale and Harvard).
+
+#### Stanford upgrade path and record corrections (QC + pool-basis ruling)
+
+**Upgrade path (binding rule, from the pool-basis ruling):** Stanford's
+allocation/return gap is re-openable without relitigation if primary evidence
+establishes **≥95% of the endowment's investments held through the Merged
+Pool** (endowment-in-pool — the pool's *composition* percentages are the wrong
+ratio) with a non-concentrated residual for named years, or if an
+endowment-specific percentage table surfaces. The named place to look:
+**Stanford's responses to the 2008 Senate Finance and 2016 congressional
+endowment inquiries** — MIT's responses to the same inquiries contained
+exactly such tables.
+
+**Two corrections from QC, so no future session inherits them:** (1) the
+pre-2016 "Report from SMC" editions (FY2000–FY2012) *label* their tables
+"Endowment Asset Allocation"/"Nominal Endowment Return", but each document's
+own text states the universe is the Merged (Endowment) Pool — the headline
+label is not the universe, and in FY2000 the pool was ~97% endowment *by pool
+composition*, which is the wrong ratio for admissibility. (2) The Endowments
+note layout differs by era: in modern reports (e.g. FY2024) "TOTAL ENDOWMENT
+FUNDS" is a combined University+Hospitals line sitting *below* the "University
+endowment" line; in older reports (e.g. FY2012) the same words inside the
+University's note *are* the University-only figure, with Hospitals in a
+separate note. Anyone re-deriving the series must identify the line by its
+context, not its label. FY2008–FY2012 values are whole-million precision as
+their cited table prints them.
+
+### MIT label mapping (task 1.6)
+
+MIT is the project's hardest discloser, and the reason is a stated change in how MIT invests, not merely in what it prints. MITIMCo's own 10-Year Letter (February 2017) says it: "Ten years ago, our process started with a top-down assessment of asset class risk and return characteristics and the establishment of asset class target allocations... In 2011, we formalized our shift in thinking and adopted a new manager-centric capital allocation framework." A school that has stopped managing to asset-class targets has stopped producing the table this project wants, and MIT has published none since.
+
+MIT has never published an asset-allocation percentage table in its **Report of the Treasurer** — not in any of the 20 editions examined (FY2006–FY2025). The two MIT documents that do print endowment allocation percentages are both **answers to congressional inquiries**, eight years apart:
+
+| MIT's published label | Years used | → category |
+|---|---|---|
+| Domestic Equity | FY2008 (target) | `us_public_equity` |
+| U.S. Public Equity | FY2013–FY2015 (actual) | `us_public_equity` |
+| International Equity **+** Emerging Markets Equity | FY2008 (target) | `intl_public_equity` (merged) |
+| International Public Equity | FY2013–FY2015 (actual) | `intl_public_equity` |
+| Fixed Income | FY2008 (target) | `fixed_income_cash` |
+| Fixed Income **+** Cash | FY2013–FY2015 (actual) | `fixed_income_cash` (merged) |
+| Marketable Alternatives | both | `absolute_return` |
+| Private Equity | both | `private_equity_vc` |
+| Real Assets **+** Real Estate | both | `real_assets` (merged) |
+
+Three merges, all forced by our 7-category set rather than chosen, and all inside a risk class:
+
+- **International + Emerging Markets** — `intl_public_equity` is defined in this file as developed + emerging combined, so MIT's FY2008 split collapses into it (the same treatment Yale's Foreign Equity gets). MIT's FY2013–FY2015 label is already a single "International Public Equity" line.
+- **Fixed Income + Cash** — the Yale precedent exactly; MIT's own FY2008 disclosure prints one combined "Fixed Income" line, which is what the merged FY2013–FY2015 figure reproduces.
+- **Real Estate + Real Assets** — one `real_assets` bucket exists, so MIT's two lines sum into it (Yale's Natural Resources + Real Estate precedent). MIT defines its Real Assets line as "commodity-related assets located primarily in North America" and its Real Estate line as "office, retail, multifamily, land, and industrial assets in and around major global cities" — both inside the category's stated scope ("Real estate, natural resources, timber, commodities").
+
+MIT's own definitions confirm the two riskiest mappings: **Private Equity** is "leveraged buyouts, growth equity, and venture capital" (so `private_equity_vc`, not split), and **Marketable Alternatives** is "credit long-short, equity long-short, distressed, various arbitrage, and other related strategies" (so `absolute_return`).
+
+**Coverage — 4 allocation years out of 26, and the 22 gaps are documented year by year:**
+
+| Fiscal year | State | Why — and the specific document(s) examined for that year |
+|---|---|---|
+| FY2000 | **no allocation** | MIT Faculty Newsletter Sept/Oct 2004 (Bufferd) Table II prints columns 1994 / 1999 / 2001 / 2003 / 2004 and skips 2000; MIT's 2008 Senate Finance response prints an allocation table for FY2008 only. No Report of the Treasurer for FY2000 is served by vpf.mit.edu (HTTP 404) or captured in the Internet Archive. |
+| FY2001 | **no allocation** | A percentage table for this year *does* exist — Bufferd Table II, 2001 column — but it is labelled "**Pool A** Asset Allocation", not the endowment. Referred up as a measurement-universe question (tripwire 6); see "MIT's Pool A tables" below. |
+| FY2002 | **no allocation** | Not printed: Bufferd Table II skips 2002. No FY2002 Treasurer's Report retrievable (as FY2000). |
+| FY2003 | **no allocation** | Pool A figures exist (Bufferd Table II 2003 column; Bufferd Figure 2, "MIT Pool A ... as of June 30, 2003") — Pool A, not the endowment. Tripwire 6, see below. |
+| FY2004 | **no allocation** | Pool A figures exist, and both bases: Bufferd Figure 1 ("Pool A Asset Allocation on June 30, 2004"), Table II 2004 column, and Table III ("Fiscal 2004 Pool A Target Allocation and Acceptable Ranges"). Tripwire 6, see below. |
+| FY2005 | **no allocation** | Bufferd (2004) predates it; the 2008 Senate response prints FY2008 only; Report of the Treasurer 2006, which carries FY2005 comparatives, prints no allocation table — only the aggregate sentence quoted below. |
+| FY2006 | **no allocation** | Report of the Treasurer 2006 examined in full. It quantifies allocation only as coarse aggregates over three different denominators: "Equity and real estate investments at market value were **86.7 percent of the general investments** at June 30, 2006", and "alternative investment, marketable and non-marketable, plus real estate assets, represented slightly more than **56 percent of the assets in Pool A**, and **51 percent of total investments**." None of the three is the endowment, and each spans several of our categories. Splitting them would be inventing data (Article 5). |
+| FY2007 | **no allocation** | Report of the Treasurer 2007 examined: no allocation table, and not even the aggregate sentence. The 2008 Senate response's Table 6C is the FY2008 target, not FY2007. |
+| **FY2008** | **target** | MIT's 2008 Senate Finance response, Table 6C, headed "**2008 Target Allocations for Endowment**". |
+| FY2009 | **no allocation** | Report of the Treasurer 2009 examined: aggregate sentence only ("real estate investments at market value were 84.5 percent..."). |
+| FY2010 | **no allocation** | Report of the Treasurer 2010 examined: aggregate sentence only (83.7 percent). |
+| FY2011 | **no allocation** | Report of the Treasurer 2011 examined: aggregate sentence only ("Equity, marketable alternatives, and real estate investments at market value were 81.1 percent of investments as of June 30, 2011, as compared to 83.7 percent at June 30, 2010"). **This is the last MIT annual report to quantify allocation in any form.** |
+| FY2012 | **no allocation** | Report of the Treasurer 2012 examined: the aggregate sentence is gone; the investment-policy paragraph is purely qualitative ("favors equity investments over fixed income instruments and is heavily weighted towards less efficient markets"). |
+| **FY2013–FY2015** | **actual** | MIT's 2016 congressional response, Table 1.2, headed "**Endowment Asset Allocation**" with the column heading "Asset Allocation as a Percentage of the Endowment" and columns 2015 / 2014 / 2013. |
+| FY2016–FY2025 | **no allocation** | Ten Reports of the Treasurer (2016–2025) each examined: investments appear only at fair value **in dollars** (Note B, Table 5/6). MIT News's annual "financials and endowment figures" release examined for each year: return and endowment value, no percentages. mitimco.org (live, plus Internet Archive captures back to the 2006 mitimco.mit.edu site) publishes no allocation figures at all. MITIMCo's 10-Year Letter (2017), 15-Year Letter (2022), 2013 and 2025 brochures and ESG Framework examined: no allocation table. MITIMCo's own explanation for the absence is quoted at the top of this section. |
+
+#### MIT as-of dating (why these years and not others)
+
+One of the two allocation tables is explicitly dated and one is not, so the second needed evidence.
+
+- **2008 Senate response, Table 6C** — explicit in its own sentence: "the allocation targets for investments in each asset class **for the fiscal (academic) year ending June 30, 2008**". Curated as FY2008, `basis: "target"`. MIT prints its own caveat beneath the table — "Actual investment in the above asset classes may vary from the target allocations at any given point in time" — which is exactly what the `basis` field records.
+- **2016 congressional response, Table 1.2** — columns headed only `2015 2014 2013`, with no "as of June 30" wording anywhere in the document. Assigned to **fiscal-year end** by reconciling against MIT's own endowment values printed in Tables 2.1 and 3.1 of the *same document* under the *same year labels*: $13,474.7M / $12,425.1M / $10,858.0M. Those three figures equal, to the $0.1M, the June 30 endowment values in MIT's Reports of the Treasurer for FY2015 / FY2014 / FY2013. A start-of-year reading would put the 2015 column against MIT's June 30 2014 value of $12,425.1M, which the document itself labels 2014. This is the same evidentiary move as the Harvard dating decision, applied within one document rather than across two.
+
+**MIT's Pool A tables — a real percentage table this project did not curate (tripwire 6, referred up).** The MIT Faculty Newsletter of September/October 2004 carries "The Management of the MIT Endowment" by **Allan S. Bufferd, then MIT's Treasurer**, and it prints three allocation tables: Figure 1 (a pie for June 30 2004), Table II (a five-column actual series: 2004 / 2003 / 2001 / 1999 / 1994, every column summing to exactly 100.0), and Table III (an FY2004 target allocation with acceptable ranges). The figures are internally cross-validated — Figure 1's finer lines sum to Table II's 2004 column in every category (Fixed Income 6.8 + Cash 2.3 = 9.1; Cambridge Real Estate 7.9 + R.E. Pools 2.2 = 10.1; Private Capital 7.7 + Int'l Private Capital 3.6 + Venture Capital 7.0 = 18.3 against 18.4) — so this is not a transcription risk. **They are not curated because every one of them is labelled "Pool A", and MIT states in the same article that "Pool A is neither the complete Endowment nor is it comprised only of Endowment assets"** — a measurement-universe question that tripwire 6 reserves rather than lets a worker settle. The relevant magnitudes, from MIT's own reports: at June 30 2006 the endowment was $8,368.1M of which $8,232.0M (98.4%) sat in Pool A, while Pool A totalled $8,550.1M; at June 30 2011 Pool A was $10,041.1M including $754.5M of operating and life-income funds. FY2004 also carries a second unsettled question — an actual *and* a target table for the same year, which the database's unique key on (school, fiscal year, category) cannot both hold. Three in-window years (FY2001, FY2003, FY2004) turn on the answer; the rows are transcribed and ready in the task-1.6 build-log entry.
+
+**Why no percentage was derived from MIT's dollar tables — and why the case is even stronger here than for Yale.** MIT's audited Note B "Investments" table is rich (Cash and short-term, US Treasury, US government agency, Domestic bonds, Foreign bonds, Common equity domestic/foreign, Equity: absolute return / domestic / foreign / private, Real estate, Real assets, Split-interest agreements, Other, Derivatives) and would yield a complete FY2006–FY2025 series in about ten minutes. It is rejected for the reason already settled in this file, plus one MIT-specific reason: **the table's universe is all of MIT's investments, not the endowment.** At June 30 2025 it totals $35,790.3M against an endowment of $27,366.2M — MIT's own 2016 congressional response itemises the difference (Pool C, bond proceeds, life income funds). A percentage derived from it would not be a percentage of MIT's endowment at all, so no caveat could repair it. The circulating third-party figures have the same defect: top1000funds.com publishes a June 30 2025 MIT allocation (Equities 67 / Marketable Alternatives 14 / Fixed Income 8 / Real Estate 6 / Cash 4 / Real Assets 1) sourced only to "the most recent annual report or other publicly available data", and it does not reproduce from MIT's audited table under any normalisation tested (that table gives equities 57.7%, absolute return 15.9%, real estate 12.3%, fixed income 12.3%, cash 0.8% of total investment assets). No number in `data/` comes from it.
+
+**Rounding and sums.** MIT's own FY2013 column sums to **100.2** and FY2015 to **100.1**; FY2014 to 99.9. Stored as published, nothing nudged — all three pass the ±1.0pp validator. No MIT year carries a negative weight.
+
+**Returns and market values run far past the allocations: FY2000–FY2025 complete, 26 of 26 years.** Two structural notes:
+
+- **What the return figure is.** MIT states its annual return as its *pooled investments (Pool A)* return, inside the Endowment section of the Report of the Treasurer ("This year, MIT's pooled investments (Pool A) produced a return of 14.8 percent"), and MIT News says the same in different words ("MIT's unitized pool of endowment and other MIT funds generated an investment return of..."). Because Pool A is unitized, every dollar in it earns that same unit return, and about 98% of the endowment is invested through it (MIT's 2016 congressional response). MIT's two congressional responses label the identical series "Investment Return to the Endowment" (2008) and "Net Investment Return" for "MIT's internal unitized investment pool" (2016). The market values are unambiguously the endowment's: MIT's "investments in endowment funds, **excluding pledges** for endowed purposes". Where MIT News gives a value "including pledges" (FY2012: $10.3 billion), it is not used.
+- **One restatement, handled explicitly.** MIT reclassified certain funds out of the endowment in FY2010 ("certain funds previously classified as endowment have been reclassified to other invested funds"), which restated three years: FY2007 $9,980.4M → $9,943.1M, FY2008 $10,068.8M → $9,947.6M, FY2009 $7,982.0M → $7,880.3M. The **restated** figures are curated, because MIT's own later documents use them uniformly — the FY2011 Five-Year Trend Analysis, the FY2010 report, and the 2016 congressional response all print the restated values, and MIT News's FY2018 release describes the decade as growth "from $7.9 billion to $16.4 billion". FY2000–FY2006 exist only on the pre-reclassification basis, so the single basis break in MIT's market-value series sits at FY2006/FY2007 and is worth about 0.4%.
+
+#### MIT Pool A years (FY2001/FY2003/FY2004) — pool-basis ruling
+
+Three additional MIT allocation years are curated from **Table II of "The
+Management of the MIT Endowment"** (MIT Faculty Newsletter, Sept/Oct 2004, by
+Treasurer Allan S. Bufferd; `mitimco-fnl-bufferd-2004`). The measurement
+universe is MIT's unitized investment **Pool A**, per the article's own words:
+*"Pool A is neither the complete Endowment nor is it comprised only of
+Endowment assets, it is for this discussion a good proxy to discuss the
+management of the Endowment."* Curated under the pool-basis ruling
+(`[PROXY DECISION]` 2026-07-31, TASKS.md): school-as-proxy attestation +
+documented endowment-in-pool coverage ≥95% + no divergence evidence + universe
+disclosed at every layer. The coverage evidence is **era-bracketing, not
+per-year** (the FY2000–FY2005 Reports of the Treasurer are unrecoverable):
+98.4% endowment-in-pool measured at FY2006; non-endowment content of the pool
+~3.7% (FY2006) and ~7.5% (FY2011); MIT's 2008 Senate response titles this same
+era's Pool A return series "Investment Return to the Endowment". The
+independent-fetch gate was satisfied 2026-07-31 (byline, disclaimer, and all
+three in-window Table II columns verified digit-for-digit from a fresh fetch by
+a session other than the curating worker). **Display obligation (tasks
+3.2/6.1):** the FY2001–FY2004 points are pool-basis while FY2008/FY2013–FY2015
+are from endowment-titled congressional tables — annotate the basis break on
+the chart itself, and define "investment pool" in plain English at first use.
+
+**FY2004 target table (preserved here, not in the database):** the same
+article's Table III gives the fiscal-2004 Pool A *target* allocation — Fixed
+Income 10% (range 5–15), Real Assets 5% (0–10), U.S. Equity 21% (16–26),
+International Equity 14% (9–19), Private Equity 20% (15–25), Marketable
+Alternatives 20% (15–25), Real Estate 10% (5–15). Only the *actual* (Table II)
+is stored, because one basis per school-year is the rule and actuals are the
+product's primary question — same treatment as Princeton's targets. A future
+basis-aware schema could store both; the transcription here is what makes that
+flip cost one re-seed.
+
+**MIT market-value basis note:** the stored series is as-first-reported
+through FY2006 and restated from FY2007 onward (MIT's FY2010 reclassification;
+boundary verified at FY2006/FY2007, ~0.4%). No alternative basis exists for
+FY2006 and earlier.
+
+### Princeton label mapping (task 1.6)
+
+Princeton's endowment is managed by the Princeton University Investment Company
+("PRINCO"), a University office. PRINCO's own asset-allocation table is
+published inside Princeton's **Report of the Treasurer** (specifically its
+"Report on Investments" section, authored by PRINCO), not as a standalone,
+periodically-updated web page — so the headline dating risk anticipated for
+this unit (an archive-capture timestamp standing in for an as-of date) never
+actually arose. Every curated year's table carries **explicit "as of June 30,
+YYYY" wording inside the same dated annual document**, so no reconciliation
+dating (the Harvard method) was needed anywhere in this series. See the
+dating subsection below for the full per-year evidence.
+
+Every curated table publishes **both a Policy Target and an Actual** column
+(e.g. FY2005: "Policy Target / Actual") for every allocation year. This
+project stores **`basis: "actual"`** throughout — the mix PRINCO actually
+held at each fiscal year end — because it is directly comparable to Yale's
+and (mostly) Harvard's actual-basis years, and because Princeton discloses it
+explicitly and dated every single year, unlike Harvard where target years
+were curated specifically because actual wasn't available. **The Policy
+Target column exists for every curated year and was not discarded — it is
+recorded here, not in the JSON** (allocation rows have no `notes` field; see
+`scripts/lib/seed-validate.ts`'s `AllocationRow` shape), because a
+school-year can only hold one basis (validator-enforced uniqueness on
+school/year/category). Target values are listed in the two tables below
+alongside the curated Actual values.
+
+#### Two label regimes, an overlap-verified merge, and why
+
+PRINCO changed its own equity taxonomy once, between FY2018 and FY2020 (FY2019
+has no table at all — see Coverage). The two regimes are **not** compatible
+line-for-line, and the second one needed a real judgment call.
+
+**Regime 1 — FY2005–FY2018 ("split" regime).** PRINCO reports a clean
+three-way equity split: Domestic Equity, International Equity–Developed
+Markets, International Equity–Emerging Markets (wording varies slightly
+year to year — "International Equity: Developed Markets", "International
+Equity – Developed", etc. — always the same two sub-lines). Fixed Income and
+Cash are reported as two lines through FY2012 and as one combined line
+"Fixed Income and Cash" from FY2013 on.
+
+| PRINCO's published label | Years used | → category |
+|---|---|---|
+| Domestic Equity | FY2005–FY2018 | `us_public_equity` |
+| International Equity – Developed Markets | FY2005–FY2018 | `intl_public_equity` |
+| International Equity – Emerging Markets | FY2005–FY2018 | `intl_public_equity` |
+| Independent Return | FY2005–FY2018, FY2020–FY2023 | `absolute_return` |
+| Private Equity | FY2005–FY2018, FY2020–FY2023 | `private_equity_vc` |
+| Real Assets | FY2005–FY2018, FY2020–FY2023 | `real_assets` |
+| Fixed Income + Cash (two lines through FY2012) | FY2005–FY2012 | `fixed_income_cash` (summed) |
+| Fixed Income and Cash (one line) | FY2013–FY2018, FY2020–FY2023 | `fixed_income_cash` |
+
+International Equity–Developed and International Equity–Emerging are summed
+into `intl_public_equity` the same way Harvard's "Foreign Equities + Emerging
+Markets" were — Domestic Equity remains reported and curated separately, so
+this is a true international-only merge, not a coarsening. `sourceLabel`
+preserves both component names (Harvard style), e.g.
+`"International Equity – Developed Markets + International Equity – Emerging Markets"`.
+
+**Regime 2 — FY2020–FY2023 ("developed/EM" regime). `[JUDGMENT CALL]`**
+Starting with the FY2020 report, PRINCO stopped publishing Domestic Equity as
+a separate line. The equity sleeve is now split only into "Developed
+Markets" and "Emerging Markets" — and **"Developed Markets" is not the old
+"International Equity–Developed" relabeled; it now includes Domestic Equity
+merged in.** This is confirmed by an overlap-verified arithmetic check
+against Princeton's own historical target tables, the same evidentiary
+standard as Yale's category merges and Harvard's Foreign+EM merge:
+
+| Historical year | Old regime: Domestic Equity + Intl.–Developed (target) | New regime: "Developed Markets" (target, restated) |
+|---|---|---|
+| 2001 | 20.0% + 7.5% = **27.5%** (FY2011 report, Table 1) | **27.5%** (FY2020 report, Table 1) ✓ |
+| 2006 | 15.0% + 8.5% = **23.5%** (FY2011 report, Table 1) | **23.5%** (FY2020 report, Table 1) ✓ |
+| 2011 | 7.5% + 6.5% = **14.0%** (FY2010 report, Table 1) | **14.0%** (FY2020 report, Table 1) ✓ |
+
+All three overlap years reconcile exactly, so "Developed Markets" = Domestic
+Equity + International Equity–Developed is treated as settled, not assumed.
+
+Because "Developed Markets" mixes US and non-US equity and we no longer have
+the split, it cannot honestly go into `us_public_equity` or
+`intl_public_equity` individually — both would misstate it (Article 4). It
+does not belong in `other` either: at 6.5–10.7% of the portfolio in every
+affected year it is not a small, catch-all residual (tripwire 1 territory if
+forced there). The correct home is **`public_equity`** — the category this
+project defines specifically for "no US/international split published" — by
+summing Developed Markets + Emerging Markets, since together the two lines
+are Princeton's *entire* public-equity sleeve with no US/international
+distinction left in either one. This mirrors Harvard's FY2017+ regime
+exactly (one undifferentiated `public_equity` line replacing a prior
+US/international split), which is the documented precedent for this
+category, not a coarsening invented for Princeton.
+
+| PRINCO's published label | Years used | → category |
+|---|---|---|
+| Developed Markets + Emerging Markets (summed) | FY2020–FY2023 | `public_equity` |
+
+`sourceLabel` on these rows is `"Developed Markets + Emerging Markets"`.
+
+No `other` rows are used anywhere in the Princeton series.
+
+#### Coverage
+
+| Fiscal years | State | Why |
+|---|---|---|
+| FY2000–FY2004 | **no allocation** | Pre-2005 Reports of the Treasurer contain no PRINCO asset-class percentage table at all — only two-line NAV footnotes ("Equity accounts" / "Fixed income accounts" in dollars), which is exactly the kind of NAV/dollar table this project already rejects as a percentage source. Confirmed absent in FY2000, FY2001, FY2002, FY2004 (FY2003's report is a scanned-image PDF with no text layer at all — see build log). |
+| FY2005–FY2018 | actual | Regime 1 (split equity), `basis: "actual"`, every year explicitly dated. |
+| FY2019 | **no allocation** | No PRINCO Report on Investments section exists for FY2019 anywhere found on Princeton's finance site — only audited Financial Statements FY2019 (a NAV/dollar disclosure, rejected as a percentage source per the coverage rule). Returns and market value for FY2019 are still curated, from a Princeton press release (see below). |
+| FY2020–FY2023 | actual | Regime 2 (developed/EM), `basis: "actual"`, every year explicitly dated. |
+| FY2024–FY2025 | **no allocation** | The Report of the Treasurer dropped the percentage table entirely starting with the FY2024 edition — the "Asset Allocation" section now states only an aggregate ("94 percent of the portfolio is allocated toward [equity-like] investments") with no per-category breakdown. Confirmed in both the FY2024 and FY2025 editions. |
+
+Returns and market values are curated for **FY2001, FY2002, FY2004–FY2025**
+(24 of 26 years) — a longer, differently-shaped coverage than allocations,
+per the coverage rule (returns/market values run independently). FY2000 and
+FY2003 are gaps for returns/market value too: FY2000's report states no
+headline return percentage or endowment-specific dollar figure anywhere in
+the document (only total University net assets, a different, broader
+measurement universe that this project does not substitute in); FY2003's
+report is a scanned-image PDF with no extractable text and no OCR tooling is
+available in this environment (see build log).
+
+#### Princeton as-of dating
+
+Every one of the 18 curated allocation years (FY2005–FY2018, FY2020–FY2023)
+carries **explicit "as of June 30, YYYY" wording inside the same primary
+document the percentages come from** — evidence class (a) in every case.
+Unlike Harvard, no year required reconciliation-based dating (evidence class
+(b)); the reconciliation method was used here only to validate the
+**Developed-Markets category merge** across regimes (see above), never to
+assign a fiscal year to an undated table. No year in this series is dated by
+assumption or by publication year.
+
+Each year's Report of the Treasurer prints the comparison table as "Table 2"
+(or "Figure 2" in the earliest editions) headed **"Asset Allocation, June 30,
+YYYY"**, immediately following prose that reads, verbatim in every year
+(wording stable since FY2005): *"[Table/Figure] 2 compares Princo's
+long-term Policy Portfolio asset allocation targets with the actual weights
+as of June 30, YYYY."* From FY2016 on, the table heading itself appends the
+*next* fiscal year's label to the Policy Target column only (e.g. "June 30,
+2016 / FY 2017") — confirmed by checking that the Policy Target figures in
+that column match the "every five years" historical target table's forward
+year, not the Actual column, which stays dated to the report's own June 30.
+This does not affect the curated data: only the Actual column (always dated
+to the report's own fiscal year end) is used.
+
+| Fiscal year | Evidence class | Quote |
+|---|---|---|
+| FY2005 | (a) explicit | "compares Princeton's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2005" (Table/Figure 2 heading: "Asset Allocation, June 30, 2005") |
+| FY2006 | (a) explicit | "the endowment's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2006" |
+| FY2007 | (a) explicit | "term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2007" |
+| FY2008 | (a) explicit | "PRINCO's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2008" (Figure 2 heading: "Asset Allocation, June 30, 2008") |
+| FY2009 | (a) explicit | "Table 2 compares Princo's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2009" (Table 2 heading: "Asset Allocation, June 30, 2009") |
+| FY2010 | (a) explicit | Table 2 heading: "Asset Allocation, June 30, 2010"; same boilerplate prose |
+| FY2011 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2011" |
+| FY2012 | (a) explicit | "Table 2 compares Princo's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2012" (Table 2 heading: "ASSET ALLOCATION, June 30, 2012") — numeric grid recovered via `pdfminer.six` layout mode after `pypdf`'s default extraction scrambled this page's two-column layout; see build log |
+| FY2013 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2013" |
+| FY2014 | (a) explicit | "Table 2 compares Princo's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2014" (Table 2 heading: "ASSET ALLOCATION, June 30, 2014 / FY 2015") |
+| FY2015 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2015 / FY 2016" |
+| FY2016 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2016 / FY 2017" |
+| FY2017 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2017 / FY18" |
+| FY2018 | (a) explicit | Table 2 heading: "ASSET ALLOCATION, June 30, 2018 / FY19" |
+| FY2019 | (c) gap | No allocation table exists in any FY2019 Princeton document found (see Coverage) |
+| FY2020 | (a) explicit | "Table 2 compares Princo's long-term Policy Portfolio asset allocation targets with the actual weights as of June 30, 2020" (heading: "ASSET ALLOCATION, June 30, 2020 / FY20") |
+| FY2021 | (a) explicit | "...actual weights as of June 30, 2021" (heading: "ASSET ALLOCATION, June 30, 2021 / FY22") |
+| FY2022 | (a) explicit | heading: "ASSET ALLOCATION, June 30, 2022 / FY22" |
+| FY2023 | (a) explicit | heading: "ASSET ALLOCATION, June 30, 2023 / FY24"; footnote: "Policy targets represent those adopted as of May 2023, which went into effect for benchmarking purposes on July 1, 2023" (target-column note only — does not affect the dated Actual column used here) |
+| FY2024, FY2025 | (c) gap | Table dropped from the report entirely; only an aggregate equity percentage remains (see Coverage) |
+
+No year in this table is class (d) "assumed." The `[JUDGMENT CALL]` items
+in this unit are the category-mapping decisions above, not the dating.
+
+#### Notes on rounding and precision
+
+- FY2007 sums to 99.9%, FY2016 to 100.1%, FY2018 to 99.9%, FY2022 to 100.1% —
+  all within the validator's ±1.0pp tolerance, stored as published, nothing
+  nudged (Harvard precedent).
+- No negative `pct` values occur anywhere in the curated Princeton series
+  (unlike Yale/Harvard's levered Cash years).
+- Every allocation row uses `basis: "actual"`; no row uses `"target"`.
+
+
+#### Harvard market-value basis note (integration QC, 2026-07-30)
+
+Harvard's market values mix two published bases: FY2000–FY2006 and FY2010 are
+the University's audited net-assets figures (no HMC document exists for those
+years — established by CDX enumeration), while FY2007–FY2009 and FY2011+ are
+HMC's published endowment values, which run ~0.4–0.8% below the University
+line for the same years. The FY2010 point therefore sits ~0.57% above where
+its neighbours' basis would place it (the press-reported $27.4B for FY2010 is
+the HMC-basis equivalent — not a broader pool). Per the never-splice-silently
+rule this is disclosed here and must be annotated at the point of display
+(tasks 3.2/6.1).
 
 ## Granularity rule (all schools)
 

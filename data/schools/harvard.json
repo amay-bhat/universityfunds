@@ -619,6 +619,55 @@
   ],
   "endowmentReturns": [
     {
+      "fiscalYear": 2000,
+      "returnPct": 32.2,
+      "returnSourceId": "hmc-university-financial-report-2002",
+      "marketValueUsdMillions": 19148.3,
+      "marketValueSourceId": "hmc-university-financial-report-2002"
+    },
+    {
+      "fiscalYear": 2001,
+      "returnPct": -2.7,
+      "returnSourceId": "hmc-university-financial-report-2002",
+      "marketValueUsdMillions": 18259.2,
+      "marketValueSourceId": "hmc-university-financial-report-2002"
+    },
+    {
+      "fiscalYear": 2002,
+      "returnPct": -0.5,
+      "returnSourceId": "hmc-university-financial-report-2002",
+      "marketValueUsdMillions": 17518.0,
+      "marketValueSourceId": "hmc-university-financial-report-2002"
+    },
+    {
+      "fiscalYear": 2003,
+      "returnPct": 12.5,
+      "returnSourceId": "hmc-university-financial-report-2003",
+      "marketValueUsdMillions": 19294.7,
+      "marketValueSourceId": "hmc-university-financial-report-2003"
+    },
+    {
+      "fiscalYear": 2004,
+      "returnPct": 21.1,
+      "returnSourceId": "hmc-university-financial-report-2004",
+      "marketValueUsdMillions": 22587.3,
+      "marketValueSourceId": "hmc-university-financial-report-2004"
+    },
+    {
+      "fiscalYear": 2005,
+      "returnPct": 19.2,
+      "returnSourceId": "hmc-university-financial-report-2005",
+      "marketValueUsdMillions": 25853.0,
+      "marketValueSourceId": "hmc-university-financial-report-2005"
+    },
+    {
+      "fiscalYear": 2006,
+      "returnPct": 16.7,
+      "returnSourceId": "hmc-university-financial-report-2006",
+      "marketValueUsdMillions": 29219.4,
+      "marketValueSourceId": "hmc-university-financial-report-2006"
+    },
+    {
       "fiscalYear": 2007,
       "returnPct": 23.0,
       "returnSourceId": "hmc-john-harvard-letter-2007",
@@ -638,6 +687,13 @@
       "returnSourceId": "hmc-endowment-report-2009",
       "marketValueUsdMillions": 26000,
       "marketValueSourceId": "hmc-endowment-report-2009"
+    },
+    {
+      "fiscalYear": 2010,
+      "returnPct": 11.0,
+      "returnSourceId": "hmc-university-financial-report-2010",
+      "marketValueUsdMillions": 27557.4,
+      "marketValueSourceId": "hmc-university-financial-report-2010"
     },
     {
       "fiscalYear": 2011,

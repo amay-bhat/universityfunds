@@ -1,0 +1,132 @@
+[
+  {
+    "id": "smc-annual-financial-report-2001",
+    "title": "Stanford University Annual Financial Report 2001",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2001.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 12 (University Gifts note precedes it) – “Changes in the University’s endowment” roll-forward, PDF p. 54",
+    "accessedDate": "2026-07-30",
+    "notes": "Audited Consolidated Financial Statements. “Endowment, end of year” gives FY2001 = $8,249,551 thousand and FY2000 = $8,885,905 thousand, in thousands of dollars, as of August 31 (Stanford's own fiscal year end – see the Stanford as-of dating section in data/README.md). This is the University's own endowment figure, distinct from the Merged Pool market value SMC reports separately as of June 30; see the Merged-Pool-is-not-the-endowment finding in data/README.md. FY2001's closing balance is independently confirmed by the FY2003 report's own comparative note (smc-annual-financial-report-2003), which reprints it as FY2002's opening balance."
+  },
+  {
+    "id": "smc-annual-financial-report-2003",
+    "title": "Stanford University Annual Financial Report 2003",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2003.pdf",
+    "documentType": "financial_statement",
+    "page": "University Gifts note – “Endowment, end of year” roll-forward, PDF p. 45; also a 5-year “Financial Position Highlights” table earlier in the report",
+    "accessedDate": "2026-07-30",
+    "notes": "“Endowment, end of year” gives FY2003 = $8,613,805 thousand and FY2002 = $7,612,769 thousand, as of August 31. The report's own 5-year highlights table independently reprints both figures rounded to whole millions ($8,614M / $7,613M), and gives FY2000 ($8,886M) and FY2001 ($8,250M) as well, which round-match the smc-annual-financial-report-2001 figures exactly."
+  },
+  {
+    "id": "smc-annual-financial-report-2005",
+    "title": "Stanford University Annual Financial Report 2005",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2005.pdf",
+    "documentType": "financial_statement",
+    "page": "University Gifts and Pledges note – “Endowment, end of year” roll-forward, PDF p. 44",
+    "accessedDate": "2026-07-30",
+    "notes": "“Endowment, end of year” gives FY2005 = $12,205,035 thousand and FY2004 = $9,922,041 thousand, as of August 31."
+  },
+  {
+    "id": "smc-annual-financial-report-2007",
+    "title": "Stanford University Annual Financial Report 2007",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2007.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 10, University Endowment – “Endowment, end of year” roll-forward, PDF p. 44",
+    "accessedDate": "2026-07-30",
+    "notes": "“Endowment, end of year” gives FY2007 = $17,164,836 thousand and FY2006 = $14,084,676 thousand, as of August 31. Both figures round-match the later FY2010 and FY2012 reports' own 5-year highlights tables ($17,165M / $14,085M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2012",
+    "title": "Stanford University Annual Financial Report 2012",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2012.pdf",
+    "documentType": "financial_statement",
+    "page": "“Selected Financial and Other Data” 5-year table, row “Total endowment at year end” under “Other University Financial Data and Metrics,” PDF p. 27",
+    "accessedDate": "2026-07-30",
+    "notes": "One table gives all five of FY2008–FY2012 in whole millions of dollars, as of August 31: FY2012 $17,036M, FY2011 $16,503M, FY2010 $13,851M, FY2009 $12,619M, FY2008 $17,214M. This is the University-only endowment (a separate line from the “Hospitals” section of the same table). FY2010 and FY2009 are independently confirmed to the thousand in the FY2010 report's own Note 12 (University Endowment): $13,851,115 thousand and $12,619,094 thousand respectively. FY2008 and FY2007 also round-match the FY2010 report's own 5-year table ($17,214M / $17,165M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2014",
+    "title": "Stanford University Annual Financial Report 2014",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2014.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “Total Endowment Funds” (University line) and “Endowment, end of year” roll-forward, PDF p. 49",
+    "accessedDate": "2026-07-30",
+    "notes": "“Total Endowment Funds” (University) gives FY2014 = $21,446,006 thousand and FY2013 = $18,688,868 thousand, as of August 31. Both round-match the FY2015 and FY2017 reports' own 5-year highlights tables ($21,446M / $18,689M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2015",
+    "title": "Stanford University Annual Financial Report 2015",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2015.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “Total Endowment Funds” (University line), PDF p. 53",
+    "accessedDate": "2026-07-30",
+    "notes": "“Total Endowment Funds” (University) gives FY2015 = $22,222,957 thousand, as of August 31. Also reprints FY2014 = $21,446,006 thousand, an exact match to smc-annual-financial-report-2014."
+  },
+  {
+    "id": "smc-annual-financial-report-2017",
+    "title": "Stanford University Annual Financial Report 2017",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2017.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 12, Endowments – “University endowment” line, PDF p. 69",
+    "accessedDate": "2026-07-30",
+    "notes": "“University endowment” totals FY2017 = $24,784,943 thousand and FY2016 = $22,398,130 thousand, as of August 31. Same document's 5-year highlights table round-matches both plus FY2015/FY2014/FY2013. SMC's 2016 and 2017 marketing reports (Stanford Management Company, not cited as data here – see the Merged-Pool finding in data/README.md) independently state “$22.4 billion Endowment” and “$24.8 billion Endowment” for the same two years, used as the FY2016/FY2017 spot-check in the curation report."
+  },
+  {
+    "id": "smc-annual-financial-report-2019",
+    "title": "Stanford University Annual Financial Report 2019",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2019.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “ENDOWMENT, END OF YEAR” (University line), PDF p. 57",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2019 = $27,699,834 thousand and FY2018 = $26,464,912 thousand, as of August 31. Both round-match the FY2021 report's own 5-year highlights table ($27,700M / $26,465M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2021",
+    "title": "Stanford University Annual Financial Report (Fiscal Year 2021)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy21-stanford-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “ENDOWMENT, END OF YEAR” (University line), PDF p. 57",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2021 = $37,788,187 thousand and FY2020 = $28,948,111 thousand, as of August 31. Both round-match the FY2023 report's own 5-year highlights table ($37,788M / $28,948M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2023",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2023 and 2022)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy23-stanford-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “ENDOWMENT, END OF YEAR” (University line), PDF p. 48",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2023 = $36,494,893 thousand and FY2022 = $36,338,794 thousand, as of August 31. FY2023 is reprinted exactly (to the dollar) as the prior-year comparative in the FY2024 report."
+  },
+  {
+    "id": "smc-annual-financial-report-2024",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2024 and 2023)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy24-annual-financial-report_0.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 11, Endowments – “University endowment” line, PDF p. 46",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2024 = $37,631,059 thousand, as of August 31, 2024. Matches the $37.6 billion figure reported independently by the Chief Investment Officer trade press covering Stanford's FY2024 results, used as part of establishing the Merged-Pool-vs-endowment distinction (see data/README.md)."
+  },
+  {
+    "id": "smc-annual-financial-report-2025",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2025 and 2024)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy25-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, “ENDOWMENT, END OF YEAR” (University line), PDF p. 47",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2025 = $40,786,546 thousand, as of August 31, 2025. Independently confirmed to the first decimal by Stanford's October 2025 press release (news.stanford.edu), which states the endowment — as distinct from the $47.7 billion Merged Pool at June 30, 2025 — was “$40.8 billion on Aug. 31, 2025, the end of Stanford's fiscal year.” Used as the FY2025 spot-check in the curation report."
+  }
+]

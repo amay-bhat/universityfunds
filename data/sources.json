@@ -328,5 +328,625 @@
     "page": null,
     "accessedDate": "2026-07-25",
     "notes": "FY2008 return (8.6%, net of all fees and expenses) and the endowment value rising from $34.9bn at July 1 2007 to $36.9bn. Cited via the Internet Archive."
+  },
+  {
+    "id": "smc-annual-financial-report-2001",
+    "title": "Stanford University Annual Financial Report 2001",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2001.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 12 (University Gifts note precedes it) \u2013 \u201cChanges in the University\u2019s endowment\u201d roll-forward, PDF p. 54",
+    "accessedDate": "2026-07-30",
+    "notes": "Audited Consolidated Financial Statements. \u201cEndowment, end of year\u201d gives FY2001 = $8,249,551 thousand and FY2000 = $8,885,905 thousand, in thousands of dollars, as of August 31 (Stanford's own fiscal year end \u2013 see the Stanford as-of dating section in data/README.md). This is the University's own endowment figure, distinct from the Merged Pool market value SMC reports separately as of June 30; see the Merged-Pool-is-not-the-endowment finding in data/README.md. FY2001's closing balance is independently confirmed by the FY2003 report's own comparative note (smc-annual-financial-report-2003), which reprints it as FY2002's opening balance."
+  },
+  {
+    "id": "smc-annual-financial-report-2003",
+    "title": "Stanford University Annual Financial Report 2003",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2003.pdf",
+    "documentType": "financial_statement",
+    "page": "University Gifts note \u2013 \u201cEndowment, end of year\u201d roll-forward, PDF p. 45; also a 5-year \u201cFinancial Position Highlights\u201d table earlier in the report",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cEndowment, end of year\u201d gives FY2003 = $8,613,805 thousand and FY2002 = $7,612,769 thousand, as of August 31. The report's own 5-year highlights table independently reprints both figures rounded to whole millions ($8,614M / $7,613M), and gives FY2000 ($8,886M) and FY2001 ($8,250M) as well, which round-match the smc-annual-financial-report-2001 figures exactly."
+  },
+  {
+    "id": "smc-annual-financial-report-2005",
+    "title": "Stanford University Annual Financial Report 2005",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2005.pdf",
+    "documentType": "financial_statement",
+    "page": "University Gifts and Pledges note \u2013 \u201cEndowment, end of year\u201d roll-forward, PDF p. 44",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cEndowment, end of year\u201d gives FY2005 = $12,205,035 thousand and FY2004 = $9,922,041 thousand, as of August 31."
+  },
+  {
+    "id": "smc-annual-financial-report-2007",
+    "title": "Stanford University Annual Financial Report 2007",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2007.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 10, University Endowment \u2013 \u201cEndowment, end of year\u201d roll-forward, PDF p. 44",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cEndowment, end of year\u201d gives FY2007 = $17,164,836 thousand and FY2006 = $14,084,676 thousand, as of August 31. Both figures round-match the later FY2010 and FY2012 reports' own 5-year highlights tables ($17,165M / $14,085M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2012",
+    "title": "Stanford University Annual Financial Report 2012",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2012.pdf",
+    "documentType": "financial_statement",
+    "page": "\u201cSelected Financial and Other Data\u201d 5-year table, row \u201cTotal endowment at year end\u201d under \u201cOther University Financial Data and Metrics,\u201d PDF p. 27",
+    "accessedDate": "2026-07-30",
+    "notes": "One table gives all five of FY2008\u2013FY2012 in whole millions of dollars, as of August 31: FY2012 $17,036M, FY2011 $16,503M, FY2010 $13,851M, FY2009 $12,619M, FY2008 $17,214M. This is the University-only endowment (a separate line from the \u201cHospitals\u201d section of the same table). FY2010 and FY2009 are independently confirmed to the thousand in the FY2010 report's own Note 12 (University Endowment): $13,851,115 thousand and $12,619,094 thousand respectively. FY2008 and FY2007 also round-match the FY2010 report's own 5-year table ($17,214M / $17,165M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2014",
+    "title": "Stanford University Annual Financial Report 2014",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2014.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cTotal Endowment Funds\u201d (University line) and \u201cEndowment, end of year\u201d roll-forward, PDF p. 49",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cTotal Endowment Funds\u201d (University) gives FY2014 = $21,446,006 thousand and FY2013 = $18,688,868 thousand, as of August 31. Both round-match the FY2015 and FY2017 reports' own 5-year highlights tables ($21,446M / $18,689M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2015",
+    "title": "Stanford University Annual Financial Report 2015",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2015.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cTotal Endowment Funds\u201d (University line), PDF p. 53",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cTotal Endowment Funds\u201d (University) gives FY2015 = $22,222,957 thousand, as of August 31. Also reprints FY2014 = $21,446,006 thousand, an exact match to smc-annual-financial-report-2014."
+  },
+  {
+    "id": "smc-annual-financial-report-2017",
+    "title": "Stanford University Annual Financial Report 2017",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2017.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 12, Endowments \u2013 \u201cUniversity endowment\u201d line, PDF p. 69",
+    "accessedDate": "2026-07-30",
+    "notes": "\u201cUniversity endowment\u201d totals FY2017 = $24,784,943 thousand and FY2016 = $22,398,130 thousand, as of August 31. Same document's 5-year highlights table round-matches both plus FY2015/FY2014/FY2013. SMC's 2016 and 2017 marketing reports (Stanford Management Company, not cited as data here \u2013 see the Merged-Pool finding in data/README.md) independently state \u201c$22.4 billion Endowment\u201d and \u201c$24.8 billion Endowment\u201d for the same two years, used as the FY2016/FY2017 spot-check in the curation report."
+  },
+  {
+    "id": "smc-annual-financial-report-2019",
+    "title": "Stanford University Annual Financial Report 2019",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2019.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cENDOWMENT, END OF YEAR\u201d (University line), PDF p. 57",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2019 = $27,699,834 thousand and FY2018 = $26,464,912 thousand, as of August 31. Both round-match the FY2021 report's own 5-year highlights table ($27,700M / $26,465M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2021",
+    "title": "Stanford University Annual Financial Report (Fiscal Year 2021)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy21-stanford-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cENDOWMENT, END OF YEAR\u201d (University line), PDF p. 57",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2021 = $37,788,187 thousand and FY2020 = $28,948,111 thousand, as of August 31. Both round-match the FY2023 report's own 5-year highlights table ($37,788M / $28,948M)."
+  },
+  {
+    "id": "smc-annual-financial-report-2023",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2023 and 2022)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy23-stanford-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cENDOWMENT, END OF YEAR\u201d (University line), PDF p. 48",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2023 = $36,494,893 thousand and FY2022 = $36,338,794 thousand, as of August 31. FY2023 is reprinted exactly (to the dollar) as the prior-year comparative in the FY2024 report."
+  },
+  {
+    "id": "smc-annual-financial-report-2024",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2024 and 2023)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy24-annual-financial-report_0.pdf",
+    "documentType": "financial_statement",
+    "page": "Note 11, Endowments \u2013 \u201cUniversity endowment\u201d line, PDF p. 46",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2024 = $37,631,059 thousand, as of August 31, 2024. Matches the $37.6 billion figure reported independently by the Chief Investment Officer trade press covering Stanford's FY2024 results, used as part of establishing the Merged-Pool-vs-endowment distinction (see data/README.md)."
+  },
+  {
+    "id": "smc-annual-financial-report-2025",
+    "title": "Stanford University Annual Financial Report (Fiscal Years Ended August 31, 2025 and 2024)",
+    "publisher": "Stanford University (Office of the Controller)",
+    "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy25-annual-financial-report.pdf",
+    "documentType": "financial_statement",
+    "page": "Endowments note, \u201cENDOWMENT, END OF YEAR\u201d (University line), PDF p. 47",
+    "accessedDate": "2026-07-30",
+    "notes": "Gives FY2025 = $40,786,546 thousand, as of August 31, 2025. Independently confirmed to the first decimal by Stanford's October 2025 press release (news.stanford.edu), which states the endowment \u2014 as distinct from the $47.7 billion Merged Pool at June 30, 2025 \u2014 was \u201c$40.8 billion on Aug. 31, 2025, the end of Stanford's fiscal year.\u201d Used as the FY2025 spot-check in the curation report."
+  },
+  {
+    "id": "mitimco-senate-finance-response-2008",
+    "title": "MIT Response to Questions in the Letter dated January 24, 2008 of Senator Max Baucus and Senator Charles Grassley of the United States Senate Committee on Finance",
+    "publisher": "Massachusetts Institute of Technology",
+    "url": "https://news.mit.edu/newsoffice/2008/baucus-grassley-qa.pdf",
+    "documentType": "other",
+    "page": "Table 6A (Q6A, ten-year endowment values), Table 6C (Q6C, 2008 Target Allocations for Endowment), Table 10D (Q10D, Investment Return to the Endowment)",
+    "accessedDate": "2026-07-30",
+    "notes": "MIT's own signed response to the Senate Finance Committee, dated March 3, 2008, published by the MIT News Office. THE ONLY MIT DOCUMENT FOUND THAT PUBLISHES AN ALLOCATION TABLE LABELLED FOR THE ENDOWMENT BEFORE FY2013: Table 6C, 'the allocation targets for investments in each asset class for the fiscal (academic) year ending June 30, 2008', headed '2008 Target Allocations for Endowment' - hence basis 'target' on the FY2008 rows. MIT's own caveat is printed beneath it: 'Actual investment in the above asset classes may vary from the target allocations at any given point in time.' Also the source for FY2000-FY2007 returns (Table 10D, 'Investment Return to the Endowment', an explicit ten-year series) and FY2000-FY2006 market values (Table 6A, 'Net Endowment Value at Year End'). Table 6A's own 'Net Endowment Growth (%)' column is NOT an investment return - MIT defines it as including gifts and spending - and is deliberately not used; FY2000 reads 51.0% growth against a 55.6% return."
+  },
+  {
+    "id": "mitimco-congressional-response-2016",
+    "title": "MIT Response to Questions in the Letter of February 8, 2016 from Senator Orrin Hatch of the United States Senate Committee on Finance and Congressman Kevin Brady and Congressman Peter Roskam of the House Committee on Ways and Means",
+    "publisher": "Massachusetts Institute of Technology",
+    "url": "https://orgchart.mit.edu/system/files/reports/MIT_Congressional_Endowment_Inquiry_Response.pdf",
+    "documentType": "other",
+    "page": "Table 1.2 (Endowment Asset Allocation, FY2013-FY2015), Table 2.1 (values at year end), Table 3.1 (net endowment value and net investment return, FY2008-FY2015)",
+    "accessedDate": "2026-07-30",
+    "notes": "MIT's own signed response to the 2016 congressional endowment inquiry, dated April 1, 2016. THE ONLY MIT DOCUMENT FOUND THAT PUBLISHES ACTUAL (NOT TARGET) ENDOWMENT ALLOCATION PERCENTAGES: Table 1.2, headed 'Endowment Asset Allocation' with the column heading 'Asset Allocation as a Percentage of the Endowment' and columns 2015 / 2014 / 2013. Dating evidence that these are fiscal-year-end columns: the endowment values printed in the adjacent Tables 2.1 and 3.1 under the same year labels ($13,474.7M / $12,425.1M / $10,858.0M) equal MIT's June 30 endowment values in the Treasurer's Reports for FY2015 / FY2014 / FY2013 exactly. MIT states in the surrounding prose that about 98% of the endowment is invested through the unitized pool whose allocation the table shows, with about 2% held as non-cash gifts - the measurement-universe caveat in MIT's own words. Also the source for the FY2008 and FY2009 returns (3.2% and -17.1%), which MIT's Treasurer's Reports for those years do not state; Table 3.1 independently reproduces every FY2010-FY2015 return we curated from the Treasurer's Reports."
+  },
+  {
+    "id": "mitimco-treasurers-report-2010",
+    "title": "MIT Report of the Treasurer 2010",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://web.archive.org/web/20110601060345id_/http://vpf.mit.edu/site/content/download/7658/41219/file/FY10%20Treasurer's%20Report.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment and Similar Funds'; Note L, Components of Net Assets and Endowment",
+    "accessedDate": "2026-07-30",
+    "notes": "Source for the FY2010 return (10.2%) and for the FY2010 and restated FY2009 endowment market values ($8,317.3M and $7,880.3M, 'excluding pledges for endowed purposes'). This edition records that certain funds previously classified as endowment were reclassified to other invested funds, which is why FY2009 reads $7,880.3M here against $7,982.0M as first reported in the FY2009 edition; MIT's own later documents, including its 2016 congressional response, use the restated figure. vpf.mit.edu no longer serves any Report of the Treasurer before FY2011 (the sites/default/files path returns HTTP 404 for FY2000-FY2010), so this cites the Internet Archive capture of the original vpf.mit.edu download URL."
+  },
+  {
+    "id": "mitimco-treasurers-report-2011",
+    "title": "MIT Report of the Treasurer 2011",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2011.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "Source for the FY2011 return (17.9%, 'MIT's core Pool A endowment produced a return of 17.9 percent') and market value, and - via the Five-Year Trend Analysis, 'Total endowment funds before pledges' - for the restated FY2007 and FY2008 market values ($9,943.1M and $9,947.6M). This is also the last edition to quantify allocation in any form: 'Equity, marketable alternatives, and real estate investments at market value were 81.1 percent of investments as of June 30, 2011, as compared to 83.7 percent at June 30, 2010.' That figure is a single aggregate spanning several of our categories, taken over total investments rather than the endowment, and is deliberately NOT curated - splitting it would be inventing data. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2012",
+    "title": "MIT Report of the Treasurer 2012",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2012.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2012 return (8.0%) and market value ($10,149.6M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2013",
+    "title": "MIT Report of the Treasurer 2013",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2013.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2013 return (11.1%) and market value ($10,858.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2014",
+    "title": "MIT Report of the Treasurer 2014",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2014.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2014 return (19.2%) and market value ($12,425.1M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2015",
+    "title": "MIT Report of the Treasurer 2015",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2015.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2015 return (13.2%) and market value ($13,474.7M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2016",
+    "title": "MIT Report of the Treasurer 2016",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2016.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2016 return (0.8%) and market value ($13,181.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2017",
+    "title": "MIT Report of the Treasurer 2017",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2017.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2017 return (14.3%) and market value ($14,832.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2018",
+    "title": "MIT Report of the Treasurer 2018",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2018.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2018 return (13.5%) and market value ($16,400.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2019",
+    "title": "MIT Report of the Treasurer 2019",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2019.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2019 return (8.8%) and market value ($17,443.8M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2020",
+    "title": "MIT Report of the Treasurer 2020",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2020.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2020 return (8.3%, 'as measured using valuations received within one month of fiscal year-end') and market value ($18,381.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2021",
+    "title": "MIT Report of the Treasurer 2021",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2021.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2021 return (55.5%) and market value ($27,394.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2022",
+    "title": "MIT Report of the Treasurer 2022",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2022.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2022 return (-5.3%) and market value ($24,600.8M). The return is printed with a minus sign, not in accounting parentheses. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2023",
+    "title": "MIT Report of the Treasurer 2023",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2023.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2023 return (-2.9%) and market value ($23,453.4M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2024",
+    "title": "MIT Report of the Treasurer 2024",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2024.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2024 return (8.9%) and market value ($24,572.7M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2025",
+    "title": "MIT Report of the Treasurer 2025",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2025.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2025 return (14.8%) and market value ($27,366.2M); MIT Facts (facts.mit.edu/operating-financials) independently prints the same $27,366.2M. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "princo-rot-2001",
+    "title": "Princeton University Report of the Treasurer 2000-01",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2000-2001.pdf",
+    "documentType": "annual_report",
+    "page": "Financial Overview",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2002",
+    "title": "Princeton University Report of the Treasurer 2001-02",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2001-2002.pdf",
+    "documentType": "annual_report",
+    "page": "Financial Overview",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2004",
+    "title": "Princeton University Report of the Treasurer 2003-04",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2003-2004.pdf",
+    "documentType": "annual_report",
+    "page": "Financial Overview",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2005",
+    "title": "Princeton University Report of the Treasurer 2004-05",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2004-2005.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2006",
+    "title": "Princeton University Report of the Treasurer 2005-06",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2005-2006.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2007",
+    "title": "Princeton University Report of the Treasurer 2006-07",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2006-2007.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2008",
+    "title": "Princeton University Report of the Treasurer 2007-08",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2007-2008.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2009",
+    "title": "Princeton University Report of the Treasurer 2008-09",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2008-2009.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2010",
+    "title": "Princeton University Report of the Treasurer 2009-10",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2009-2010.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2011",
+    "title": "Princeton University Report of the Treasurer 2010-11",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2010-2011.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2012",
+    "title": "Princeton University Report of the Treasurer 2011-12",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-10/2011-2012.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2013",
+    "title": "Princeton University Report of the Treasurer 2012-13",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-10/2012-2013.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2014",
+    "title": "Princeton University Report of the Treasurer 2013-14",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2013-2014.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2015",
+    "title": "Princeton University Report of the Treasurer 2014-15",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2014-2015.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2016",
+    "title": "Princeton University Report of the Treasurer 2015-16",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2015-2016.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2017",
+    "title": "Princeton University Report of the Treasurer 2016-17",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2016-2017.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2018",
+    "title": "Princeton University Report of the Treasurer 2017-18",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2017-2018.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2020",
+    "title": "Princeton University Report of the Treasurer 2019-20",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2020-12/Report%20of%20the%20Treasurer%202019-2020.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2021",
+    "title": "Princeton University Report of the Treasurer 2020-21",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202020-21.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2022",
+    "title": "Princeton University Report of the Treasurer 2021-22",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202021-22%20FlipBK.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2023",
+    "title": "Princeton University Report of the Treasurer 2022-23",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202022-23%20FlipBk_0.pdf",
+    "documentType": "annual_report",
+    "page": "Report on Investments",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2024",
+    "title": "Princeton University Report of the Treasurer 2023-24",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf8101/files/documents/2024%20Report%20of%20the%20Treasurer%20WEB.pdf",
+    "documentType": "annual_report",
+    "page": "Financial Statement Overview / Investment Performance",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-rot-2025",
+    "title": "Princeton University Report of the Treasurer 2024-25",
+    "publisher": "Princeton University Office of Finance and Treasury",
+    "url": "https://finance.princeton.edu/sites/g/files/toruqf8101/files/documents/2024-25%20Report%20of%20the%20Treasurer%20Final.pdf",
+    "documentType": "annual_report",
+    "page": "Financial Statement Overview / Investment Performance",
+    "accessedDate": "2026-07-30",
+    "notes": null
+  },
+  {
+    "id": "princo-press-release-2019",
+    "title": "Princeton's Endowment Earns 6.2 Percent Return",
+    "publisher": "Princeton University (Office of Communications)",
+    "url": "https://www.princeton.edu/news/2019/10/11/princeton-endowment-earns-62-percent-return",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-07-30",
+    "notes": "Used for FY2019 return and market value because Princeton's finance site has no full narrative Report of the Treasurer for FY2019 (only audited Financial Statements FY2019, which contains no PRINCO asset-allocation table \u2014 see princeton-buildlog.md). FY2019 has no allocation row for this reason."
+  },
+  {
+    "id": "hmc-university-financial-report-2002",
+    "title": "Harvard University Financial Report, Fiscal Year 2002 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20040723023250/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2002discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (Analysis of Financial Results, p. 13) and Review of Endowment Results (p. 18-19 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Only Harvard University Financial Report of any fiscal year found archived that covers FY2000 and FY2001 (no standalone FY2000 or FY2001 report was ever captured by the Wayback Machine under vpf-web.harvard.edu/annualfinancial/ -- confirmed via CDX search). Its Summary of Financial Results table is explicitly column-headed '1998 1999 2000 2001 2002' with row 'Total return on general investments 20.5% 12.2% 32.2% (2.7%) ( 0.5%)' and row 'Endowment funds, net assets 13,278.9 14,755.6 19,148.3 18,259.2 17,518.0' (dollars in millions). Parenthesized figures are negative per the surrounding prose: 'In fiscal 2002, total return on generally invested endowment was a negative 0.5%, compared with a negative 2.7% in fiscal 2001,' and 'Total market value of the endowment dropped from $18.3 billion to $17.5 billion.' Source for FY2000, FY2001 and FY2002 return and market value. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu (its successor) returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2003",
+    "title": "Harvard University Financial Report, Fiscal Year 2003 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20051102064157/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2003discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '1999 2000 2001 2002 2003' with row 'Total return on general investments 12.2% 32.2% (2.7%) (0.5%) 12.5%' and 'Endowment funds, net assets 14,755.6 19,148.3 18,259.2 17,518.0 19,294.7' (millions). Prose: 'Total market value of the endowment rose from $17.5 billion to $19.3 billion' and 'The University's endowment achieved a record market value of $19.3 billion at the end of' fiscal 2003. Source for the FY2003 return and market value; also independently restates FY2000-FY2002 (used as the spot-check corroboration for FY2001 in the task 1.6.D build log). Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2004",
+    "title": "Harvard University Financial Report, Fiscal Year 2004 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20051102054103/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2004discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2000 2001 2002 2003 2004' with row 'Total return on general investments 32.2% (2.7%) (0.5%) 12.5% 21.1%' and 'Net assets-endowment funds 19,148.3 18,259.2 17,518.0 19,294.7 22,587.3' (millions). Prose: 'market value of the endowment rose from $19.3 billion to $22.6 billion' and 'Attaining an exceptional market value of $22.6 billion at the end of fiscal 2004.' Source for the FY2004 return and market value; also independently restates FY2000-FY2003. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2005",
+    "title": "Harvard University Financial Report, Fiscal Year 2005 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20060519002455/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2005discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2005 2004 2003 2002 2001' (reverse chronological) with row 'Total return on general investments 19.2% 21.1% 12.5% (0.5%) (2.7%)' and 'Net assets-endowment 25,853.0 22,587.3 19,294.7 17,518.0 18,259.2' (millions). Prose cites a 'market value of $25.9 billion in fiscal 2005.' Source for the FY2005 return and market value; also independently restates FY2001-FY2004. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2006",
+    "title": "Harvard University Financial Report, Fiscal Year 2006 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20100706200457/http://vpf-web.harvard.edu/annualfinancial/pdfs/2006discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 8-9 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2006 2005 2004 2003 2002' (reverse chronological) with row 'Total return on general investments 16.7% 19.2% 21.1% 12.5% (0.5)%' and 'Net assets-endowment 29,219.4 25,853.0 22,587.3 19,294.7 17,518.0' (millions). Prose: 'The market value of the endowment rose to a record $29.2 billion as of June 30, 2006.' Source for the FY2006 return and market value; also independently restates FY2002-FY2005. The Wayback capture at the timestamp originally reachable from the site's own directory listing (20080708144908) was truncated/corrupt (parsed to an invalid PDF structure); this citation uses a later, complete capture of the same document verified to parse and contain identical figures. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2010",
+    "title": "Harvard University Financial Report, Fiscal Year 2010",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20130108013513/http://vpf-web.harvard.edu/annualfinancial/pdfs/2010fullreport.pdf",
+    "documentType": "financial_statement",
+    "page": "Message from the President (p. 2 of PDF) and Summary of Financial Results table (p. 4-5 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Return 11.0% and endowment value $27,557.4M both from this report (President's message and Summary of Financial Results; audited statements corroborate to the dollar, Note 10). BASIS NOTE: this value is the University's audited net-assets figure. Harvard's FY2007+ market values in this dataset are HMC's published endowment values, which run ~0.4-0.8% below the University line for the same years (the press-reported $27.4B for FY2010 is the HMC-basis equivalent, NOT a broader pool). Stored on the University basis because no HMC document exists for FY2010 (verified by CDX enumeration); the basis difference is disclosed in data/README.md's Harvard section per the never-splice-silently rule. QC-verified 2026-07-30: figures confirmed, original rationale corrected."
+  },
+  {
+    "id": "mitimco-fnl-bufferd-2004",
+    "title": "The Management of the MIT Endowment (MIT Faculty Newsletter, Vol. XVII No. 1, Sept/Oct 2004)",
+    "publisher": "Allan S. Bufferd, Treasurer, MIT",
+    "url": "https://web.mit.edu/fnl/vol/171/fnl171.pdf",
+    "documentType": "other",
+    "page": "pp. 27-29; Table II (Pool A Asset Allocation) p. 28",
+    "accessedDate": "2026-07-31",
+    "notes": "Measurement universe is MIT's unitized investment Pool A, per the article's own words: 'Pool A is neither the complete Endowment nor is it comprised only of Endowment assets, it is for this discussion a good proxy to discuss the management of the Endowment.' Curated under the pool-basis ruling (TASKS.md [PROXY DECISION] 2026-07-31): endowment-in-pool coverage evidence is era-bracketing, not per-year - 98.4% measured at FY2006 (endowment $8,368.1M, $8,232.0M via Pool A); non-endowment content of the pool ~3.7% FY2006, ~7.5% FY2011; MIT's 2008 Senate response titles this era's Pool A return series 'Investment Return to the Endowment'. Independent-fetch gate satisfied 2026-07-31 by the integrating session (distinct from the curating worker): byline, disclaimer, and the 2004/2003/2001 Table II columns verified digit-for-digit from a fresh fetch of the PDF (824,064 bytes). Also in the article: FY2004 Pool A investment return stated as 18.1% vs Table 10D's 18.0 (cross-document 0.1pp rounding variance, noted)."
   }
 ]

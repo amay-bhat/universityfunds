@@ -1,0 +1,62 @@
+[
+  {
+    "id": "hmc-university-financial-report-2002",
+    "title": "Harvard University Financial Report, Fiscal Year 2002 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20040723023250/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2002discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (Analysis of Financial Results, p. 13) and Review of Endowment Results (p. 18-19 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Only Harvard University Financial Report of any fiscal year found archived that covers FY2000 and FY2001 (no standalone FY2000 or FY2001 report was ever captured by the Wayback Machine under vpf-web.harvard.edu/annualfinancial/ -- confirmed via CDX search). Its Summary of Financial Results table is explicitly column-headed '1998 1999 2000 2001 2002' with row 'Total return on general investments 20.5% 12.2% 32.2% (2.7%) ( 0.5%)' and row 'Endowment funds, net assets 13,278.9 14,755.6 19,148.3 18,259.2 17,518.0' (dollars in millions). Parenthesized figures are negative per the surrounding prose: 'In fiscal 2002, total return on generally invested endowment was a negative 0.5%, compared with a negative 2.7% in fiscal 2001,' and 'Total market value of the endowment dropped from $18.3 billion to $17.5 billion.' Source for FY2000, FY2001 and FY2002 return and market value. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu (its successor) returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2003",
+    "title": "Harvard University Financial Report, Fiscal Year 2003 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20051102064157/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2003discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '1999 2000 2001 2002 2003' with row 'Total return on general investments 12.2% 32.2% (2.7%) (0.5%) 12.5%' and 'Endowment funds, net assets 14,755.6 19,148.3 18,259.2 17,518.0 19,294.7' (millions). Prose: 'Total market value of the endowment rose from $17.5 billion to $19.3 billion' and 'The University's endowment achieved a record market value of $19.3 billion at the end of' fiscal 2003. Source for the FY2003 return and market value; also independently restates FY2000-FY2002 (used as the spot-check corroboration for FY2001 in the task 1.6.D build log). Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2004",
+    "title": "Harvard University Financial Report, Fiscal Year 2004 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20051102054103/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2004discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2000 2001 2002 2003 2004' with row 'Total return on general investments 32.2% (2.7%) (0.5%) 12.5% 21.1%' and 'Net assets-endowment funds 19,148.3 18,259.2 17,518.0 19,294.7 22,587.3' (millions). Prose: 'market value of the endowment rose from $19.3 billion to $22.6 billion' and 'Attaining an exceptional market value of $22.6 billion at the end of fiscal 2004.' Source for the FY2004 return and market value; also independently restates FY2000-FY2003. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2005",
+    "title": "Harvard University Financial Report, Fiscal Year 2005 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20060519002455/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2005discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 10-11 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2005 2004 2003 2002 2001' (reverse chronological) with row 'Total return on general investments 19.2% 21.1% 12.5% (0.5%) (2.7%)' and 'Net assets-endowment 25,853.0 22,587.3 19,294.7 17,518.0 18,259.2' (millions). Prose cites a 'market value of $25.9 billion in fiscal 2005.' Source for the FY2005 return and market value; also independently restates FY2001-FY2004. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2006",
+    "title": "Harvard University Financial Report, Fiscal Year 2006 (Financial Overview / Analysis of Financial Results)",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20100706200457/http://vpf-web.harvard.edu/annualfinancial/pdfs/2006discussion.pdf",
+    "documentType": "financial_statement",
+    "page": "Summary of Financial Results table (p. 8-9 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Summary of Financial Results table column-headed '2006 2005 2004 2003 2002' (reverse chronological) with row 'Total return on general investments 16.7% 19.2% 21.1% 12.5% (0.5)%' and 'Net assets-endowment 29,219.4 25,853.0 22,587.3 19,294.7 17,518.0' (millions). Prose: 'The market value of the endowment rose to a record $29.2 billion as of June 30, 2006.' Source for the FY2006 return and market value; also independently restates FY2002-FY2005. The Wayback capture at the timestamp originally reachable from the site's own directory listing (20080708144908) was truncated/corrupt (parsed to an invalid PDF structure); this citation uses a later, complete capture of the same document verified to parse and contain identical figures. Cited via the Internet Archive: vpf-web.harvard.edu no longer resolves and finance.harvard.edu returns 403 to automated fetches."
+  },
+  {
+    "id": "hmc-university-financial-report-2010",
+    "title": "Harvard University Financial Report, Fiscal Year 2010",
+    "publisher": "Harvard University (Office of the Vice President for Finance)",
+    "url": "https://web.archive.org/web/20130108013513/http://vpf-web.harvard.edu/annualfinancial/pdfs/2010fullreport.pdf",
+    "documentType": "financial_statement",
+    "page": "Message from the President (p. 2 of PDF) and Summary of Financial Results table (p. 4-5 of PDF)",
+    "accessedDate": "2026-07-30",
+    "notes": "Return 11.0% and endowment value $27,557.4M both from this report (President's message and Summary of Financial Results; audited statements corroborate to the dollar, Note 10). BASIS NOTE: this value is the University's audited net-assets figure. Harvard's FY2007+ market values in this dataset are HMC's published endowment values, which run ~0.4-0.8% below the University line for the same years (the press-reported $27.4B for FY2010 is the HMC-basis equivalent, NOT a broader pool). Stored on the University basis because no HMC document exists for FY2010 (verified by CDX enumeration); the basis difference is disclosed in data/README.md's Harvard section per the never-splice-silently rule. QC-verified 2026-07-30: figures confirmed, original rationale corrected."
+  }
+]

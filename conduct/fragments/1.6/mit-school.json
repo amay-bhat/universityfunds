@@ -1,155 +1,19 @@
 {
   "allocations": [
     {
-      "fiscalYear": 2001,
-      "category": "absolute_return",
-      "pct": 8.7,
-      "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2001,
-      "category": "fixed_income_cash",
-      "pct": 15.1,
-      "basis": "actual",
-      "sourceLabel": "Fixed Income & Cash",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2001,
-      "category": "intl_public_equity",
-      "pct": 7.7,
-      "basis": "actual",
-      "sourceLabel": "International Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2001,
-      "category": "private_equity_vc",
-      "pct": 19.0,
-      "basis": "actual",
-      "sourceLabel": "Private Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2001,
-      "category": "real_assets",
-      "pct": 11.0,
-      "basis": "actual",
-      "sourceLabel": "Real Assets + Real Estate",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2001,
+      "fiscalYear": 2008,
       "category": "us_public_equity",
-      "pct": 38.5,
-      "basis": "actual",
-      "sourceLabel": "U.S. Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "absolute_return",
-      "pct": 20.3,
-      "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "fixed_income_cash",
-      "pct": 11.5,
-      "basis": "actual",
-      "sourceLabel": "Fixed Income & Cash",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "intl_public_equity",
-      "pct": 7.5,
-      "basis": "actual",
-      "sourceLabel": "International Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "private_equity_vc",
-      "pct": 18.3,
-      "basis": "actual",
-      "sourceLabel": "Private Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "real_assets",
-      "pct": 15.8,
-      "basis": "actual",
-      "sourceLabel": "Real Assets + Real Estate",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2003,
-      "category": "us_public_equity",
-      "pct": 26.6,
-      "basis": "actual",
-      "sourceLabel": "U.S. Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "absolute_return",
-      "pct": 18.4,
-      "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "fixed_income_cash",
-      "pct": 9.1,
-      "basis": "actual",
-      "sourceLabel": "Fixed Income & Cash",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "intl_public_equity",
-      "pct": 15.0,
-      "basis": "actual",
-      "sourceLabel": "International Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "private_equity_vc",
-      "pct": 18.4,
-      "basis": "actual",
-      "sourceLabel": "Private Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "real_assets",
-      "pct": 12.7,
-      "basis": "actual",
-      "sourceLabel": "Real Assets + Real Estate",
-      "sourceId": "mitimco-fnl-bufferd-2004"
-    },
-    {
-      "fiscalYear": 2004,
-      "category": "us_public_equity",
-      "pct": 26.4,
-      "basis": "actual",
-      "sourceLabel": "U.S. Equity",
-      "sourceId": "mitimco-fnl-bufferd-2004"
+      "pct": 13.0,
+      "basis": "target",
+      "sourceLabel": "Domestic Equity",
+      "sourceId": "mitimco-senate-finance-response-2008"
     },
     {
       "fiscalYear": 2008,
-      "category": "absolute_return",
-      "pct": 23.0,
+      "category": "intl_public_equity",
+      "pct": 18.0,
       "basis": "target",
-      "sourceLabel": "Marketable Alternatives",
+      "sourceLabel": "International Equity + Emerging Markets Equity",
       "sourceId": "mitimco-senate-finance-response-2008"
     },
     {
@@ -162,10 +26,10 @@
     },
     {
       "fiscalYear": 2008,
-      "category": "intl_public_equity",
-      "pct": 18.0,
+      "category": "absolute_return",
+      "pct": 23.0,
       "basis": "target",
-      "sourceLabel": "International Equity + Emerging Markets Equity",
+      "sourceLabel": "Marketable Alternatives",
       "sourceId": "mitimco-senate-finance-response-2008"
     },
     {
@@ -185,19 +49,19 @@
       "sourceId": "mitimco-senate-finance-response-2008"
     },
     {
-      "fiscalYear": 2008,
+      "fiscalYear": 2013,
       "category": "us_public_equity",
-      "pct": 13.0,
-      "basis": "target",
-      "sourceLabel": "Domestic Equity",
-      "sourceId": "mitimco-senate-finance-response-2008"
+      "pct": 11.9,
+      "basis": "actual",
+      "sourceLabel": "U.S. Public Equity",
+      "sourceId": "mitimco-congressional-response-2016"
     },
     {
       "fiscalYear": 2013,
-      "category": "absolute_return",
-      "pct": 15.5,
+      "category": "intl_public_equity",
+      "pct": 20.8,
       "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
+      "sourceLabel": "International Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -210,10 +74,10 @@
     },
     {
       "fiscalYear": 2013,
-      "category": "intl_public_equity",
-      "pct": 20.8,
+      "category": "absolute_return",
+      "pct": 15.5,
       "basis": "actual",
-      "sourceLabel": "International Public Equity",
+      "sourceLabel": "Marketable Alternatives",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -233,19 +97,19 @@
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
-      "fiscalYear": 2013,
+      "fiscalYear": 2014,
       "category": "us_public_equity",
-      "pct": 11.9,
+      "pct": 11.5,
       "basis": "actual",
       "sourceLabel": "U.S. Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
       "fiscalYear": 2014,
-      "category": "absolute_return",
-      "pct": 11.9,
+      "category": "intl_public_equity",
+      "pct": 21.7,
       "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
+      "sourceLabel": "International Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -258,10 +122,10 @@
     },
     {
       "fiscalYear": 2014,
-      "category": "intl_public_equity",
-      "pct": 21.7,
+      "category": "absolute_return",
+      "pct": 11.9,
       "basis": "actual",
-      "sourceLabel": "International Public Equity",
+      "sourceLabel": "Marketable Alternatives",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -281,19 +145,19 @@
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
-      "fiscalYear": 2014,
+      "fiscalYear": 2015,
       "category": "us_public_equity",
-      "pct": 11.5,
+      "pct": 13.9,
       "basis": "actual",
       "sourceLabel": "U.S. Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
       "fiscalYear": 2015,
-      "category": "absolute_return",
-      "pct": 11.8,
+      "category": "intl_public_equity",
+      "pct": 25.9,
       "basis": "actual",
-      "sourceLabel": "Marketable Alternatives",
+      "sourceLabel": "International Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -306,10 +170,10 @@
     },
     {
       "fiscalYear": 2015,
-      "category": "intl_public_equity",
-      "pct": 25.9,
+      "category": "absolute_return",
+      "pct": 11.8,
       "basis": "actual",
-      "sourceLabel": "International Public Equity",
+      "sourceLabel": "Marketable Alternatives",
       "sourceId": "mitimco-congressional-response-2016"
     },
     {
@@ -326,14 +190,6 @@
       "pct": 16.4,
       "basis": "actual",
       "sourceLabel": "Real Estate + Real Assets",
-      "sourceId": "mitimco-congressional-response-2016"
-    },
-    {
-      "fiscalYear": 2015,
-      "category": "us_public_equity",
-      "pct": 13.9,
-      "basis": "actual",
-      "sourceLabel": "U.S. Public Equity",
       "sourceId": "mitimco-congressional-response-2016"
     }
   ],

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "mitimco-senate-finance-response-2008",
+    "title": "MIT Response to Questions in the Letter dated January 24, 2008 of Senator Max Baucus and Senator Charles Grassley of the United States Senate Committee on Finance",
+    "publisher": "Massachusetts Institute of Technology",
+    "url": "https://news.mit.edu/newsoffice/2008/baucus-grassley-qa.pdf",
+    "documentType": "other",
+    "page": "Table 6A (Q6A, ten-year endowment values), Table 6C (Q6C, 2008 Target Allocations for Endowment), Table 10D (Q10D, Investment Return to the Endowment)",
+    "accessedDate": "2026-07-30",
+    "notes": "MIT's own signed response to the Senate Finance Committee, dated March 3, 2008, published by the MIT News Office. THE ONLY MIT DOCUMENT FOUND THAT PUBLISHES AN ALLOCATION TABLE LABELLED FOR THE ENDOWMENT BEFORE FY2013: Table 6C, 'the allocation targets for investments in each asset class for the fiscal (academic) year ending June 30, 2008', headed '2008 Target Allocations for Endowment' - hence basis 'target' on the FY2008 rows. MIT's own caveat is printed beneath it: 'Actual investment in the above asset classes may vary from the target allocations at any given point in time.' Also the source for FY2000-FY2007 returns (Table 10D, 'Investment Return to the Endowment', an explicit ten-year series) and FY2000-FY2006 market values (Table 6A, 'Net Endowment Value at Year End'). Table 6A's own 'Net Endowment Growth (%)' column is NOT an investment return - MIT defines it as including gifts and spending - and is deliberately not used; FY2000 reads 51.0% growth against a 55.6% return."
+  },
+  {
+    "id": "mitimco-congressional-response-2016",
+    "title": "MIT Response to Questions in the Letter of February 8, 2016 from Senator Orrin Hatch of the United States Senate Committee on Finance and Congressman Kevin Brady and Congressman Peter Roskam of the House Committee on Ways and Means",
+    "publisher": "Massachusetts Institute of Technology",
+    "url": "https://orgchart.mit.edu/system/files/reports/MIT_Congressional_Endowment_Inquiry_Response.pdf",
+    "documentType": "other",
+    "page": "Table 1.2 (Endowment Asset Allocation, FY2013-FY2015), Table 2.1 (values at year end), Table 3.1 (net endowment value and net investment return, FY2008-FY2015)",
+    "accessedDate": "2026-07-30",
+    "notes": "MIT's own signed response to the 2016 congressional endowment inquiry, dated April 1, 2016. THE ONLY MIT DOCUMENT FOUND THAT PUBLISHES ACTUAL (NOT TARGET) ENDOWMENT ALLOCATION PERCENTAGES: Table 1.2, headed 'Endowment Asset Allocation' with the column heading 'Asset Allocation as a Percentage of the Endowment' and columns 2015 / 2014 / 2013. Dating evidence that these are fiscal-year-end columns: the endowment values printed in the adjacent Tables 2.1 and 3.1 under the same year labels ($13,474.7M / $12,425.1M / $10,858.0M) equal MIT's June 30 endowment values in the Treasurer's Reports for FY2015 / FY2014 / FY2013 exactly. MIT states in the surrounding prose that about 98% of the endowment is invested through the unitized pool whose allocation the table shows, with about 2% held as non-cash gifts - the measurement-universe caveat in MIT's own words. Also the source for the FY2008 and FY2009 returns (3.2% and -17.1%), which MIT's Treasurer's Reports for those years do not state; Table 3.1 independently reproduces every FY2010-FY2015 return we curated from the Treasurer's Reports."
+  },
+  {
+    "id": "mitimco-treasurers-report-2010",
+    "title": "MIT Report of the Treasurer 2010",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://web.archive.org/web/20110601060345id_/http://vpf.mit.edu/site/content/download/7658/41219/file/FY10%20Treasurer's%20Report.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment and Similar Funds'; Note L, Components of Net Assets and Endowment",
+    "accessedDate": "2026-07-30",
+    "notes": "Source for the FY2010 return (10.2%) and for the FY2010 and restated FY2009 endowment market values ($8,317.3M and $7,880.3M, 'excluding pledges for endowed purposes'). This edition records that certain funds previously classified as endowment were reclassified to other invested funds, which is why FY2009 reads $7,880.3M here against $7,982.0M as first reported in the FY2009 edition; MIT's own later documents, including its 2016 congressional response, use the restated figure. vpf.mit.edu no longer serves any Report of the Treasurer before FY2011 (the sites/default/files path returns HTTP 404 for FY2000-FY2010), so this cites the Internet Archive capture of the original vpf.mit.edu download URL."
+  },
+  {
+    "id": "mitimco-treasurers-report-2011",
+    "title": "MIT Report of the Treasurer 2011",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2011.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "Source for the FY2011 return (17.9%, 'MIT's core Pool A endowment produced a return of 17.9 percent') and market value, and - via the Five-Year Trend Analysis, 'Total endowment funds before pledges' - for the restated FY2007 and FY2008 market values ($9,943.1M and $9,947.6M). This is also the last edition to quantify allocation in any form: 'Equity, marketable alternatives, and real estate investments at market value were 81.1 percent of investments as of June 30, 2011, as compared to 83.7 percent at June 30, 2010.' That figure is a single aggregate spanning several of our categories, taken over total investments rather than the endowment, and is deliberately NOT curated - splitting it would be inventing data. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2012",
+    "title": "MIT Report of the Treasurer 2012",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2012.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2012 return (8.0%) and market value ($10,149.6M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2013",
+    "title": "MIT Report of the Treasurer 2013",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2013.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2013 return (11.1%) and market value ($10,858.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2014",
+    "title": "MIT Report of the Treasurer 2014",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2014.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2014 return (19.2%) and market value ($12,425.1M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2015",
+    "title": "MIT Report of the Treasurer 2015",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2015.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2015 return (13.2%) and market value ($13,474.7M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2016",
+    "title": "MIT Report of the Treasurer 2016",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2016.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2016 return (0.8%) and market value ($13,181.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2017",
+    "title": "MIT Report of the Treasurer 2017",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2017.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2017 return (14.3%) and market value ($14,832.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2018",
+    "title": "MIT Report of the Treasurer 2018",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2018.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2018 return (13.5%) and market value ($16,400.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2019",
+    "title": "MIT Report of the Treasurer 2019",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2019.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2019 return (8.8%) and market value ($17,443.8M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2020",
+    "title": "MIT Report of the Treasurer 2020",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2020.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2020 return (8.3%, 'as measured using valuations received within one month of fiscal year-end') and market value ($18,381.5M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2021",
+    "title": "MIT Report of the Treasurer 2021",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2021.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2021 return (55.5%) and market value ($27,394.0M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2022",
+    "title": "MIT Report of the Treasurer 2022",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2022.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2022 return (-5.3%) and market value ($24,600.8M). The return is printed with a minus sign, not in accounting parentheses. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2023",
+    "title": "MIT Report of the Treasurer 2023",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2023.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2023 return (-2.9%) and market value ($23,453.4M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2024",
+    "title": "MIT Report of the Treasurer 2024",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2024.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2024 return (8.9%) and market value ($24,572.7M). Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  },
+  {
+    "id": "mitimco-treasurers-report-2025",
+    "title": "MIT Report of the Treasurer 2025",
+    "publisher": "Massachusetts Institute of Technology, Office of the Vice President for Finance",
+    "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2025.pdf",
+    "documentType": "financial_statement",
+    "page": "Report of the Treasurer (summary), 'Endowment'; Note B, Investments",
+    "accessedDate": "2026-07-30",
+    "notes": "FY2025 return (14.8%) and market value ($27,366.2M); MIT Facts (facts.mit.edu/operating-financials) independently prints the same $27,366.2M. Returns are stated as MIT's own 'pooled investments (Pool A)' return inside the report's Endowment section; market values are MIT's 'investments in endowment funds, excluding pledges for endowed purposes'. This edition contains NO asset-allocation percentage table for the endowment or for Pool A - only investments at fair value in dollars (Table 5/6, Investments), which this project does not derive percentages from."
+  }
+]

@@ -37,6 +37,6 @@ Free, public, no-login web app showing everyday DIY investors how famous univers
 
 ## Domain notes
 
-- Endowment fiscal years end **June 30** (FY2025 = July 2024–June 2025). All return series align to fiscal years, not calendar years.
+- Endowment fiscal years end **June 30** for four of the five schools (FY2025 = July 2024–June 2025); **Stanford's ends August 31**, so its market values are ~2 months offset — see `data/README.md`. All return series align to fiscal years, not calendar years.
 - Allocation categories are normalized across schools (schools use different labels — map them during curation and note the mapping in `data/README.md`).
 - Copycat/backtest math: annual rebalancing, no taxes/fees modeled — say so in the fine print.

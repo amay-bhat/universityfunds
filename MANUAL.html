@@ -1,0 +1,829 @@
+<title>Operator Manual — University Endowment Investing Explorer</title>
+
+<!--
+  Operator manual for driving the rest of this project to completion under the
+  Conduct framework. Every command in §3 was verified by execution on
+  2026-07-31; every rule is quoted from the file that imposes it.
+
+  TASKS.md remains the single source of truth for project STATE. This manual
+  documents PROCEDURE. Where it states live counts they are marked with their
+  verification date and will drift — re-derive with `npm run seed:dry`.
+
+  Published as a claude.ai Artifact, which supplies the doctype/head/body.
+-->
+
+<style>
+  :root {
+    /* Instrument-panel neutrals: graphite with a faint cyan bias, one petrol
+       accent. Deliberately distinct from STATUS (blue ledger) and the design
+       doc (warm oxblood). Semantic colours are reserved for do/careful/never. */
+    --ground:      #F1F4F4;
+    --surface:     #FFFFFF;
+    --sunk:        #E7ECEC;
+    --ink:         #111819;
+    --ink-2:       #445254;
+    --ink-3:       #78868A;
+    --rule:        #D9E0E1;
+    --rule-hard:   #B9C4C6;
+    --accent:      #0E6B70;
+    --safe:        #17754A;
+    --safe-bg:     #E7F1EB;
+    --care:        #B26E00;
+    --care-bg:     #F9F0E0;
+    --never:       #A3232C;
+    --never-bg:    #F8E9E9;
+
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:    #0D1112;
+      --surface:   #141A1B;
+      --sunk:      #1A2223;
+      --ink:       #E3EAEA;
+      --ink-2:     #A0AFB1;
+      --ink-3:     #748386;
+      --rule:      #232D2F;
+      --rule-hard: #354245;
+      --accent:    #5FB8BD;
+      --safe:      #4CAE77;
+      --safe-bg:   #15271E;
+      --care:      #E0A63C;
+      --care-bg:   #2A2216;
+      --never:     #E0665C;
+      --never-bg:  #2C1B1A;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground:#F1F4F4; --surface:#FFFFFF; --sunk:#E7ECEC;
+    --ink:#111819; --ink-2:#445254; --ink-3:#78868A;
+    --rule:#D9E0E1; --rule-hard:#B9C4C6; --accent:#0E6B70;
+    --safe:#17754A; --safe-bg:#E7F1EB; --care:#B26E00; --care-bg:#F9F0E0;
+    --never:#A3232C; --never-bg:#F8E9E9;
+  }
+  :root[data-theme="dark"] {
+    --ground:#0D1112; --surface:#141A1B; --sunk:#1A2223;
+    --ink:#E3EAEA; --ink-2:#A0AFB1; --ink-3:#748386;
+    --rule:#232D2F; --rule-hard:#354245; --accent:#5FB8BD;
+    --safe:#4CAE77; --safe-bg:#15271E; --care:#E0A63C; --care-bg:#2A2216;
+    --never:#E0665C; --never-bg:#2C1B1A;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 54rem; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+
+  /* masthead */
+  .kicker {
+    font-family: var(--mono); font-size: .7rem; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: .9rem;
+  }
+  h1 {
+    font-family: var(--mono); font-size: clamp(1.6rem, 4.2vw, 2.3rem);
+    line-height: 1.15; font-weight: 600; letter-spacing: -0.02em;
+    margin: 0 0 .8rem; text-wrap: balance;
+  }
+  .stand { font-size: 1.05rem; color: var(--ink-2); max-width: 58ch; margin: 0 0 1.4rem; }
+  .meta {
+    font-family: var(--mono); font-size: .73rem; color: var(--ink-3);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: .7rem 0; display: flex; flex-wrap: wrap; gap: .3rem 1.4rem;
+    margin-bottom: 2.6rem;
+  }
+
+  /* contents */
+  nav.toc {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1.1rem 1.4rem; margin-bottom: 3rem; font-size: .9rem;
+  }
+  nav.toc ol { margin: 0; padding-left: 1.5rem; columns: 2; column-gap: 2.2rem; }
+  nav.toc li { margin: .22rem 0; break-inside: avoid; }
+  nav.toc a { color: var(--ink-2); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); text-decoration: underline; }
+  @media (max-width: 36rem) { nav.toc ol { columns: 1; } }
+
+  /* sections */
+  section { margin-bottom: 3.4rem; }
+  h2 {
+    font-family: var(--mono); font-size: 1.15rem; font-weight: 600;
+    letter-spacing: -0.01em; margin: 0 0 1rem; padding-top: .9rem;
+    border-top: 2px solid var(--ink);
+  }
+  h2 .n { color: var(--accent); margin-right: .7rem; }
+  h3 {
+    font-family: var(--mono); font-size: .95rem; font-weight: 600;
+    margin: 1.9rem 0 .55rem; color: var(--ink);
+  }
+  h4 { font-size: .9rem; font-weight: 700; margin: 1.3rem 0 .4rem; color: var(--ink-2); }
+  p { margin: 0 0 .9rem; max-width: 66ch; }
+  ul, ol { margin: 0 0 .9rem; padding-left: 1.4rem; max-width: 64ch; }
+  li { margin-bottom: .35rem; }
+
+  code {
+    font-family: var(--mono); font-size: .84em;
+    background: var(--sunk); padding: .1em .34em; border-radius: 2px;
+  }
+  pre {
+    font-family: var(--mono); font-size: .8rem; line-height: 1.55;
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: .9rem 1.1rem; overflow-x: auto; margin: 0 0 1rem;
+  }
+  pre code { background: none; padding: 0; }
+
+  .scroller { overflow-x: auto; margin: 0 0 1.1rem; }
+  table {
+    border-collapse: collapse; width: 100%; font-size: .88rem;
+    background: var(--surface); border: 1px solid var(--rule); min-width: 32rem;
+  }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: .67rem; letter-spacing: .09em;
+    text-transform: uppercase; font-weight: 400; color: var(--ink-3);
+    background: var(--sunk); white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.cmd { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+
+  /* callouts — semantic, each with a word not just a colour */
+  .box { border: 1px solid var(--rule); border-left-width: 3px; padding: .85rem 1.1rem; margin: 1rem 0 1.2rem; font-size: .92rem; }
+  .box p:last-child { margin-bottom: 0; }
+  .box .tag {
+    font-family: var(--mono); font-size: .67rem; letter-spacing: .11em;
+    text-transform: uppercase; display: block; margin-bottom: .35rem;
+  }
+  .box.do    { border-left-color: var(--safe);  background: var(--safe-bg); }
+  .box.do .tag    { color: var(--safe); }
+  .box.care  { border-left-color: var(--care);  background: var(--care-bg); }
+  .box.care .tag  { color: var(--care); }
+  .box.never { border-left-color: var(--never); background: var(--never-bg); }
+  .box.never .tag { color: var(--never); }
+
+  /* checklist */
+  .check { list-style: none; padding-left: 0; }
+  .check li { display: grid; grid-template-columns: 1.4rem 1fr; gap: .5rem; align-items: baseline; }
+  .check li::before { content: "☐"; font-family: var(--mono); color: var(--ink-3); }
+
+  /* stage blocks */
+  .stage { background: var(--surface); border: 1px solid var(--rule); margin-bottom: 1rem; }
+  .stage-head {
+    display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap;
+    padding: .7rem 1.1rem; border-bottom: 1px solid var(--rule); background: var(--sunk);
+  }
+  .stage-num { font-family: var(--mono); font-size: .72rem; color: var(--accent); letter-spacing: .08em; }
+  .stage-title { font-weight: 700; font-size: .95rem; }
+  .stage-body { padding: .85rem 1.1rem; font-size: .92rem; }
+  .stage-body p { margin-bottom: .6rem; }
+  .stage-body p:last-child { margin-bottom: 0; }
+  .who {
+    font-family: var(--mono); font-size: .66rem; letter-spacing: .09em;
+    text-transform: uppercase; padding: .1rem .4rem; border-radius: 2px; white-space: nowrap;
+  }
+  .who.human { color: var(--never); background: var(--never-bg); }
+  .who.machine { color: var(--accent); background: var(--sunk); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  footer {
+    border-top: 2px solid var(--ink); padding-top: 1.3rem;
+    font-size: .86rem; color: var(--ink-3);
+  }
+  strong { font-weight: 700; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">Operator manual · Conduct v1.0.0</div>
+  <h1>Driving the endowment explorer to v1</h1>
+  <p class="stand">
+    How to run the rest of this project: what you type, what the machine does on its own,
+    what only you can decide, and what to do when something breaks. Written for the person
+    at the keyboard, not for the sessions.
+  </p>
+  <div class="meta">
+    <span>31 July 2026</span>
+    <span>Commands verified by execution</span>
+    <span>Rules quoted from source</span>
+    <span>State lives in TASKS.md</span>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <ol>
+    <li><a href="#model">What you are operating</a></li>
+    <li><a href="#loop">The daily loop</a></li>
+    <li><a href="#commands">Command reference</a></li>
+    <li><a href="#green">What &ldquo;green&rdquo; means</a></li>
+    <li><a href="#yours">Decisions only you can make</a></li>
+    <li><a href="#never">Never let a session do this</a></li>
+    <li><a href="#audit">Auditing what was decided for you</a></li>
+    <li><a href="#broken">When it breaks</a></li>
+    <li><a href="#sequence">The ordered sequence to v1</a></li>
+    <li><a href="#debts">Known debts and open holes</a></li>
+    <li><a href="#traps">Traps worth knowing</a></li>
+  </ol>
+</nav>
+
+<section id="model">
+  <h2><span class="n">01</span>What you are operating</h2>
+  <p>
+    Two machines stacked on each other. The <strong>work plane</strong> reads a ledger and gets
+    tasks done. The <strong>decision plane</strong> handles the questions that come up while doing
+    them. You sit above both.
+  </p>
+  <div class="scroller"><table>
+    <thead><tr><th>Part</th><th>What it is</th><th>Where it lives</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Ledger</strong></td><td>The plan and the memory. Tasks, checkboxes, leases, and the build log where every decision is recorded.</td><td class="cmd">TASKS.md</td></tr>
+      <tr><td><strong>Conductor</strong></td><td>Reads the ledger, splits work into briefs, routes each to a model tier, verifies the results, merges them, logs it. Never writes product code itself.</td><td class="cmd">.claude/skills/conduct/</td></tr>
+      <tr><td><strong>Chain</strong></td><td>When a session hits a real fork, it answers the question itself, then a fresh agent one tier up rules on it blind. Sonnet&nbsp;&rarr;&nbsp;Opus&nbsp;&rarr;&nbsp;Fable&nbsp;&rarr;&nbsp;you.</td><td class="cmd">.claude/skills/escalate/</td></tr>
+      <tr><td><strong>Kernel</strong></td><td>The rules that bind every session: six universal articles, and the list of powers reserved to you. Signed 30 July 2026.</td><td class="cmd">escalate/references/kernel.md</td></tr>
+      <tr><td><strong>Gates</strong></td><td>Checkpoints A and B. The line stops; you review. Not escalatable &mdash; no model may route around them.</td><td class="cmd">TASKS.md</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box do">
+    <span class="tag">The one rule that makes it safe</span>
+    <p>
+      <strong>The conductor is disposable; the ledger is not.</strong> Kill any session at any
+      moment and a fresh one reads <code>TASKS.md</code> plus <code>conduct/plans/</code> and picks
+      up where it left off. Nothing important lives in a session&rsquo;s head. That is why
+      interrupting is nearly always safe &mdash; see &sect;8.
+    </p>
+  </div>
+
+  <p>
+    Two documents describe state rather than procedure, and they are <em>rendered</em> from the
+    ledger, never authored beside it: the <strong>status page</strong> (live progress, republished
+    at each integration) and the <strong>design document</strong> (why the framework is shaped this
+    way). If either ever disagrees with <code>TASKS.md</code>, the ledger is right and the other is
+    stale.
+  </p>
+</section>
+
+<section id="loop">
+  <h2><span class="n">02</span>The daily loop</h2>
+  <pre><code>cd ~/Projects/dashboardProject &amp;&amp; claude
+/conduct</code></pre>
+  <p>
+    That is the whole normal path. The conductor claims the next unblocked task, decomposes it,
+    routes each piece, spawns workers, re-runs their acceptance checks itself, merges, updates the
+    ledger, and republishes the status page. It stops on its own at exactly three things:
+    <strong>a gate</strong>, <strong>a reserved matter</strong>, or <strong>budget
+    exhaustion</strong>.
+  </p>
+
+  <h3>Before you type it, four checks</h3>
+  <p>Not ceremony &mdash; two sessions once collided on this repo and it resolved by luck, not design.</p>
+  <pre><code>grep -n "claimed-by" TASKS.md   # live leases. Only the convention line = nothing claimed
+ls conduct/briefs/              # units dispatched but maybe unmerged
+git status --short              # anything in flight
+npm run seed:dry                # the data fingerprint (see §4)</code></pre>
+
+  <h3>Open every session by pointing it at its own rules</h3>
+  <div class="box care">
+    <span class="tag">Do not skip this</span>
+    <p>
+      A session&rsquo;s auto-loaded instructions can be a cached older copy that omits the
+      governance entirely &mdash; no constitution in the reading order, no escalation rule, no
+      concurrency rule. A session that never learns the rules exist cannot follow them. Start with:
+      <em>&ldquo;Read CONSTITUTION.md and .claude/skills/escalate/references/kernel.md before
+      anything else.&rdquo;</em>
+    </p>
+  </div>
+
+  <h3>Bounded runs</h3>
+  <div class="scroller"><table>
+    <thead><tr><th>Invocation</th><th>Behaviour</th></tr></thead>
+    <tbody>
+      <tr><td class="cmd">/conduct</td><td>Run the next unblocked work until a stopping condition.</td></tr>
+      <tr><td class="cmd">/conduct plan</td><td><strong>Decompose only.</strong> Produces briefs, spends no worker tokens. Use this whenever you want to see the plan before paying for it.</td></tr>
+      <tr><td class="cmd">/conduct 1.7</td><td>That task and only that task, then stop.</td></tr>
+      <tr><td class="cmd">/conduct until checkpoint-a</td><td>Run through as many tasks as fit, halting at the gate.</td></tr>
+      <tr><td class="cmd">/escalate</td><td>Force a question onto the record through the blind two-phase chain. Sessions fire this automatically; you rarely need it.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="box never">
+    <span class="tag">Never in this repo</span>
+    <p>
+      <code>/conduct init</code> scaffolds a <em>fresh</em> repo &mdash; it would overwrite
+      <code>CONSTITUTION.md</code> and <code>TASKS.md</code>, the two files the reserved list exists
+      to protect.
+    </p>
+  </div>
+</section>
+
+<section id="commands">
+  <h2><span class="n">03</span>Command reference</h2>
+  <p>Every row below was run on 31 July 2026 except the two marked <em>not run</em>, which are destructive by design.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Command</th><th>Does</th><th>Expect</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="cmd">npm run seed:dry</td>
+        <td>Validate <code>data/</code> and stop. No database connection at all &mdash; works with no credentials.</td>
+        <td><code>Validation passed (10 warning(s))</code></td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run seed:verify</td>
+        <td>Run the validator against 30 deliberately-broken copies of <code>data/</code> and assert each rule fires. Copies live in a temp dir; your files are untouched.</td>
+        <td><code>30/30 validator checks passed.</code></td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run seed</td>
+        <td><strong>Not run here.</strong> Validates, then <strong>writes to the production database</strong> &mdash; the <code>--write</code> flag is inside the npm script. One batched transaction. <strong>It prunes:</strong> rows absent from <code>data/</code> get deleted.</td>
+        <td><code>applied N statement(s) in one transaction</code></td>
+      </tr>
+      <tr>
+        <td class="cmd">npx tsc --noEmit</td>
+        <td>Typecheck. Note <code>scripts/</code> is inside the compile scope, so a type error there breaks the Vercel deploy.</td>
+        <td>Silence, exit&nbsp;0</td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run lint</td>
+        <td>ESLint over 12 real files (verified it is not silently linting nothing).</td>
+        <td>Silence, exit&nbsp;0</td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run build</td>
+        <td>Production build; also runs TypeScript and reads <code>.env.local</code>.</td>
+        <td><code>&#10003; Compiled successfully</code>, routes <code>/</code> and <code>/_not-found</code> only</td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run dev</td>
+        <td>Local server for eyeballing the app.</td>
+        <td>Starter page today &mdash; Phase&nbsp;2 hasn&rsquo;t built the shell yet</td>
+      </tr>
+      <tr>
+        <td class="cmd">npm run db:push</td>
+        <td><strong>Not run here.</strong> Mutates the live schema. Also hangs on its interactive rename prompt in a non-interactive shell &mdash; column renames need hand DDL in one transaction.</td>
+        <td>Only for a deliberate schema change; re-run after as a verifier expecting <code>No changes detected</code></td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="box never">
+    <span class="tag">The three that bite</span>
+    <p>
+      <strong>1. <code>npm run seed --dry-run</code> is not a safe command.</strong> npm swallows
+      the flag; historically this performed the destructive write. A guard now catches it, but the
+      command you want is <code>npm run seed:dry</code>.
+    </p>
+    <p>
+      <strong>2. <code>npm run db:migrate</code> / <code>db:generate</code> are a dead path.</strong>
+      There is no committed migration history. <code>db:generate</code> would invent one;
+      <code>db:migrate</code> then emits bare <code>CREATE TABLE</code> against a populated database
+      and fails. The sanctioned route is <code>db:push</code> or hand DDL.
+    </p>
+    <p>
+      <strong>3. <code>npm run db:studio</code> can edit rows</strong> &mdash; writing to the
+      database directly is flatly forbidden by Article&nbsp;8. Read the seed files instead.
+    </p>
+  </div>
+  <div class="box care">
+    <span class="tag">Also true</span>
+    <p>
+      <code>npm audit</code> reports 16 findings (4 moderate, 12 high), all build-time only.
+      <code>npm audit fix --force</code> installs Next.js&nbsp;9 and destroys the app. The
+      leave-it-alone decision is deliberate and logged.
+    </p>
+  </div>
+</section>
+
+<section id="green">
+  <h2><span class="n">04</span>What &ldquo;green&rdquo; means</h2>
+  <p>Five commands, and three things to read rather than just run. All five were simultaneously green on 31 July 2026.</p>
+  <pre><code>npx tsc --noEmit      → silence
+npm run lint          → silence
+npm run build         → ✓ Compiled successfully
+npm run seed:verify   → 30/30 validator checks passed.
+npm run seed:dry      → Validation passed (10 warning(s)).</code></pre>
+
+  <h3>Read the counts, not just the pass</h3>
+  <pre><code>5 school(s), 95 source(s), 349 allocation row(s),
+128 endowment return row(s), 130 benchmark return row(s), 0 proxy mapping(s)</code></pre>
+  <p>
+    A change in that line means someone edited <code>data/</code>. Verified in the files;
+    the database matched at the last integration.
+  </p>
+
+  <h3>Read the warning set, not just the count</h3>
+  <p>
+    All ten are expected: <strong>seven</strong> are &ldquo;category has no ETF proxy mapping yet
+    (task 1.7)&rdquo; &mdash; one per category actually in use, and note <code>other</code> is used
+    by nobody &mdash; and <strong>three</strong> are empty benchmark series
+    (<code>global_equity</code>, <code>hedge_fund_index</code>, <code>public_pe_index</code>).
+    An eleventh warning is new and real.
+  </p>
+  <div class="box care">
+    <span class="tag">This baseline expires</span>
+    <p>
+      Task 1.7 populates the proxy table and at least one of the empty series, so the seven
+      mapping warnings should go to zero and <code>global_equity</code> should clear.
+      <strong>Whoever integrates 1.7 must record the new expected warning count in the build
+      log</strong>, or no later session will know what green looks like.
+    </p>
+  </div>
+  <p>
+    Two supporting rules worth internalising: <code>seed:verify</code> must stay at full count
+    <em>because that is how an unauthorised edit to a validator file gets detected</em>, and
+    <code>seed:dry</code> is re-run <em>after</em> any write to prove the write was idempotent.
+  </p>
+</section>
+
+<section id="yours">
+  <h2><span class="n">05</span>Decisions only you can make</h2>
+  <p>Three are open right now.</p>
+
+  <div class="stage">
+    <div class="stage-head"><span class="who human">Yours</span><span class="stage-title">Turn off Vercel Deployment Protection</span><span class="stage-num">task 6.4</span></div>
+    <div class="stage-body">
+      <p>
+        Settings &rarr; Deployment Protection &rarr; <strong>Vercel Authentication: Disabled</strong>,
+        Production. Until then every logged-out visitor is redirected to a login and the site carries
+        <code>noindex</code> &mdash; which contradicts the project&rsquo;s headline
+        &ldquo;free, public, no-login&rdquo; requirement.
+      </p>
+      <p>
+        Verify with no bypass header and no Vercel cookie:
+        <code>curl -I https://universityfunds-amay-s-projects3.vercel.app</code> must return
+        <strong>200</strong>, not a 302 to <code>vercel.com/sso-api</code>. Use that long hostname;
+        the short <code>universityfunds.vercel.app</code> is a different alias and 404s, which reads
+        misleadingly like a broken deploy.
+      </p>
+      <div class="box care">
+        <span class="tag">Not the same thing</span>
+        <p>
+          &ldquo;Protection Bypass for Automation&rdquo; makes an automated <code>curl</code> return
+          200 while real visitors still hit the login &mdash; a green check over a broken
+          requirement. Disable the authentication itself.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="who human">Yours</span><span class="stage-title">Checkpoint A &mdash; what does v1 mean?</span><span class="stage-num">one question, three parts</span></div>
+    <div class="stage-body">
+      <p>
+        The plan asks for allocation charts spanning FY2000&ndash;FY2025 for all five schools. No
+        school discloses that much, and each falls short differently:
+      </p>
+      <ul>
+        <li><strong>Yale</strong> &mdash; 21 allocation years; stopped publishing after FY2020.</li>
+        <li><strong>Harvard</strong> &mdash; 14 allocation years, and FY2005&ndash;FY2016 are published <em>targets</em>, not holdings.</li>
+        <li><strong>MIT</strong> &mdash; 7 scattered years, three of them on a pool basis rather than the endowment itself.</li>
+        <li><strong>Stanford</strong> &mdash; <strong>zero</strong>. Its percentages exist only for a pool that is ~73% endowment, with a measured 2.9-point return divergence.</li>
+        <li><strong>Princeton</strong> &mdash; 18 years, with FY2019 and FY2024&ndash;25 missing.</li>
+      </ul>
+      <p>
+        Bless that as v1 or override it. Nothing is wasted either way &mdash; every school is curated
+        to its real disclosure limit. Also on the agenda: acknowledge the citation-split telemetry
+        (3 mixed-provenance years, all MIT), and rule on the congressional-responses lead below.
+      </p>
+      <div class="box do">
+        <span class="tag">Write the answer down</span>
+        <p>
+          Record it as a <code>[HITL]</code> entry in the build log. A verbal blessing leaves
+          Checkpoint B with no standard to measure against, and leaves the page-building tasks
+          inventing a Stanford policy that is itself the reserved call. Only you may amend
+          <code>PRD.md</code> &mdash; it was deliberately left unamended precisely because this
+          question is yours.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="who human">Yours</span><span class="stage-title">Push</span><span class="stage-num">3 commits local</span></div>
+    <div class="stage-body">
+      <p>
+        Pushing auto-deploys, so it stays your call. But note what is currently only on one machine:
+        the kernel adoption, the citation-split schema change, and all of the task 1.5/1.6 curation
+        &mdash; five recorded rulings and 607 cited data points.
+      </p>
+    </div>
+  </div>
+
+  <h3>One optional call that could change the picture</h3>
+  <p>
+    Every one of these schools answered the same two congressional endowment inquiries &mdash; and
+    those responses are where MIT&rsquo;s <em>only</em> allocation tables came from. Authorising a
+    scoped research unit on them is the single lead that could turn Stanford from zero years into a
+    series. The re-opening test is already written and must not be re-argued: <strong>at least 95% of
+    the endowment held inside the pool</strong> &mdash; endowment-in-pool, not the pool&rsquo;s
+    endowment share.
+  </p>
+</section>
+
+<section id="never">
+  <h2><span class="n">06</span>Never let a session do this</h2>
+  <p>
+    The reserved list, in operator terms. No model tier may approve any of it, however sound its
+    reasoning, and there is no timeout that defaults past one &mdash; a reserved question always
+    ends with <em>&ldquo;I stop here.&rdquo;</em>
+  </p>
+  <div class="scroller"><table>
+    <thead><tr><th>Reserved</th><th>Means in practice</th></tr></thead>
+    <tbody>
+      <tr><td>Money</td><td>Spending, plan changes, paid data subscriptions. Licensing a hedge-fund index would hit this <em>and</em> the licensing clause &mdash; relevant to task 1.7.</td></tr>
+      <tr><td>Irreversible or outward-facing</td><td>Force-push, history rewrite, deleting branches/repos/production data, making anything public, publishing under the project&rsquo;s name, messaging third parties.</td></tr>
+      <tr><td>Secrets</td><td>Rotating, moving, or committing credentials.</td></tr>
+      <tr><td>Legal posture</td><td>The site-level not-financial-advice wording, terms, data licensing. A session may <em>draft</em> the disclaimer; only you settle it.</td></tr>
+      <tr><td>Amending the rules</td><td>The kernel, any constitution &mdash; including adopting one. A session may propose in the log; you adopt.</td></tr>
+      <tr><td>Product identity</td><td>What v1 means, which schools are in scope, the name, the visual identity. This is why <code>PRD.md</code> stays unamended before Checkpoint A.</td></tr>
+      <tr><td>Anything marked <code>[H]</code></td><td>Dashboard clicks and account actions.</td></tr>
+    </tbody>
+  </table></div>
+  <p>
+    A plain <code>git push</code> is not literally enumerated, but because it deploys, the working
+    rule is: <strong>the operator pushes; a session asks.</strong>
+  </p>
+  <div class="box do">
+    <span class="tag">If a session asks you one of these</span>
+    <p>That is the system working correctly. Answer it, and the answer goes in the log.</p>
+  </div>
+
+  <h3>Two data rules that outrank convenience</h3>
+  <ul>
+    <li>
+      <strong>A gap stays a gap.</strong> Every school is curated to its real disclosure limit.
+      Never let a session close one with a derived, interpolated, or wrong-universe number. That is
+      the exact failure the validator, the coverage rule and three separate rulings exist to prevent.
+    </li>
+    <li>
+      <strong>Never nudge a figure so a year sums to 100.</strong> Harvard&rsquo;s FY2019, FY2024 and
+      FY2025 sum to exactly 101 as published, sitting on the tolerance boundary &mdash; one tidy-up
+      flips them to failing. Materially out of tolerance is an escalation, never a quiet widening of
+      the constant.
+    </li>
+  </ul>
+</section>
+
+<section id="audit">
+  <h2><span class="n">07</span>Auditing what was decided for you</h2>
+  <p>The whole point of proxied decisions is that they stay reversible. Four greps:</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Grep</th><th>Finds</th></tr></thead>
+    <tbody>
+      <tr><td class="cmd">grep -n "\[PROXY DECISION\]" TASKS.md</td><td>Eight hits, of which <strong>five are actual rulings</strong> &mdash; the others are the tag&rsquo;s own definition, a task-line mention, and a replay reference.</td></tr>
+      <tr><td class="cmd">grep -n "\[JUDGMENT CALL\]" TASKS.md</td><td>Four small calls made without escalation, each with its reasoning.</td></tr>
+      <tr><td class="cmd">grep -n "\[HITL\]" TASKS.md</td><td>Your own recorded answers. One so far.</td></tr>
+      <tr><td class="cmd">grep -n "\[DISSENT\]" TASKS.md</td><td>Zero &mdash; never used yet. It exists so a losing argument that turns out right is on the record.</td></tr>
+    </tbody>
+  </table></div>
+  <p>
+    Each ruling must carry the question, the options, both tiers&rsquo; recommendations, the article
+    check, what was implemented, and what would justify revisiting it. If one is missing any of
+    those, the protocol failed even if the decision was right.
+  </p>
+  <h3>The health number</h3>
+  <p>
+    <strong>Ratification rate.</strong> If the senior tier always agrees with the junior, the check
+    is decorative and the floor is set too low. Across the five rulings so far: one ratified with
+    additions, two where the senior <em>refuted the junior&rsquo;s premise</em> using documents the
+    junior never gathered, and two modified. That is a healthy spread &mdash; the tier hop is doing
+    real work.
+  </p>
+  <p>
+    Five rulings are settled and should not be reopened without new evidence: Yale&rsquo;s
+    post-FY2020 coverage, Harvard&rsquo;s granularity and target basis, Harvard&rsquo;s undated
+    tables, negative allocation weights, and the pool-basis rule. Each records what <em>would</em>
+    justify revisiting.
+  </p>
+</section>
+
+<section id="broken">
+  <h2><span class="n">08</span>When it breaks</h2>
+  <p>
+    The task 1.6 pilot absorbed roughly seventeen infrastructure failures with zero work lost. Here
+    is why, and what to do.
+  </p>
+  <div class="scroller"><table>
+    <thead><tr><th>Symptom</th><th>Do this</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>A worker dies &mdash; connection closed, or stalled</td>
+        <td><strong>Resume it, do not respawn it.</strong> Its transcript, scratch directory and any written fragments survive; a fresh agent redoes hours of work. If the same agent keeps dying on long final messages, tell it to write its report to a file first and reply in one line.</td>
+      </tr>
+      <tr>
+        <td>The conductor died mid-task</td>
+        <td>Just run <code>/conduct</code> again. State is in <code>TASKS.md</code> and <code>conduct/plans/</code>. Read the plan file first &mdash; it carries per-unit status markers.</td>
+      </tr>
+      <tr>
+        <td>A worker blew its budget</td>
+        <td>Once is normal &mdash; first-contact archival research ran about 1.6&times; the rubric&rsquo;s estimates. Twice means the task is mis-scoped: re-decompose it, never tell the worker to try harder.</td>
+      </tr>
+      <tr>
+        <td>Validation fails after a merge</td>
+        <td>Nothing is half-written. Workers never write inside <code>data/</code>; their output sits in <code>conduct/fragments/</code>. Fix and re-merge.</td>
+      </tr>
+      <tr>
+        <td>A write failed partway</td>
+        <td>It rolled back &mdash; the write is one transaction. This already happened once in production with zero residue. Fix the cause and re-run.</td>
+      </tr>
+      <tr>
+        <td>You suspect another session is active</td>
+        <td>Run the four-check block from &sect;2. Leases are a convention, not a lock, and they live in a shared file &mdash; so check briefs and <code>git status</code> too.</td>
+      </tr>
+      <tr>
+        <td>A worker reports its own token spend</td>
+        <td>Ignore it. Self-estimates came in at roughly half the metered truth, four times out of four. Trust the harness numbers only.</td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div class="box care">
+    <span class="tag">Does not survive</span>
+    <p>
+      Session scratchpads. Extraction scripts, downloaded PDFs and draft rulings live there and are
+      gone tomorrow &mdash; <strong>regenerate rather than hunt</strong>. Anything that must persist
+      belongs in <code>TASKS.md</code>, <code>data/README.md</code>, or a committed file. That is why
+      every ruling is quoted into the build log rather than referenced.
+    </p>
+  </div>
+</section>
+
+<section id="sequence">
+  <h2><span class="n">09</span>The ordered sequence to v1</h2>
+  <p>From here to shipped, with every point where you must act.</p>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 0</span><span class="stage-title">Do now, out of ledger order</span><span class="who human">Yours</span></div>
+    <div class="stage-body">
+      <p>
+        Turn off Deployment Protection (&sect;5) &mdash; one click, it unblocks task 6.3, and it makes
+        every intermediate deploy checkable from your phone. Decide the push. Record the production
+        URL in <code>TASKS.md</code>: it is currently written nowhere in the repo.
+      </p>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 1</span><span class="stage-title">Close Phase 1 &mdash; task 1.7</span><span class="who machine">Conductor</span></div>
+    <div class="stage-body">
+      <p>
+        The hardest remaining data task and the last before the gate. It must pick, for each
+        category in use, an ETF proxy <em>and</em> a benchmark series that are the
+        <strong>same instrument</strong> &mdash; otherwise the copycat comparison compares two unlike
+        things. It inherits the deliberately-unsolved problem: no freely-citable, retail-investable
+        hedge-fund or private-equity series reaches back to FY2000, and those categories are roughly
+        half of Yale&rsquo;s portfolio every year.
+      </p>
+      <p>
+        The honest answer is pre-blessed: cover only the publicly-replicable sleeve and show the rest
+        as an explicit gap. <strong>Expect one formal escalation here</strong>, and note that
+        licensing a paywalled index is reserved to you twice over.
+      </p>
+      <p>
+        At integration: re-baseline the expected warning count, and regenerate the status page.
+      </p>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 2</span><span class="stage-title">Checkpoint A</span><span class="who human">Yours</span></div>
+    <div class="stage-body">
+      <p>
+        Switch to Fable for the review; the <em>ruling</em> is still yours, not that
+        session&rsquo;s. Answer the three-part v1 question and write it down as
+        <code>[HITL]</code>. Nothing in Phases 3&ndash;5 should start before this &mdash; the page
+        tasks would otherwise invent a Stanford policy that is precisely the reserved call.
+      </p>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 3</span><span class="stage-title">Unowned prerequisites &mdash; schedule them explicitly</span><span class="who machine">Conductor</span></div>
+    <div class="stage-body">
+      <p>
+        None of these has a task, and each blocks something downstream:
+      </p>
+      <ul>
+        <li><strong>Install a test runner.</strong> There is none. Article 7 requires hand-computed unit tests for the backtest engine, so as written it is currently unfulfillable. Do this before task 4.1. Note test files fall inside the compile scope, so a broken one fails the deploy.</li>
+        <li><strong>Choose a chart library</strong> before 3.2 &mdash; after reading the dataviz skill, not before.</li>
+        <li><strong>Split <code>data/README.md</code></strong> (now ~73&nbsp;KB) into per-school files. This was scheduled for after 1.6 and is overdue; it is the file every curation session must read in full.</li>
+        <li>Settle the dead migration scripts, and fix the root <code>README.md</code>, which still points at a path that would shadow the whole app if someone created it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 4</span><span class="stage-title">Build &mdash; Phases 2 to 6</span><span class="who machine">Conductor</span></div>
+    <div class="stage-body">
+      <p>
+        <strong>2.1 alongside 2.2.</strong> The shell needs a Translator route that no task
+        currently mentions; its footer disclaimer wording is yours to settle. The data layer must
+        convert numeric columns to real numbers at the query boundary &mdash; the driver returns them
+        as strings &mdash; while preserving nulls, because Stanford has 26 null returns and Princeton
+        3 null market values.
+      </p>
+      <p>
+        <strong>4.1 alongside 3.2</strong> &mdash; the largest genuine parallelism in the project.
+        The backtest engine has no UI dependency and is the highest-risk code here. Split it as
+        <em>engine</em> versus an <em>independent hand-computed oracle</em> that never reads the
+        implementation, so &ldquo;expected values not produced by the code under test&rdquo; is
+        structurally true rather than promised. It must surface the uncovered sleeve rather than
+        quietly renormalising it. Task 3.2 carries the heaviest display debt in the project.
+      </p>
+      <p>
+        <strong>Then 3.1 and 3.3</strong> (after 3.2 lays the chart rail &mdash; running them first
+        forfeits the exemplar), <strong>4.2 then 4.3</strong>, <strong>5.1 alongside 6.1</strong>
+        (the methodology page needs no charts and owes all 95 sources generated from the table), then
+        <strong>6.2</strong> (you sign the site-level advice wording) and <strong>6.3</strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-head"><span class="stage-num">Stage 5</span><span class="stage-title">Ship</span><span class="who human">Yours</span></div>
+    <div class="stage-body">
+      <p>
+        Push, deploy, re-verify a logged-out 200, then <strong>Checkpoint B</strong> &mdash; final
+        review against the definition of done, measured against what you wrote down at Checkpoint A.
+      </p>
+      <p>
+        Separately, and in no task list: promoting the kernel to your home directory so it governs
+        your other machine and other projects. The pilot&rsquo;s kill criteria did not fire, so it is
+        unblocked &mdash; but it is a kernel amendment, which makes it yours alone.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="debts">
+  <h2><span class="n">10</span>Known debts and open holes</h2>
+  <p>Recorded here so none of them is discovered the hard way.</p>
+  <div class="scroller"><table>
+    <thead><tr><th>Debt</th><th>Consequence</th></tr></thead>
+    <tbody>
+      <tr><td><strong>The validator assumes every fiscal year ends 30 June</strong></td><td>Stanford&rsquo;s ends 31 August, so between July and August the validator will accept a Stanford year that has not closed. The documentation is the guard here, not the code. Fix: a per-school fiscal-year-end map, with a regression case.</td></tr>
+      <tr><td><strong>No test runner</strong></td><td>Article 7 unfulfillable until one is installed. Blocks honest completion of 4.1.</td></tr>
+      <tr><td><strong>Task 6.1&rsquo;s acceptance check is narrower than its body</strong></td><td>It asks for a coverage story only for schools whose allocations end before FY2025 &mdash; which exempts Harvard (ends FY2025) and Stanford (no end year at all), the two hardest cases. Treat the body text as the spec.</td></tr>
+      <tr><td><strong>Two display obligations point at task 3.2, which cannot discharge them</strong></td><td>Stanford&rsquo;s August fiscal-year offset (Stanford has no allocation chart) and Harvard&rsquo;s mixed market-value basis (3.2 is the allocation chart). Re-point both when briefing.</td></tr>
+      <tr><td><strong>Numeric columns come back as strings</strong></td><td>A real landmine for task 2.2: arithmetic on them silently concatenates. Coerce at the query boundary.</td></tr>
+      <tr><td><strong>Importing the seed script runs it</strong></td><td>There is no main-module guard, so importing <code>scripts/seed.ts</code> executes it &mdash; with <code>--write</code> in argv, that means a pruning write. Import only the validator module.</td></tr>
+      <tr><td><strong>Fragments were not cleaned up</strong></td><td>The conductor skill says it deletes them after merging; 15 files from task 1.6 are still there, including duplicate copies of curated school data. Decide deliberately: delete, or amend the skill.</td></tr>
+      <tr><td><strong>Task 0.5 is checked off against an unmet check</strong></td><td>Its check says a migration runs against the database; only a schema push ever happened. Cosmetic, but it is the kind of untruth this project otherwise doesn&rsquo;t tolerate.</td></tr>
+      <tr><td><strong>Three commits unpushed</strong></td><td>One machine holds five rulings and 607 cited data points.</td></tr>
+      <tr><td><strong>Do not &ldquo;fix&rdquo; the PRD&rsquo;s FY2000&ndash;FY2025 promise</strong></td><td>It disagrees with reality on purpose &mdash; that disagreement <em>is</em> the Checkpoint A question. Editing it before you rule would violate the reserved list.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="traps">
+  <h2><span class="n">11</span>Traps worth knowing</h2>
+  <p>
+    Hard-won during curation. The ones that matter most are the data traps, because
+    <strong>no automated check catches any of them</strong> &mdash; a wrong-column read produces a
+    plausible, cited, wrong number.
+  </p>
+  <h3>Data</h3>
+  <ul>
+    <li><strong>Columns that look like returns but are not.</strong> MIT prints &ldquo;Net Endowment Growth&rdquo; beside its return column; growth includes gifts and spending. FY2000 reads 51.0% growth against a 55.6% return.</li>
+    <li><strong>Accounting negatives.</strong> <code>(2.0)%</code> means &minus;2.0%. A naive number-grab flips the sign, and nothing downstream catches it because returns are never summed. This was caught once only because the value contradicted the surrounding prose.</li>
+    <li><strong>Target and actual tables sit adjacent.</strong> Identify columns by their header, never by position &mdash; and some tables run in reverse chronological order.</li>
+    <li><strong>A table&rsquo;s label can contradict its own document.</strong> Stanford&rsquo;s pre-2016 reports head their tables &ldquo;Endowment&rdquo; while the same document states the universe is a broader pool. The document&rsquo;s stated universe wins, not the headline.</li>
+    <li><strong>The same words change meaning by era.</strong> &ldquo;Total endowment funds&rdquo; is a combined figure in Stanford&rsquo;s modern reports and a university-only figure in older ones.</li>
+    <li><strong>Annual reports contain pension-plan allocation tables.</strong> Real percentages, with targets, in the audited report &mdash; and the wrong entity entirely.</li>
+  </ul>
+  <h3>Sourcing and tooling</h3>
+  <ul>
+    <li><strong>Soft-404s.</strong> Some sites return HTTP 200 with an identical error page for every year. Verify you fetched a document, not a stub &mdash; check bytes and page count, not the status code.</li>
+    <li><strong>Archived captures can be truncated at HTTP 200.</strong> Check the recorded length.</li>
+    <li><strong>Fetching archives:</strong> the built-in fetcher is blocked from the Internet Archive but plain <code>curl</code> is not. Get timestamps from the CDX index; per-URL queries succeed where wildcards fail; try both URL schemes, neither is reliably the working one.</li>
+    <li><strong>PDF text:</strong> there is no poppler on this machine, and the tool the build log recommends is not actually installed &mdash; but <code>pdfminer.six</code>, <code>pdfplumber</code> and <code>cryptography</code> are. Extract text rather than reading table images: you get the printed digits instead of a model&rsquo;s reading of them. Watch for old-style figures, which extract as glyph names.</li>
+    <li><strong>Look for multi-year tables first.</strong> One Yale report page carried five fiscal years, turning twenty-one documents into five.</li>
+  </ul>
+  <h3>Process</h3>
+  <ul>
+    <li><strong>Numbers can be right while the reasoning is wrong.</strong> That was <em>every</em> defect the pilot&rsquo;s QC caught &mdash; four for four. When you read a build-log entry, read the <em>why</em>, not just the figure.</li>
+    <li><strong>Assemble merged categories arithmetically</strong>, with a script that prints each year&rsquo;s sum, rather than by hand.</li>
+    <li><strong>Never spot-check a worker&rsquo;s own chosen years.</strong> That is grading homework against its own answer key. Draw the sample yourself, afterwards, excluding theirs.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    <strong>Companion documents.</strong> The one-page version of this manual is
+    <code>conduct/QUICKCARD.md</code>. Live progress is the status artifact, rendered from the
+    ledger. The reasoning behind the framework is the Conduct design document. The rules themselves
+    are <code>CONSTITUTION.md</code> and the kernel &mdash; those two govern; this manual only
+    explains how to drive them.
+  </p>
+  <p>
+    Commands verified by execution 31 July 2026. Counts and warning baselines drift &mdash;
+    re-derive them with <code>npm run seed:dry</code> rather than trusting this page. Not financial
+    advice.
+  </p>
+</footer>
+
+</div>

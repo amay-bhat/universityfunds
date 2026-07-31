@@ -146,8 +146,8 @@ Full tree
 Three groupings
 
   Group   Paths   Files   What it is
-  Framework   .claude/skills/ + conduct/   30   The executable rules (6), plus the audit trail of every decision
-                                                made under them (24)
+  Framework   .claude/skills/ + conduct/   30   The executable rules (6), plus the audit trail of every
+                                                decision made under them (24)
   Data layer   data/ + scripts/   13   The figures, and the validator guarding them
   App   src/ + public/ + config   19   Next.js app -- 2 routes so far; Phases 2-6 build the rest
 
@@ -198,7 +198,9 @@ npm run seed:dry                                 # live row counts
 Re-rendering the PDF
 
 STRUCTURE.txt is an ASCII rendering of this file (the PDF renderer's Courier
-font has no box-drawing glyphs, so + | \ ─ are converted to + | \ -), and
+font has no box-drawing glyphs, so U+251C/2502/2514/2500 become plain
++ | \ - -- named by codepoint here so the converter can't rewrite this very
+sentence, which it did once), and
 STRUCTURE.pdf is rendered from the text. Landscape is deliberate: the tree's
 annotation column pushes lines past the ~92 characters that fit in portrait, and
 13 lines were silently clipped before the switch.

@@ -201,7 +201,9 @@ npm run seed:dry                                 # live row counts
 ### Re-rendering the PDF
 
 `STRUCTURE.txt` is an ASCII rendering of this file (the PDF renderer's Courier
-font has no box-drawing glyphs, so `├ │ └ ─` are converted to `+ | \ -`), and
+font has no box-drawing glyphs, so U+251C/2502/2514/2500 become plain
+`+ | \ -` — named by codepoint here so the converter can't rewrite this very
+sentence, which it did once), and
 `STRUCTURE.pdf` is rendered from the text. Landscape is deliberate: the tree's
 annotation column pushes lines past the ~92 characters that fit in portrait, and
 13 lines were silently clipped before the switch.

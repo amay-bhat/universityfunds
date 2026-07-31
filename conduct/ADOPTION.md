@@ -83,6 +83,9 @@ Approval is recorded by the human's explicit reply in-session; the applying
 session then fills the kernel stamp and logs:
 
 ```
-signed-by:   ______________________
-signed-date: ______________________
+signed-by:   Amay Bhatnagar (explicit in-session approval, all four edits + kernel)
+signed-date: 2026-07-30
 ```
+
+**Applied 2026-07-30** by the Fable build session, same day, verbatim. The
+kernel stamp is now `1.0.0 / ADOPTED`.

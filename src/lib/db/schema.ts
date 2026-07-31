@@ -65,9 +65,15 @@ export const endowmentReturns = pgTable(
       precision: 12,
       scale: 2,
     }),
-    sourceId: text("source_id")
-      .notNull()
-      .references(() => sources.id),
+    // Each figure carries its own citation: a school-year's return often comes
+    // from a different document than its market value (investment-office
+    // release vs. financial report), and UNIQUE(school, fiscal_year) forbids a
+    // second row — a single source_id forced one figure to cite a document
+    // that doesn't contain it. Nullable in the schema because each is required
+    // exactly when its figure is present, which the seed validator enforces
+    // (human-approved rail change, 2026-07-30 — see the build log).
+    returnSourceId: text("return_source_id").references(() => sources.id),
+    marketValueSourceId: text("market_value_source_id").references(() => sources.id),
   },
   (t) => [unique().on(t.schoolId, t.fiscalYear)],
 );

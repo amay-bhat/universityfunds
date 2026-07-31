@@ -50,7 +50,8 @@ Source-id prefix: **`smc-`** on every id, no exceptions.
    checked and what it contained instead. An empty array is an acceptable
    answer; an invented one is not.
 4. **Split provenance** (return and market value in different documents):
-   cite the return's document, name the other in `notes`, count and report.
+   cite each figure with its own field (`returnSourceId` /
+   `marketValueSourceId` — see COMMON.md); count these years and report.
 
 ## ACCEPTANCE CHECK — run yourself before reporting done
 

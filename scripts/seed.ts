@@ -187,7 +187,8 @@ async function writeSeedData(data: SeedData) {
             returnPct: r.returnPct === null ? null : String(r.returnPct),
             marketValueUsdMillions:
               r.marketValueUsdMillions === null ? null : String(r.marketValueUsdMillions),
-            sourceId: r.sourceId,
+            returnSourceId: r.returnSourceId,
+            marketValueSourceId: r.marketValueSourceId,
           })),
         )
         .onConflictDoUpdate({
@@ -195,7 +196,8 @@ async function writeSeedData(data: SeedData) {
           set: {
             returnPct: sql`excluded.return_pct`,
             marketValueUsdMillions: sql`excluded.market_value_usd_millions`,
-            sourceId: sql`excluded.source_id`,
+            returnSourceId: sql`excluded.return_source_id`,
+            marketValueSourceId: sql`excluded.market_value_source_id`,
           },
         }),
     );

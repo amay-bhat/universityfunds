@@ -277,6 +277,28 @@ const CASES: Case[] = [
     // implementation re-indexes the filtered array and reports it as [1].
     expectError: "sources.json[2]: `documentType` must be one of",
   },
+  {
+    name: "a return figure without its own citation",
+    break: (dir) => editYale(dir, (y) => void delete returnsOf(y)[0].returnSourceId),
+    expectError: "`returnPct` is present but `returnSourceId` is missing",
+  },
+  {
+    name: "a market-value citation whose figure was removed",
+    break: (dir) => editYale(dir, (y) => void delete returnsOf(y)[0].marketValueUsdMillions),
+    expectError: "`marketValueSourceId` is present but `marketValueUsdMillions` is missing",
+  },
+  {
+    name: "pre-split `sourceId` key on a return row is rejected, not silently ignored",
+    break: (dir) =>
+      editYale(dir, (y) => {
+        const row = returnsOf(y)[0];
+        row.sourceId = row.returnSourceId;
+        delete row.returnSourceId;
+        delete row.marketValueSourceId;
+        delete row.marketValueUsdMillions;
+      }),
+    expectError: "unknown field `sourceId`",
+  },
 ];
 
 function run(): number {

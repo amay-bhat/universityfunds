@@ -887,158 +887,184 @@
     {
       "fiscalYear": 2000,
       "returnPct": 41.0,
+      "returnSourceId": "yale-endowment-report-2004",
       "marketValueUsdMillions": 10084.9,
-      "sourceId": "yale-endowment-report-2004"
+      "marketValueSourceId": "yale-endowment-report-2004"
     },
     {
       "fiscalYear": 2001,
       "returnPct": 9.2,
+      "returnSourceId": "yale-endowment-report-2004",
       "marketValueUsdMillions": 10725.1,
-      "sourceId": "yale-endowment-report-2004"
+      "marketValueSourceId": "yale-endowment-report-2004"
     },
     {
       "fiscalYear": 2002,
       "returnPct": 0.7,
+      "returnSourceId": "yale-endowment-report-2004",
       "marketValueUsdMillions": 10523.6,
-      "sourceId": "yale-endowment-report-2004"
+      "marketValueSourceId": "yale-endowment-report-2004"
     },
     {
       "fiscalYear": 2003,
       "returnPct": 8.8,
+      "returnSourceId": "yale-endowment-report-2004",
       "marketValueUsdMillions": 11034.6,
-      "sourceId": "yale-endowment-report-2004"
+      "marketValueSourceId": "yale-endowment-report-2004"
     },
     {
       "fiscalYear": 2004,
       "returnPct": 19.4,
+      "returnSourceId": "yale-endowment-report-2004",
       "marketValueUsdMillions": 12747.2,
-      "sourceId": "yale-endowment-report-2004"
+      "marketValueSourceId": "yale-endowment-report-2004"
     },
     {
       "fiscalYear": 2005,
       "returnPct": 22.3,
+      "returnSourceId": "yale-endowment-report-2009",
       "marketValueUsdMillions": 15224.9,
-      "sourceId": "yale-endowment-report-2009"
+      "marketValueSourceId": "yale-endowment-report-2009"
     },
     {
       "fiscalYear": 2006,
       "returnPct": 22.9,
+      "returnSourceId": "yale-endowment-report-2009",
       "marketValueUsdMillions": 18030.6,
-      "sourceId": "yale-endowment-report-2009"
+      "marketValueSourceId": "yale-endowment-report-2009"
     },
     {
       "fiscalYear": 2007,
       "returnPct": 28.0,
+      "returnSourceId": "yale-endowment-report-2009",
       "marketValueUsdMillions": 22530.2,
-      "sourceId": "yale-endowment-report-2009"
+      "marketValueSourceId": "yale-endowment-report-2009"
     },
     {
       "fiscalYear": 2008,
       "returnPct": 4.5,
+      "returnSourceId": "yale-endowment-report-2009",
       "marketValueUsdMillions": 22869.7,
-      "sourceId": "yale-endowment-report-2009"
+      "marketValueSourceId": "yale-endowment-report-2009"
     },
     {
       "fiscalYear": 2009,
       "returnPct": -24.6,
+      "returnSourceId": "yale-endowment-report-2009",
       "marketValueUsdMillions": 16326.6,
-      "sourceId": "yale-endowment-report-2009"
+      "marketValueSourceId": "yale-endowment-report-2009"
     },
     {
       "fiscalYear": 2010,
       "returnPct": 8.9,
+      "returnSourceId": "yale-endowment-report-2014",
       "marketValueUsdMillions": 16652.1,
-      "sourceId": "yale-endowment-report-2014"
+      "marketValueSourceId": "yale-endowment-report-2014"
     },
     {
       "fiscalYear": 2011,
       "returnPct": 21.9,
+      "returnSourceId": "yale-endowment-report-2014",
       "marketValueUsdMillions": 19374.4,
-      "sourceId": "yale-endowment-report-2014"
+      "marketValueSourceId": "yale-endowment-report-2014"
     },
     {
       "fiscalYear": 2012,
       "returnPct": 4.7,
+      "returnSourceId": "yale-endowment-report-2014",
       "marketValueUsdMillions": 19344.6,
-      "sourceId": "yale-endowment-report-2014"
+      "marketValueSourceId": "yale-endowment-report-2014"
     },
     {
       "fiscalYear": 2013,
       "returnPct": 12.5,
+      "returnSourceId": "yale-endowment-report-2014",
       "marketValueUsdMillions": 20780.0,
-      "sourceId": "yale-endowment-report-2014"
+      "marketValueSourceId": "yale-endowment-report-2014"
     },
     {
       "fiscalYear": 2014,
       "returnPct": 20.2,
+      "returnSourceId": "yale-endowment-report-2014",
       "marketValueUsdMillions": 23894.8,
-      "sourceId": "yale-endowment-report-2014"
+      "marketValueSourceId": "yale-endowment-report-2014"
     },
     {
       "fiscalYear": 2015,
       "returnPct": 11.5,
+      "returnSourceId": "yale-endowment-report-2015",
       "marketValueUsdMillions": 25572.1,
-      "sourceId": "yale-endowment-report-2015"
+      "marketValueSourceId": "yale-endowment-report-2015"
     },
     {
       "fiscalYear": 2016,
       "returnPct": 3.4,
+      "returnSourceId": "yale-endowment-report-2020",
       "marketValueUsdMillions": 25408.6,
-      "sourceId": "yale-endowment-report-2020"
+      "marketValueSourceId": "yale-endowment-report-2020"
     },
     {
       "fiscalYear": 2017,
       "returnPct": 11.3,
+      "returnSourceId": "yale-endowment-report-2020",
       "marketValueUsdMillions": 27176.1,
-      "sourceId": "yale-endowment-report-2020"
+      "marketValueSourceId": "yale-endowment-report-2020"
     },
     {
       "fiscalYear": 2018,
       "returnPct": 12.3,
+      "returnSourceId": "yale-endowment-report-2020",
       "marketValueUsdMillions": 29351.1,
-      "sourceId": "yale-endowment-report-2020"
+      "marketValueSourceId": "yale-endowment-report-2020"
     },
     {
       "fiscalYear": 2019,
       "returnPct": 5.7,
+      "returnSourceId": "yale-endowment-report-2020",
       "marketValueUsdMillions": 30314.8,
-      "sourceId": "yale-endowment-report-2020"
+      "marketValueSourceId": "yale-endowment-report-2020"
     },
     {
       "fiscalYear": 2020,
       "returnPct": 6.8,
+      "returnSourceId": "yale-endowment-report-2020",
       "marketValueUsdMillions": 31201.7,
-      "sourceId": "yale-endowment-report-2020"
+      "marketValueSourceId": "yale-endowment-report-2020"
     },
     {
       "fiscalYear": 2021,
       "returnPct": 40.2,
+      "returnSourceId": "yale-endowment-report-2021",
       "marketValueUsdMillions": 42282.9,
-      "sourceId": "yale-endowment-report-2021"
+      "marketValueSourceId": "yale-endowment-report-2021"
     },
     {
       "fiscalYear": 2022,
       "returnPct": 0.8,
+      "returnSourceId": "yale-news-fy2022-return",
       "marketValueUsdMillions": 41400.0,
-      "sourceId": "yale-news-fy2022-return"
+      "marketValueSourceId": "yale-news-fy2022-return"
     },
     {
       "fiscalYear": 2023,
       "returnPct": 1.8,
+      "returnSourceId": "yale-news-fy2023-return",
       "marketValueUsdMillions": 40700.0,
-      "sourceId": "yale-news-fy2023-return"
+      "marketValueSourceId": "yale-news-fy2023-return"
     },
     {
       "fiscalYear": 2024,
       "returnPct": 5.7,
+      "returnSourceId": "yale-news-fy2024-return",
       "marketValueUsdMillions": 41400.0,
-      "sourceId": "yale-news-fy2024-return"
+      "marketValueSourceId": "yale-news-fy2024-return"
     },
     {
       "fiscalYear": 2025,
       "returnPct": 11.1,
+      "returnSourceId": "yale-news-fy2025-return",
       "marketValueUsdMillions": 44100.0,
-      "sourceId": "yale-news-fy2025-return"
+      "marketValueSourceId": "yale-news-fy2025-return"
     }
   ]
 }

@@ -174,14 +174,25 @@ One Yale footnote that does **not** affect us: the 2002 report notes "Prior to 1
     {
       "fiscalYear": 2023,
       "returnPct": 1.8,
+      "returnSourceId": "yale-annual-report-fy2023",
       "marketValueUsdMillions": 40700,
-      "sourceId": "yale-annual-report-fy2023"
+      "marketValueSourceId": "yale-annual-report-fy2023"
     }
   ]
 }
 ```
 
 `marketValueUsdMillions` is always in **millions of USD** (so Yale at ~$40.7B is `40700`). `basis` is optional and defaults to `"actual"` — see the target-vs-actual section above.
+
+**Each return-row figure carries its own citation** (`returnSourceId` for the
+return, `marketValueSourceId` for the market value; often the same document —
+then the same id appears twice). A school-year's return frequently comes from
+an investment-office release while its market value comes from the financial
+report, and one shared source id used to force a figure to cite a document
+that doesn't contain it. Include a source field exactly when its figure is
+present — the validator rejects a figure without its citation and a citation
+without its figure. (Human-approved schema change, 2026-07-30; the old
+single-`sourceId` shape is rejected with an unknown-field error.)
 
 ## `sources.json` shape
 
@@ -296,8 +307,9 @@ Errors (block the write):
 - No number carries more decimal places than its column stores (`pct` and `returnPct` 3, `marketValueUsdMillions` 2). Postgres silently rounds past the scale rather than erroring, which would leave these files and the database quietly disagreeing about a figure nobody re-checked.
 - `accessedDate` is an ISO `YYYY-MM-DD` date; a `url` is an http(s) URL.
 - An `endowmentReturns` row has at least one of `returnPct` / `marketValueUsdMillions`. A row with a citation and no number looks like coverage to every downstream query while holding nothing — the exact inverse of "no citation, no number".
+- **Each return-row figure is paired with its own citation**: `returnPct` ⇔ `returnSourceId` and `marketValueUsdMillions` ⇔ `marketValueSourceId`, each required exactly when its figure is present. A figure without its source and a source without its figure are both errors.
 - No duplicate rows on the keys the database enforces: (school, fiscal year, category), (school, fiscal year), (series, fiscal year), (category).
-- **Every `sourceId` resolves to an entry in `sources.json`** — this is PRD rule 2 ("no citation, no number") enforced mechanically, from the files, so it holds under `seed:dry` with no database.
+- **Every source id resolves to an entry in `sources.json`** (`sourceId` on allocations/benchmarks/proxies; `returnSourceId`/`marketValueSourceId` on return rows) — this is PRD rule 2 ("no citation, no number") enforced mechanically, from the files, so it holds under `seed:dry` with no database.
 - **Allocations for a school-year sum to 100% ± 1.0 percentage point.** Published tables are rounded, so exact 100 is rare; anything further out is a curation error. The tolerance is `ALLOCATION_SUM_TOLERANCE_PCT` in `scripts/lib/seed-validate.ts` — if a real, correctly-transcribed report legitimately sums outside it, widen the constant and say why in the `TASKS.md` build log rather than nudging a number to fit. If another check already rejected a row in that year, the sum message says so, because the total it printed is missing that row.
 
 Warnings (printed, don't block):

@@ -86,8 +86,9 @@ precedent in your unit.
    citation."
 6. **Early years may have no percentage table.** Honest gap; document each
    with the document checked.
-7. **Split provenance:** cite the return's document, name the market-value
-   document in `notes`, count and report.
+7. **Split provenance:** cite each figure with its own field
+   (`returnSourceId` / `marketValueSourceId` — see COMMON.md); count these
+   years and report.
 
 ## TOOLING ADDITION
 

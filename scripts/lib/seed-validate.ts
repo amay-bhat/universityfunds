@@ -134,7 +134,9 @@ export type EndowmentReturnRow = {
   fiscalYear: number;
   returnPct: number | null;
   marketValueUsdMillions: number | null;
-  sourceId: string;
+  /** Required exactly when its figure is present — enforced in validation. */
+  returnSourceId: string | null;
+  marketValueSourceId: string | null;
 };
 
 export type BenchmarkReturnRow = {
@@ -188,8 +190,9 @@ const ALLOCATION_KEYS = [
 const ENDOWMENT_RETURN_KEYS = [
   "fiscalYear",
   "returnPct",
+  "returnSourceId",
   "marketValueUsdMillions",
-  "sourceId",
+  "marketValueSourceId",
 ] as const;
 const BENCHMARK_RETURN_KEYS = ["series", "fiscalYear", "returnPct", "sourceId"] as const;
 const PROXY_MAPPING_KEYS = [
@@ -868,14 +871,15 @@ function validateEndowmentReturns(
     checkKnownKeys(entry, ENDOWMENT_RETURN_KEYS, at, report);
 
     const fiscalYear = requiredFiscalYear(entry, at, report, maxFiscalYear);
-    const sourceId = requiredString(entry, "sourceId", at, report);
     const returnPct = optionalNumber(entry, "returnPct", at, report);
     const marketValue = optionalNumber(entry, "marketValueUsdMillions", at, report);
-    if (fiscalYear === null || sourceId === null || returnPct === null || marketValue === null) {
+    const returnSourceId = optionalString(entry, "returnSourceId", at, report);
+    const marketValueSourceId = optionalString(entry, "marketValueSourceId", at, report);
+    if (fiscalYear === null || returnPct === null || marketValue === null) {
       continue;
     }
 
-    // The inverse of the citation rule: a row carrying a source and no figure
+    // The inverse of the citation rule: a row carrying sources and no figure
     // looks like coverage to every downstream query while holding nothing.
     if (returnPct === undefined && marketValue === undefined) {
       report.error(
@@ -884,6 +888,40 @@ function validateEndowmentReturns(
       );
       continue;
     }
+
+    // Each figure cites its own document — a school-year's return and market
+    // value often come from different publications, and one shared source_id
+    // used to force a figure to cite a document that doesn't contain it.
+    let citationsOk = true;
+    if (returnPct !== undefined && returnSourceId === null) {
+      report.error(
+        at,
+        "`returnPct` is present but `returnSourceId` is missing — no number without a citation",
+      );
+      citationsOk = false;
+    }
+    if (returnPct === undefined && returnSourceId !== null) {
+      report.error(
+        at,
+        "`returnSourceId` is present but `returnPct` is missing — a citation with no number. Delete it, or add the figure it cites",
+      );
+      citationsOk = false;
+    }
+    if (marketValue !== undefined && marketValueSourceId === null) {
+      report.error(
+        at,
+        "`marketValueUsdMillions` is present but `marketValueSourceId` is missing — no number without a citation",
+      );
+      citationsOk = false;
+    }
+    if (marketValue === undefined && marketValueSourceId !== null) {
+      report.error(
+        at,
+        "`marketValueSourceId` is present but `marketValueUsdMillions` is missing — a citation with no number. Delete it, or add the figure it cites",
+      );
+      citationsOk = false;
+    }
+    if (!citationsOk) continue;
 
     if (returnPct !== undefined) {
       if (returnPct <= MIN_RETURN_PCT_EXCLUSIVE || returnPct > MAX_RETURN_PCT) {
@@ -923,7 +961,8 @@ function validateEndowmentReturns(
       fiscalYear,
       returnPct: returnPct ?? null,
       marketValueUsdMillions: marketValue ?? null,
-      sourceId,
+      returnSourceId,
+      marketValueSourceId,
     });
   }
 
@@ -1043,8 +1082,12 @@ function validateCrossFile(
       sourceId: a.sourceId,
     })),
     ...data.endowmentReturns.map((r) => ({
-      where: `schools/${r.schoolId}.json endowmentReturns FY${r.fiscalYear}`,
-      sourceId: r.sourceId,
+      where: `schools/${r.schoolId}.json endowmentReturns FY${r.fiscalYear} (return)`,
+      sourceId: r.returnSourceId,
+    })),
+    ...data.endowmentReturns.map((r) => ({
+      where: `schools/${r.schoolId}.json endowmentReturns FY${r.fiscalYear} (market value)`,
+      sourceId: r.marketValueSourceId,
     })),
     ...data.benchmarkReturns.map((b) => ({
       where: `benchmark_returns.json ${b.series} FY${b.fiscalYear}`,

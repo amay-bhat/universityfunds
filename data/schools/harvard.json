@@ -621,110 +621,128 @@
     {
       "fiscalYear": 2007,
       "returnPct": 23.0,
+      "returnSourceId": "hmc-john-harvard-letter-2007",
       "marketValueUsdMillions": 34900,
-      "sourceId": "hmc-john-harvard-letter-2007"
+      "marketValueSourceId": "hmc-john-harvard-letter-2007"
     },
     {
       "fiscalYear": 2008,
       "returnPct": 8.6,
+      "returnSourceId": "hmc-john-harvard-letter-2008",
       "marketValueUsdMillions": 36900,
-      "sourceId": "hmc-john-harvard-letter-2008"
+      "marketValueSourceId": "hmc-john-harvard-letter-2008"
     },
     {
       "fiscalYear": 2009,
       "returnPct": -27.3,
+      "returnSourceId": "hmc-endowment-report-2009",
       "marketValueUsdMillions": 26000,
-      "sourceId": "hmc-endowment-report-2009"
+      "marketValueSourceId": "hmc-endowment-report-2009"
     },
     {
       "fiscalYear": 2011,
       "returnPct": 21.4,
+      "returnSourceId": "hmc-annual-report-2011",
       "marketValueUsdMillions": 32000,
-      "sourceId": "hmc-annual-report-2011"
+      "marketValueSourceId": "hmc-annual-report-2011"
     },
     {
       "fiscalYear": 2012,
       "returnPct": -0.05,
+      "returnSourceId": "hmc-annual-report-2012",
       "marketValueUsdMillions": 30700,
-      "sourceId": "hmc-annual-report-2012"
+      "marketValueSourceId": "hmc-annual-report-2012"
     },
     {
       "fiscalYear": 2013,
       "returnPct": 11.3,
+      "returnSourceId": "hmc-annual-report-2013",
       "marketValueUsdMillions": 32700,
-      "sourceId": "hmc-annual-report-2013"
+      "marketValueSourceId": "hmc-annual-report-2013"
     },
     {
       "fiscalYear": 2014,
       "returnPct": 15.4,
+      "returnSourceId": "hmc-annual-report-2014",
       "marketValueUsdMillions": 36400,
-      "sourceId": "hmc-annual-report-2014"
+      "marketValueSourceId": "hmc-annual-report-2014"
     },
     {
       "fiscalYear": 2015,
       "returnPct": 5.8,
+      "returnSourceId": "hmc-annual-report-2015",
       "marketValueUsdMillions": 37600,
-      "sourceId": "hmc-annual-report-2015"
+      "marketValueSourceId": "hmc-annual-report-2015"
     },
     {
       "fiscalYear": 2016,
       "returnPct": -2.0,
+      "returnSourceId": "hmc-annual-report-2016",
       "marketValueUsdMillions": 35700,
-      "sourceId": "hmc-annual-report-2016"
+      "marketValueSourceId": "hmc-annual-report-2016"
     },
     {
       "fiscalYear": 2017,
       "returnPct": 8.1,
+      "returnSourceId": "hmc-annual-report-2017",
       "marketValueUsdMillions": 37100,
-      "sourceId": "hmc-annual-report-2017"
+      "marketValueSourceId": "hmc-annual-report-2017"
     },
     {
       "fiscalYear": 2018,
       "returnPct": 10.0,
+      "returnSourceId": "hmc-annual-report-2018",
       "marketValueUsdMillions": 39200,
-      "sourceId": "hmc-annual-report-2018"
+      "marketValueSourceId": "hmc-annual-report-2018"
     },
     {
       "fiscalYear": 2019,
       "returnPct": 6.5,
+      "returnSourceId": "hmc-annual-report-2019",
       "marketValueUsdMillions": 40900,
-      "sourceId": "hmc-annual-report-2019"
+      "marketValueSourceId": "hmc-annual-report-2019"
     },
     {
       "fiscalYear": 2020,
       "returnPct": 7.3,
+      "returnSourceId": "hmc-annual-report-2020",
       "marketValueUsdMillions": 41900,
-      "sourceId": "hmc-annual-report-2020"
+      "marketValueSourceId": "hmc-annual-report-2020"
     },
     {
       "fiscalYear": 2021,
       "returnPct": 33.6,
+      "returnSourceId": "hmc-annual-report-2021",
       "marketValueUsdMillions": 53200,
-      "sourceId": "hmc-annual-report-2021"
+      "marketValueSourceId": "hmc-annual-report-2021"
     },
     {
       "fiscalYear": 2022,
       "returnPct": -1.8,
+      "returnSourceId": "hmc-annual-report-2022",
       "marketValueUsdMillions": 50900,
-      "sourceId": "hmc-annual-report-2022"
+      "marketValueSourceId": "hmc-annual-report-2022"
     },
     {
       "fiscalYear": 2023,
       "returnPct": 2.9,
+      "returnSourceId": "hmc-annual-report-2023",
       "marketValueUsdMillions": 50700,
-      "sourceId": "hmc-annual-report-2023"
+      "marketValueSourceId": "hmc-annual-report-2023"
     },
     {
       "fiscalYear": 2024,
       "returnPct": 9.6,
+      "returnSourceId": "hmc-annual-report-2024",
       "marketValueUsdMillions": 53200,
-      "sourceId": "hmc-annual-report-2024"
+      "marketValueSourceId": "hmc-annual-report-2024"
     },
     {
       "fiscalYear": 2025,
       "returnPct": 11.9,
+      "returnSourceId": "hmc-annual-report-2025",
       "marketValueUsdMillions": 56900,
-      "sourceId": "hmc-annual-report-2025"
+      "marketValueSourceId": "hmc-annual-report-2025"
     }
   ]
 }

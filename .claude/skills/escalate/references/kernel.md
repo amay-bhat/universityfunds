@@ -1,10 +1,10 @@
 # The Conduct Kernel
 
 ```
-kernel-version: 1.0.0-rc1
-status: DRAFT — binds nothing until adopted by the human (Part 2 §5 covers adoption itself)
-signed-by: (pending)
-signed-date: (pending)
+kernel-version: 1.0.0
+status: ADOPTED
+signed-by: Amay Bhatnagar (explicit in-session approval)
+signed-date: 2026-07-30
 ```
 
 This file is the user-scope constitutional core of the Conduct framework: the

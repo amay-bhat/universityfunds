@@ -52,6 +52,11 @@ Everything else is fair game for the escalation procedure below, including data-
 
 ## Part 3 — The escalation procedure
 
+> **Adopted 2026-07-30:** the escalation procedure is now versioned in
+> `.claude/skills/escalate/` (two-phase blind ruling; kernel v1.0.0). Where
+> that skill and the text below differ, the skill governs. The text below is
+> retained as the historical v1 procedure.
+
 ### Step 0 — Is this actually a question?
 
 Escalate only when **different readings would lead to materially different work** and the choice would be expensive to unwind. Everything else: decide it yourself, note it in the build log, keep moving. A protocol that fires on every small choice is slower and costlier than just asking, which defeats the purpose.

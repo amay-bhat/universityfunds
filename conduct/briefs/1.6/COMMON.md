@@ -85,10 +85,15 @@ Yale's and Harvard's curated rows.
   trail), `sourceId`.
 - `<unit>-sources.json` — a JSON **array** of source objects. **Ids must
   carry your unit's prefix** (see your brief) so sibling ids cannot collide.
-  Every source has a `url` or a `page`. Use `notes` for method detail and —
-  where a year's return and market value come from different documents —
-  name the other document there (Yale FY2022–FY2025 precedent). **Count
-  these split-provenance years and report the count.**
+  Every source has a `url` or a `page`. Use `notes` for method detail.
+- **Per-figure citations (schema change, 2026-07-30):** an `endowmentReturns`
+  row carries `returnSourceId` for the return and `marketValueSourceId` for
+  the market value — often the same document, then the same id twice. When a
+  year's two figures come from different documents, cite each with its own
+  field; no workaround needed. A figure without its source, a source without
+  its figure, and the old single `sourceId` key are all validator errors.
+  **Still report the count of split-provenance years** (telemetry for
+  Checkpoint A).
 - `<unit>-readme-section.md` — one `### <School> label mapping (task 1.6)`
   section modelled on the Harvard section: mapping table with years, coverage
   table with a State column (`actual` / `target` / **no allocation**) and a

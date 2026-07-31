@@ -1,0 +1,194 @@
+WHERE THIS PROJECT ACTUALLY STANDS
+A handoff note, 31 July 2026
+
+
+If you're picking this up cold, here's the honest picture. I spent a session
+going through the repo — history, data, docs, and the governance machinery —
+and this is what I'd want to know before touching anything.
+
+The short version: the foundations are unusually solid and the product does
+not exist yet. Eleven of twenty-five tasks are done. All eleven are Phase 0
+and Phase 1. There is no user interface, no data access layer, and no
+backtest engine. src/app/page.tsx is still the page create-next-app wrote on
+day one.
+
+That sounds worse than it is. Read on.
+
+
+HOW IT GOT HERE
+
+The build went in nine recognizable layers, and the order tells you what the
+project was actually afraid of.
+
+It started on 23 July with the documents: a PRD, a plan page, a task
+checklist, and CLAUDE.md. That last one is the interesting artifact. In an
+ordinary project there's no file describing how the builder should behave,
+because the builder is a person who remembers yesterday. Here no
+conversation carries between sessions, so the operating instructions had to
+become a deliverable in their own right.
+
+Environment came next — Next.js, Drizzle, Neon, Vercel — and then, the same
+evening, the data contract: the schema, the normalized category vocabulary,
+and data/README.md as the schema's prose companion. Worth noticing that
+src/lib/constants.ts carries its own reasoning inline. The comment explaining
+why public_equity deliberately overlaps the two split equity categories sits
+directly above the constant, not in a document somewhere. That was a good
+instinct. A fresh session cannot miss it.
+
+Then the ingestion pipeline, and this is where the project's real character
+shows. The seed script was written, and ninety minutes later the validator
+was pulled out of it into its own module — and then given a test of its own.
+scripts/verify-seed-validator.ts is thirty fixtures asserting that each
+validation rule actually rejects what it claims to reject. A test of the
+test. In a project whose product is curated data rather than curated code,
+that file is the test suite. It is still the only executable quality gate in
+the repo.
+
+CONSTITUTION.md arrived on 24 July, and the timing matters more than the
+content. It appeared *after* Yale curation had already begun, because
+curation ran into a question the spec didn't answer: Yale stopped publishing
+allocation percentages after FY2020, so is a five-year gap in scope? The
+constitution was written to settle that, and was used to settle it seven
+minutes later. It was reactive, not planned. The build log underneath it
+quietly became an architecture decision record.
+
+The dataset itself consumed most of the calendar. It now holds 349 allocation
+rows, 128 return rows, 130 benchmark rows, and 95 sources — every number
+carrying a citation, by rule.
+
+On 30 July the same reactive pattern repeated one level up. Four logged proxy
+decisions had piled up, so the ad-hoc escalation habit was promoted into a
+versioned, testable framework: the escalate and conduct skills, a signed
+kernel, and a design document. The acceptance artifact is the clever part.
+GOLDEN-REPLAY.md re-runs all four historical decisions through the new
+protocol and asserts they reproduce, four for four. That is a regression
+suite for a *process*, which I had not seen done before.
+
+Then the framework got used. Task 1.6 ran as four parallel workers under a
+fragment protocol — nobody wrote inside data/, everything traveled as
+fragments merged in one serialized lane — and it worked. The plan, the five
+briefs, and the fifteen worker fragments are all still in the repo under
+conduct/.
+
+Finally, on 31 July, the operator documentation: a manual, a quick card, and
+a structure snapshot. These were written from an audit in which every
+documented command was verified by execution, and that audit found six places
+where data/README.md contradicted the data it was describing. Documentation
+treated as something testable, which it should be.
+
+Neither of the two meta-layers — the constitution or the orchestration
+framework — was ever a task in TASKS.md. Both were built mid-flight, in
+response to friction. That's worth sitting with.
+
+
+SO EVERYTHING BUILT SO FAR IS BELOW THE WATERLINE
+
+The spec, the rules for deciding, the machinery for parallelizing, the data,
+and the documentation. Nothing a user would ever see.
+
+I think that's defensible. The expensive failure in agent-driven work is an
+agent inventing a number or quietly making a scope decision, and layers three
+through seven exist precisely to prevent both. But it does mean the next
+milestone is where the first product code gets written, and it will be
+written on top of unusually well-specified foundations with no application
+precedent to imitate. Whoever writes Phase 2 is setting every convention.
+
+
+WHAT'S LEFT, IN ORDER
+
+Fourteen open tasks and two human checkpoints collapse into ten steps.
+
+First, task 1.7 — the ETF proxy mapping, plus the three benchmark series
+left empty by earlier tasks. This is the last data task and the hardest
+remaining judgment call, because absolute return and private equity are
+roughly half of Yale's portfolio in any given year and no freely citable
+investable series reaches back to FY2000. Saying "the copycat covers only the
+publicly replicable sleeve, and the rest is shown as an explicit gap" is a
+legitimate answer, probably more honest than inventing a hedge fund proxy.
+This blocks Phases 4 and 5 entirely.
+
+Second, Checkpoint A. This is a human gate and it cannot be escalated around.
+The question waiting there is sharper than the task file admits. The PRD's
+definition of done promises all five schools browsable with allocation and
+returns charts, FY2000 to FY2025. Stanford has zero allocation rows and zero
+return percentages — its 26 rows carry market values only. As written, that
+box cannot be satisfied. Yale's allocations end at FY2020. Harvard's FY2000
+to FY2016 figures are published targets, not holdings. MIT has seven
+scattered allocation years out of twenty-six.
+
+Whoever rules on that should also decide whether to open the congressional
+endowment inquiry responses from 2008 and 2016, which are an unexamined
+primary source class that might close Stanford's gap. Decide it before the
+charts exist, not after.
+
+Then, in sequence: the app skeleton and data access layer; the History
+Explorer with its five school pages and two charts; the backtest engine; the
+Translator; the head-to-head comparison page; the methodology page and a
+plain-English pass over all copy; production hardening; and Checkpoint B.
+
+Two notes on that list. The backtest engine only depends on step one and the
+data layer, so it can run alongside the History Explorer work — that's the
+single biggest schedule compression available, and it's also the step most
+worth doing slowly. And the production step is paired with something only you
+can do: Vercel Deployment Protection is currently on, so production redirects
+every logged-out visitor to a login page. That contradicts "free, public,
+no-login" outright, and a builder session is forbidden from flipping it.
+
+
+WHAT I'D WORRY ABOUT
+
+Three things need an owner and currently have none. There is no test runner
+in the repo at all — no test script, no vitest, no test files — which means
+the requirement that the backtest engine ship with hand-computed unit tests
+is presently unfulfillable. No chart library has been chosen, and the choice
+has to come after reading the dataviz skill, not before. And production
+database seeding has never been verified; everything so far has run against
+local credentials.
+
+To be fair to the ledger: the first two are already written down in the build
+log as known debts. They're recorded but unowned, which is a different and
+slightly worse problem than being forgotten — someone read them, wrote them
+down, and moved on.
+
+On the ledger itself: the decision half is genuinely excellent. Eight proxy
+decisions with reasoning and downstream consequences, one open decision
+correctly parked for the human rather than resolved by an agent, provenance
+per task, and real telemetry from the pilot run. It carried a multi-week
+build across memory-less sessions and three model switches, which is the
+whole claim the framework makes, and the git history backs it.
+
+The work-control half is scaffolding that has never been loaded. The
+conventions specify that a session claims a task by writing claimed-by on its
+line, and that tier and budget get recorded there too. Not one task line
+carries any of those. During the one real fan-out, tier and budget went into
+the plan file instead — a good table that did its job, but it means the
+routing decisions live beside the ledger rather than in it, which is the one
+thing the framework's own rules forbid.
+
+Nothing enforces any of this. The seed validator has thirty rules protecting
+the data. The ledger has zero protecting itself, which is exactly why that
+audit found six lying paragraphs in data/README.md and why it took a
+five-way manual pass to catch them.
+
+Two smaller loose ends. The conduct skill says the conductor deletes worker
+fragments after the merge lands; all fifteen from task 1.6 are still tracked
+in git. Either the rule is wrong or the loop skipped a step, and a fresh
+conductor reading both will get contradictory instructions. And the most
+useful number the pilot produced — that first-contact research work needs
+roughly 1.6 times the budgeted tokens — sits in a build log paragraph rather
+than in the routing rubric where the next conductor would actually apply it.
+
+None of that is urgent while there's one person working one task at a time.
+It becomes urgent the moment there's a second fan-out, and task 1.7 or the
+three chart tasks are both plausible candidates.
+
+
+THE ONE REAL RISK
+
+Checkpoint A's ruling can invalidate interface work if it's made after the
+interface exists. Everything built so far survives either answer, because the
+data was curated to each school's genuine disclosure limit regardless of what
+gets decided. That stops being true the moment a component assumes five
+schools have allocation charts.
+
+Get the ruling first. Then build.

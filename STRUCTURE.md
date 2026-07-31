@@ -190,10 +190,34 @@ disagrees with it, the document is stale.
 
 ```bash
 cd ~/Projects/dashboardProject
-git ls-files                                   # every tracked file
-git status --porcelain --untracked-files=all    # anything untracked
+git ls-files                                    # every tracked file
+git status --porcelain --untracked-files=all     # anything untracked
 find conduct .claude data scripts src -type f | sort
 git rev-parse --short HEAD
-git rev-list --count origin/main..HEAD          # unpushed
-npm run seed:dry                                # live row counts
+git rev-list --count origin/main..HEAD           # unpushed
+npm run seed:dry                                 # live row counts
+```
+
+### Re-rendering the PDF
+
+`STRUCTURE.txt` is an ASCII rendering of this file (the PDF renderer's Courier
+font has no box-drawing glyphs, so `├ │ └ ─` are converted to `+ | \ -`), and
+`STRUCTURE.pdf` is rendered from the text. Landscape is deliberate: the tree's
+annotation column pushes lines past the ~92 characters that fit in portrait, and
+13 lines were silently clipped before the switch.
+
+```bash
+cupsfilter -o landscape -o cpi=12 -o lpi=7 \
+  -o page-left=30 -o page-right=30 -o page-top=30 -o page-bottom=30 \
+  STRUCTURE.txt > STRUCTURE.pdf
+```
+
+Verify nothing clipped — every non-blank source line must appear intact:
+
+```bash
+python3 -c "
+from pdfminer.high_level import extract_text
+pdf = extract_text('STRUCTURE.pdf').replace(chr(12),'')
+src = [l.rstrip() for l in open('STRUCTURE.txt') if l.strip()]
+print('clipped:', len([s for s in src if s not in pdf]))"
 ```

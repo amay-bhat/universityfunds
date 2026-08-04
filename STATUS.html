@@ -427,16 +427,16 @@
     </p>
     <div class="provenance">
       <span>Rendered from TASKS.md</span>
-      <span>31 July 2026</span>
-      <span>Phase 1 of 6 &middot; data foundation</span>
+      <span>4 August 2026</span>
+      <span>Phases 0&ndash;1 complete &middot; Checkpoint A gate next</span>
     </div>
   </header>
 
   <div class="tiles">
     <div class="tile">
       <div class="tile-label">Tasks complete</div>
-      <div class="tile-value">11<span class="of">&thinsp;/&thinsp;25</span></div>
-      <div class="tile-note">Phase 0 done, Phase 1 six of seven</div>
+      <div class="tile-value">12<span class="of">&thinsp;/&thinsp;25</span></div>
+      <div class="tile-note">Phases 0 and 1 done &mdash; the data foundation is finished</div>
     </div>
     <div class="tile">
       <div class="tile-label">Schools curated</div>
@@ -445,8 +445,8 @@
     </div>
     <div class="tile">
       <div class="tile-label">Cited data points</div>
-      <div class="tile-value">607</div>
-      <div class="tile-note">Across 95 source documents</div>
+      <div class="tile-value">624</div>
+      <div class="tile-note">Across 96 source documents</div>
     </div>
     <div class="tile">
       <div class="tile-label">Waiting on you</div>
@@ -479,7 +479,7 @@
         <div class="action">
       <div class="action-idx">A</div>
       <div class="action-body">
-        <div class="action-title">Checkpoint A &mdash; three scope questions<span class="ref">before any UI is built</span></div>
+        <div class="action-title">Checkpoint A &mdash; three scope questions<span class="ref">now the live gate: Phase 1 is complete</span></div>
         <p>
           The plan asks for allocation charts spanning FY2000&ndash;FY2025, but no school publishes that far &mdash; and the pilot finished the picture: it is now a three-part question. <strong>Yale</strong> stopped disclosing its allocation mix after
           FY2020. <strong>Harvard&rsquo;s</strong> pre-2017 figures are published <em>targets</em>
@@ -516,13 +516,13 @@
       </div>
 
       <!-- Phase 1 -->
-      <div class="phase" style="--stripe: var(--st-part)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">01</div>
-          <div class="phase-name">Data foundation <span class="qual">&mdash; current</span></div>
-          <div class="phase-count">6 / 7</div>
+          <div class="phase-name">Data foundation <span class="qual">&mdash; complete</span></div>
+          <div class="phase-count">7 / 7</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:86%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
           <li class="task is-done"><span class="task-id">1.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Database schema and seed-file format designed</span></li>
           <li class="task is-done"><span class="task-id">1.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Seed script with validation &mdash; a number without a citation is rejected outright</span>
@@ -534,8 +534,8 @@
           <li class="task is-done"><span class="task-id">1.6</span><span class="glyph g-done">&#10003;</span><span class="task-text">Stanford, MIT and Princeton curated &mdash; four parallel workers, each row re-verified against independently fetched documents before landing</span>
             <span class="task-note">MIT&rsquo;s only published allocation tables turned out to live in its answers to Congress; Stanford&rsquo;s allocations are an honest, documented gap.</span>
           </li>
-          <li class="task"><span class="task-id">1.7</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Choose the ETF standing in for each asset class, and say plainly where the stand-in is weak</span>
-            <span class="task-note">Also settles the three benchmark series deliberately left empty: no freely-citable, investable hedge-fund or private-equity series reaches back to FY2000.</span>
+          <li class="task is-done"><span class="task-id">1.7</span><span class="glyph g-done">&#10003;</span><span class="task-text">ETF stand-ins chosen for every asset class, with plain words where the stand-in is weak &mdash; and two honest &ldquo;no stand-in exists&rdquo; gaps</span>
+            <span class="task-note">World stock market (VT) added FY2009&ndash;FY2025, verified to &plusmn;0.01pp against published figures. Hedge funds and private equity get no pretend proxy: the copycat will show that slice as a labelled gap &mdash; your call, recorded.</span>
           </li>
         </ul>
         <div class="gate">
@@ -690,23 +690,23 @@
           </tr>
           <tr>
             <td class="row-name">Benchmark series</td>
-            <td class="num">130</td>
-            <td class="span">5 of 8 series</td>
+            <td class="num">147</td>
+            <td class="span">6 of 8 series; 2 empty by decision</td>
             <td class="num">&mdash;</td>
-            <td class="span">FY2000&ndash;FY2025</td>
-            <td><span class="pill p-part">&#9686; 3 deferred</span></td>
+            <td class="span">FY2000&ndash;FY2025 (world market from FY2009)</td>
+            <td><span class="pill p-done">&#10003; settled</span></td>
           </tr>
           <tr>
             <td class="row-name">ETF stand-ins</td>
-            <td class="num">0</td>
-            <td class="span">&mdash;</td>
+            <td class="num">7</td>
+            <td class="span">5 ETFs + 2 honest gaps</td>
             <td class="num">&mdash;</td>
             <td class="span">&mdash;</td>
-            <td><span class="pill p-idle">&#9675; task 1.7</span></td>
+            <td><span class="pill p-done">&#10003; complete</span></td>
           </tr>
           <tr>
             <td class="row-name">Source documents</td>
-            <td class="num">95</td>
+            <td class="num">96</td>
             <td class="span">annual reports, letters, congressional responses, index data</td>
             <td class="num">&mdash;</td>
             <td class="span">&mdash;</td>
@@ -776,13 +776,14 @@
       <div class="decision">
         <div class="decision-head">
           <span class="decision-q">Two hedge-fund and private-equity benchmark series have no honest source.</span>
-          <span class="decision-by">Left empty on purpose</span>
+          <span class="decision-by">Explicit gap &mdash; decided</span>
         </div>
         <p>
-          No freely-citable, actually-investable series reaches back to FY2000. Since these two
-          categories are about half of Yale&rsquo;s portfolio every year, this decides how much of
-          the copycat comparison can honestly be shown at all &mdash; so it is bundled into the
-          ETF choice in task 1.7 rather than filled with a plausible-looking substitute.
+          No freely-citable, actually-investable series reaches back to FY2000, and these two
+          categories are about half of Yale&rsquo;s portfolio every year. Settled in task 1.7 with
+          your confirmation: the copycat models only what an ordinary investor can actually buy
+          and shows these slices as a labelled gap. The size of that gap is itself one of the
+          honest results the site will show.
         </p>
       </div>
       <div class="decision">
@@ -809,7 +810,7 @@
     </div>
     <div>
       Counts verified directly against the seed files and the live database at render time:
-      <code>11/25</code> tasks, <code>607</code> cited data points, <code>30/30</code> validator
+      <code>12/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
       checks passing. Not financial advice.
     </div>
   </footer>

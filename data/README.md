@@ -570,7 +570,7 @@ single-`sourceId` shape is rejected with an unknown-field error.)
 ]
 ```
 
-Series ids: `sp500`, `intl_equity`, `us_aggregate_bond`, `hedge_fund_index`, `public_pe_index`, `reit`, `cash`, `global_equity` (`src/lib/constants.ts` → `BENCHMARK_SERIES`). `hedge_fund_index`, `public_pe_index` and `global_equity` are deliberately empty pending task 1.7.
+Series ids: `sp500`, `intl_equity`, `us_aggregate_bond`, `hedge_fund_index`, `public_pe_index`, `reit`, `cash`, `global_equity` (`src/lib/constants.ts` → `BENCHMARK_SERIES`). `global_equity` is curated FY2009–FY2025 (task 1.7); `hedge_fund_index` and `public_pe_index` are **permanently empty by decision** — the explicit-gap sleeve, see below.
 
 ### Instruments behind each series (task 1.4)
 
@@ -583,16 +583,15 @@ Fiscal-year total return = last observation on or before June 30 ÷ same for the
 | `intl_equity` | Vanguard Total International Stock Index, Investor (`VGTSX`) | FY2000–FY2025 | Developed + emerging combined, matching how `intl_public_equity` is defined. Chosen over VXUS (2011) and EFA (2001). |
 | `reit` | Vanguard Real Estate Index, Investor (`VGSIX`) | FY2000–FY2025 | Chosen over VNQ (2004) for coverage. **Listed REITs only** — see the honesty note below. |
 | `cash` | 3-Month T-Bill rate, `TB3MS` via FRED | FY2000–FY2025 | FRED gives an annualized monthly *rate*, so the FY return compounds the twelve monthly rates: `prod(1 + rate/1200) − 1`. The only derived series here. |
-| `hedge_fund_index` | **none — gap** | — | See below. |
-| `public_pe_index` | **none — gap** | — | See below. |
+| `global_equity` | Vanguard Total World Stock ETF (`VT`) | FY2009–FY2025 | Whole world market at market weights, for `public_equity` (schools that report public equity unsplit). VT's first full fiscal year is FY2009, which covers every year any school currently needs (Harvard's unsplit years start FY2017). VT is itself the ETF a copycat would buy, so series and proxy are literally the same instrument. Method cross-checked against published calendar-year returns to ±0.01pp (see `bench-vt` in `sources.json`). *(task 1.7)* |
+| `hedge_fund_index` | **none — decided gap** | — | See below. |
+| `public_pe_index` | **none — decided gap** | — | See below. |
 
 **Instrument-selection principle** (`[JUDGMENT CALL]`, reversible by re-seeding): prefer the longest continuous history over the most familiar ticker, because one consistent basis across FY2000–FY2025 matters more than using today's popular ETF. Every instrument chosen is a low-cost index fund a DIY investor could actually have held — which keeps the benchmark series and the copycat's returns the same thing rather than two different things.
 
-**Two series are deliberately empty.** No freely-citable, retail-investable series exists for `absolute_return` (hedge funds) or `private_equity_vc` back to FY2000: HFRI and Cambridge Associates are paywalled and non-redistributable, and the investable substitutes start far too late (PSP 2006, QAI 2009). Per Article 5 the gap stays rather than being filled with something invented.
+**Two series are permanently empty — the explicit-gap sleeve (task 1.7, decided).** No freely-citable, retail-investable series exists for `absolute_return` (hedge funds) or `private_equity_vc` back to FY2000: HFRI and Cambridge Associates are paywalled and non-redistributable, and the investable substitutes start far too late (PSP 2006, QAI 2009). Task 1.7 resolved this (spec question Q-001, owner-confirmed 2026-08-04): **the copycat covers only the publicly-replicable sleeve and shows these two categories as an explicit labelled gap** — a more honest answer than a fake hedge-fund proxy, and the one Article 4 prefers. The decision lives in the data, not just here: both categories have `proxy_mappings` rows carrying the `NO_PROXY_TICKER` sentinel (`"NONE"`, `src/lib/constants.ts`) whose `rationale` and `honestyNote` the Translator renders directly. The backtest engine (task 4.1) must treat a sentinel-mapped category as an uncovered slice and **report its weight, never silently renormalize** — those two categories are roughly half of Yale's portfolio in every year, so the gap's size is itself one of the honest results this site shows.
 
-This is consequential and belongs to **task 1.7**, not 1.4, because the benchmark series and the ETF proxy for a category must be the *same instrument* or the copycat comparison is incoherent. Task 1.7 therefore decides both at once, and it inherits a real constraint: those two categories are roughly **half of Yale's portfolio in every year**, so whatever it picks (or declines to pick) determines how much of the copycat can honestly be shown. A defensible outcome is that the copycat covers only the publicly-replicable sleeve and shows the rest as an explicit gap — which is a more honest answer than a fake hedge-fund proxy, and one Article 4 would prefer.
-
-**Honesty note carried forward to task 1.7:** `reit` is *listed* real estate. It does not represent the direct real estate, timber, and energy holdings that make up much of an endowment's real-assets sleeve. Real, but a weak proxy — flag it as such.
+**Honesty note carried into the proxy table (task 1.7, done):** `reit` is *listed* real estate. It does not represent the direct real estate, timber, and energy holdings that make up much of an endowment's real-assets sleeve. Real, but a weak proxy — flagged as such in the `real_assets` mapping's `honestyNote`.
 
 **FY2026 is available but not curated.** The benchmark instruments already have complete FY2026 data (fiscal year ended 30 June 2026), but no school has reported FY2026 yet — Yale's release lands each October — so task 1.4's scope stops at FY2025 to avoid a benchmark series running ahead of every school's returns.
 
@@ -613,7 +612,10 @@ This is consequential and belongs to **task 1.7**, not 1.4, because the benchmar
 ]
 ```
 
-Exactly one row per category in `ALLOCATION_CATEGORIES` that any school actually uses — this is populated in task 1.7.
+Exactly one row per category in `ALLOCATION_CATEGORIES` that any school actually uses — populated in task 1.7 (7 rows; `other` is defined but unused by any school, so it has no row). Two kinds of row exist:
+
+- **Real proxies** (`VOO`, `VXUS`, `VT`, `BND`, `VNQ`): the ETF is the buyable share class of (or tracker of) the *same instrument* behind the category's benchmark series, so the copycat's returns and the benchmark series are one thing, not two. Each row's `sourceId` points at the series' instrument citation.
+- **Decided gaps** (`absolute_return`, `private_equity_vc`): `etfTicker` is the `NO_PROXY_TICKER` sentinel (`"NONE"`) — see the explicit-gap sleeve note under the instruments table. The row exists so the decision and its plain-English reasoning live in the database and render transparently in the Translator.
 
 ## Seeding (`npm run seed`)
 
@@ -681,5 +683,5 @@ Warnings (printed, don't block):
 | `schools/stanford.json` | 26 market-value rows (FY2000–FY2025, Aug-31 fiscal year). No allocations or returns — Merged Pool gap, see the Stanford section. |
 | `schools/mit.json` | 42 allocation rows (FY2001/03/04 Pool A actual; FY2008 target; FY2013–15 actual) + 26 return/market-value rows (FY2000–FY2025, complete). |
 | `schools/princeton.json` | 104 allocation rows (FY2005–FY2018, FY2020–FY2023, actual) + 24 return/market-value rows (FY2001–FY2025 with FY2000/FY2003 gaps). |
-| `benchmark_returns.json` | 130 rows: 5 of 8 series complete FY2000–FY2025; `hedge_fund_index`/`public_pe_index`/`global_equity` deliberately empty — task 1.7. |
-| `proxy_mappings.json` | Empty template — task 1.7. |
+| `benchmark_returns.json` | 147 rows: 5 series complete FY2000–FY2025, `global_equity` FY2009–FY2025; `hedge_fund_index`/`public_pe_index` permanently empty by decision (explicit-gap sleeve, task 1.7). |
+| `proxy_mappings.json` | 7 rows: 5 real proxies (VOO, VXUS, VT, BND, VNQ) + 2 decided gaps (`NONE` sentinel) — task 1.7. |

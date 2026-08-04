@@ -778,5 +778,107 @@
     "fiscalYear": 2025,
     "returnPct": 5.936,
     "sourceId": "bench-vbmfx"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2009,
+    "returnPct": -28.363,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2010,
+    "returnPct": 11.789,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2011,
+    "returnPct": 31.745,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2012,
+    "returnPct": -6.796,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2013,
+    "returnPct": 16.786,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2014,
+    "returnPct": 23.737,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2015,
+    "returnPct": 1.176,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2016,
+    "returnPct": -3.364,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2017,
+    "returnPct": 19.032,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2018,
+    "returnPct": 11.137,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2019,
+    "returnPct": 4.904,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2020,
+    "returnPct": 1.74,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2021,
+    "returnPct": 41.11,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2022,
+    "returnPct": -15.875,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2023,
+    "returnPct": 16.169,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2024,
+    "returnPct": 18.611,
+    "sourceId": "bench-vt"
+  },
+  {
+    "series": "global_equity",
+    "fiscalYear": 2025,
+    "returnPct": 16.298,
+    "sourceId": "bench-vt"
   }
 ]

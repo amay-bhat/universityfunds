@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "category": "us_public_equity",
+    "etfTicker": "VOO",
+    "etfName": "Vanguard S&P 500 ETF",
+    "rationale": "The S&P 500 -- the 500 largest US companies -- is the standard way to own the broad US stock market in one fund, and VOO tracks it for a 0.03% yearly fee.",
+    "honestyNote": "An endowment's US stock sleeve is not the S&P 500: it includes smaller companies and active managers picking stocks. This proxy captures the market's return, not any manager's skill. The benchmark series behind it is the S&P 500 total-return index itself; VOO trails that index by its small fee.",
+    "sourceId": "bench-sp500tr"
+  },
+  {
+    "category": "intl_public_equity",
+    "etfTicker": "VXUS",
+    "etfName": "Vanguard Total International Stock ETF",
+    "rationale": "One fund holding nearly every stock outside the US, developed and emerging markets together -- matching how the schools' international sleeve is defined in this project.",
+    "honestyNote": "VXUS is the ETF share class of the same Vanguard fund whose older share class (VGTSX) supplies this project's full return history, so the proxy and the benchmark are genuinely the same portfolio. A school's actual international book may tilt to regions or managers a market-weight fund won't capture.",
+    "sourceId": "bench-vgtsx"
+  },
+  {
+    "category": "public_equity",
+    "etfTicker": "VT",
+    "etfName": "Vanguard Total World Stock ETF",
+    "rationale": "When a school reports public equity as one line with no US/international split, the honest one-fund stand-in is the whole world stock market at market weights.",
+    "honestyNote": "VT weights countries by market size (roughly 60% US in recent years). The school's actual US/international split for these years was never published -- that is exactly why this category exists -- so the copycat's split is the market's, not the school's. Series coverage starts FY2009, VT's first full fiscal year, which covers every year any school currently needs.",
+    "sourceId": "bench-vt"
+  },
+  {
+    "category": "fixed_income_cash",
+    "etfTicker": "BND",
+    "etfName": "Vanguard Total Bond Market ETF",
+    "rationale": "One fund holding the broad US investment-grade bond market -- the plain-vanilla core of a fixed income sleeve.",
+    "honestyNote": "BND is the ETF share class of the same fund as VBMFX, which supplies the full return history. Endowment fixed income can be Treasuries-only, inflation-protected, or foreign, and the cash portion earns T-bill rates rather than bond returns; this proxy blends all of that into one US bond-market return.",
+    "sourceId": "bench-vbmfx"
+  },
+  {
+    "category": "real_assets",
+    "etfTicker": "VNQ",
+    "etfName": "Vanguard Real Estate ETF",
+    "rationale": "Real estate a regular investor can actually buy: a fund of listed US property companies (REITs), the ETF share class of the same fund as VGSIX, which supplies the full return history.",
+    "honestyNote": "The weakest honest proxy in this table. Endowment real assets are mostly things nobody can buy on an exchange: direct buildings, timberland, oil and gas partnerships. Listed REITs trade like stocks -- they crash with the stock market in ways directly-held property doesn't (on paper) -- and they miss timber and energy entirely.",
+    "sourceId": "bench-vgsix"
+  },
+  {
+    "category": "absolute_return",
+    "etfTicker": "NONE",
+    "etfName": "No honest proxy -- shown as an explicit gap",
+    "rationale": "Hedge funds are private partnerships open to institutions, not something an ETF can honestly replicate; rather than pretend with a lookalike, the copycat shows this slice of the portfolio as a labelled gap.",
+    "honestyNote": "Hedge-fund-replication ETFs exist, but they start far too late (2006-2009) to cover this project's window, track indexes that are not freely citable, and have returned something materially different from actual hedge-fund portfolios. Where a school held absolute return, the copycat models the rest of the portfolio and states plainly what share it could not model.",
+    "sourceId": null
+  },
+  {
+    "category": "private_equity_vc",
+    "etfTicker": "NONE",
+    "etfName": "No honest proxy -- shown as an explicit gap",
+    "rationale": "Private equity and venture capital buy companies that don't trade on any exchange; no fund a regular investor can buy delivers those returns, so the copycat shows this slice as a labelled gap rather than substituting a lookalike.",
+    "honestyNote": "Listed-private-equity ETFs (like PSP, launched 2006) hold the public shares of buyout firms, not the returns of their funds, and start too late for this project's window anyway. This category is roughly half of Yale's portfolio in many years -- which is precisely why an honest copycat must show the gap instead of hiding it.",
+    "sourceId": null
+  }
+]

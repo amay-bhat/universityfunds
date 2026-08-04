@@ -64,6 +64,16 @@ export const BENCHMARK_SERIES = [
 
 export type BenchmarkSeries = (typeof BENCHMARK_SERIES)[number];
 
+// Sentinel `etfTicker` for categories where task 1.7 decided no honest ETF
+// proxy exists (Q-001, owner-confirmed 2026-08-04): the copycat covers only
+// the publicly-replicable sleeve and shows these categories as an explicit
+// labelled gap. The proxy_mappings row still exists so the decision, its
+// rationale and its honesty note live in the database and render transparently
+// in the Translator (task 4.2); the backtest engine (task 4.1) must treat a
+// mapping with this ticker as an uncovered slice and report its weight, never
+// silently renormalize.
+export const NO_PROXY_TICKER = "NONE" as const;
+
 // Which allocation category each benchmark series backtests as the proxy for.
 export const CATEGORY_TO_BENCHMARK_SERIES: Record<
   AllocationCategory,
@@ -71,10 +81,9 @@ export const CATEGORY_TO_BENCHMARK_SERIES: Record<
 > = {
   us_public_equity: "sp500",
   intl_public_equity: "intl_equity",
-  // Instrument for `global_equity` is chosen in task 1.7 alongside the ETF
-  // proxy, per task 1.4's principle that a category's benchmark series and its
-  // proxy must be the same instrument. Front-runner: Vanguard Total World
-  // (VT / VTWSX), whose first full fiscal year is FY2009 — which covers every
+  // Instrument decided in task 1.7 per task 1.4's principle that a category's
+  // benchmark series and its proxy must be the same instrument: Vanguard Total
+  // World (VT), whose first full fiscal year is FY2009 — which covers every
   // year any school currently needs, since Harvard's unsplit years start FY2017.
   public_equity: "global_equity",
   fixed_income_cash: "us_aggregate_bond",

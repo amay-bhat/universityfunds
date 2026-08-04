@@ -18,6 +18,7 @@ import {
   BENCHMARK_SERIES,
   CATEGORY_TO_BENCHMARK_SERIES,
   DEFAULT_ALLOCATION_BASIS,
+  NO_PROXY_TICKER,
   SCHOOL_IDS,
   SOURCE_DOCUMENT_TYPES,
   type AllocationBasis,
@@ -1154,8 +1155,14 @@ function validateCrossFile(
   // The backtest (task 4.1) maps each allocation category to a benchmark series;
   // a category-year with no benchmark row silently drops that slice of the
   // portfolio, so the copycat would be built on part of the allocation while
-  // the page claims to model all of it. Warning, not error: task 1.4
-  // deliberately left `hedge_fund_index` and `public_pe_index` empty for 1.7.
+  // the page claims to model all of it. Warning, not error: task 1.7 decided
+  // that `hedge_fund_index` and `public_pe_index` stay empty on purpose (the
+  // explicit-gap sleeve) — for a category whose proxy row carries the
+  // NO_PROXY_TICKER sentinel the warning states that decision instead of
+  // predicting a silent drop, since the backtest reports such slices as gaps.
+  const gapDecided = new Set(
+    data.proxyMappings.filter((p) => p.etfTicker === NO_PROXY_TICKER).map((p) => p.category),
+  );
   const benchmarkKeys = new Set(data.benchmarkReturns.map((b) => `${b.series}|${b.fiscalYear}`));
   const missingBySeries = new Map<BenchmarkSeries, number[]>();
   for (const a of data.allocations) {
@@ -1168,6 +1175,14 @@ function validateCrossFile(
   }
   for (const series of [...missingBySeries.keys()].sort()) {
     const years = missingBySeries.get(series) ?? [];
+    const gapCategory = [...gapDecided].find((c) => CATEGORY_TO_BENCHMARK_SERIES[c] === series);
+    if (gapCategory !== undefined) {
+      report.warn(
+        "benchmark_returns.json",
+        `\`${series}\` has no rows for ${summarizeYears(years)} — decided gap (task 1.7): \`${gapCategory}\` has no honest ETF proxy, so the copycat shows that slice as an explicit labelled gap rather than backtesting it`,
+      );
+      continue;
+    }
     report.warn(
       "benchmark_returns.json",
       `\`${series}\` has no rows for ${summarizeYears(years)}, but allocations in those years map to it — the copycat backtest (task 4.1) would silently drop that slice`,

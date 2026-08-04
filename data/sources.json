@@ -948,5 +948,15 @@
     "page": "pp. 27-29; Table II (Pool A Asset Allocation) p. 28",
     "accessedDate": "2026-07-31",
     "notes": "Measurement universe is MIT's unitized investment Pool A, per the article's own words: 'Pool A is neither the complete Endowment nor is it comprised only of Endowment assets, it is for this discussion a good proxy to discuss the management of the Endowment.' Curated under the pool-basis ruling (TASKS.md [PROXY DECISION] 2026-07-31): endowment-in-pool coverage evidence is era-bracketing, not per-year - 98.4% measured at FY2006 (endowment $8,368.1M, $8,232.0M via Pool A); non-endowment content of the pool ~3.7% FY2006, ~7.5% FY2011; MIT's 2008 Senate response titles this era's Pool A return series 'Investment Return to the Endowment'. Independent-fetch gate satisfied 2026-07-31 by the integrating session (distinct from the curating worker): byline, disclaimer, and the 2004/2003/2001 Table II columns verified digit-for-digit from a fresh fetch of the PDF (824,064 bytes). Also in the article: FY2004 Pool A investment return stated as 18.1% vs Table 10D's 18.0 (cross-document 0.1pp rounding variance, noted)."
+  },
+  {
+    "id": "bench-vt",
+    "title": "Vanguard Total World Stock ETF (VT) daily price history",
+    "publisher": "Yahoo Finance",
+    "url": "https://finance.yahoo.com/quote/VT/history",
+    "documentType": "other",
+    "page": null,
+    "accessedDate": "2026-08-04",
+    "notes": "Series for the `global_equity` benchmark AND the ETF proxy for the `public_equity` category -- the same instrument, per the task-1.4 identity principle. Fiscal-year total return computed as the ratio of the last observation on or before June 30 of the fiscal year to the last observation on or before June 30 of the prior fiscal year, minus 1. Dividends are reinvested (adjusted close). World stock market, developed plus emerging, at market weights (tracks FTSE Global All Cap). VT's first trading days were late June 2008, so FY2009 (July 2008-June 2009) is its first full fiscal year and the series starts there; the last observation on or before June 30, 2008 is the FY2009 base. Method cross-checked against independently published calendar-year total returns: computed CY2019/CY2022/CY2024 = 26.81/-18.00/16.49 vs published 26.82/-18.01/16.49 (financecharts.com, portfolioslab.com, accessed 2026-08-04)."
   }
 ]

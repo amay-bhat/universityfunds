@@ -22,6 +22,7 @@ import { annualizedReturnPct } from "@/lib/stats";
 import { formatPct } from "@/lib/format";
 import { Term } from "@/components/Term";
 import { SchoolYearPicker, type PickerSchool } from "@/components/SchoolYearPicker";
+import { FEATURE_ACCENT } from "@/lib/school-theme";
 import { GrowthChart, type GrowthSeries } from "@/components/charts/GrowthChart";
 
 export const revalidate = 3600;
@@ -147,6 +148,9 @@ export default async function TranslatePage({
   return (
     <div className="space-y-8">
       <header className="space-y-2">
+        <p className={`text-xs font-semibold uppercase tracking-widest ${FEATURE_ACCENT.translate.text}`}>
+          The Translator
+        </p>
         <h1 className="text-3xl font-semibold tracking-tight">Copy the Pros</h1>
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
           Pick a school and a fiscal year, and see its endowment mix translated into ordinary{" "}

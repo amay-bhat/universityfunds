@@ -3,6 +3,8 @@ import Link from "next/link";
 import { getEndowmentReturns, getSchools } from "@/lib/queries";
 import { formatUsdMillions } from "@/lib/format";
 import { SCHOOL_HOOK } from "@/lib/blurbs";
+import { FEATURE_ACCENT, SCHOOL_THEME } from "@/lib/school-theme";
+import { SchoolMark } from "@/components/SchoolMark";
 
 export const revalidate = 3600;
 
@@ -26,6 +28,9 @@ export default async function ExplorePage() {
   return (
     <div className="space-y-8">
       <header className="space-y-2">
+        <p className={`text-xs font-semibold uppercase tracking-widest ${FEATURE_ACCENT.explore.text}`}>
+          History Explorer
+        </p>
         <h1 className="text-3xl font-semibold tracking-tight">Explore the endowments</h1>
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
           Five schools, twenty-five years of public records. Each page shows the school&rsquo;s
@@ -38,10 +43,14 @@ export default async function ExplorePage() {
           <li key={s.id}>
             <Link
               href={`/explore/${s.id}`}
-              className="block h-full rounded-lg border border-zinc-200 p-5 transition-colors hover:border-sky-400 hover:bg-sky-50/50 dark:border-zinc-800 dark:hover:border-sky-600 dark:hover:bg-sky-950/30"
+              className="block h-full rounded-lg border border-zinc-200 border-l-4 p-5 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+              style={{ borderLeftColor: SCHOOL_THEME[s.id].color }}
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <h2 className="font-semibold">{s.name}</h2>
+              <div className="flex items-center justify-between gap-3">
+                <h2 className="flex items-center gap-2.5 font-semibold">
+                  <SchoolMark school={s.id} size="sm" />
+                  {s.name}
+                </h2>
                 {s.latest && s.latest.marketValueUsdMillions !== null && (
                   <span className="text-sm text-zinc-500 dark:text-zinc-400">
                     {formatUsdMillions(s.latest.marketValueUsdMillions)}

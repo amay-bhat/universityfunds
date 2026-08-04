@@ -21,6 +21,7 @@ import { annualizedReturnPct, bestWorstYear } from "@/lib/stats";
 import { formatPct } from "@/lib/format";
 import { Term } from "@/components/Term";
 import { ComparePicker, type CompareSchoolOption } from "@/components/ComparePicker";
+import { FEATURE_ACCENT } from "@/lib/school-theme";
 import { GrowthChart, type GrowthSeries } from "@/components/charts/GrowthChart";
 
 export const revalidate = 3600;
@@ -180,6 +181,9 @@ export default async function ComparePage({
   return (
     <div className="space-y-8">
       <header className="space-y-2">
+        <p className={`text-xs font-semibold uppercase tracking-widest ${FEATURE_ACCENT.compare.text}`}>
+          Comparisons
+        </p>
         <h1 className="text-3xl font-semibold tracking-tight">Head to head</h1>
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
           The endowment&rsquo;s actual results against its ETF copycat and three simple{" "}

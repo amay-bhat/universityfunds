@@ -14,6 +14,8 @@ import { bestWorstYear, trailingAnnualizedPct } from "@/lib/stats";
 import { formatPct, formatUsdMillions, fyWindow } from "@/lib/format";
 import { SCHOOL_BLURB } from "@/lib/blurbs";
 import { Term } from "@/components/Term";
+import { SCHOOL_THEME } from "@/lib/school-theme";
+import { SchoolMark } from "@/components/SchoolMark";
 import { AllocationChart } from "@/components/charts/AllocationChart";
 import { ReturnsChart } from "@/components/charts/ReturnsChart";
 import { MarketValueChart } from "@/components/charts/MarketValueChart";
@@ -44,13 +46,18 @@ function StatTile({
   label,
   value,
   note,
+  accent,
 }: {
   label: string;
   value: string;
   note?: string;
+  accent?: string;
 }) {
   return (
-    <div className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+    <div
+      className="rounded-lg border border-zinc-200 border-t-4 p-4 dark:border-zinc-800"
+      style={accent ? { borderTopColor: accent } : undefined}
+    >
       <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
       {note && <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{note}</div>}
@@ -101,17 +108,21 @@ export default async function SchoolPage({
 
   return (
     <div className="space-y-10">
-      <header className="space-y-1">
-        <h1 className="text-3xl font-semibold tracking-tight">{row.name}</h1>
-        {row.managerName && (
-          <p className="text-zinc-500 dark:text-zinc-400">
-            <Term t="endowment">Endowment</Term> managed by {row.managerName}
-          </p>
-        )}
+      <header className="flex items-start gap-4">
+        <SchoolMark school={school} size="lg" />
+        <div className="space-y-1">
+          <h1 className="text-3xl font-semibold tracking-tight">{row.name}</h1>
+          {row.managerName && (
+            <p className="text-zinc-500 dark:text-zinc-400">
+              <Term t="endowment">Endowment</Term> managed by {row.managerName}
+            </p>
+          )}
+        </div>
       </header>
 
       <section aria-label="Headline figures" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <StatTile
+          accent={SCHOOL_THEME[school].color}
           label="Endowment size"
           value={latestValue ? formatUsdMillions(latestValue.marketValueUsdMillions) : "—"}
           note={
@@ -121,6 +132,7 @@ export default async function SchoolPage({
           }
         />
         <StatTile
+          accent={SCHOOL_THEME[school].color}
           label="10-year annualized return"
           value={tenYear !== null ? formatPct(tenYear) : "—"}
           note={
@@ -132,6 +144,7 @@ export default async function SchoolPage({
           }
         />
         <StatTile
+          accent={SCHOOL_THEME[school].color}
           label="25-year annualized return"
           value={twentyFiveYear !== null ? formatPct(twentyFiveYear) : "—"}
           note={
@@ -143,6 +156,7 @@ export default async function SchoolPage({
           }
         />
         <StatTile
+          accent={SCHOOL_THEME[school].color}
           label="Worst year"
           value={bw ? formatPct(bw.worst.returnPct) : "—"}
           note={bw ? `FY${bw.worst.fiscalYear}` : undefined}

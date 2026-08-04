@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SCHOOL_GRADIENT } from "@/lib/school-theme";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,6 +48,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <header className="border-b border-zinc-200 dark:border-zinc-800">
+          <div aria-hidden="true" className="h-0.5" style={{ background: SCHOOL_GRADIENT }} />
           <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-6 gap-y-2 px-4 py-4 sm:px-6">
             <Link
               href="/"
@@ -70,22 +72,23 @@ export default function RootLayout({
         <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
           {children}
         </main>
-        <footer className="border-t border-zinc-200 dark:border-zinc-800">
-          <div className="mx-auto max-w-5xl space-y-2 px-4 py-6 text-sm text-zinc-600 sm:px-6 dark:text-zinc-400">
-            <p className="font-medium text-zinc-800 dark:text-zinc-200">
+        <footer>
+          <div aria-hidden="true" className="h-0.5" style={{ background: SCHOOL_GRADIENT }} />
+          <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-2 gap-y-1 px-4 py-3.5 text-xs text-zinc-500 sm:px-6 dark:text-zinc-400">
+            <span className="font-semibold uppercase tracking-wide text-zinc-700 dark:text-zinc-300">
               Education, not financial advice.
-            </p>
-            <p>
-              This site explains how five university endowments invested. It knows nothing about
-              you and never will — it cannot and does not tell you what to do with your money.
-            </p>
-            <p>
-              Every number here comes from a cited public document; the{" "}
-              <Link href="/methodology" className="underline underline-offset-4">
-                methodology page
-              </Link>{" "}
-              lists every source and every known gap.
-            </p>
+            </span>
+            <span>
+              This site knows nothing about you and can&rsquo;t tell you what to do with your
+              money.
+            </span>
+            <span>
+              Every number is from a cited public document —{" "}
+              <Link href="/methodology" className="underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200">
+                sources &amp; methodology
+              </Link>
+              .
+            </span>
           </div>
         </footer>
       </body>

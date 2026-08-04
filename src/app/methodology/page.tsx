@@ -3,6 +3,7 @@ import { NO_PROXY_TICKER } from "@/lib/constants";
 import { getProxyMappings, getSources } from "@/lib/queries";
 import { categoryLabel } from "@/lib/chart-theme";
 import { Term } from "@/components/Term";
+import { FEATURE_ACCENT } from "@/lib/school-theme";
 
 export const revalidate = 3600;
 
@@ -34,6 +35,9 @@ export default async function MethodologyPage() {
   return (
     <div className="space-y-10">
       <header className="space-y-2">
+        <p className={`text-xs font-semibold uppercase tracking-widest ${FEATURE_ACCENT.methodology.text}`}>
+          The receipts
+        </p>
         <h1 className="text-3xl font-semibold tracking-tight">Methodology and sources</h1>
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
           The rule behind everything here: <strong>no citation, no number</strong>. This page

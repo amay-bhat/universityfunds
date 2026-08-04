@@ -89,6 +89,7 @@ articles. Outcomes:
 | Clears all articles | It is the human's answer. Execute, log, continue. |
 | Breaks an article | Do NOT implement. Escalate to the next tier with both positions and the specific objection. At the top tier → human. |
 | Both constitutional, tiers disagree | The senior's ruling governs. Record the dissent — a losing argument that turns out right is worth having on the record. |
+| Both constitutional, **top tier and its same-tier refuter** disagree | No tier hop exists to order them, so neither governs. Put it to the human as an ELI25-SE block with both positions at equal weight; the mandatory `RECOMMEND` line names the deadlock itself, not a side (e.g. *"RECOMMEND — you decide: two independent reads at the same tier reached opposite constitutional answers and I hold neither"*). Log `[HITL]`. |
 | Senior errors / times out / tier unavailable | Next tier up; if none, human. |
 
 ## The human interrupt — ELI25-SE block

@@ -60,6 +60,18 @@ couldn't-verify list first — facts are certified by documents, never by
 agreement between models — then reconciles and issues the final ruling,
 stating whether the reveal changed its mind.
 
+**If the reveal cannot be delivered.** Record the ruling agent's raw id at spawn
+so the reveal can address it directly; a name resumes a completed agent from its
+transcript, so the ordinary case — Phase 1 finished and the agent exited — is not
+a failure. If delivery still fails, retry twice. If it fails three times, **stop
+and put the question to the human**, attaching the Phase-1 preliminary and your
+withheld recommendation, both labelled as not-a-conclusion. Log it with
+`outcome: sent-to-HITL` and record that phase-delta was not observed. Do not
+re-run the protocol on the same question, and never deliver Phase-1 material and
+the reveal into one context: you have already read the preliminary, so any brief
+you write afterwards is no longer blind, and a second run would launder that
+contamination rather than remove it.
+
 The senior decides; you build. It must not implement.
 
 **If you are the top tier (Fable):** there is no senior. Substitute a
@@ -74,8 +86,9 @@ Independently re-check the final ruling against all articles — your check is
 what protects the human; the senior's self-check does not substitute for it.
 Outcomes table in `references/brief.md`: clears → execute and log; breaks an
 article → refuse and escalate again with both positions; constitutional
-disagreement → senior governs, dissent logged; senior fails → next tier or
-human.
+disagreement → senior governs, dissent logged; top tier deadlocked with its
+own refuter → human, both positions at equal weight; senior fails → next tier
+or human.
 
 ## Step 4 — Stay productive while waiting
 

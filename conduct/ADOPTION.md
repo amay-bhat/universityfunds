@@ -89,3 +89,42 @@ signed-date: 2026-07-30
 
 **Applied 2026-07-30** by the Fable build session, same day, verbatim. The
 kernel stamp is now `1.0.0 / ADOPTED`.
+
+---
+
+## Amendment — kernel v1.1.0, adopted 2026-08-04
+
+Five reserved matters surfaced by the 31 July 2026 audit
+(`conduct/audits/2026-07-31/`) and drafted as
+`conduct/AMENDMENTS-PROPOSED-2026-08-04.md` (revision 2). The human adopted all
+five by explicit in-session reply: **"adopt 1A, 2A, 3A, 4B, 5A"**.
+
+| # | Finding | Edit | File |
+|---|---|---|---|
+| 1A | `A-10` | Article 2 restated in the per-figure citation shape the validator enforces, with the "validator ≠ Article 2 clearance" limit made explicit | `CONSTITUTION.md:17` |
+| 2A | `A-08` | new outcomes row: top tier deadlocked with its own same-tier refuter → the human, both positions at equal weight | `escalate/references/brief.md` **and** the inline restatement at `escalate/SKILL.md` |
+| 3A | `B-10` | a push that publishes or deploys is now a reserved action — domain-free wording in the kernel, the project-specific `main`/Vercel statement in the constitution | `kernel.md` Part 2 §2, `CONSTITUTION.md:42` |
+| 4B | `A-06` | reveal-delivery failure: record the agent id, retry twice, then stop and go to the human as `sent-to-HITL`; never re-run, never unblind | `escalate/SKILL.md` |
+| 5A | `A-12` | a project gate is not a question and never enters the escalation floor | `kernel.md` Part 4 |
+
+```
+kernel-version: 1.1.0
+signed-by:   Amay Bhatnagar (explicit in-session approval, amendments 1A/2A/3A/4B/5A)
+signed-date: 2026-08-04
+```
+
+**Two prior drafts were refused before this one.** Revision 1's instruments for
+`A-06` and `A-12` were rejected by adversarial verification as unsafe to sign —
+the first contained an unbounded void-and-restart loop with no terminal escape and
+named an actor (a "fresh senior") that does not exist at the top tier; the second
+left the finding's actual location (`conduct/QUICKCARD.md:70`) untouched and tried
+to attach a default to a Part 2 §5 matter. Both were redesigned rather than
+reworded. Each instrument in revision 2 carries a *What revision 1 got wrong* note.
+
+**Delegable residue, not part of this signature** — the same obsolete citation
+shape survives in `data/README.md:5` (which asserts a must-cite rule on proxy
+mappings that 2 of 7 live rows do not satisfy — a false requirement to remove, not
+wording to tighten), `CLAUDE.md:32`, and six sites in `spec-schema/`
+(`spec.json:269`, `:317`, `:359`; `spec.md:48`, `:54`, `:71`). Also available and
+unadopted: **5D**, which fixes `QUICKCARD.md:70`'s pointer so it names a file
+containing the gates rule. None of these is reserved.

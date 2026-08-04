@@ -7,7 +7,11 @@ const alloc = (
   category: AllocationRow["category"],
   pct: number,
   basis: "actual" | "target" = "actual",
-): AllocationRow => ({ fiscalYear, category, pct, basis, sourceLabel: null, sourceId: "s" });
+  sourceId = "s",
+): AllocationRow => ({ fiscalYear, category, pct, basis, sourceLabel: null, sourceId });
+
+// The one citation whose sources.json notes state a wider measurement universe.
+const POOL_SRC = "mitimco-fnl-bufferd-2004";
 
 describe("toAllocationChartData", () => {
   it("returns null for a school with no allocation rows (Stanford)", () => {
@@ -27,7 +31,9 @@ describe("toAllocationChartData", () => {
     // us_public_equity (slot 1) before real_assets (slot 7), regardless of
     // input order — color/stack order follows the entity, never the data.
     expect(data.categoriesUsed).toEqual(["us_public_equity", "real_assets"]);
-    expect(data.lastTargetYear).toBeNull();
+    expect(data.targetYears).toEqual([]);
+    expect(data.targetsFormPrefix).toBe(false);
+    expect(data.poolYears).toEqual([]);
   });
 
   it("emits unpublished years inside the window as explicit gaps (Harvard FY2018/FY2022)", () => {
@@ -41,13 +47,60 @@ describe("toAllocationChartData", () => {
     expect(data.years[1].values).toEqual({});
   });
 
-  it("tracks the last target-basis year (Harvard policy-portfolio era)", () => {
+  it("tracks target-basis years as a contiguous prefix (Harvard policy-portfolio era)", () => {
     const data = toAllocationChartData([
       alloc(2005, "public_equity", 100, "target"),
       alloc(2006, "public_equity", 100, "target"),
       alloc(2007, "public_equity", 100, "actual"),
     ])!;
-    expect(data.lastTargetYear).toBe(2006);
+    expect(data.targetYears).toEqual([2005, 2006]);
+    // Harvard's shape: the chart may legitimately say "through FY2006".
+    expect(data.targetsFormPrefix).toBe(true);
+  });
+
+  // REGRESSION. This shipped publicly: lastTargetYear was max(target years), so
+  // MIT — whose only target year sits mid-series — was captioned "targets
+  // through FY2008", asserting that FY2001/FY2003/FY2004 were targets. They are
+  // actuals.
+  it("does not treat a mid-series target year as a prefix boundary (MIT)", () => {
+    const data = toAllocationChartData([
+      alloc(2001, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2003, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2004, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2008, "public_equity", 100, "target"),
+      alloc(2013, "public_equity", 100, "actual"),
+    ])!;
+    expect(data.targetYears).toEqual([2008]);
+    expect(data.targetsFormPrefix).toBe(false);
+    const byYear = new Map(data.years.map((y) => [y.fiscalYear, y]));
+    expect(byYear.get(2001)!.basis).toBe("actual");
+    expect(byYear.get(2004)!.basis).toBe("actual");
+    expect(byYear.get(2008)!.basis).toBe("target");
+  });
+
+  it("derives the measurement universe from the citation, not a stored column", () => {
+    const data = toAllocationChartData([
+      alloc(2001, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2003, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2008, "public_equity", 100, "actual"),
+    ])!;
+    expect(data.poolYears).toEqual([2001, 2003]);
+    const byYear = new Map(data.years.map((y) => [y.fiscalYear, y]));
+    expect(byYear.get(2001)!.universe).toBe("investment_pool");
+    expect(byYear.get(2008)!.universe).toBe("endowment");
+    // A gap year asserts no universe at all.
+    expect(byYear.get(2002)!.universe).toBeNull();
+  });
+
+  it("will not call a year pool-basis unless every one of its rows says so", () => {
+    // A mixed year would be a curation error; defaulting to "endowment" keeps
+    // the chart from silently claiming the wider pot.
+    const data = toAllocationChartData([
+      alloc(2001, "public_equity", 60, "actual", POOL_SRC),
+      alloc(2001, "real_assets", 40, "actual", "some-endowment-doc"),
+    ])!;
+    expect(data.poolYears).toEqual([]);
+    expect(data.years[0].universe).toBe("endowment");
   });
 });
 

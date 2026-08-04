@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { NO_PROXY_TICKER } from "@/lib/constants";
+import { NO_PROXY_TICKER, isPoolUniverseSource } from "@/lib/constants";
 import {
   getAllocations,
   getBenchmarkReturns,
@@ -89,11 +89,23 @@ export default async function TranslatePage({
     const rows = allocationsBySchool.get(s.id) ?? [];
     const byYear = new Map<number, "actual" | "target">();
     for (const r of rows) byYear.set(r.fiscalYear, r.basis);
+    // A year is pool-universe only if EVERY one of its rows cites a
+    // pool-universe document (same rule as the allocation chart).
+    const poolByYear = new Map<number, boolean>();
+    for (const r of rows) {
+      const prev = poolByYear.get(r.fiscalYear);
+      const isPool = isPoolUniverseSource(r.sourceId);
+      poolByYear.set(r.fiscalYear, prev === undefined ? isPool : prev && isPool);
+    }
     return {
       id: s.id,
       name: s.name,
       years: [...byYear.entries()]
-        .map(([fiscalYear, basis]) => ({ fiscalYear, basis }))
+        .map(([fiscalYear, basis]) => ({
+          fiscalYear,
+          basis,
+          poolUniverse: poolByYear.get(fiscalYear) ?? false,
+        }))
         .sort((a, b) => b.fiscalYear - a.fiscalYear),
       disabledReason:
         rows.length === 0 ? "no disclosed mix to translate (see its Explore page)" : undefined,
@@ -193,6 +205,7 @@ async function TranslationResult({
   benchRows: Awaited<ReturnType<typeof getBenchmarkReturns>>;
 }) {
   const basis = rows[0]?.basis;
+  const isPoolUniverse = rows.length > 0 && rows.every((r) => isPoolUniverseSource(r.sourceId));
   const proxyByCategory = new Map(proxies.map((p) => [p.category, p]));
   const ordered = CATEGORY_STACK_ORDER.filter((c) => rows.some((r) => r.category === c));
 
@@ -255,6 +268,13 @@ async function TranslationResult({
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             FY{year} is a <Term t="target allocation">published target</Term> — the mix{" "}
             {schoolName} said it was aiming for, not necessarily what it held.
+          </p>
+        )}
+        {isPoolUniverse && (
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            FY{year} describes {schoolName}&rsquo;s{" "}
+            <Term t="investment pool">investment pool</Term> &mdash; a wider pot of money than the
+            endowment itself &mdash; because that is the only mix it published for this year.
           </p>
         )}
         <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">

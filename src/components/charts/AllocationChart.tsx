@@ -47,20 +47,42 @@ export function AllocationChart({
   const tableRows = data.years
     .filter((y) => y.basis !== null)
     .map((y) => [
-      `FY${y.fiscalYear}${y.basis === "target" ? " (target)" : ""}`,
+      `FY${y.fiscalYear}${y.basis === "target" ? " (target)" : ""}${
+        y.universe === "investment_pool" ? " (investment pool)" : ""
+      }`,
       ...data.categoriesUsed.map((c) =>
         y.values[c] !== undefined ? formatPct(y.values[c] as number) : "—",
       ),
     ]);
 
+  // Never phrase a subset as a range unless it IS one. MIT's single target year
+  // sits mid-series, so "through FY2008" would caption three actual-basis years
+  // as targets — a claim that shipped and was publicly wrong.
+  const fyList = (ys: number[]) => {
+    const parts = ys.map((y) => `FY${y}`);
+    return parts.length <= 1
+      ? (parts[0] ?? "")
+      : `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+  };
+
+  const basisSentence =
+    data.targetYears.length === 0
+      ? "What the school reported holding, as a share of the endowment."
+      : data.targetsFormPrefix
+        ? `Through FY${data.targetYears[data.targetYears.length - 1]} these are the school's published target mixes (its policy portfolio); later years are what it actually held.`
+        : `${fyList(data.targetYears)} ${data.targetYears.length === 1 ? "shows the mix the school said it was targeting" : "show the mixes the school said it was targeting"} (its policy portfolio); every other year is what it actually held.`;
+
+  // Article 4: a different measurement universe drawn in the same series needs a
+  // caveat where the reader sees the chart, not in fine print.
+  const poolSentence =
+    data.poolYears.length > 0
+      ? ` ${fyList(data.poolYears)} ${data.poolYears.length === 1 ? "describes" : "describe"} the school's investment pool — a wider pot of money than the endowment itself — because that is the only mix it published for ${data.poolYears.length === 1 ? "that year" : "those years"}.`
+      : "";
+
   return (
     <ChartFrame
       title={`Asset allocation by fiscal year — ${schoolName}`}
-      subtitle={
-        data.lastTargetYear !== null
-          ? `Through FY${data.lastTargetYear} these are the school's published target mixes (its policy portfolio); later years are what it actually held.`
-          : "What the school reported holding, as a share of the endowment."
-      }
+      subtitle={`${basisSentence}${poolSentence}`}
       footnote={
         <>
           {coverageNote && <span>{coverageNote}. </span>}
@@ -147,10 +169,18 @@ export function AllocationChart({
               ))}
             </Bar>
           ))}
-          {data.lastTargetYear !== null && (
-            <ReferenceLine x={data.lastTargetYear} stroke="var(--viz-axis)" strokeWidth={1}>
+          {/* A boundary line asserts "everything left of here is a target", so it
+              may only be drawn when the target years really are a prefix. Where
+              they are not (MIT), the per-column opacity plus the subtitle carry
+              the distinction and no boundary is drawn. */}
+          {data.targetsFormPrefix && (
+            <ReferenceLine
+              x={data.targetYears[data.targetYears.length - 1]}
+              stroke="var(--viz-axis)"
+              strokeWidth={1}
+            >
               <Label
-                value={`targets through FY${data.lastTargetYear} →`}
+                value={`targets through FY${data.targetYears[data.targetYears.length - 1]} →`}
                 position="top"
                 fill="var(--viz-text-2)"
                 fontSize={11}

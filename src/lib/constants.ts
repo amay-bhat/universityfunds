@@ -33,6 +33,29 @@ export const ALLOCATION_BASES = ["actual", "target"] as const;
 export type AllocationBasis = (typeof ALLOCATION_BASES)[number];
 export const DEFAULT_ALLOCATION_BASIS: AllocationBasis = "actual";
 
+// Measurement universe — WHICH POT OF MONEY a row describes, orthogonal to
+// `basis` above (which is intention vs. holdings). A row can be pool-basis and
+// actual, or pool-basis and target; the two dimensions are independent, which
+// is why this is not a third `ALLOCATION_BASES` value.
+//
+// Derived from the citation rather than stored per row: every pool-universe row
+// cites a document whose `sources.json` notes state the universe verbatim, so
+// the fact is already certified at source granularity and needs no new column.
+// MIT FY2001/FY2003/FY2004 describe MIT's investment pool (Pool A), a wider pot
+// than the endowment proper; FY2008 and FY2013–FY2015 are endowment figures.
+// See the pool-basis [PROXY DECISION] (obligation 5) and `data/README.md`
+// (MIT section, "Display obligation").
+//
+// Upgrade path, if a second school's universe split ever becomes curated: add a
+// `measurementUniverse` column to the allocations table and drop this constant.
+// Costs one migration plus one re-seed. Triggers are recorded in
+// `data/README.md`.
+export const POOL_UNIVERSE_SOURCE_IDS = ["mitimco-fnl-bufferd-2004"] as const;
+
+export function isPoolUniverseSource(sourceId: string): boolean {
+  return (POOL_UNIVERSE_SOURCE_IDS as readonly string[]).includes(sourceId);
+}
+
 export type AllocationCategory = (typeof ALLOCATION_CATEGORIES)[number];
 
 export const ALLOCATION_CATEGORY_LABELS: Record<AllocationCategory, string> = {

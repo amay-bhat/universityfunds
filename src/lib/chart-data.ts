@@ -1,4 +1,5 @@
 import type { AllocationCategory } from "./constants";
+import { isPoolUniverseSource } from "./constants";
 import type { AllocationRow, BenchmarkReturnRow, EndowmentReturnRow } from "./queries";
 import { CATEGORY_STACK_ORDER } from "./chart-theme";
 
@@ -14,6 +15,9 @@ import { CATEGORY_STACK_ORDER } from "./chart-theme";
 export type AllocationYear = {
   fiscalYear: number;
   basis: "actual" | "target" | null; // null = not disclosed this year (gap)
+  // Which pot of money the year describes, derived from the row's citation.
+  // Orthogonal to `basis`. null = not disclosed this year (gap).
+  universe: "endowment" | "investment_pool" | null;
   values: Partial<Record<AllocationCategory, number>>;
 };
 
@@ -23,9 +27,16 @@ export type AllocationChartData = {
   coverageStart: number;
   coverageEnd: number;
   gapYears: number[];
-  // Last fiscal year whose rows are published targets (Harvard). null when the
-  // school never published target-basis rows.
-  lastTargetYear: number | null;
+  // Every disclosed fiscal year whose rows are published targets, ascending.
+  // A SET, never a "through FY n" range: MIT's only target year (FY2008) sits
+  // mid-series with actual-basis years on both sides, so treating the maximum
+  // as a boundary captioned three of MIT's actuals as targets. That bug shipped.
+  targetYears: number[];
+  // True only when the target years are a contiguous prefix of the disclosed
+  // years (Harvard's shape). Only then may the chart say "through FY n".
+  targetsFormPrefix: boolean;
+  // Disclosed years measuring a wider pot than the endowment proper, ascending.
+  poolYears: number[];
 };
 
 export function toAllocationChartData(rows: AllocationRow[]): AllocationChartData | null {
@@ -45,22 +56,44 @@ export function toAllocationChartData(rows: AllocationRow[]): AllocationChartDat
 
   const years: AllocationYear[] = [];
   const gapYears: number[] = [];
-  let lastTargetYear: number | null = null;
+  const targetYears: number[] = [];
+  const poolYears: number[] = [];
   for (let fy = coverageStart; fy <= coverageEnd; fy++) {
     const yearRows = byYear.get(fy);
     if (!yearRows) {
       gapYears.push(fy);
-      years.push({ fiscalYear: fy, basis: null, values: {} });
+      years.push({ fiscalYear: fy, basis: null, universe: null, values: {} });
       continue;
     }
     const values: Partial<Record<AllocationCategory, number>> = {};
     for (const r of yearRows) values[r.category] = r.pct;
     // A school-year is entirely one basis (the seed validator enforces it).
     const basis = yearRows[0].basis;
-    if (basis === "target") lastTargetYear = Math.max(lastTargetYear ?? -Infinity, fy);
-    years.push({ fiscalYear: fy, basis, values });
+    if (basis === "target") targetYears.push(fy);
+    // Universe is derived from the citation, not stored. A year counts as
+    // pool-basis only if every one of its rows cites a pool-universe document —
+    // a mixed year would be a curation error, and defaulting it to "endowment"
+    // keeps this from silently asserting the wider pot.
+    const universe = yearRows.every((r) => isPoolUniverseSource(r.sourceId))
+      ? "investment_pool"
+      : "endowment";
+    if (universe === "investment_pool") poolYears.push(fy);
+    years.push({ fiscalYear: fy, basis, universe, values });
   }
-  return { years, categoriesUsed, coverageStart, coverageEnd, gapYears, lastTargetYear };
+  const disclosedAsc = disclosed;
+  const targetsFormPrefix =
+    targetYears.length > 0 &&
+    targetYears.every((fy, i) => disclosedAsc[i] === fy);
+  return {
+    years,
+    categoriesUsed,
+    coverageStart,
+    coverageEnd,
+    gapYears,
+    targetYears,
+    targetsFormPrefix,
+    poolYears,
+  };
 }
 
 export type ReturnsChartPoint = {

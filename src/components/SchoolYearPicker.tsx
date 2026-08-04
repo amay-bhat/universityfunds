@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 export type PickerSchool = {
   id: string;
   name: string;
-  years: { fiscalYear: number; basis: "actual" | "target" }[]; // descending
+  years: {
+    fiscalYear: number;
+    basis: "actual" | "target";
+    // Wider pot than the endowment proper, derived from the row citation.
+    poolUniverse?: boolean;
+  }[]; // descending
   disabledReason?: string; // e.g. Stanford — no disclosed mixes
 };
 
@@ -71,6 +76,7 @@ export function SchoolYearPicker({
             <option key={y.fiscalYear} value={y.fiscalYear}>
               FY{y.fiscalYear}
               {y.basis === "target" ? " (published target)" : ""}
+              {y.poolUniverse ? " (investment pool)" : ""}
             </option>
           ))}
         </select>

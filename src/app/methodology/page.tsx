@@ -151,7 +151,7 @@ export default async function MethodologyPage() {
           MIT publishes a return every year but almost never a full mix. This data holds seven
           allocation years: three early ones (FY2001/FY2003/FY2004) on the basis of MIT&rsquo;s
           investment pool — used because MIT itself presented the pool as its endowment proxy and
-          over 95% of the endowment sat inside it, and labelled as pool-basis throughout — one
+          over 95% of the endowment sat inside it, and labelled as pool-basis wherever they appear on this site — one
           published target (FY2008), and three actuals (FY2013–FY2015) that exist only in
           MIT&rsquo;s written answers to congressional inquiries. The chart shows exactly those
           snapshots, with real gaps between them.

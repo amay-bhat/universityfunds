@@ -256,6 +256,27 @@ a session other than the curating worker). **Display obligation (tasks
 are from endowment-titled congressional tables — annotate the basis break on
 the chart itself, and define "investment pool" in plain English at first use.
 
+**How the universe distinction is carried (ruled 2026-08-04, `[PROXY DECISION]`
+in the `TASKS.md` build log).** No column. Every pool-universe row cites
+`mitimco-fnl-bufferd-2004`, whose `sources.json` notes state the universe
+verbatim, so the fact is already certified at source granularity; the display
+layer derives it from `sourceId` via `POOL_UNIVERSE_SOURCE_IDS` in
+`src/lib/constants.ts`. A year counts as pool-basis only if **every** one of its
+rows cites a pool-universe document — a mixed year would be a curation error,
+and the derivation defaults to `endowment` rather than silently claiming the
+wider pot. This is self-healing: if these rows ever revert to a gap, the
+annotation disappears with them instead of orphaning a hard-coded year list.
+
+**Named upgrade path.** Add a `measurementUniverse` column to the allocations
+table (values `endowment` | `investment_pool`, default `endowment`), orthogonal
+to `basis` — the two dimensions are independent, since a pool-basis year can
+itself be a target. Costs one migration plus one re-seed, in the same shape as
+the FY2004 target transcription. **Triggers:** a second school's universe split
+becoming curated (Stanford's congressional upgrade path clearing B1–B3, or the
+open question about the universe of Harvard's FY2017+ actuals coming back
+positive), or the human electing it. Until a trigger fires, a column serving
+24 rows of one school would be a rail built ahead of its second instance.
+
 **FY2004 target table (preserved here, not in the database):** the same
 article's Table III gives the fiscal-2004 Pool A *target* allocation — Fixed
 Income 10% (range 5–15), Real Assets 5% (0–10), U.S. Equity 21% (16–26),

@@ -25,6 +25,8 @@ export const GLOSSARY = {
     "Our name for the do-it-yourself version of an endowment's mix, built from ordinary ETFs standing in for each investment type.",
   "market value":
     "The total dollar size of the endowment at the end of its fiscal year.",
+  "investment pool":
+    "A single fund a university invests as one pot. It can hold more than the endowment — other university money sits alongside it — so a mix reported for the pool describes a wider set of money than the endowment on its own.",
   "Merged Pool":
     "Stanford's combined investment pool. It holds the endowment plus hospital and other university money, so its published numbers describe a bigger, different portfolio than the endowment itself.",
   "absolute return":

@@ -33,7 +33,7 @@ export const SCHOOL_BLURB: Record<SchoolId, string[]> = {
   ],
   mit: [
     "MIT's endowment is run by MIT Investment Management Company (MITIMCo), and by the numbers it is the quiet star of this data: 10.6% a year over 26 years, second only to Yale here, growing from $6.5 billion to $27.4 billion. Its best year is the very first — a 55.6% moonshot in FY2000, at the top of the dot-com boom — and its worst, FY2009's −17.1%, was the mildest crash year of the five schools.",
-    "The catch is disclosure. MIT publishes an annual return every year but almost never a full asset mix: this data contains just seven scattered allocation years, three of them on the basis of its investment pool rather than the endowment proper (labelled as such), and two drawn from MIT's written answers to congressional inquiries — the only place it ever published those tables.",
+    "The catch is disclosure. MIT publishes an annual return every year but almost never a full asset mix: this data contains just seven scattered allocation years. Three of them — FY2001, FY2003 and FY2004 — describe MIT's investment pool rather than the endowment proper, a slightly wider pot of money; the other four (FY2008, FY2013, FY2014 and FY2015) are endowment figures, every one of them drawn from MIT's written answers to two congressional inquiries — the only place it ever published those tables.",
     "So read MIT's mix chart as a set of snapshots, not a movie: single disclosed years with real gaps between them, shown exactly as sparse as the public record is.",
   ],
   princeton: [

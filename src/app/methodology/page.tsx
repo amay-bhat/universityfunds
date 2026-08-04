@@ -117,6 +117,16 @@ export default async function MethodologyPage() {
           assigned to its fiscal year by reconciling it against Harvard&rsquo;s audited financial
           statements rather than by guessing from publication dates.
         </p>
+        <p className="text-zinc-700 dark:text-zinc-300">
+          Harvard&rsquo;s endowment <em>size</em> figures come from two different published
+          sources, and the difference is small but real. FY2000&ndash;FY2006 and FY2010 are the
+          University&rsquo;s own audited net-asset figures, because no Harvard Management Company
+          document exists for those years. FY2007&ndash;FY2009 and FY2011 onward are HMC&rsquo;s
+          published endowment values, which run roughly 0.4&ndash;0.8% below the University line
+          for the same year. Nothing here is restated to hide the seam: each number is the one
+          its own document published, and the FY2010 point consequently sits about half a percent
+          above where its neighbours&rsquo; basis would put it.
+        </p>
 
         <h3 id="stanford" className="scroll-mt-20 font-semibold">
           Stanford — the Merged Pool is not the endowment

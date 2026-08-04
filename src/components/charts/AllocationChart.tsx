@@ -97,6 +97,12 @@ export function AllocationChart({
             axisLine={false}
             tickFormatter={(v: number) => `${v}%`}
             width={44}
+            // Stacks sum to ~100 (±rounding); cap the axis there instead of
+            // letting it auto-pad to 120. Negative floors appear only for
+            // levered (negative-cash) years.
+            domain={[(dataMin: number) => Math.min(0, dataMin), 100]}
+            allowDataOverflow
+            ticks={[0, 25, 50, 75, 100]}
           />
           <Tooltip
             cursor={{ fill: "var(--viz-grid)", fillOpacity: 0.4 }}

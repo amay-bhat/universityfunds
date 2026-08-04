@@ -428,15 +428,15 @@
     <div class="provenance">
       <span>Rendered from TASKS.md</span>
       <span>4 August 2026</span>
-      <span>Phases 0&ndash;1 complete &middot; Checkpoint A gate next</span>
+      <span>Phases 0&ndash;5 complete, Phase 6 all but one toggle &middot; Checkpoint B next</span>
     </div>
   </header>
 
   <div class="tiles">
     <div class="tile">
       <div class="tile-label">Tasks complete</div>
-      <div class="tile-value">12<span class="of">&thinsp;/&thinsp;25</span></div>
-      <div class="tile-note">Phases 0 and 1 done &mdash; the data foundation is finished</div>
+      <div class="tile-value">24<span class="of">&thinsp;/&thinsp;25</span></div>
+      <div class="tile-note">Everything buildable is built &mdash; only your toggle remains</div>
     </div>
     <div class="tile">
       <div class="tile-label">Schools curated</div>
@@ -458,8 +458,8 @@
   <section>
     <h2>Waiting on you</h2>
     <p class="lede">
-      None of these can be done by a build session — a dashboard setting, a judgement about
-      what version one means, and a constitutional signature are all reserved to you.
+      Neither of these can be done by a build session &mdash; a dashboard setting and the final
+      version-one review are both reserved to you.
     </p>
 
     <div class="action">
@@ -477,14 +477,17 @@
     </div>
 
         <div class="action">
-      <div class="action-idx">A</div>
+      <div class="action-idx">B</div>
       <div class="action-body">
-        <div class="action-title">Checkpoint A &mdash; three scope questions<span class="ref">now the live gate: Phase 1 is complete</span></div>
+        <div class="action-title">Checkpoint B &mdash; final review against the definition of done<span class="ref">after the 6.4 toggle</span></div>
         <p>
-          The plan asks for allocation charts spanning FY2000&ndash;FY2025, but no school publishes that far &mdash; and the pilot finished the picture: it is now a three-part question. <strong>Yale</strong> stopped disclosing its allocation mix after
-          FY2020. <strong>Harvard&rsquo;s</strong> pre-2017 figures are published <em>targets</em>
-          (its policy portfolio), not what it actually held. Both are curated and labelled as
-          such. <strong>MIT</strong> has 7 scattered allocation years (three of them pool-basis); <strong>Stanford</strong> has none at all &mdash; its percentages exist only for a pool that is ~73% endowment, with a measured 2.9-point return divergence. Bless that reading of &ldquo;version one&rdquo; or override it &mdash; the data is curated to each school&rsquo;s real disclosure limit either way. One lead may still change the picture: all the schools answered the same two congressional endowment inquiries that produced MIT&rsquo;s only tables.
+          Checkpoint A was blessed on 4 August (full coverage where disclosed, labelled gaps
+          everywhere else; Harvard&rsquo;s target years labelled; MIT reduced, Stanford
+          market-value-only) and the whole app is now built on that reading: five school pages,
+          the Translator with its honest gaps, the head-to-head Compare, and the methodology
+          page listing all 96 sources. Lighthouse: performance 94&ndash;98, accessibility 100;
+          36/36 financial-math tests green. Once you flip 6.4, walk the site against the
+          PRD&rsquo;s definition-of-done boxes and call it version one &mdash; or send back fixes.
         </p>
       </div>
     </div>
@@ -539,67 +542,65 @@
           </li>
         </ul>
         <div class="gate">
-          <span class="gate-tag">Gate &middot; Checkpoint A</span>
-          <span>You review the schema and data quality before any interface is built on top of it.</span>
+          <span class="gate-tag">Gate &middot; Checkpoint A &mdash; passed 4 Aug 2026</span>
+          <span>All three scope questions blessed as recommended; ruling recorded in TASKS.md.</span>
         </div>
       </div>
 
       <!-- Phase 2 -->
-      <div class="phase" style="--stripe: var(--st-idle)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">02</div>
           <div class="phase-name">App skeleton</div>
-          <div class="phase-count">0 / 2</div>
+          <div class="phase-count">2 / 2</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
-          <li class="task"><span class="task-id">2.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Site shell &mdash; navigation, footer, disclaimer, works on a phone</span></li>
-          <li class="task"><span class="task-id">2.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Typed functions to read the curated data back out of the database</span></li>
+          <li class="task is-done"><span class="task-id">2.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Site shell &mdash; navigation, footer disclaimer on every page including errors, dark mode, works at phone width</span></li>
+          <li class="task is-done"><span class="task-id">2.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Typed data access layer, smoke-checked against the live database edge cases</span></li>
         </ul>
       </div>
 
       <!-- Phase 3 -->
-      <div class="phase" style="--stripe: var(--st-idle)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">03</div>
           <div class="phase-name">History Explorer</div>
-          <div class="phase-count">0 / 3</div>
+          <div class="phase-count">3 / 3</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
-          <li class="task"><span class="task-id">3.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">A page per school &mdash; plain-English story, headline figures</span></li>
-          <li class="task"><span class="task-id">3.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">How each school&rsquo;s mix shifted over time, with the end of disclosure marked on the chart itself</span></li>
-          <li class="task"><span class="task-id">3.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Annual returns, with an S&amp;P 500 overlay</span></li>
+          <li class="task is-done"><span class="task-id">3.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">A page per school &mdash; sourced story, headline figures, Stanford&rsquo;s honest market-value-only variant</span></li>
+          <li class="task is-done"><span class="task-id">3.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Allocation history with disclosure ends and Harvard&rsquo;s targets/actuals boundary marked on the chart itself; gaps stay visible holes</span></li>
+          <li class="task is-done"><span class="task-id">3.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Annual returns with an S&amp;P 500 overlay toggle; negative years at full prominence</span></li>
         </ul>
       </div>
 
       <!-- Phase 4 -->
-      <div class="phase" style="--stripe: var(--st-idle)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">04</div>
           <div class="phase-name">The Translator <span class="qual">&mdash; the point of the site</span></div>
-          <div class="phase-count">0 / 3</div>
+          <div class="phase-count">3 / 3</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
-          <li class="task"><span class="task-id">4.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Backtest engine &mdash; given a school&rsquo;s mix, what the ETF copycat would have returned</span>
-            <span class="task-note">The most correctness-critical code in the project. Expected values are computed by hand, not by the code under test.</span>
-          </li>
-          <li class="task"><span class="task-id">4.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Endowment mix beside the buy-it-yourself version, with fine print on what a copycat cannot replicate</span></li>
-          <li class="task"><span class="task-id">4.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Growth of $10,000 &mdash; copycat against what the school actually did</span></li>
+          <li class="task is-done"><span class="task-id">4.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Backtest engine &mdash; pure functions, 36 tests with hand-computed expected values, the unbuyable half reported as a gap, never hidden</span></li>
+          <li class="task is-done"><span class="task-id">4.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Mix beside the buy-it-yourself version with per-ETF honesty notes and the fine print</span></li>
+          <li class="task is-done"><span class="task-id">4.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Growth of $10,000, vintage-labelled &mdash; the divergence from the school&rsquo;s real results shown plainly</span></li>
         </ul>
       </div>
 
       <!-- Phase 5 -->
-      <div class="phase" style="--stripe: var(--st-idle)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">05</div>
           <div class="phase-name">Comparisons</div>
-          <div class="phase-count">0 / 1</div>
+          <div class="phase-count">1 / 1</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
-          <li class="task"><span class="task-id">5.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Endowment against copycat against the S&amp;P 500 against a 60/40 split, head to head</span></li>
+          <li class="task is-done"><span class="task-id">5.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Endowment vs copycat vs S&amp;P 500 vs 60/40 vs 70/30 over any period &mdash; including periods where the simple option wins</span></li>
         </ul>
       </div>
 
@@ -608,13 +609,15 @@
         <div class="phase-head">
           <div class="phase-num">06</div>
           <div class="phase-name">Polish and ship</div>
-          <div class="phase-count">0 / 4</div>
+          <div class="phase-count">3 / 4</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:0%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:75%"></div></div></div>
         <ul class="tasks">
-          <li class="task"><span class="task-id">6.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Methodology page &mdash; every source listed, every gap explained in plain English</span></li>
-          <li class="task"><span class="task-id">6.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Disclaimer and plain-English pass over all copy</span></li>
-          <li class="task"><span class="task-id">6.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Production checks &mdash; speed, accessibility, phone walkthrough, real page title</span></li>
+          <li class="task is-done"><span class="task-id">6.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Methodology page &mdash; all 96 sources listed from the database itself, every gap&rsquo;s story in plain English</span></li>
+          <li class="task is-done"><span class="task-id">6.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Disclaimer verified on every route including errors; plain-English pass done</span></li>
+          <li class="task is-done"><span class="task-id">6.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Production checks &mdash; Lighthouse 94&ndash;98 speed / 100 accessibility, phone sweep clean, real title and icon</span>
+            <span class="task-note">One check waits on 6.4: the public URL can&rsquo;t return 200 while Deployment Protection is on.</span>
+          </li>
           <li class="task is-part"><span class="task-id">6.4</span><span class="glyph g-block">&#9650;</span><span class="task-text">Turn off Deployment Protection so the site is actually reachable</span>
             <span class="task-note">Yours &mdash; a dashboard setting a build session is not permitted to change.</span>
           </li>
@@ -810,8 +813,8 @@
     </div>
     <div>
       Counts verified directly against the seed files and the live database at render time:
-      <code>12/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
-      checks passing. Not financial advice.
+      <code>24/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
+      checks and <code>36/36</code> unit tests passing, Lighthouse <code>94&ndash;98</code>/<code>100</code>. Not financial advice.
     </div>
   </footer>
 

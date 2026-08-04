@@ -65,6 +65,27 @@ async function main() {
   console.log(`sources: ${sources.length}`);
   if (sources.length < 96) throw new Error("expected at least 96 sources");
 
+  // Task 6.1 check: the methodology page renders every row of `sources`
+  // directly, so page completeness follows from citation completeness here —
+  // every source_id cited by any fact row resolves, and no source is dead
+  // weight (uncited).
+  const cited = new Set<string>();
+  for (const s of schools) {
+    for (const a of await q.getAllocations(s.id)) cited.add(a.sourceId);
+    for (const r of await q.getEndowmentReturns(s.id)) {
+      if (r.returnSourceId) cited.add(r.returnSourceId);
+      if (r.marketValueSourceId) cited.add(r.marketValueSourceId);
+    }
+  }
+  for (const b of await q.getBenchmarkReturns()) cited.add(b.sourceId);
+  for (const p of proxies) if (p.sourceId) cited.add(p.sourceId);
+  const known = new Set(sources.map((s) => s.id));
+  const unresolved = [...cited].filter((id) => !known.has(id));
+  const dead = [...known].filter((id) => !cited.has(id));
+  console.log(`cited source ids: ${cited.size}; unresolved: ${unresolved.length}; uncited: ${dead.length}`);
+  if (unresolved.length) throw new Error(`cited ids missing from sources: ${unresolved.join(", ")}`);
+  if (dead.length) throw new Error(`uncited sources (dead weight on methodology page): ${dead.join(", ")}`);
+
   console.log("\nAll data-access smoke checks passed.");
 }
 

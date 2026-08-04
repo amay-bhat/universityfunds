@@ -558,7 +558,7 @@
         "TASKS 2.1"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M2 Skeleton",
@@ -635,7 +635,7 @@
         "Purely technical enabler (no direct BRD requirement): centralizing queries keeps citation joins and coverage rules consistent across all three features."
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M2 Skeleton",
@@ -705,7 +705,7 @@
         "BRD \u00a710 Glossary"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M2 Skeleton",
@@ -773,7 +773,7 @@
         "TASKS 3.1"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M3 History Explorer",
@@ -868,7 +868,7 @@
         "DATA-README coverage rule"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M3 History Explorer",
@@ -943,7 +943,7 @@
         "TASKS 3.3"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M3 History Explorer",
@@ -1012,7 +1012,7 @@
         "DATA-README \u00a7Stanford (Merged Pool finding)"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M3 History Explorer",
@@ -1081,7 +1081,7 @@
         "Q-001"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M4 Translator",
@@ -1149,7 +1149,7 @@
         "TASKS 4.2"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M4 Translator",
@@ -1241,7 +1241,7 @@
         "architecture decision record on snapshot vintages"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M4 Translator",
@@ -1316,7 +1316,7 @@
         "TASKS 5.1"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M5 Comparisons",
@@ -1404,7 +1404,7 @@
         "DATA-README (source narratives)"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M6 Ship",
@@ -1470,7 +1470,7 @@
         "TASKS 6.2"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "qa_passed",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M6 Ship",
@@ -1529,7 +1529,7 @@
         "TASKS 6.3"
       ],
       "priority": "must",
-      "status": "approved",
+      "status": "in_qa",
       "version": "1.0",
       "owner": "claude",
       "target_release": "M6 Ship",

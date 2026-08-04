@@ -13,14 +13,17 @@
     "db:studio": "drizzle-kit studio",
     "seed": "tsx scripts/seed.ts --write",
     "seed:dry": "tsx scripts/seed.ts --dry-run",
-    "seed:verify": "tsx scripts/verify-seed-validator.ts"
+    "seed:verify": "tsx scripts/verify-seed-validator.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.11",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "recharts": "^3.10.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -33,6 +36,7 @@
     "eslint-config-next": "16.2.11",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }

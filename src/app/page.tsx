@@ -1,65 +1,101 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getEndowmentReturns, getSchools } from "@/lib/queries";
+import { formatUsdMillions } from "@/lib/format";
 
-export default function Home() {
+export const revalidate = 3600;
+
+const FEATURES = [
+  {
+    href: "/explore",
+    title: "History Explorer",
+    body: "Pick a school and see how its investment mix and returns actually moved across 25 years — with every gap in the public record labelled, not papered over.",
+  },
+  {
+    href: "/translate",
+    title: "Copy the Pros",
+    body: "See a school's mix translated into ordinary ETFs anyone can buy, what that copycat would have returned — and, honestly, the part no copycat can replicate.",
+  },
+  {
+    href: "/compare",
+    title: "Head to Head",
+    body: "The endowment vs. its ETF copycat vs. the S&P 500, 60/40 and 70/30 — growth of $10,000 over any period you choose, even when the fancy strategy loses.",
+  },
+] as const;
+
+export default async function HomePage() {
+  const schoolList = await getSchools();
+  const latest = await Promise.all(
+    schoolList.map(async (s) => {
+      const rows = await getEndowmentReturns(s.id);
+      const withValue = rows.filter((r) => r.marketValueUsdMillions !== null);
+      const last = withValue[withValue.length - 1];
+      return {
+        id: s.id,
+        name: s.name,
+        fiscalYear: last?.fiscalYear ?? null,
+        marketValue: last?.marketValueUsdMillions ?? null,
+      };
+    }),
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="space-y-12">
+      <section className="space-y-4">
+        <h1 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
+          How the famous university endowments really invested — and what a
+          do-it-yourself version looks like
+        </h1>
+        <p className="max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+          Yale, Harvard, Stanford, MIT and Princeton, 25 years of public records, translated into
+          plain English and ordinary ETFs. Free, no login, no advice — just the numbers, including
+          the ones where a simple index fund wins.
+        </p>
+      </section>
+
+      <section className="grid gap-4 sm:grid-cols-3">
+        {FEATURES.map((f) => (
+          <Link
+            key={f.href}
+            href={f.href}
+            className="group rounded-lg border border-zinc-200 p-5 transition-colors hover:border-sky-400 hover:bg-sky-50/50 dark:border-zinc-800 dark:hover:border-sky-600 dark:hover:bg-sky-950/30"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <h2 className="font-semibold group-hover:text-sky-900 dark:group-hover:text-sky-200">
+              {f.title} <span aria-hidden="true">→</span>
+            </h2>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{f.body}</p>
+          </Link>
+        ))}
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">The five endowments</h2>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {latest.map((s) => (
+            <li key={s.id}>
+              <Link
+                href={`/explore/${s.id}`}
+                className="block rounded-lg border border-zinc-200 p-4 hover:border-sky-400 dark:border-zinc-800 dark:hover:border-sky-600"
+              >
+                <div className="font-medium">{s.name}</div>
+                <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                  {s.marketValue !== null && s.fiscalYear !== null ? (
+                    <>
+                      {formatUsdMillions(s.marketValue)}{" "}
+                      <span className="text-zinc-500">at end of FY{s.fiscalYear}</span>
+                    </>
+                  ) : (
+                    "—"
+                  )}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+          Endowment sizes as each school last reported them. Data runs FY2000–FY2025 and is
+          updated by hand once a year.
+        </p>
+      </section>
     </div>
   );
 }

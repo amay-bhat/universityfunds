@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "engineering-spec.schema.json",
+  "title": "Engineering Spec Schema — BRD to Build/QA/Deploy/Cutover/Hypercare",
+  "description": "Schema for a machine-executable engineering spec for a web SaaS application. Claude Code reads this schema, ingests a BRD plus supporting documents, and produces a spec document that validates against it. The same spec document is then consumed by Claude Code sessions to build, test, deploy, cut over, and run hypercare. Every field carries x-instructions (how to populate it), x-source (where the content comes from), and x-phase (which delivery phase consumes it).",
+
+  "x-claude-code-protocol": {
+    "purpose": "Ordered procedure for the spec-generation session.",
+    "steps": [
+      "1. INGEST: Read the BRD and every supporting doc listed by the user. Build an inventory of every stated business requirement; assign each a stable id (BRD-001, BRD-002, ...) in the traceability_matrix, quoting the source sentence and doc/section.",
+      "2. DECOMPOSE: Convert requirements into spec_items. One item = one independently buildable and testable unit (a feature slice, an API, a data model, an integration, an NFR, an ops task). Split anything that cannot be verified by a single set of acceptance criteria.",
+      "3. FILL: Populate every field of every spec_item per that field's x-instructions. Facts come only from the inputs (x-source: brd/docs). Engineering judgment fields (x-source: derived) must be justified in-line. Never invent business facts — if the BRD is silent, write 'TBD' and register an entry in open_questions with a proposed default.",
+      "4. TRACE: Every spec_item must list at least one brd_requirement_id, or set item_type to a technical/ops type and state in summary why it exists (e.g. 'enabling infrastructure'). Every BRD requirement must be covered by at least one spec_item or explicitly listed in product_overview.out_of_scope.",
+      "5. VALIDATE: Check the finished document against this schema, then against the x-quality-gates below. Fix all violations before emitting.",
+      "6. EMIT: Write spec.json (this document) and a human-readable spec.md rendered from it. spec.json is the source of truth; spec.md is a view."
+    ],
+    "execution_contract": "Downstream build/QA/deploy sessions treat spec.json as authoritative. They pick spec_items in dependency order, flip status as work progresses, and must not change requirement content without recording a change_log entry and bumping the item's version."
+  },
+
+  "x-quality-gates": [
+    "No required field contains 'TBD' when spec_meta.status is 'approved'.",
+    "Every acceptance_criteria entry is Given/When/Then and objectively verifiable by an automated test or a scripted manual check.",
+    "Every data entity field has a type and nullability; every API endpoint has request/response shapes and error codes.",
+    "Every spec_item with db_changes has migration_steps and a rollback_plan.",
+    "Every user-facing spec_item has accessibility and responsive_behavior filled (not 'N/A').",
+    "traceability_matrix covers 100% of BRD requirement ids with no orphans in either direction.",
+    "cutover_plan and hypercare_plan are present and non-empty before spec_meta.status may be 'approved'."
+  ],
+
+  "type": "object",
+  "required": ["spec_meta", "inputs", "product_overview", "architecture", "environments", "spec_items", "traceability_matrix", "release_plan", "cutover_plan", "hypercare_plan", "risk_register", "open_questions", "glossary", "change_log"],
+  "properties": {
+
+    "spec_meta": {
+      "type": "object",
+      "description": "Identity and lifecycle of the spec document itself.",
+      "required": ["project_name", "spec_version", "status", "generated_date", "generated_by"],
+      "properties": {
+        "project_name": { "type": "string" },
+        "spec_version": { "type": "string", "description": "Semver. Bump minor on item additions, major on scope changes." },
+        "status": { "enum": ["draft", "in_review", "approved", "superseded"] },
+        "generated_date": { "type": "string", "format": "date" },
+        "generated_by": { "type": "string", "description": "Model/session that generated this version." },
+        "approvers": { "type": "array", "items": { "type": "string" }, "description": "Humans who must sign off before status = approved." }
+      }
+    },
+
+    "inputs": {
+      "type": "object",
+      "description": "The documents this spec was derived from. Everything in the spec must trace back here or be marked derived.",
+      "required": ["brd"],
+      "properties": {
+        "brd": { "$ref": "#/$defs/sourceDoc" },
+        "supporting_docs": { "type": "array", "items": { "$ref": "#/$defs/sourceDoc" }, "description": "Wireframes, brand guides, compliance docs, existing-system docs, API docs of third parties, etc." }
+      }
+    },
+
+    "product_overview": {
+      "type": "object",
+      "description": "One-page framing distilled from the BRD.",
+      "required": ["problem_statement", "target_users", "success_metrics", "in_scope", "out_of_scope"],
+      "properties": {
+        "problem_statement": { "type": "string", "x-source": "brd" },
+        "target_users": { "type": "array", "items": { "type": "object", "properties": { "persona": { "type": "string" }, "needs": { "type": "string" } } } },
+        "success_metrics": { "type": "array", "items": { "type": "string" }, "x-instructions": "Business KPIs from the BRD, each with a measurable target and measurement method. These feed hypercare_plan.success_review." },
+        "in_scope": { "type": "array", "items": { "type": "string" } },
+        "out_of_scope": { "type": "array", "items": { "type": "string" }, "x-instructions": "Include every BRD requirement deliberately excluded, with the reason." },
+        "constraints": { "type": "array", "items": { "type": "string" }, "description": "Budget, timeline, mandated tech, regulatory constraints from the BRD." }
+      }
+    },
+
+    "architecture": {
+      "type": "object",
+      "description": "System-level decisions that individual spec_items inherit. Decide once here, reference from items.",
+      "required": ["stack", "system_components", "authn_authz_model", "multi_tenancy_model", "data_stores"],
+      "properties": {
+        "stack": { "type": "object", "properties": { "frontend": { "type": "string" }, "backend": { "type": "string" }, "database": { "type": "string" }, "hosting": { "type": "string" }, "ci_cd": { "type": "string" }, "other": { "type": "array", "items": { "type": "string" } } }, "x-instructions": "Honor any stack mandated by the BRD/constraints; otherwise choose and justify in decision_records." },
+        "system_components": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "responsibility": { "type": "string" }, "interfaces": { "type": "string" } } } },
+        "authn_authz_model": { "type": "string", "description": "How users sign in, session model, role/permission model, tenant isolation of authz." },
+        "multi_tenancy_model": { "type": "string", "description": "SaaS tenancy: shared-schema with tenant_id, schema-per-tenant, etc., and the isolation guarantees." },
+        "data_stores": { "type": "array", "items": { "type": "string" } },
+        "integration_map": { "type": "array", "items": { "type": "string" }, "description": "All third-party services and the direction of data flow." },
+        "decision_records": { "type": "array", "items": { "type": "object", "properties": { "decision": { "type": "string" }, "options_considered": { "type": "string" }, "rationale": { "type": "string" } } }, "x-instructions": "Record every non-obvious derived choice so humans can veto at review." }
+      }
+    },
+
+    "environments": {
+      "type": "array",
+      "description": "Environment matrix used by build, QA and deploy phases.",
+      "items": {
+        "type": "object",
+        "required": ["name", "purpose"],
+        "properties": {
+          "name": { "enum": ["local", "preview", "staging", "production"] },
+          "purpose": { "type": "string" },
+          "url_pattern": { "type": "string" },
+          "data_policy": { "type": "string", "description": "Real vs synthetic data; PII handling per environment." },
+          "deploy_trigger": { "type": "string", "description": "e.g. push to main, manual promote, PR preview." }
+        }
+      }
+    },
+
+    "spec_items": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The core of the spec: the work-item table. Each item carries the full column set below (the '60-odd columns').",
+      "items": { "$ref": "#/$defs/specItem" }
+    },
+
+    "traceability_matrix": {
+      "type": "array",
+      "description": "BRD requirement inventory with forward links into spec_items.",
+      "items": {
+        "type": "object",
+        "required": ["brd_requirement_id", "requirement_text", "source_location", "covered_by"],
+        "properties": {
+          "brd_requirement_id": { "type": "string", "pattern": "^BRD-[0-9]{3,}$" },
+          "requirement_text": { "type": "string", "description": "Verbatim or tightly paraphrased from the BRD." },
+          "source_location": { "type": "string", "description": "Doc + section/page." },
+          "covered_by": { "type": "array", "items": { "type": "string" }, "description": "spec_ids, or the literal string 'OUT-OF-SCOPE' with the exclusion listed in product_overview.out_of_scope." }
+        }
+      }
+    },
+
+    "release_plan": {
+      "type": "object",
+      "description": "How spec_items group into releases and the order of build.",
+      "required": ["milestones"],
+      "properties": {
+        "milestones": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "goal": { "type": "string" }, "spec_ids": { "type": "array", "items": { "type": "string" } }, "exit_criteria": { "type": "array", "items": { "type": "string" } } } }, "x-instructions": "Order by dependency graph, then priority. Milestone 1 should be a walking skeleton: auth + tenancy + one end-to-end slice deployed to staging." },
+        "definition_of_done": { "type": "array", "items": { "type": "string" }, "description": "Global DoD applied to every spec_item in addition to its own acceptance criteria (tests pass, lint clean, deployed to staging, docs updated...)." }
+      }
+    },
+
+    "cutover_plan": {
+      "type": "object",
+      "description": "Go-live procedure. Consumed by the deploy/cutover phase.",
+      "required": ["strategy", "runbook", "rollback", "go_no_go_criteria"],
+      "properties": {
+        "strategy": { "type": "string", "description": "Big-bang, phased, parallel-run, or dark launch — and why." },
+        "prerequisites": { "type": "array", "items": { "type": "string" }, "description": "DNS, TLS, prod env vars, third-party prod credentials, legal/compliance sign-offs, billing live-mode keys." },
+        "data_migration": { "type": "object", "properties": { "source": { "type": "string" }, "method": { "type": "string" }, "validation": { "type": "string" }, "dry_run_plan": { "type": "string" } }, "x-instructions": "If greenfield with no legacy data, state that explicitly rather than omitting." },
+        "runbook": { "type": "array", "items": { "type": "object", "properties": { "step": { "type": "string" }, "owner": { "enum": ["claude", "human"] }, "verification": { "type": "string" } } }, "x-instructions": "Numbered, executable steps. Mark any step Claude cannot perform (DNS registrar, payment provider dashboard) as owner: human." },
+        "rollback": { "type": "string", "description": "Trigger conditions and exact procedure to return to pre-cutover state, including data implications." },
+        "go_no_go_criteria": { "type": "array", "items": { "type": "string" } },
+        "comms": { "type": "array", "items": { "type": "string" }, "description": "Who is told what, when: users, stakeholders, status page." }
+      }
+    },
+
+    "hypercare_plan": {
+      "type": "object",
+      "description": "Elevated-support period after go-live. Consumed by the hypercare phase.",
+      "required": ["duration", "monitoring", "incident_response", "exit_criteria"],
+      "properties": {
+        "duration": { "type": "string", "description": "e.g. 14 days post-cutover." },
+        "monitoring": { "type": "array", "items": { "type": "object", "properties": { "signal": { "type": "string" }, "threshold": { "type": "string" }, "check_cadence": { "type": "string" }, "response": { "type": "string" } } }, "x-instructions": "Cover at minimum: error rate, p95 latency, uptime, signup/login success, payment success (if billing), queue/job backlogs." },
+        "incident_response": { "type": "object", "properties": { "severity_levels": { "type": "string" }, "triage_procedure": { "type": "string" }, "hotfix_procedure": { "type": "string", "description": "Fast path to production for hypercare fixes, including reduced-but-not-zero QA bar." } } },
+        "known_issues_log": { "type": "string", "description": "Where deferred defects are tracked during hypercare." },
+        "success_review": { "type": "string", "description": "How product_overview.success_metrics get measured at hypercare end." },
+        "exit_criteria": { "type": "array", "items": { "type": "string" }, "description": "Conditions to leave hypercare and enter normal operations." }
+      }
+    },
+
+    "risk_register": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk", "likelihood", "impact", "mitigation"],
+        "properties": {
+          "risk": { "type": "string" },
+          "likelihood": { "enum": ["low", "medium", "high"] },
+          "impact": { "enum": ["low", "medium", "high"] },
+          "mitigation": { "type": "string" },
+          "related_spec_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "open_questions": {
+      "type": "array",
+      "description": "Everything the inputs did not answer. Blockers for approval, not for drafting.",
+      "items": {
+        "type": "object",
+        "required": ["question_id", "question", "proposed_default", "blocking"],
+        "properties": {
+          "question_id": { "type": "string", "pattern": "^Q-[0-9]{3,}$", "description": "Stable id referenced by spec_items.open_question_refs. Never reused." },
+          "question": { "type": "string" },
+          "context": { "type": "string", "description": "Why it matters; which spec_ids depend on it." },
+          "proposed_default": { "type": "string", "x-instructions": "Always propose a sensible default so the human can approve with one word." },
+          "blocking": { "type": "boolean", "description": "true if build cannot start on affected items without an answer." },
+          "resolution": { "type": "string" }
+        }
+      }
+    },
+
+    "glossary": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "term": { "type": "string" }, "definition": { "type": "string" } } },
+      "description": "Domain and product terms used consistently across all spec_items."
+    },
+
+    "change_log": {
+      "type": "array",
+      "items": { "type": "object", "properties": { "date": { "type": "string", "format": "date" }, "version": { "type": "string" }, "change": { "type": "string" }, "reason": { "type": "string" }, "changed_by": { "type": "string" } } }
+    }
+  },
+
+  "$defs": {
+
+    "sourceDoc": {
+      "type": "object",
+      "required": ["doc_id", "title", "location"],
+      "properties": {
+        "doc_id": { "type": "string", "description": "Short handle used in source_references, e.g. 'BRD', 'WIREFRAMES'." },
+        "title": { "type": "string" },
+        "location": { "type": "string", "description": "File path or URL." },
+        "version_or_date": { "type": "string" },
+        "authority": { "enum": ["binding", "informative"], "description": "binding docs win conflicts; informative docs are context only." }
+      }
+    },
+
+    "specItem": {
+      "type": "object",
+      "description": "One unit of buildable, testable work. The property set below is the spec's column definition (~64 columns across 8 groups).",
+      "required": [
+        "spec_id", "title", "summary", "item_type", "module", "brd_requirement_ids",
+        "priority", "status", "version", "dependencies",
+        "acceptance_criteria", "error_handling",
+        "test_strategy", "rollback_plan"
+      ],
+
+      "properties": {
+
+        "spec_id": { "type": "string", "pattern": "^SPEC-[0-9]{3,}$", "x-group": "identity", "description": "Stable unique id. Never reused, never renumbered." },
+        "title": { "type": "string", "maxLength": 120, "x-group": "identity" },
+        "summary": { "type": "string", "x-group": "identity", "description": "2-3 sentences: what and why. Readable without opening the BRD." },
+        "detailed_description": { "type": "string", "x-group": "identity", "description": "Full behavioral description in plain prose. The builder should need no other narrative." },
+        "item_type": { "enum": ["feature", "api", "ui", "data_model", "integration", "infra", "security", "migration", "nfr", "ops"], "x-group": "identity" },
+        "module": { "type": "string", "x-group": "identity", "description": "Functional area, e.g. 'auth', 'billing', 'admin', 'reporting'." },
+        "epic": { "type": "string", "x-group": "identity", "description": "Parent grouping for roll-up reporting; matches release_plan milestones where possible." },
+        "brd_requirement_ids": { "type": "array", "items": { "type": "string" }, "x-group": "identity", "x-source": "brd", "description": "Traceability links (BRD-xxx). Empty only for purely technical/ops items — say why in summary." },
+        "source_references": { "type": "array", "items": { "type": "string" }, "x-group": "identity", "description": "doc_id + section for every non-BRD input used, e.g. 'WIREFRAMES p.4'." },
+        "assumptions": { "type": "array", "items": { "type": "string" }, "x-group": "identity", "x-source": "derived", "x-instructions": "Every gap you filled with judgment gets a line here. Assumptions are veto-able at review." },
+        "out_of_scope": { "type": "array", "items": { "type": "string" }, "x-group": "identity", "description": "Adjacent behavior explicitly NOT included in this item, to stop scope creep in build." },
+        "open_question_refs": { "type": "array", "items": { "type": "string", "pattern": "^Q-[0-9]{3,}$" }, "x-group": "identity", "description": "question_ids from the top-level open_questions (Q-xxx) that affect this item." },
+
+        "priority": { "enum": ["must", "should", "could", "wont"], "x-group": "planning", "x-source": "brd", "x-instructions": "MoSCoW. Derive from BRD language; when ambiguous choose lower priority and log an open question." },
+        "priority_rationale": { "type": "string", "x-group": "planning", "description": "One line: business value driving the priority." },
+        "complexity_estimate": { "enum": ["S", "M", "L", "XL"], "x-group": "planning", "x-source": "derived", "description": "Relative build effort. XL items should usually be split." },
+        "dependencies": { "type": "array", "items": { "type": "string" }, "x-group": "planning", "description": "spec_ids that must be built first, plus external dependencies prefixed 'ext:' (e.g. 'ext: Stripe account created — human provisions')." },
+        "status": { "enum": ["draft", "approved", "in_build", "built", "in_qa", "qa_passed", "deployed_staging", "deployed_production", "verified", "deferred"], "x-group": "planning", "x-instructions": "Lifecycle flag flipped by downstream sessions. Spec generation always emits 'draft'." },
+        "version": { "type": "string", "x-group": "planning", "description": "Item-level version; bump on any requirement change after approval and add a change_log entry." },
+        "owner": { "enum": ["claude", "human", "claude_with_human_gate"], "x-group": "planning", "description": "Who executes. human_gate = Claude builds, human must approve before production." },
+        "target_release": { "type": "string", "x-group": "planning", "description": "Milestone name from release_plan." },
+
+        "user_stories": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "'As a <persona>, I want <goal>, so that <benefit>.' Personas must exist in product_overview.target_users." },
+        "actors": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "Roles/systems that interact with this behavior, including scheduled jobs and webhooks." },
+        "preconditions": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "State that must hold before the flow starts (auth state, plan tier, feature flag, data present)." },
+        "main_flow": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "Numbered happy-path steps from trigger to postcondition." },
+        "alternate_flows": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "Branches: cancel, retry, empty state, concurrent edit, permission variant." },
+        "business_rules": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "x-source": "brd", "description": "Deterministic rules: validation limits, calculations, entitlements, quotas. Exact numbers, no adjectives." },
+        "edge_cases": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "x-source": "derived", "x-instructions": "Enumerate aggressively: empty, max-length, unicode, timezone, duplicate submit, expired session, deleted tenant, race conditions." },
+        "error_handling": { "type": "array", "items": { "type": "string" }, "x-group": "functional", "description": "For each failure mode: what the user sees (exact copy tone), what is logged, whether it retries, terminal state." },
+        "acceptance_criteria": { "type": "array", "minItems": 1, "items": { "type": "string" }, "x-group": "functional", "x-instructions": "Given/When/Then, objectively verifiable. These become the QA phase's test oracle — write them so a test can be generated mechanically." },
+
+        "ui_screens": { "type": "array", "items": { "type": "string" }, "x-group": "ux", "description": "Screens/routes touched, with wireframe refs from source_references where available." },
+        "ui_components": { "type": "array", "items": { "type": "string" }, "x-group": "ux", "description": "Reusable components introduced or modified; note design-system source." },
+        "ui_states": { "type": "array", "items": { "type": "string" }, "x-group": "ux", "description": "Loading, empty, error, success, and permission-denied states for each screen." },
+        "accessibility": { "type": "string", "x-group": "ux", "x-instructions": "WCAG 2.1 AA baseline unless BRD says otherwise: keyboard path, focus order, labels, contrast, announcements." },
+        "responsive_behavior": { "type": "string", "x-group": "ux", "description": "Behavior at mobile/tablet/desktop breakpoints; what collapses, what hides." },
+        "content_i18n": { "type": "string", "x-group": "ux", "description": "User-facing copy requirements, tone, localization/i18n needs, date/number/currency formats." },
+
+        "architecture_notes": { "type": "string", "x-group": "technical", "x-source": "derived", "description": "How this item fits the system: components touched, patterns to follow, references to architecture.decision_records." },
+        "affected_services": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "description": "Names from architecture.system_components." },
+        "api_contract": { "type": "array", "x-group": "technical", "items": { "type": "object", "properties": { "method": { "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"] }, "path": { "type": "string" }, "auth": { "type": "string" }, "request_shape": { "type": "string" }, "response_shape": { "type": "string" }, "error_codes": { "type": "array", "items": { "type": "string" } }, "idempotency": { "type": "string" } } }, "x-instructions": "Full contract per endpoint; shapes as TypeScript-ish or JSON examples. Tenant scoping must be explicit in auth." },
+        "data_entities": { "type": "array", "x-group": "technical", "items": { "type": "object", "properties": { "entity": { "type": "string" }, "fields": { "type": "array", "items": { "type": "string" }, "description": "name: type, nullability, default, constraints — one string per field." }, "relationships": { "type": "array", "items": { "type": "string" } }, "indexes": { "type": "array", "items": { "type": "string" } }, "tenancy": { "type": "string", "description": "How rows are tenant-scoped." }, "retention": { "type": "string", "description": "Soft-delete? Purge policy? Audit trail?" } } } },
+        "db_changes": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "description": "Schema deltas this item introduces (new table, column, index, backfill). Drives migration_steps." },
+        "events_and_jobs": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "description": "Async work: emitted events, webhooks consumed, scheduled/background jobs, queues, retry semantics." },
+        "third_party_integrations": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "description": "External services used, API versions, sandbox-vs-live handling, failure fallback." },
+        "feature_flag": { "type": "string", "x-group": "technical", "description": "Flag name gating this item, or 'none'. Flagged items must define both flag states' behavior." },
+        "config_and_secrets": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "description": "Env vars and secrets required, per environment; mark which the human must provision." },
+        "permissions_model": { "type": "string", "x-group": "technical", "description": "Which roles can do what within this item; deny-by-default statement." },
+        "code_location_hints": { "type": "array", "items": { "type": "string" }, "x-group": "technical", "x-source": "derived", "description": "Suggested paths/modules for the build session; advisory, not binding." },
+
+        "performance_targets": { "type": "string", "x-group": "nfr", "x-instructions": "Concrete numbers: p95 latency, page-load budget, throughput, expected data volumes at 12 months. Inherit app-wide defaults if the BRD is silent, and say so." },
+        "availability_slo": { "type": "string", "x-group": "nfr", "description": "Uptime target and degradation behavior if this item's dependencies are down." },
+        "security_requirements": { "type": "string", "x-group": "nfr", "x-instructions": "Item-specific threats and controls: input validation, authz checks, tenant isolation proof, OWASP Top-10 relevance, encryption at rest/in transit." },
+        "privacy_compliance": { "type": "string", "x-group": "nfr", "description": "PII touched, lawful basis if applicable, GDPR/CCPA duties (export, deletion), audit logging obligations." },
+        "observability": { "type": "string", "x-group": "nfr", "description": "What gets logged/metered/traced for this item; alert thresholds; dashboards to update. Feeds hypercare monitoring." },
+        "rate_limits_and_quotas": { "type": "string", "x-group": "nfr", "description": "Abuse and fairness controls: per-user/per-tenant limits, plan-tier quotas, 429 behavior." },
+        "cost_considerations": { "type": "string", "x-group": "nfr", "x-source": "derived", "description": "Anything with meaningful variable cost (LLM calls, email volume, storage, third-party per-seat fees) and its cap." },
+
+        "test_strategy": { "type": "string", "x-group": "qa", "x-instructions": "Which test layers apply and why; what is explicitly NOT tested and why. Financial/billing math always gets unit tests with hand-computed expected values." },
+        "unit_tests": { "type": "array", "items": { "type": "string" }, "x-group": "qa", "description": "Named cases for pure logic: rules, calculations, validators — including the edge_cases above." },
+        "integration_tests": { "type": "array", "items": { "type": "string" }, "x-group": "qa", "description": "API + DB + third-party (mocked/sandboxed) cases, including authz denial and cross-tenant isolation checks." },
+        "e2e_scenarios": { "type": "array", "items": { "type": "string" }, "x-group": "qa", "description": "Browser-level user journeys derived from acceptance_criteria; note which run in CI vs pre-release only." },
+        "test_data_requirements": { "type": "string", "x-group": "qa", "description": "Fixtures/seeds needed, multi-tenant test setup, anonymization rules if production-like data is used." },
+        "qa_signoff_criteria": { "type": "array", "items": { "type": "string" }, "x-group": "qa", "description": "Objective bar to flip status to qa_passed: all AC green, no open sev-1/2 defects, a11y checks pass, perf within targets." },
+
+        "deployment_notes": { "type": "string", "x-group": "delivery", "description": "Anything nonstandard about shipping this item: ordering vs other items, flag ramp plan, cache invalidation, infra changes." },
+        "migration_steps": { "type": "array", "items": { "type": "string" }, "x-group": "delivery", "description": "Ordered, idempotent steps for schema/data changes, with expand-migrate-contract pattern where the change is breaking." },
+        "rollback_plan": { "type": "string", "x-group": "delivery", "x-instructions": "Required for every item. How to revert code AND data if this item fails in production; 'redeploy previous release' is acceptable only when there are no db_changes." },
+        "cutover_tasks": { "type": "array", "items": { "type": "string" }, "x-group": "delivery", "description": "Item-specific go-live steps that roll up into cutover_plan.runbook (e.g. enable live payment keys, switch webhook URLs, user comms)." },
+        "hypercare_watch": { "type": "string", "x-group": "delivery", "description": "The specific signals to watch for THIS item after go-live and what 'healthy' looks like. Rolls up into hypercare_plan.monitoring." },
+        "success_metrics": { "type": "array", "items": { "type": "string" }, "x-group": "delivery", "description": "Item-level measures of 'it worked' (adoption, conversion, error-free rate), linked to product_overview.success_metrics where possible." },
+        "runbook_notes": { "type": "string", "x-group": "delivery", "description": "Operational knowledge for whoever supports this in production: common failure modes, how to diagnose, safe manual interventions." }
+      }
+    }
+  }
+}

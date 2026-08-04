@@ -1,0 +1,214 @@
+{
+  "slice": "M1 Data complete",
+  "resolved_spec_ids": [
+    "SPEC-005"
+  ],
+  "verdict": "READY",
+  "run_date": "2026-08-04",
+  "spec_version_probed": "1.0.0",
+  "probe_results": [
+    {
+      "probe_id": "PRB-001",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-002",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-003",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-004",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-005",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-010",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-011",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-012",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-013",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-014",
+      "status": "pass",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": "Business rule 'ordinary and widely available (standard US brokerage, no accreditation/minimums)' is qualitative but anchored by BRD assumption 4; judged sufficient for a curation item.",
+          "remediation": "None required.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-015",
+      "status": "not_applicable",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-016",
+      "status": "not_applicable",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-017",
+      "status": "not_applicable",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-018",
+      "status": "pass",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": "Cross-checked live: seed:dry warns global_equity lacks rows for FY2017, FY2019-FY2025; SPEC-005's proposed VT instrument covers from FY2009 \u2014 consistent. Engine (SPEC-013) and schema (SPEC-001 honesty_note / no-proxy marker) both anticipate the explicit-gap sleeve.",
+          "remediation": "None required.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-019",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-020",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-021",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-022",
+      "status": "pass",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": ".env.local present; seed:dry executed against real data files (5 schools, 95 sources, 349 allocation rows parsed). No new credentials or human provisioning needed for this slice.",
+          "remediation": "None required.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-023",
+      "status": "pass",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": "Q-001 (hedge-fund/PE explicit-gap sleeve) touches this slice but is blocking:false with a proposed default per TASKS 1.7 framing. RESOLVED 2026-08-04: owner confirmed the explicit-gap sleeve default; Q-001.resolution recorded.",
+          "remediation": "None \u2014 resolved.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-024",
+      "status": "pass",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": "Owner approved spec v1.0.0 on 2026-08-04 (change_log entry); spec_meta.status and SPEC-005.status now 'approved'.",
+          "remediation": "None \u2014 gate cleared.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-025",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-030",
+      "status": "not_applicable",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-031",
+      "status": "not_applicable",
+      "findings": [
+        {
+          "spec_id": "SPEC-005",
+          "severity": "info",
+          "evidence": "No runtime security surface: public dataset, no endpoints, no PII; only write path is the git-versioned seed files through the validating seed script.",
+          "remediation": "None required.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-032",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-033",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-034",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-040",
+      "status": "pass",
+      "findings": []
+    },
+    {
+      "probe_id": "PRB-041",
+      "status": "pass",
+      "findings": [
+        {
+          "severity": "warning",
+          "evidence": "package.json defines no test script/runner. Not needed for M1 (this slice's checks run through seed:dry / seed:verify, both verified working), but SPEC-013 (M4) mandates unit tests with hand-computed values \u2014 a runner must exist by then. Also noted: repo has untracked files (spec-schema/, conduct/plans/) \u2014 not a build blocker.",
+          "remediation": "Add a test runner (e.g. vitest) as part of M2 skeleton or at the start of M4.",
+          "remediation_class": "mechanical"
+        }
+      ]
+    },
+    {
+      "probe_id": "PRB-042",
+      "status": "not_applicable",
+      "findings": []
+    }
+  ],
+  "blockers_summary": [],
+  "human_actions": [],
+  "warnings_accepted_note": "PRB-041 warning (no test runner yet) accepted for M1 by owner's proceed instruction; runner due with M2 skeleton or at M4 start per remediation."
+}

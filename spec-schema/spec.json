@@ -1,0 +1,2300 @@
+{
+  "spec_meta": {
+    "project_name": "University Endowment Investing Explorer (v1)",
+    "spec_version": "1.0.0",
+    "status": "approved",
+    "generated_date": "2026-08-03",
+    "generated_by": "Claude Fable 5 (spec-generation session, per engineering-spec.schema.json x-claude-code-protocol)",
+    "approvers": [
+      "Amay Bhatnagar"
+    ]
+  },
+  "inputs": {
+    "brd": {
+      "doc_id": "BRD",
+      "title": "BRD \u2014 University Endowment Investing Explorer (v1)",
+      "location": "spec-schema/inputs/BRD.md",
+      "version_or_date": "1.0 / 2026-08-03",
+      "authority": "binding"
+    },
+    "supporting_docs": [
+      {
+        "doc_id": "PRD",
+        "title": "PRD \u2014 University Endowment Investing Explorer (v1)",
+        "location": "PRD.md",
+        "version_or_date": "2026-07-23",
+        "authority": "binding"
+      },
+      {
+        "doc_id": "DATA-README",
+        "title": "data/README.md \u2014 curated data domain record",
+        "location": "data/README.md",
+        "version_or_date": "as of 2026-08-03",
+        "authority": "binding"
+      },
+      {
+        "doc_id": "CLAUDE-MD",
+        "title": "CLAUDE.md \u2014 project instructions",
+        "location": "CLAUDE.md",
+        "version_or_date": "as of 2026-08-03",
+        "authority": "binding"
+      },
+      {
+        "doc_id": "TASKS",
+        "title": "TASKS.md \u2014 task checklist and build log (evidence of built state)",
+        "location": "TASKS.md",
+        "version_or_date": "as of 2026-08-03",
+        "authority": "binding"
+      },
+      {
+        "doc_id": "PLAN-HTML",
+        "title": "plan.html \u2014 human-readable overview",
+        "location": "plan.html",
+        "version_or_date": "as of 2026-08-03",
+        "authority": "informative"
+      }
+    ]
+  },
+  "product_overview": {
+    "problem_statement": "Everyday DIY investors hear that universities like Yale grew their endowments with a famous investing strategy, but the information is buried in annual-report PDFs and finance jargon. There is no simple place to see how these endowments actually invested, what that strategy looks like rebuilt with ordinary ETFs, and whether it honestly beat simple index investing.",
+    "target_users": [
+      {
+        "persona": "DIY investor",
+        "needs": "Manages own retirement/brokerage accounts; curious, not professional; needs plain English with every finance term defined."
+      }
+    ],
+    "success_metrics": [
+      "All 5 schools browsable in the History Explorer with allocation + returns charts over their disclosed coverage (Stanford: market-value-only per BRD OI-1). Measured by phone-width walkthrough at ship.",
+      "Translator works for every school/fiscal-year with disclosed allocation data, with visible proxy mapping and fine print. Measured by rendering every school/year in the DB.",
+      "Comparisons render for any school vs. proxy vs. all 3 benchmarks over any sub-period. Measured by exercising period-picker extremes.",
+      "Methodology page lists every source_id in the DB; disclaimer visible on every page. Measured by automated check + walkthrough.",
+      "Production URL publicly reachable (unauthenticated curl -I returns 200), Lighthouse performance and accessibility pass, works on phone screens."
+    ],
+    "in_scope": [
+      "History Explorer (5 schools)",
+      "Copy-the-Pros Translator with backtest",
+      "Head-to-Head Comparisons vs S&P 500 / 60/40 / 70/30",
+      "Methodology page",
+      "Site-wide disclaimer",
+      "Hand-curated seeded dataset FY2000\u2013FY2025"
+    ],
+    "out_of_scope": [
+      "Accounts/login",
+      "Personalization of any kind",
+      "Brokerage connections",
+      "Live market data APIs",
+      "More than 5 schools",
+      "PDF scraping/automation",
+      "Mobile app",
+      "Monetization",
+      "Comments/social features",
+      "BRD-026 depth beyond FY2000 for Yale (could-priority; not pursued \u2014 Yale curation starts at FY2000 per TASKS 1.3)"
+    ],
+    "constraints": [
+      "Education, not advice \u2014 no copy tells a user what to do with their money",
+      "Every number cited (source_id \u2192 sources table)",
+      "Plain English, terms defined on first use",
+      "Honest numbers even when unflattering",
+      "Next.js App Router on Vercel + Neon; no backend beyond server components/route handlers",
+      "Backtest math requires unit tests with hand-computed expected values",
+      "dataviz skill must be read before any chart code"
+    ]
+  },
+  "architecture": {
+    "stack": {
+      "frontend": "Next.js 16 (App Router, TypeScript, React 19, Tailwind 4) \u2014 server components by default, client components only where interactivity requires",
+      "backend": "None beyond Next.js server components; no route handlers anticipated (read-only public data, queried server-side)",
+      "database": "Neon Postgres (serverless HTTP driver @neondatabase/serverless) via Drizzle ORM; schema in src/lib/db/schema.ts",
+      "hosting": "Vercel Pro (project amay-s-projects3/universityfunds), auto-deploy on push to main, PR preview deployments",
+      "ci_cd": "Vercel build on push; tests run locally/pre-push (no separate CI configured \u2014 see Q-003)",
+      "other": [
+        "drizzle-kit for migrations",
+        "tsx for scripts",
+        "Chart library: Recharts (default suggestion, confirm at build per Q-002)"
+      ]
+    },
+    "system_components": [
+      {
+        "name": "data/ seed files",
+        "responsibility": "Hand-curated source of truth: schools, allocations, returns/market values, benchmark returns, proxy mappings, sources \u2014 every row cited",
+        "interfaces": "Read by scripts/seed.ts; never edited by app code"
+      },
+      {
+        "name": "seed script (scripts/seed.ts)",
+        "responsibility": "Validate (allocations sum ~100, citations exist), upsert to Neon on natural keys, prune deleted rows; writes nothing if any check fails",
+        "interfaces": "npm run seed / seed:dry"
+      },
+      {
+        "name": "DB schema (6 tables)",
+        "responsibility": "schools, allocations, endowment_returns, benchmark_returns, proxy_mappings, sources",
+        "interfaces": "Drizzle ORM from server components via data access layer"
+      },
+      {
+        "name": "data access layer (src/lib/queries)",
+        "responsibility": "Typed server-side query functions; the only DB touchpoint for pages",
+        "interfaces": "Imported by server components"
+      },
+      {
+        "name": "backtest engine (src/lib/backtest)",
+        "responsibility": "Pure functions: weights + proxy series \u2192 yearly portfolio returns (annual rebalancing), growth-of-$10k, annualized return, best/worst year",
+        "interfaces": "Called by Translator and Compare pages; unit-tested with hand-computed values"
+      },
+      {
+        "name": "App pages",
+        "responsibility": "Shell/nav, school pages, translator, compare, methodology",
+        "interfaces": "Next.js App Router routes"
+      }
+    ],
+    "authn_authz_model": "None. Free, public, no-login (BRD-001). No user data collected, no sessions, no admin UI \u2014 content changes flow through seed files + git.",
+    "multi_tenancy_model": "Not applicable \u2014 single public read-only site, one shared dataset.",
+    "data_stores": [
+      "Neon Postgres (read-only at runtime; written only by seed script)",
+      "Static seed files in git (authoritative)"
+    ],
+    "integration_map": [
+      "Vercel (hosting/deploy, inbound)",
+      "Neon (DB, outbound from server components)",
+      "No other third parties \u2014 no live market APIs (BRD-013)"
+    ],
+    "decision_records": [
+      {
+        "decision": "App-wide performance default: LCP < 2.5s on a mid-range phone over 4G; Lighthouse performance \u2265 90 and accessibility \u2265 95 on every route",
+        "options_considered": "Per-page targets vs one default",
+        "rationale": "BRD-032 says 'loads fast' without numbers; one quantified default keeps every spec item testable (referenced as 'app perf default')."
+      },
+      {
+        "decision": "Runtime DB access is read-only; all writes go through seed files + npm run seed",
+        "options_considered": "Admin UI, direct DB edits",
+        "rationale": "BRD-020: seed files are the single source of truth; anything else forks the truth."
+      },
+      {
+        "decision": "Stanford presentation: market value over time only, with plain-English explanation; allocation/returns charts marked unavailable linking to methodology",
+        "options_considered": "Merged Pool with disclaimer; exclude Stanford; unavailable-state only",
+        "rationale": "BRD OI-1, resolved by human 2026-08-03. Merged Pool is ~25% non-endowment with confirmed 2.9pp FY2024 return divergence \u2014 showing it as 'Stanford's endowment' would violate BRD-005 honesty."
+      },
+      {
+        "decision": "Copycat forward runs use snapshot vintages: a school's last-disclosed mix may be carried forward through full benchmark coverage, labelled e.g. 'Yale's FY2020 mix, held unchanged by this copycat through FY2025' \u2014 never 'held since'",
+        "options_considered": "Truncate copycat at last disclosed year; extrapolate allocations",
+        "rationale": "TASKS 4.3 / task-1.3 proxy decision: gives users recent years without inventing allocation data; divergence from the school's actual returns is an honest, interesting result."
+      },
+      {
+        "decision": "Charts render allocation coverage ends on the chart itself (boundary marker), not in captions",
+        "options_considered": "Caption/footnote",
+        "rationale": "TASKS 3.2: the returns chart beside it runs to FY2025; the reader notices the mismatch at the chart and needs the explanation there."
+      },
+      {
+        "decision": "Proposed (Q-001, default per TASKS 1.7): hedge funds and private equity get no pretend proxy \u2014 the copycat covers only the publicly-replicable sleeve, with the remainder shown as an explicit labelled gap",
+        "options_considered": "Investable HF/PE index ETFs (none freely citable back to FY2000); liquid-alt proxies",
+        "rationale": "Those categories are ~half of Yale's portfolio; a fake proxy would be less honest than a visible gap (BRD-005). Final call sits with SPEC-005 curation."
+      }
+    ]
+  },
+  "environments": [
+    {
+      "name": "local",
+      "purpose": "Development against real Neon dev branch data",
+      "url_pattern": "localhost:3000",
+      "data_policy": "Same public curated dataset everywhere \u2014 no PII exists in this system",
+      "deploy_trigger": "npm run dev"
+    },
+    {
+      "name": "preview",
+      "purpose": "Vercel preview deployments per PR/branch \u2014 acts as staging",
+      "url_pattern": "*-amay-s-projects3.vercel.app",
+      "data_policy": "Same public curated dataset",
+      "deploy_trigger": "Push to any non-main branch / PR"
+    },
+    {
+      "name": "production",
+      "purpose": "Public site",
+      "url_pattern": "universityfunds*.vercel.app (custom domain out of scope unless owner adds one)",
+      "data_policy": "Same public curated dataset",
+      "deploy_trigger": "Push to main (auto-deploy)"
+    }
+  ],
+  "spec_items": [
+    {
+      "spec_id": "SPEC-001",
+      "title": "Database schema and data model (6 tables)",
+      "summary": "Drizzle schema for schools, allocations, endowment_returns, benchmark_returns, proxy_mappings, sources, pushed to Neon. Already built and verified live (TASKS 1.1).",
+      "detailed_description": "Normalized relational model where every fact row carries a source_id foreign key into sources. Category and series identifiers constrained to the constants in src/lib/constants.ts (8 normalized allocation categories; benchmark series sp500, us_aggregate_bond, intl_equity, reit, cash, plus hedge_fund_index, public_pe_index, global_equity pending SPEC-005).",
+      "item_type": "data_model",
+      "module": "data",
+      "epic": "M0 Foundation (verified)",
+      "brd_requirement_ids": [
+        "BRD-023",
+        "BRD-027",
+        "BRD-028"
+      ],
+      "source_references": [
+        "TASKS 1.1 build note",
+        "DATA-README format docs"
+      ],
+      "priority": "must",
+      "status": "verified",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M0 Foundation (verified)",
+      "dependencies": [],
+      "data_entities": [
+        {
+          "entity": "schools",
+          "fields": [
+            "id: text pk",
+            "name: text not null"
+          ],
+          "tenancy": "N/A \u2014 public single dataset",
+          "retention": "Permanent; rows managed solely by seed"
+        },
+        {
+          "entity": "allocations",
+          "fields": [
+            "school_id: fk not null",
+            "fiscal_year: int not null",
+            "category: text not null (normalized set)",
+            "pct: numeric not null",
+            "source_label: text (school's original wording, keeps normalization auditable)",
+            "source_id: fk not null"
+          ],
+          "tenancy": "N/A",
+          "retention": "Permanent"
+        },
+        {
+          "entity": "endowment_returns",
+          "fields": [
+            "school_id: fk not null",
+            "fiscal_year: int not null",
+            "return_pct: numeric null (null = not published, e.g. Stanford)",
+            "market_value: numeric null",
+            "source_id: fk not null"
+          ],
+          "tenancy": "N/A",
+          "retention": "Permanent"
+        },
+        {
+          "entity": "benchmark_returns",
+          "fields": [
+            "series: text not null",
+            "fiscal_year: int not null",
+            "return_pct: numeric not null",
+            "source_id: fk not null"
+          ],
+          "tenancy": "N/A",
+          "retention": "Permanent"
+        },
+        {
+          "entity": "proxy_mappings",
+          "fields": [
+            "category: text not null",
+            "etf_ticker: text not null OR explicit no-proxy marker",
+            "rationale: text not null (plain English)",
+            "honesty_note: text null (where proxy is weak)"
+          ],
+          "tenancy": "N/A",
+          "retention": "Permanent"
+        },
+        {
+          "entity": "sources",
+          "fields": [
+            "id: text pk",
+            "title: text not null",
+            "url_or_document: text not null",
+            "page: text null"
+          ],
+          "tenancy": "N/A",
+          "retention": "Permanent"
+        }
+      ],
+      "db_changes": [
+        "Initial schema push (done, verified live on Neon PostgreSQL 17.10)"
+      ],
+      "migration_steps": [
+        "drizzle-kit push against Neon (completed; idempotent re-run confirmed 'No changes detected')"
+      ],
+      "rollback_plan": "Schema is additive-only so far; a rollback is drizzle-kit push of the prior schema.ts from git history. Data restores via re-seed from git-versioned seed files.",
+      "acceptance_criteria": [
+        "Given the live Neon database, When drizzle-kit push runs against src/lib/db/schema.ts, Then it reports no changes (schema and code in sync).",
+        "Given any fact row in allocations/endowment_returns/benchmark_returns, When its source_id is looked up, Then a sources row exists (FK enforced or seed-validated)."
+      ],
+      "error_handling": [
+        "Schema drift between code and DB surfaces at drizzle-kit push \u2014 resolve in code, never by editing the DB directly (BRD-020)."
+      ],
+      "test_strategy": "Verified live per TASKS 1.1 (all 6 tables + columns confirmed on Neon). Ongoing guarantee comes from seed-script validation (SPEC-002) and the data access layer's typed queries (SPEC-007).",
+      "qa_signoff_criteria": [
+        "Already met: tables live, push idempotent (TASKS 1.1 build log)."
+      ],
+      "code_location_hints": [
+        "src/lib/db/schema.ts",
+        "src/lib/constants.ts",
+        "drizzle.config.ts"
+      ]
+    },
+    {
+      "spec_id": "SPEC-002",
+      "title": "Seed script with validation (npm run seed)",
+      "summary": "Reads data/, validates everything before opening a connection, upserts on natural keys, prunes rows deleted from seed files. Already built and verified both ways (TASKS 1.2).",
+      "item_type": "infra",
+      "module": "data",
+      "epic": "M0 Foundation (verified)",
+      "brd_requirement_ids": [
+        "BRD-020",
+        "BRD-021",
+        "BRD-022",
+        "BRD-029"
+      ],
+      "source_references": [
+        "TASKS 1.2 build note",
+        "DATA-README validation rules"
+      ],
+      "priority": "must",
+      "status": "verified",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M0 Foundation (verified)",
+      "dependencies": [
+        "SPEC-001"
+      ],
+      "business_rules": [
+        "Allocations per school-year must sum to ~100% (\u00b10.1 tolerance per DATA-README).",
+        "Every row's source_id must exist in sources \u2014 no citation, no number (BRD-021).",
+        "Nothing is written if any validation check fails (all-or-nothing)."
+      ],
+      "rollback_plan": "Seed files are git-versioned; rollback = git revert the seed-file change and re-run npm run seed (the script prunes rows removed from files).",
+      "acceptance_criteria": [
+        "Given valid seed files, When npm run seed runs twice, Then the second run is idempotent (no changes).",
+        "Given a seed file with an uncited or non-summing row, When npm run seed runs, Then it exits 1 with the specific errors and the DB is untouched.",
+        "Given a row deleted from a seed file, When npm run seed runs, Then the corresponding DB row is pruned."
+      ],
+      "error_handling": [
+        "Validation failures print row-level errors and exit non-zero before any connection opens; partial writes are impossible by construction."
+      ],
+      "test_strategy": "Verified per TASKS 1.2: clean run on empty files, bad fixture rejected with 14 errors/exit 1/DB untouched, re-run idempotent. seed:verify script exercises the validator.",
+      "qa_signoff_criteria": [
+        "Already met (TASKS 1.2 build log)."
+      ],
+      "code_location_hints": [
+        "scripts/seed.ts",
+        "scripts/verify-seed-validator.ts"
+      ]
+    },
+    {
+      "spec_id": "SPEC-003",
+      "title": "Curated dataset: 5 schools + benchmark series, FY2000\u2013FY2025",
+      "summary": "Hand-curated, cited, QC-verified seed data for Yale, Harvard, MIT, Princeton, Stanford plus 5 complete benchmark series, seeded to Neon. Already done (TASKS 1.3\u20131.6) with documented per-school coverage limits.",
+      "detailed_description": "Coverage as verified: Yale returns/market values FY2000\u2013FY2025, allocations FY2000\u2013FY2020 (Yale stopped publishing the table after 2020). Harvard allocations 77 rows FY2005\u2013FY2025 (FY2018/FY2022 never published), returns/market values complete FY2000\u2013FY2025. Princeton 104 allocation rows + 24 return rows. MIT 42 allocation rows (sparse \u2014 pool-basis and congressional-response years) + complete 26-year returns. Stanford market values only FY2000\u2013FY2025 (Aug-31 FY), allocations/returns a documented structural gap (Merged Pool \u2260 Endowment; BRD OI-1). Benchmarks: sp500, us_aggregate_bond, intl_equity, reit, cash complete FY2000\u2013FY2025; hedge_fund_index, public_pe_index, global_equity deliberately empty pending SPEC-005.",
+      "item_type": "data_model",
+      "module": "data",
+      "epic": "M0 Foundation (verified)",
+      "brd_requirement_ids": [
+        "BRD-010",
+        "BRD-017",
+        "BRD-020",
+        "BRD-021",
+        "BRD-023",
+        "BRD-024",
+        "BRD-025",
+        "BRD-026",
+        "BRD-027",
+        "BRD-028"
+      ],
+      "source_references": [
+        "TASKS 1.3\u20131.6 build notes",
+        "DATA-README per-school sections"
+      ],
+      "assumptions": [
+        "BRD-026 (deeper Yale history, could-priority) intentionally not pursued; recorded in product_overview.out_of_scope."
+      ],
+      "priority": "must",
+      "status": "verified",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M0 Foundation (verified)",
+      "dependencies": [
+        "SPEC-001",
+        "SPEC-002"
+      ],
+      "rollback_plan": "Seed files are git-versioned; any data correction is a seed-file edit + re-seed.",
+      "acceptance_criteria": [
+        "Given the seeded database, When any allocation school-year is summed, Then it totals 100 \u00b10.1.",
+        "Given any curated number, When traced via source_id, Then a primary-document citation exists.",
+        "Given the 60/40 composite, When compared to Vanguard's balanced index fund FY2000\u2013FY2025, Then all 26 years agree within ~1pp (verified in TASKS 1.4)."
+      ],
+      "error_handling": [
+        "Data corrections follow the seed-file workflow only; per-school coverage gaps are displayed honestly downstream (SPEC-010/012), never interpolated."
+      ],
+      "test_strategy": "Verified via curation QC: spot-checks against independently re-fetched primary documents, sums recomputed, MIT returns verified by compounding against 7 published windows, idempotent re-seed (TASKS 1.3\u20131.6).",
+      "qa_signoff_criteria": [
+        "Already met (TASKS 1.3\u20131.6 build logs and DATA-README)."
+      ],
+      "code_location_hints": [
+        "data/schools/",
+        "data/benchmark_returns.json",
+        "data/sources.json"
+      ]
+    },
+    {
+      "spec_id": "SPEC-004",
+      "title": "Hosting and database plumbing (Vercel + Neon)",
+      "summary": "GitHub repo wired to Vercel Pro with auto-deploy on main; Neon integration injecting DATABASE_URL; .env.local gitignored. Already done (TASKS 0.1\u20130.5, human tasks 0.3/0.4).",
+      "item_type": "infra",
+      "module": "platform",
+      "epic": "M0 Foundation (verified)",
+      "brd_requirement_ids": [
+        "BRD-031",
+        "BRD-034"
+      ],
+      "source_references": [
+        "TASKS 0.1\u20130.5 build notes"
+      ],
+      "priority": "must",
+      "status": "verified",
+      "version": "1.0",
+      "owner": "claude_with_human_gate",
+      "target_release": "M0 Foundation (verified)",
+      "dependencies": [
+        "ext: Vercel project import (human, done)",
+        "ext: Neon integration linked (human, done)"
+      ],
+      "config_and_secrets": [
+        "DATABASE_URL (+ Neon variants) \u2014 injected by Vercel integration in preview/production; pulled to gitignored .env.local for local dev (human-provisioned, done)"
+      ],
+      "rollback_plan": "Vercel instant rollback to any previous deployment from the dashboard; no data implications (runtime is read-only).",
+      "acceptance_criteria": [
+        "Given a push to main, When Vercel builds, Then the deployment goes live automatically (verified: starter page deployed).",
+        "Given a server component, When it queries via the data access layer, Then Neon responds using the injected DATABASE_URL."
+      ],
+      "error_handling": [
+        "Deploy failures surface in Vercel dashboard; production access issue (Deployment Protection) is tracked separately as SPEC-020 \u2014 currently every logged-out visitor is 302-redirected."
+      ],
+      "test_strategy": "Verified live per TASKS 0.3\u20130.5 (Neon PostgreSQL 17.10 connection confirmed, push succeeded).",
+      "qa_signoff_criteria": [
+        "Already met (TASKS Phase 0 build log)."
+      ]
+    },
+    {
+      "spec_id": "SPEC-005",
+      "title": "ETF proxy-mapping curation + final three benchmark series (task 1.7)",
+      "summary": "Curate proxy_mappings (each allocation category \u2192 ETF ticker + plain-English rationale + honesty note where weak) and decide/seed the three deliberately-empty benchmark series (hedge_fund_index, public_pe_index, global_equity). The benchmark series and the ETF proxy for a category must be the same instrument or the copycat comparison is incoherent.",
+      "detailed_description": "Every category used in any school's allocations gets a mapping or a documented reason it has none. Front-runner for global_equity: Vanguard Total World (VT/VTWSX), first full fiscal year FY2009, which covers every year currently needed. For hedge funds and private equity (~half of Yale's portfolio in many years) no freely-citable investable series reaches back to FY2000; the proposed default (Q-001) is the explicit-gap sleeve: the copycat covers only the publicly-replicable sleeve and shows the remainder as a labelled gap. Carry forward the honesty note that reit is listed real estate only.",
+      "item_type": "data_model",
+      "module": "data",
+      "epic": "M1 Data complete",
+      "brd_requirement_ids": [
+        "BRD-011",
+        "BRD-012",
+        "BRD-024"
+      ],
+      "source_references": [
+        "TASKS 1.7",
+        "DATA-README benchmark instruments section"
+      ],
+      "open_question_refs": [
+        "Q-001"
+      ],
+      "priority": "must",
+      "status": "verified",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M1 Data complete",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-003"
+      ],
+      "business_rules": [
+        "Proxy instrument and benchmark series for a category must be the identical instrument.",
+        "Every ETF chosen must be ordinary and widely available (standard US brokerage, no accreditation/minimums \u2014 BRD assumption 4).",
+        "Every mapping row: ticker + one-sentence plain-English rationale + honesty note where the proxy is weak.",
+        "No number enters seed files without a citation (BRD-021)."
+      ],
+      "edge_cases": [
+        "Category present in one school's allocations but no others",
+        "Category with no honest proxy (hedge funds, PE, venture) \u2014 explicit-gap marker, never a pretend proxy",
+        "ETF inception later than FY2000 \u2014 document first covered fiscal year per series"
+      ],
+      "db_changes": [
+        "New rows in proxy_mappings and benchmark_returns via seed files (no schema change)"
+      ],
+      "migration_steps": [
+        "Edit data/proxy_mappings.json and data/benchmark_returns.json",
+        "npm run seed:dry to validate",
+        "npm run seed"
+      ],
+      "rollback_plan": "git revert the seed-file commit and re-seed (script prunes removed rows).",
+      "acceptance_criteria": [
+        "Given every category used in any school's allocations, When proxy_mappings is queried, Then each has an ETF mapping or a documented no-proxy reason.",
+        "Given each mapped category, When its benchmark series is compared to its ETF proxy, Then they are the same instrument.",
+        "Given the seeded series, When npm run seed re-runs, Then it is idempotent and all validations pass."
+      ],
+      "error_handling": [
+        "If no honest instrument exists for a category, record the explicit-gap decision in proxy_mappings and DATA-README rather than forcing a weak proxy."
+      ],
+      "test_strategy": "Seed validation (SPEC-002) plus a curation QC pass: spot-check each chosen instrument's fiscal-year returns against an independent source; verify coverage windows documented per series.",
+      "test_data_requirements": "None beyond the seed files themselves.",
+      "qa_signoff_criteria": [
+        "All acceptance criteria green",
+        "DATA-README updated with instruments, coverage windows, and the sleeve decision",
+        "TASKS 1.7 checked off with build-log note"
+      ],
+      "hypercare_watch": "None at runtime \u2014 data correctness is locked at seed time.",
+      "code_location_hints": [
+        "data/proxy_mappings.json",
+        "data/benchmark_returns.json",
+        "data/README.md"
+      ]
+    },
+    {
+      "spec_id": "SPEC-006",
+      "title": "Site shell: header/nav, footer with disclaimer, responsive, dark-mode friendly",
+      "summary": "App-wide layout with nav (Explore, Compare, Methodology), a footer disclaimer visible on every page, responsive from phone width up, dark-mode friendly, plain-English tone.",
+      "item_type": "ui",
+      "module": "shell",
+      "epic": "M2 Skeleton",
+      "brd_requirement_ids": [
+        "BRD-001",
+        "BRD-003",
+        "BRD-033"
+      ],
+      "source_references": [
+        "TASKS 2.1"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M2 Skeleton",
+      "complexity_estimate": "S",
+      "dependencies": [],
+      "user_stories": [
+        "As a DIY investor, I want clear navigation and an always-visible reminder that this is education not advice, so that I can explore without being misled about what the site is."
+      ],
+      "main_flow": [
+        "1. Any route renders inside the shared layout",
+        "2. Header shows site name + nav links: Explore, Compare, Methodology",
+        "3. Footer shows the education-not-advice disclaimer on every page",
+        "4. Layout adapts phone \u2192 desktop; honors prefers-color-scheme"
+      ],
+      "business_rules": [
+        "Disclaimer text must state the site is educational, not financial advice, and is never hidden or collapsed (BRD-003)."
+      ],
+      "edge_cases": [
+        "Very narrow screens (320px)",
+        "Long school names in nav context",
+        "No-JS render (server components should still produce full HTML)"
+      ],
+      "error_handling": [
+        "A route-level error boundary shows a plain-English error page that keeps header/footer (and thus the disclaimer) visible."
+      ],
+      "acceptance_criteria": [
+        "Given any route in the app, When it renders, Then header nav and footer disclaimer are present.",
+        "Given a 320px-wide viewport, When any route renders, Then there is no horizontal scroll and nav remains usable.",
+        "Given OS dark mode, When the site renders, Then colors adapt with readable contrast in both themes."
+      ],
+      "ui_screens": [
+        "Global layout (src/app/layout.tsx)",
+        "Home page with the three feature entry points"
+      ],
+      "ui_states": [
+        "Default",
+        "Route error (error boundary with disclaimer intact)",
+        "404 not-found page"
+      ],
+      "accessibility": "WCAG 2.1 AA: semantic landmarks (header/nav/main/footer), skip-to-content link, visible focus states, contrast \u2265 4.5:1 both themes, nav operable by keyboard.",
+      "responsive_behavior": "Single-column at phone widths with compact nav; multi-column layouts only \u2265 md breakpoint. No horizontal body scroll at any width \u2265 320px.",
+      "content_i18n": "English only. Plain-English register per BRD-004; all UI copy avoids finance jargon.",
+      "performance_targets": "App perf default (architecture decision record): LCP < 2.5s mid-range phone, Lighthouse perf \u2265 90 / a11y \u2265 95.",
+      "security_requirements": "No auth, no user input, no cookies. Static/server-rendered output only.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Component render tests are low-value here; rely on e2e route checks + Lighthouse in SPEC-019. Verify every route renders with placeholder content (TASKS 2.1 check).",
+      "e2e_scenarios": [
+        "Visit every top-level route; assert nav + disclaimer present and no horizontal overflow at 320px."
+      ],
+      "qa_signoff_criteria": [
+        "All routes render inside shell",
+        "Disclaimer on every page",
+        "Dark/light both legible"
+      ],
+      "hypercare_watch": "Vercel error rate on all routes; layout regressions reported via walkthrough.",
+      "code_location_hints": [
+        "src/app/layout.tsx",
+        "src/app/page.tsx",
+        "src/app/globals.css"
+      ]
+    },
+    {
+      "spec_id": "SPEC-007",
+      "title": "Data access layer: typed server-side query functions",
+      "summary": "One module of typed query functions \u2014 schools list, allocations by school, returns by school, market values, benchmarks by series, proxy mappings, sources \u2014 as the only DB touchpoint for pages.",
+      "item_type": "api",
+      "module": "data-access",
+      "epic": "M2 Skeleton",
+      "brd_requirement_ids": [],
+      "source_references": [
+        "TASKS 2.2"
+      ],
+      "assumptions": [
+        "Purely technical enabler (no direct BRD requirement): centralizing queries keeps citation joins and coverage rules consistent across all three features."
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M2 Skeleton",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-001",
+        "SPEC-004"
+      ],
+      "api_contract": [
+        {
+          "method": "GET",
+          "path": "(internal function, not HTTP) getSchools / getAllocations(schoolId) / getReturns(schoolId) / getBenchmarks(series[]) / getProxyMappings() / getSources()",
+          "auth": "None \u2014 public data, server-side only",
+          "request_shape": "Typed params (schoolId: string, series: string[], fiscal-year ranges optional)",
+          "response_shape": "Typed rows matching schema.ts; allocation/return queries include source_id; numeric types normalized to number",
+          "error_codes": [
+            "DB unreachable \u2192 thrown error caught by route error boundary"
+          ],
+          "idempotency": "Read-only"
+        }
+      ],
+      "business_rules": [
+        "Queries never filter out coverage gaps silently \u2014 missing years are returned as missing so charts can annotate them (BRD-005)."
+      ],
+      "edge_cases": [
+        "School with no allocation rows (Stanford)",
+        "Fiscal years present in returns but not allocations (Yale FY2021+)",
+        "Series with partial coverage (global_equity from FY2009)"
+      ],
+      "error_handling": [
+        "Connection errors propagate to the route error boundary; no silent empty-array fallbacks that would render misleading empty charts."
+      ],
+      "acceptance_criteria": [
+        "Given the seeded DB, When each query function runs (exercised by tests or a debug page), Then real seeded rows return with correct types.",
+        "Given Stanford, When getAllocations runs, Then it returns an empty set (not an error) so the UI can render the OI-1 explanation."
+      ],
+      "performance_targets": "Each page's data needs served in \u2264 2 queries where practical; Neon HTTP driver latency accepted (app perf default governs page-level).",
+      "security_requirements": "Parameterized queries via Drizzle only; no string-built SQL; no user-supplied SQL fragments (inputs are ids/years validated against known sets).",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Integration tests against the dev database exercising each function, including the Stanford-empty and Yale-gap cases (TASKS 2.2 check: tests or debug page print real data).",
+      "integration_tests": [
+        "getSchools returns 5 schools",
+        "getAllocations('yale') years span FY2000\u2013FY2020 and each year sums ~100",
+        "getAllocations('stanford') returns empty",
+        "getBenchmarks(['sp500']) has 26 rows"
+      ],
+      "qa_signoff_criteria": [
+        "All integration tests green against seeded dev DB."
+      ],
+      "code_location_hints": [
+        "src/lib/queries/ (new)",
+        "src/lib/db/"
+      ]
+    },
+    {
+      "spec_id": "SPEC-008",
+      "title": "Plain-English term definitions (first-use glossary component)",
+      "summary": "A reusable component + copy convention so every finance term is defined on first use per page \u2014 inline expandable definition or styled tooltip-equivalent that also works on touch and keyboard.",
+      "item_type": "ui",
+      "module": "shell",
+      "epic": "M2 Skeleton",
+      "brd_requirement_ids": [
+        "BRD-004"
+      ],
+      "source_references": [
+        "PRD \u00a7Rules 3",
+        "BRD \u00a710 Glossary"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M2 Skeleton",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-006"
+      ],
+      "user_stories": [
+        "As a smart 22-year-old outside finance, I want unfamiliar terms explained where they appear, so that I never have to leave the page to understand it."
+      ],
+      "business_rules": [
+        "Definition copy comes from one shared glossary source (aligned with the BRD \u00a710 glossary) so a term is defined identically everywhere.",
+        "First use per page gets the affordance; later uses may repeat it but must not omit a definition that page never gave."
+      ],
+      "edge_cases": [
+        "Term inside a chart tooltip (define in adjacent prose instead)",
+        "Touch devices (tap to toggle, not hover-only)",
+        "Screen readers (definition exposed via accessible description, not title attribute)"
+      ],
+      "error_handling": [
+        "A term referenced without a glossary entry fails the build-time check (or lint script) rather than rendering undefined."
+      ],
+      "acceptance_criteria": [
+        "Given a page using the term 'annualized return', When it first appears, Then a reader can reveal its plain-English definition without leaving the page, by mouse, touch, or keyboard.",
+        "Given a screen reader, When it encounters a defined term, Then the definition is announced via an accessible relationship."
+      ],
+      "ui_components": [
+        "<Term> inline definition component",
+        "shared glossary module (src/lib/glossary.ts)"
+      ],
+      "ui_states": [
+        "Collapsed",
+        "Expanded",
+        "Keyboard-focused"
+      ],
+      "accessibility": "Trigger is a real button; aria-expanded; definition programmatically associated; no hover-only interaction.",
+      "responsive_behavior": "Definitions render as inline expansion on narrow screens (no clipped floating tooltips).",
+      "content_i18n": "English only; definitions written at the BRD glossary register.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Unit test the component's keyboard/touch toggle; the page-level 'no unexplained jargon' bar is enforced editorially in SPEC-018's plain-English pass.",
+      "unit_tests": [
+        "Toggle by click, Enter, and Space; aria-expanded flips; definition text sourced from glossary module"
+      ],
+      "qa_signoff_criteria": [
+        "Component accessible per criteria; glossary module covers all BRD \u00a710 terms."
+      ],
+      "code_location_hints": [
+        "src/components/Term.tsx (new)",
+        "src/lib/glossary.ts (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-009",
+      "title": "School picker and school page (story blurb + headline stats)",
+      "summary": "Explore entry: pick one of the five schools; each school page shows its plain-English story blurb (2\u20133 paragraphs, sourced facts only) and headline stats (latest market value, 10-yr and 25-yr annualized return where computable).",
+      "item_type": "feature",
+      "module": "history-explorer",
+      "epic": "M3 History Explorer",
+      "brd_requirement_ids": [
+        "BRD-002",
+        "BRD-006",
+        "BRD-009"
+      ],
+      "source_references": [
+        "TASKS 3.1"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M3 History Explorer",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-006",
+        "SPEC-007",
+        "SPEC-008"
+      ],
+      "user_stories": [
+        "As a DIY investor, I want to pick a school and get its investing story and key numbers at a glance, so that I can decide what to explore deeper."
+      ],
+      "actors": [
+        "Site visitor"
+      ],
+      "preconditions": [
+        "Database seeded with schools, returns, market values"
+      ],
+      "main_flow": [
+        "1. Visitor opens Explore",
+        "2. Picks one of Yale/Harvard/Stanford/MIT/Princeton",
+        "3. School page renders: name, story blurb, headline stats, links/sections for the allocation and returns charts (SPEC-010/011/012)"
+      ],
+      "business_rules": [
+        "Blurbs contain sourced facts only, written fresh in plain English (2\u20133 paragraphs) \u2014 every factual claim traceable to a source on the methodology page.",
+        "Annualized returns computed by geometric compounding of fiscal-year returns; windows shown only where the full window of data exists (Stanford: return stats omitted per OI-1, market value shown instead).",
+        "No copy suggests the reader should invest like the school (BRD-002)."
+      ],
+      "edge_cases": [
+        "Stanford: no returns \u2192 headline stats show latest market value + 'returns unavailable' with OI-1 explanation link",
+        "10-yr window spans a school's missing return year (Princeton gaps) \u2192 omit the stat rather than bridge the gap",
+        "Unknown school slug in URL \u2192 404 page"
+      ],
+      "error_handling": [
+        "Invalid school slug renders the not-found page; DB errors hit the route error boundary with disclaimer intact."
+      ],
+      "acceptance_criteria": [
+        "Given the five schools, When each school page loads, Then blurb and headline stats render from DB data (TASKS 3.1 check).",
+        "Given Stanford's page, When it loads, Then latest market value shows, return stats are absent, and a plain-English note explains why with a methodology link.",
+        "Given a 25-yr annualized figure, When recomputed by hand from the seeded fiscal-year returns, Then it matches to 0.1pp."
+      ],
+      "ui_screens": [
+        "/explore (picker)",
+        "/explore/[school] (school page)"
+      ],
+      "ui_states": [
+        "Default",
+        "Stanford variant (market-value-first)",
+        "Not-found"
+      ],
+      "accessibility": "Stats presented as labeled text (not color-only); blurb headings semantic; picker keyboard-navigable.",
+      "responsive_behavior": "Stats stack vertically at phone widths; picker becomes a vertical list.",
+      "content_i18n": "Plain English; 'annualized return' and 'market value' defined on first use via SPEC-008.",
+      "performance_targets": "App perf default; school pages are server-rendered and cacheable (data changes only at seed time).",
+      "security_requirements": "School slug validated against the known five before querying.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Unit tests for the annualized-return helper (hand-computed values \u2014 financial math rule); e2e render check for all five school pages including the Stanford variant.",
+      "unit_tests": [
+        "Geometric annualization matches hand-computed 3-year toy case",
+        "Window with a missing year returns 'not computable'"
+      ],
+      "e2e_scenarios": [
+        "Load all 5 school pages; assert blurb present, stats present (or Stanford variant), no unexplained jargon markers"
+      ],
+      "qa_signoff_criteria": [
+        "All 5 pages render from DB; stats hand-verified for one school; Stanford variant correct."
+      ],
+      "hypercare_watch": "404/error rates on /explore/* routes.",
+      "success_metrics": [
+        "Ties to product DoD item 1."
+      ],
+      "code_location_hints": [
+        "src/app/explore/ (new)",
+        "src/lib/stats.ts (new, annualization helpers)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-010",
+      "title": "Allocation-over-time chart with on-chart coverage-end annotation",
+      "summary": "Stacked-area allocation chart per school spanning that school's disclosed coverage, with the coverage end annotated on the chart itself (e.g. boundary marker: 'Yale last disclosed its allocation mix in FY2020'). Read the dataviz skill before writing any chart code.",
+      "item_type": "ui",
+      "module": "history-explorer",
+      "epic": "M3 History Explorer",
+      "brd_requirement_ids": [
+        "BRD-005",
+        "BRD-007",
+        "BRD-027",
+        "BRD-028"
+      ],
+      "source_references": [
+        "TASKS 3.2",
+        "DATA-README coverage rule"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M3 History Explorer",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-009"
+      ],
+      "preconditions": [
+        "dataviz skill read in the building session (non-negotiable rule 5)"
+      ],
+      "business_rules": [
+        "Chart spans only the school's disclosed allocation coverage \u2014 never interpolate or extend (BRD-005).",
+        "Coverage end annotated on the chart itself, not a caption: the returns chart beside it runs to FY2025 and the reader needs the explanation at the moment they notice the mismatch (TASKS 3.2).",
+        "Categories use the normalized set with consistent colors across all schools (BRD-028)."
+      ],
+      "edge_cases": [
+        "Harvard's unpublished FY2018/FY2022 \u2192 visible gap or break, not interpolation",
+        "MIT's sparse years \u2192 chart must not imply continuity between distant points; consider discrete columns",
+        "Stanford \u2192 this chart does not render (SPEC-012 variant)",
+        "A school-year summing to 99.9/100.1 (tolerance) \u2192 normalize display to 100% stack with underlying values in tooltip"
+      ],
+      "error_handling": [
+        "Missing years render as explicit gaps with the same annotation pattern as the coverage end; tooltip shows fiscal year + category + pct + school's original label (sourceLabel) where space allows."
+      ],
+      "acceptance_criteria": [
+        "Given Yale, When its allocation chart renders, Then it spans FY2000\u2013FY2020 with a boundary marker labelled about FY2020 being the last disclosed mix (TASKS 3.2 check).",
+        "Given seeded data for any school-year, When compared to the chart tooltip, Then values match the DB exactly.",
+        "Given a 375px-wide phone, When the chart renders, Then labels and legend are legible and the chart scrolls or reflows without clipping."
+      ],
+      "ui_screens": [
+        "/explore/[school] allocation section"
+      ],
+      "ui_states": [
+        "Default",
+        "Data gap (annotated)",
+        "Coverage-end (annotated)",
+        "Tooltip"
+      ],
+      "accessibility": "Series distinguishable beyond hue alone (per dataviz skill); tooltip data available to keyboard/screen-reader users via an accessible table alternative of the same data.",
+      "responsive_behavior": "Legend wraps below chart at phone widths; chart height adapts; no horizontal body scroll.",
+      "content_i18n": "Annotation copy plain-English; 'asset allocation' defined on first use (SPEC-008).",
+      "performance_targets": "Chart data serialized server-side; client bundle only for the chart component. App perf default.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Data-transform unit tests (DB rows \u2192 chart series, gap handling); visual/e2e check for the annotation and phone legibility. Chart rendering itself trusted to the library.",
+      "unit_tests": [
+        "Yale transform ends at FY2020 and flags coverage end",
+        "Harvard transform emits explicit gaps at FY2018/FY2022"
+      ],
+      "e2e_scenarios": [
+        "Yale chart shows boundary annotation; tooltip matches a spot-checked seeded value"
+      ],
+      "qa_signoff_criteria": [
+        "Chart matches seeded data; coverage-end annotation on-chart; legible on phone (TASKS 3.2 checks)."
+      ],
+      "code_location_hints": [
+        "src/components/charts/AllocationChart.tsx (new)",
+        "src/lib/chart-data.ts (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-011",
+      "title": "Annual returns chart (bar, with S&P 500 overlay toggle)",
+      "summary": "Per-school fiscal-year returns as a bar chart with a toggleable S&P 500 overlay; tooltip shows year + values.",
+      "item_type": "ui",
+      "module": "history-explorer",
+      "epic": "M3 History Explorer",
+      "brd_requirement_ids": [
+        "BRD-008",
+        "BRD-027"
+      ],
+      "source_references": [
+        "TASKS 3.3"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M3 History Explorer",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-009",
+        "SPEC-010"
+      ],
+      "business_rules": [
+        "Negative years render plainly (below axis) \u2014 honesty over narrative (BRD-005).",
+        "Overlay compares identical fiscal-year windows (benchmarks are FY-aligned, BRD-027)."
+      ],
+      "edge_cases": [
+        "Princeton's missing return years \u2192 visible gap, annotated like SPEC-010",
+        "Stanford \u2192 chart replaced by the SPEC-012 unavailable-state",
+        "Overlay toggled on for a school whose coverage is shorter than the S&P series \u2192 overlay clipped to the school's window"
+      ],
+      "error_handling": [
+        "Tooltip always shows fiscal year + both values when overlay is on; missing school year shows 'not published' rather than 0."
+      ],
+      "acceptance_criteria": [
+        "Given any school with returns, When the chart renders, Then bar values match the DB (TASKS 3.3 check) and tooltips show year + value(s).",
+        "Given the overlay toggle, When enabled, Then S&P 500 fiscal-year returns appear for exactly the school's covered years.",
+        "Given a negative return year, When rendered, Then it displays below the axis with the same prominence as positive years."
+      ],
+      "ui_screens": [
+        "/explore/[school] returns section"
+      ],
+      "ui_states": [
+        "Default",
+        "Overlay on",
+        "Gap year",
+        "Tooltip"
+      ],
+      "accessibility": "Toggle is a labeled button/switch; values available in an accessible table alternative; overlay distinguishable beyond hue.",
+      "responsive_behavior": "26 bars must remain legible at phone width (thin bars + scrollable or condensed axis ticks).",
+      "content_i18n": "'S&P 500' and 'fiscal year' defined on first use (SPEC-008).",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Data-transform unit tests (gaps, overlay window clipping); e2e tooltip spot-check against seeded values.",
+      "unit_tests": [
+        "Princeton transform emits gaps, not zeros",
+        "Overlay series clipped to school coverage window"
+      ],
+      "qa_signoff_criteria": [
+        "Values match DB; toggle works; phone-legible."
+      ],
+      "code_location_hints": [
+        "src/components/charts/ReturnsChart.tsx (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-012",
+      "title": "Stanford market-value-only presentation (OI-1)",
+      "summary": "Stanford's school page shows endowment market value over time (FY2000\u2013FY2025, Aug-31 fiscal year with the ~2-month offset disclosed at point of display) instead of allocation/returns charts, each marked 'unavailable' with a plain-English explanation and methodology link.",
+      "item_type": "feature",
+      "module": "history-explorer",
+      "epic": "M3 History Explorer",
+      "brd_requirement_ids": [
+        "BRD-007",
+        "BRD-008",
+        "BRD-025",
+        "BRD-027"
+      ],
+      "source_references": [
+        "BRD \u00a79 OI-1 (decision 2026-08-03)",
+        "DATA-README \u00a7Stanford (Merged Pool finding)"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M3 History Explorer",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-009",
+        "SPEC-010"
+      ],
+      "business_rules": [
+        "Never present Merged Pool figures as 'Stanford's endowment' (OI-1; confirmed 2.9pp FY2024 divergence).",
+        "The unavailable-state explanation must be plain-English and specific: Stanford only publishes allocation/returns for a bigger shared pool that isn't the endowment; the full story lives on the methodology page.",
+        "Market-value chart labels Stanford's own fiscal-year naming (FY2025 = Sep 2024\u2013Aug 2025) and discloses the ~2-month offset at the point of display (BRD-027)."
+      ],
+      "edge_cases": [
+        "Comparisons/Translator entry points on Stanford's page: hidden or clearly disabled with the same explanation, depending on SPEC-005's outcome (no allocation data \u2192 no copycat for Stanford)"
+      ],
+      "error_handling": [
+        "The page never renders empty chart axes for the missing series \u2014 the explanation block replaces them entirely."
+      ],
+      "acceptance_criteria": [
+        "Given Stanford's school page, When it renders, Then a market-value-over-time chart shows FY2000\u2013FY2025 with Aug-31 fiscal-year labeling and offset disclosure.",
+        "Given the allocation and returns sections, When rendered for Stanford, Then each shows an 'unavailable' explanation with a methodology link \u2014 never Merged Pool numbers.",
+        "Given the seeded market values, When spot-checked against the chart, Then values match."
+      ],
+      "ui_screens": [
+        "/explore/stanford"
+      ],
+      "ui_states": [
+        "Market-value chart",
+        "Two unavailable-state blocks"
+      ],
+      "accessibility": "Same bars-as-table alternative as other charts; explanation blocks are normal prose (fully accessible by default).",
+      "responsive_behavior": "Same as SPEC-010/011 chart standards.",
+      "content_i18n": "'Merged Pool' defined inline on first use (glossary already has it).",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "e2e assertion that Stanford's page contains the market-value chart and both unavailable blocks, and contains no allocation/returns chart markup.",
+      "e2e_scenarios": [
+        "Load /explore/stanford; assert market-value chart, two explanation blocks, zero allocation/returns series elements"
+      ],
+      "qa_signoff_criteria": [
+        "OI-1 presentation verified; offset disclosure present; methodology link works."
+      ],
+      "hypercare_watch": "None specific beyond route error rates.",
+      "code_location_hints": [
+        "src/app/explore/[school]/ Stanford branch",
+        "src/components/charts/MarketValueChart.tsx (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-013",
+      "title": "Backtest engine (pure functions + hand-computed unit tests)",
+      "summary": "The most correctness-critical code in the app: given {category, pct} weights, map to proxy series via proxy_mappings and compute year-by-year portfolio returns FY-to-FY with annual rebalancing, growth of $10k, annualized return, best/worst year. Pure functions, no I/O.",
+      "detailed_description": "Annual rebalancing means each fiscal year the portfolio return is the weight-dot-product of that year's proxy-series returns (weights reset every year). Growth of $10k compounds those yearly returns. Annualized return is the geometric mean. Where SPEC-005 decided a category has no proxy (explicit-gap sleeve), the engine computes on the replicable sleeve renormalized to 100% and reports the uncovered fraction so the UI can label the gap \u2014 it must never silently renormalize without reporting.",
+      "item_type": "feature",
+      "module": "backtest",
+      "epic": "M4 Translator",
+      "brd_requirement_ids": [
+        "BRD-013",
+        "BRD-014"
+      ],
+      "source_references": [
+        "TASKS 4.1",
+        "CLAUDE-MD \u00a7Rules 6"
+      ],
+      "open_question_refs": [
+        "Q-001"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M4 Translator",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-005",
+        "SPEC-007"
+      ],
+      "business_rules": [
+        "Annual rebalancing only; no taxes or fees modeled \u2014 and the fine print says so (BRD-014).",
+        "Computed strictly from stored annual series (BRD-013); the engine takes series as inputs and performs no I/O.",
+        "Uncovered (no-proxy) allocation fraction is always returned alongside results, never swallowed.",
+        "A requested window containing a year with a missing proxy-series value fails loudly (returns an explicit 'not computable for FYxxxx') rather than skipping the year."
+      ],
+      "edge_cases": [
+        "Weights not summing to exactly 100 (seed tolerance \u00b10.1) \u2192 normalize and record the adjustment",
+        "Single-year window (annualized = that year's return)",
+        "Negative-return years in best/worst detection",
+        "Category with zero weight",
+        "Window entirely before a proxy series' first covered year"
+      ],
+      "error_handling": [
+        "Invalid inputs (empty weights, unknown category, reversed year range) throw typed errors with plain messages; UI layers translate them to friendly copy."
+      ],
+      "acceptance_criteria": [
+        "Given the 60/40 weights and seeded sp500/us_aggregate_bond series, When the engine runs FY2000\u2013FY2025, Then yearly returns match hand-computed values exactly and the growth-of-$10k endpoint matches to the cent (TASKS 4.1 check).",
+        "Given a 3-year toy dataset computed by hand, When the engine runs, Then yearly portfolio returns, growth series, annualized return, and best/worst year all match the hand computation.",
+        "Given a portfolio with an uncovered category, When the engine runs, Then results carry the uncovered fraction and the sleeve-renormalization is explicit in the output."
+      ],
+      "performance_targets": "Pure in-memory math over \u2264 26 years \u00d7 \u2264 8 categories \u2014 negligible; must be callable in server components without caching concerns.",
+      "security_requirements": "No I/O, no user-controlled strings \u2014 inputs validated to known categories/series upstream.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Unit tests with hand-computed expected values are mandatory (CLAUDE.md non-negotiable 6). Cover the toy case, the 60/40 real-data case, and every edge case listed. No mocks needed \u2014 pure functions.",
+      "unit_tests": [
+        "Hand-computed 3-year toy portfolio: yearly returns, growth series, annualized, best/worst",
+        "60/40 FY case matching TASKS 1.4's Vanguard cross-check window",
+        "Uncovered-sleeve renormalization reports the gap fraction",
+        "Missing series year \u2192 explicit not-computable, not silent skip",
+        "Weights summing to 99.9 \u2192 normalized with adjustment recorded"
+      ],
+      "qa_signoff_criteria": [
+        "All unit tests green; a reviewer re-derives the toy case by hand and matches."
+      ],
+      "hypercare_watch": "None at runtime (deterministic math); regressions guarded by tests.",
+      "code_location_hints": [
+        "src/lib/backtest/ (new)",
+        "src/lib/backtest/__tests__/ (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-014",
+      "title": "Translator page: school + year \u2192 copycat ETF portfolio with fine print",
+      "summary": "Pick school + fiscal year \u2192 endowment allocation beside the copycat ETF portfolio (table: category, endowment %, ETF, why this ETF), with the fine-print box on what a copycat cannot replicate. Year picker offers only years with disclosed allocations.",
+      "item_type": "feature",
+      "module": "translator",
+      "epic": "M4 Translator",
+      "brd_requirement_ids": [
+        "BRD-002",
+        "BRD-011",
+        "BRD-012",
+        "BRD-014",
+        "BRD-015"
+      ],
+      "source_references": [
+        "TASKS 4.2"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M4 Translator",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-005",
+        "SPEC-007",
+        "SPEC-008",
+        "SPEC-006"
+      ],
+      "user_stories": [
+        "As a DIY investor, I want to see an endowment's mix translated into ETFs I could actually buy, with honest notes on what doesn't translate, so that I understand the strategy without being sold it."
+      ],
+      "preconditions": [
+        "proxy_mappings seeded (SPEC-005)"
+      ],
+      "main_flow": [
+        "1. Visitor opens Translator",
+        "2. Picks school, then fiscal year (only years with disclosed allocations offered; Yale: FY2000\u2013FY2020)",
+        "3. Table renders: category | endowment % | ETF ticker | plain-English 'why this ETF' | honesty note where weak",
+        "4. No-proxy categories render as the explicit gap row per SPEC-005's decision",
+        "5. Fine-print box always visible: no access to top private funds, no tax-free status, no infinite horizon, no professional staff; annual rebalancing, no taxes/fees modeled"
+      ],
+      "business_rules": [
+        "Proxy mapping shown transparently from the DB \u2014 the mapping is data, not prose (BRD-012).",
+        "Missing years get one plain sentence explaining why they're absent, not silent omission (TASKS 4.2).",
+        "Stanford is not offered (no allocation years exist) \u2014 its entry explains why, consistent with SPEC-012.",
+        "Nothing on the page phrases the portfolio as a recommendation (BRD-002): descriptive voice only."
+      ],
+      "edge_cases": [
+        "School-year where a category maps to the explicit gap (hedge funds/PE)",
+        "Year picker for MIT's sparse non-contiguous years",
+        "Deep link to an invalid school/year combination \u2192 friendly redirect to valid picker state"
+      ],
+      "error_handling": [
+        "Invalid deep-link params fall back to the picker with a plain message; DB errors hit the route error boundary."
+      ],
+      "acceptance_criteria": [
+        "Given every school/year with allocation data in the DB, When the translator renders, Then the copycat table renders completely (TASKS 4.2 check).",
+        "Given a category with an honesty note, When the table renders, Then the note is visible without interaction at desktop and reachable within one tap on phone.",
+        "Given any translator view, When rendered, Then the fine-print box is present with all four cannot-replicate items plus the rebalancing/no-taxes-fees statement.",
+        "Given the year picker for Yale, When opened, Then it offers exactly FY2000\u2013FY2020 and a sentence explains the missing recent years."
+      ],
+      "ui_screens": [
+        "/translate (picker + result)"
+      ],
+      "ui_states": [
+        "Empty (nothing picked)",
+        "Result",
+        "Gap-row variant",
+        "Invalid deep-link fallback"
+      ],
+      "accessibility": "Table is a real <table> with headers; picker keyboard-operable; fine print is body text, not tiny footnote type.",
+      "responsive_behavior": "Table reflows to stacked cards at phone width; fine-print box remains above the fold-adjacent (not buried).",
+      "content_i18n": "'ETF', 'proxy', 'rebalancing' defined on first use (SPEC-008).",
+      "performance_targets": "App perf default; server-rendered from \u2264 2 queries.",
+      "security_requirements": "School/year params validated against seeded sets before query.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "e2e sweep across every school/year combination in the DB (scripted, not manual); unit test the year-picker eligibility logic.",
+      "unit_tests": [
+        "Year eligibility: only years with allocation rows; Stanford excluded with reason"
+      ],
+      "e2e_scenarios": [
+        "Render every valid school/year; assert table completeness and fine-print presence"
+      ],
+      "qa_signoff_criteria": [
+        "Renders for every school/year in DB; fine print verified against BRD-015's four items."
+      ],
+      "hypercare_watch": "Error rate on /translate; watch for invalid-deep-link volume.",
+      "code_location_hints": [
+        "src/app/translate/ (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-015",
+      "title": "Copycat performance section (growth-of-$10k vs actual, vintage-labelled forward runs)",
+      "summary": "On the translator result: growth-of-$10k chart of the copycat portfolio vs the school's actual returns over the available period, using the SPEC-013 engine. Snapshot vintages may run forward through full benchmark coverage with unambiguous labeling ('Yale's FY2020 mix, held unchanged by this copycat through FY2025' \u2014 never 'held since').",
+      "item_type": "feature",
+      "module": "translator",
+      "epic": "M4 Translator",
+      "brd_requirement_ids": [
+        "BRD-005",
+        "BRD-013",
+        "BRD-016",
+        "BRD-018"
+      ],
+      "source_references": [
+        "TASKS 4.3",
+        "architecture decision record on snapshot vintages"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M4 Translator",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-013",
+        "SPEC-014",
+        "SPEC-010"
+      ],
+      "business_rules": [
+        "The vintage label must make the holding unmistakably the copycat's and not the school's (exact phrasing pattern from TASKS 4.3).",
+        "Divergence between copycat and the school's actual returns after the snapshot year is shown plainly, never smoothed (BRD-005).",
+        "Uncovered-sleeve gaps from SPEC-013 are labelled on the chart (e.g. 'copycat covers X% of the mix')."
+      ],
+      "edge_cases": [
+        "School's actual returns end before benchmark coverage (chart windows differ) \u2192 clip to honest common windows with labels",
+        "Snapshot year = most recent allocation year (no forward divergence to show)",
+        "Very short windows (1\u20132 years)"
+      ],
+      "error_handling": [
+        "Engine 'not computable' years surface as labelled chart gaps with a one-line explanation, never silently dropped."
+      ],
+      "acceptance_criteria": [
+        "Given a school/year with data, When the section renders, Then chart numbers match SPEC-013 engine output exactly (TASKS 4.3 check).",
+        "Given a forward run, When the vintage label renders, Then it names the mix's fiscal year and says the copycat holds it unchanged \u2014 phrasing that cannot be read as the school's own holding.",
+        "Given a period where the copycat diverges from actual returns, When rendered, Then both lines are equally prominent and the divergence is visible."
+      ],
+      "ui_screens": [
+        "/translate result \u2014 performance section"
+      ],
+      "ui_states": [
+        "Default",
+        "Forward-run (vintage-labelled)",
+        "Sleeve-gap label",
+        "Not-computable gap"
+      ],
+      "accessibility": "Two lines distinguishable beyond hue; accessible table alternative of the plotted series.",
+      "responsive_behavior": "Chart standards as SPEC-010; vintage label never truncates on phone.",
+      "content_i18n": "'growth of $10,000' explained on first use.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Unit-test the window/vintage assembly logic against the engine; e2e spot-check one school's chart values against an engine call with the same inputs.",
+      "unit_tests": [
+        "Vintage forward-run assembles snapshot weights + full benchmark window",
+        "Common-window clipping logic"
+      ],
+      "e2e_scenarios": [
+        "Yale FY2020 vintage run through FY2025 renders with the exact label pattern and visible divergence"
+      ],
+      "qa_signoff_criteria": [
+        "Numbers match engine; vintage label unambiguous; honest divergence visible (TASKS 4.3 checks)."
+      ],
+      "code_location_hints": [
+        "src/app/translate/ performance section",
+        "src/components/charts/GrowthChart.tsx (new, shared with SPEC-016)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-016",
+      "title": "Compare page: school vs copycat vs benchmarks over a chosen period",
+      "summary": "Pick school(s) + period \u2192 growth-of-$10k lines for actual endowment, copycat proxy, S&P 500, 60/40, 70/30, plus a stats table (annualized return, best/worst year). Truth even when unflattering.",
+      "item_type": "feature",
+      "module": "comparisons",
+      "epic": "M5 Comparisons",
+      "brd_requirement_ids": [
+        "BRD-005",
+        "BRD-016",
+        "BRD-017",
+        "BRD-018",
+        "BRD-019"
+      ],
+      "source_references": [
+        "TASKS 5.1"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M5 Comparisons",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-013",
+        "SPEC-015",
+        "SPEC-007",
+        "SPEC-006"
+      ],
+      "user_stories": [
+        "As a DIY investor, I want an honest side-by-side of the endowment, its DIY copy, and simple index portfolios over any period I choose, so that I can judge for myself whether the famous strategy actually won."
+      ],
+      "main_flow": [
+        "1. Pick school (Stanford handled per its data limits), 2. Pick period within available coverage, 3. Chart renders all selected series as growth-of-$10k, 4. Stats table renders annualized return + best/worst year per series"
+      ],
+      "business_rules": [
+        "Benchmark set is exactly S&P 500, 60/40, 70/30 (BRD-017); composites computed by the SPEC-013 engine from stored series.",
+        "All series share the identical fiscal-year window; period picker bounds derive from the intersection of available coverage per series, with exclusions labelled.",
+        "If a benchmark beat the endowment over the chosen period, the numbers say so with no softening copy (BRD-005).",
+        "Stanford: no actual-returns or copycat series exist \u2014 offer benchmarks-only comparison with the OI-1 explanation, or exclude with explanation (builder picks the cleaner UX, consistent with SPEC-012)."
+      ],
+      "edge_cases": [
+        "Sub-period of 1 year (annualized = that year)",
+        "Period where copycat has sleeve gaps \u2192 label as in SPEC-015",
+        "School with return gaps inside the chosen period (Princeton) \u2192 window bounds exclude un-bridgeable gaps with an explanation",
+        "All five series at phone width (legend/eyeline crowding)"
+      ],
+      "error_handling": [
+        "Impossible period selections are prevented by the picker's bounds rather than error'd after the fact; deep-link params clamped to valid bounds with a notice."
+      ],
+      "acceptance_criteria": [
+        "Given any school and any valid sub-period, When the page renders, Then all applicable series render and stats match SPEC-013 engine output (TASKS 5.1 check).",
+        "Given the FY2009\u2013FY2025 period for a school the S&P beat, When rendered, Then the stats table shows it plainly with no qualifying copy.",
+        "Given the period picker, When opened for each school, Then bounds match that school's actual coverage intersected with benchmark coverage."
+      ],
+      "ui_screens": [
+        "/compare"
+      ],
+      "ui_states": [
+        "Default selection",
+        "Custom period",
+        "Stanford variant",
+        "Sleeve-gap labels",
+        "Clamped deep-link notice"
+      ],
+      "accessibility": "Five series distinguishable beyond hue (dataviz skill); stats table is a real table; period picker keyboard-operable.",
+      "responsive_behavior": "Legend stacks; stats table reflows to cards at phone width; chart remains legible.",
+      "content_i18n": "'60/40', '70/30', 'annualized' defined on first use.",
+      "performance_targets": "App perf default; engine calls are in-memory server-side.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Unit-test period-bounds derivation per school; e2e sweep of representative selections including extremes and the Stanford variant; stats cross-checked against direct engine calls.",
+      "unit_tests": [
+        "Period bounds: Yale, Princeton (gaps), Stanford (variant)",
+        "Composite 60/40 and 70/30 assembled from stored series via engine"
+      ],
+      "e2e_scenarios": [
+        "Any-school full-period render; 1-year window; unflattering period shows plainly"
+      ],
+      "qa_signoff_criteria": [
+        "Any combination renders; stats match engine (TASKS 5.1 checks)."
+      ],
+      "hypercare_watch": "Error rate on /compare; slow-render reports at phone width.",
+      "code_location_hints": [
+        "src/app/compare/ (new)",
+        "src/components/charts/GrowthChart.tsx (shared)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-017",
+      "title": "Methodology page: every source, coverage story, proxy rationale, caveats",
+      "summary": "Lists every source in the sources table; tells the full allocation-coverage story per school (what each stopped publishing and when, why NAV-basis figures were rejected rather than footnoted); proxy-mapping rationale; data caveats; update cadence.",
+      "item_type": "feature",
+      "module": "methodology",
+      "epic": "M6 Ship",
+      "brd_requirement_ids": [
+        "BRD-010",
+        "BRD-021",
+        "BRD-027",
+        "BRD-028",
+        "BRD-030"
+      ],
+      "source_references": [
+        "TASKS 6.1",
+        "DATA-README (source narratives)"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M6 Ship",
+      "complexity_estimate": "M",
+      "dependencies": [
+        "SPEC-007",
+        "SPEC-006",
+        "SPEC-005"
+      ],
+      "business_rules": [
+        "Every source_id present anywhere in the DB appears on this page \u2014 enforced by an automated check, not eyeballing (TASKS 6.1 check).",
+        "The coverage story appears for every school whose allocations end before FY2025, including the plain-English definition of 'different measurement basis' and why NAV-basis substitutes were rejected.",
+        "Stanford's Merged Pool story gets its full plain-English treatment here (SPEC-012 links to it).",
+        "Fiscal-year conventions (June 30 four schools; Stanford Aug 31 offset) documented (BRD-027)."
+      ],
+      "edge_cases": [
+        "Sources cited only by benchmark rows (must still appear)",
+        "A source used by hundreds of rows (grouped presentation, one entry)"
+      ],
+      "error_handling": [
+        "The automated source-coverage check runs as a test; page falls back gracefully if a source lacks a URL (document-only citation)."
+      ],
+      "acceptance_criteria": [
+        "Given every source_id in the database, When the methodology page renders, Then each appears exactly once with title and document/URL (automated check green).",
+        "Given each school with truncated allocation coverage, When the page renders, Then its coverage story is present, including the measurement-basis explanation.",
+        "Given the proxy table from SPEC-005, When rendered here, Then each mapping's rationale and honesty notes appear."
+      ],
+      "ui_screens": [
+        "/methodology"
+      ],
+      "ui_states": [
+        "Default (long-form document page with in-page nav)"
+      ],
+      "accessibility": "Document semantics (headings hierarchy, list structures); in-page nav keyboard-friendly.",
+      "responsive_behavior": "Single readable column; tables reflow at phone widths.",
+      "content_i18n": "This page defines terms other pages link to \u2014 highest plain-English bar in the app.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "test_strategy": "Automated test comparing DISTINCT source_ids in DB vs page content; editorial review for the coverage stories.",
+      "integration_tests": [
+        "source-coverage completeness check (DB vs rendered page)"
+      ],
+      "qa_signoff_criteria": [
+        "Automated source check green; coverage story present for every truncated school (TASKS 6.1 checks)."
+      ],
+      "code_location_hints": [
+        "src/app/methodology/ (new)"
+      ]
+    },
+    {
+      "spec_id": "SPEC-018",
+      "title": "Disclaimer and plain-English editorial pass (site-wide)",
+      "summary": "Site-wide review: footer disclaimer + translator fine print verified against PRD rule 1; every page swept for unexplained jargon and advice-flavored copy; tone consistent.",
+      "item_type": "feature",
+      "module": "content",
+      "epic": "M6 Ship",
+      "brd_requirement_ids": [
+        "BRD-002",
+        "BRD-003",
+        "BRD-004",
+        "BRD-005"
+      ],
+      "source_references": [
+        "TASKS 6.2"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M6 Ship",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-009",
+        "SPEC-014",
+        "SPEC-015",
+        "SPEC-016",
+        "SPEC-017"
+      ],
+      "business_rules": [
+        "Zero instances of copy telling a user what to do with their money \u2014 including implicit forms ('consider adding\u2026', 'a smart investor would\u2026').",
+        "Every finance term on every page is defined on first use or is in everyday vocabulary (BRD-004 bar: smart 22-year-old outside finance).",
+        "No page lacks the disclaimer (BRD-003)."
+      ],
+      "edge_cases": [
+        "Jargon inside chart annotations and tooltips (easy to miss in a copy sweep)",
+        "Error/404 pages (still need the disclaimer via layout)"
+      ],
+      "error_handling": [
+        "Content-only item \u2014 runtime error handling is SPEC-006's; this item's failure mode is editorial misses, mitigated by the two-pass sweep."
+      ],
+      "acceptance_criteria": [
+        "Given every route, When rendered, Then the disclaimer is present (automated route sweep).",
+        "Given a full-copy export of every page, When reviewed against the jargon bar, Then every flagged term has a first-use definition (TASKS 6.2 check: no unexplained jargon).",
+        "Given the translator fine print, When compared to BRD-015, Then all required elements are present verbatim-or-stronger."
+      ],
+      "test_strategy": "Automated: route sweep asserting disclaimer presence. Editorial: systematic page-by-page sweep with a jargon checklist derived from the glossary; second pass focused only on advice-flavored phrasing.",
+      "e2e_scenarios": [
+        "Disclaimer present on every route including error and 404 pages"
+      ],
+      "qa_signoff_criteria": [
+        "Route sweep green; editorial checklist completed and logged (TASKS 6.2)."
+      ],
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "error_handling_note": "Content-only item; runtime error handling covered by SPEC-006.",
+      "code_location_hints": [
+        "All page copy; src/lib/glossary.ts"
+      ]
+    },
+    {
+      "spec_id": "SPEC-019",
+      "title": "Production readiness: metadata, Lighthouse, phone walkthrough",
+      "summary": "Replace the create-next-app metadata and scaffold favicon (no other task owns page metadata); Lighthouse performance + accessibility pass on every route; phone-width walkthrough of every page; Vercel deploy green with production Neon seeded.",
+      "item_type": "ops",
+      "module": "platform",
+      "epic": "M6 Ship",
+      "brd_requirement_ids": [
+        "BRD-031",
+        "BRD-032",
+        "BRD-033",
+        "BRD-034"
+      ],
+      "source_references": [
+        "TASKS 6.3"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "claude",
+      "target_release": "M6 Ship",
+      "complexity_estimate": "S",
+      "dependencies": [
+        "SPEC-006",
+        "SPEC-009",
+        "SPEC-010",
+        "SPEC-011",
+        "SPEC-012",
+        "SPEC-014",
+        "SPEC-015",
+        "SPEC-016",
+        "SPEC-017",
+        "SPEC-018"
+      ],
+      "business_rules": [
+        "Tab title and description must describe this site (currently 'Create Next App' \u2014 TASKS 6.3).",
+        "App perf default is the bar: Lighthouse perf \u2265 90, a11y \u2265 95, every route."
+      ],
+      "edge_cases": [
+        "Chart-heavy pages are the perf risk (client bundle size) \u2014 measure /explore/[school] and /compare specifically",
+        "OpenGraph/social preview metadata (title/description at minimum)"
+      ],
+      "error_handling": [
+        "Failures block ship; each fix re-runs the full check for its route."
+      ],
+      "acceptance_criteria": [
+        "Given the production deployment, When curl -I runs unauthenticated, Then it returns 200 \u2014 not a 302 to vercel.com/sso-api (depends on SPEC-020).",
+        "Given every route, When Lighthouse runs, Then performance \u2265 90 and accessibility \u2265 95.",
+        "Given a phone-width walkthrough of every page, When completed, Then no clipped charts, no horizontal scroll, all interactions reachable (TASKS 6.3 checks).",
+        "Given the deployed page metadata, When inspected, Then title/description describe the University Endowment Investing Explorer."
+      ],
+      "test_strategy": "Scripted Lighthouse runs per route; manual phone-width walkthrough with a written checklist; curl check of the production URL.",
+      "e2e_scenarios": [
+        "Full route sweep at 375px width",
+        "Production curl -I 200 check"
+      ],
+      "qa_signoff_criteria": [
+        "All TASKS 6.3 checks green; PRD definition-of-done boxes all satisfiable."
+      ],
+      "deployment_notes": "This item gates the go/no-go in the cutover plan.",
+      "rollback_plan": "Redeploy previous release (no db_changes).",
+      "error_handling_note": "Ops item.",
+      "hypercare_watch": "Lighthouse-measured regressions during hypercare hotfixes.",
+      "code_location_hints": [
+        "src/app/layout.tsx (metadata)",
+        "src/app/favicon.ico"
+      ]
+    },
+    {
+      "spec_id": "SPEC-020",
+      "title": "[HUMAN] Disable Vercel Deployment Protection for production",
+      "summary": "In the Vercel dashboard: Settings \u2192 Deployment Protection \u2192 Vercel Authentication \u2192 Disabled for Production. Currently every logged-out visitor is 302-redirected to a Vercel login with x-robots-tag: noindex, contradicting the free/public/no-login requirement. Reserved to the human (CONSTITUTION.md Part 2 \u00a77); a builder session must not flip it.",
+      "item_type": "ops",
+      "module": "platform",
+      "epic": "M6 Ship",
+      "brd_requirement_ids": [
+        "BRD-001",
+        "BRD-031"
+      ],
+      "source_references": [
+        "TASKS 6.4"
+      ],
+      "priority": "must",
+      "status": "approved",
+      "version": "1.0",
+      "owner": "human",
+      "target_release": "M6 Ship",
+      "complexity_estimate": "S",
+      "dependencies": [],
+      "acceptance_criteria": [
+        "Given a logged-out client, When curl -I hits the production URL, Then it returns 200 with no x-robots-tag: noindex header."
+      ],
+      "error_handling": [
+        "If the setting cannot be disabled (plan/policy constraint), this becomes a blocking open question \u2014 the product cannot ship as 'public' behind an auth wall."
+      ],
+      "test_strategy": "The curl check above, executed by the next session after the human confirms the change (also embedded in SPEC-019's criteria).",
+      "rollback_plan": "Re-enable Deployment Protection in the same dashboard screen (instant, no data implications).",
+      "cutover_tasks": [
+        "This IS a cutover-runbook step \u2014 see cutover_plan.runbook step 4."
+      ],
+      "qa_signoff_criteria": [
+        "curl -I returns 200 unauthenticated."
+      ]
+    }
+  ],
+  "traceability_matrix": [
+    {
+      "brd_requirement_id": "BRD-001",
+      "requirement_text": "Free, public website requiring no account or login.",
+      "source_location": "BRD \u00a75 Group A",
+      "covered_by": [
+        "SPEC-006",
+        "SPEC-020"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-002",
+      "requirement_text": "No copy tells a user what to do with their money; no personalization.",
+      "source_location": "BRD \u00a75 Group A",
+      "covered_by": [
+        "SPEC-018",
+        "SPEC-014",
+        "SPEC-009"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-003",
+      "requirement_text": "Education-not-advice disclaimer visible site-wide.",
+      "source_location": "BRD \u00a75 Group A",
+      "covered_by": [
+        "SPEC-006",
+        "SPEC-018"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-004",
+      "requirement_text": "Plain English; unfamiliar terms defined on first use.",
+      "source_location": "BRD \u00a75 Group A",
+      "covered_by": [
+        "SPEC-008",
+        "SPEC-018"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-005",
+      "requirement_text": "Honest reporting even when unflattering to endowments.",
+      "source_location": "BRD \u00a75 Group A",
+      "covered_by": [
+        "SPEC-015",
+        "SPEC-016",
+        "SPEC-018",
+        "SPEC-010"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-006",
+      "requirement_text": "Pick one of exactly five schools.",
+      "source_location": "BRD \u00a75 Group B",
+      "covered_by": [
+        "SPEC-009"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-007",
+      "requirement_text": "Asset allocation over time chart by fiscal year (Stanford: market value instead, per OI-1).",
+      "source_location": "BRD \u00a75 Group B",
+      "covered_by": [
+        "SPEC-010",
+        "SPEC-012"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-008",
+      "requirement_text": "Annual returns by fiscal year (Stanford: unavailable-state per OI-1).",
+      "source_location": "BRD \u00a75 Group B",
+      "covered_by": [
+        "SPEC-011",
+        "SPEC-012"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-009",
+      "requirement_text": "Plain-English story blurb per school (2\u20133 paragraphs).",
+      "source_location": "BRD \u00a75 Group B",
+      "covered_by": [
+        "SPEC-009"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-010",
+      "requirement_text": "Every data point traceable to a cited source via methodology page.",
+      "source_location": "BRD \u00a75 Group B",
+      "covered_by": [
+        "SPEC-017",
+        "SPEC-003"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-011",
+      "requirement_text": "Allocation translated into ordinary, widely available ETFs.",
+      "source_location": "BRD \u00a75 Group C",
+      "covered_by": [
+        "SPEC-005",
+        "SPEC-014"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-012",
+      "requirement_text": "ETF proxy mapping lives in DB, shown transparently.",
+      "source_location": "BRD \u00a75 Group C",
+      "covered_by": [
+        "SPEC-005",
+        "SPEC-014"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-013",
+      "requirement_text": "Copycat performance from stored annual returns only, no live APIs.",
+      "source_location": "BRD \u00a75 Group C",
+      "covered_by": [
+        "SPEC-013",
+        "SPEC-015"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-014",
+      "requirement_text": "Annual rebalancing; no taxes/fees modeled; stated in fine print.",
+      "source_location": "BRD \u00a75 Group C",
+      "covered_by": [
+        "SPEC-013",
+        "SPEC-014"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-015",
+      "requirement_text": "Fine print: what a copycat cannot replicate (four items).",
+      "source_location": "BRD \u00a75 Group C",
+      "covered_by": [
+        "SPEC-014"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-016",
+      "requirement_text": "Compare over user-chosen sub-period: actual vs copycat vs benchmarks.",
+      "source_location": "BRD \u00a75 Group D",
+      "covered_by": [
+        "SPEC-016",
+        "SPEC-015"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-017",
+      "requirement_text": "Benchmarks exactly: S&P 500, 60/40, 70/30.",
+      "source_location": "BRD \u00a75 Group D",
+      "covered_by": [
+        "SPEC-016",
+        "SPEC-003"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-018",
+      "requirement_text": "Growth-of-$10,000 chart.",
+      "source_location": "BRD \u00a75 Group D",
+      "covered_by": [
+        "SPEC-015",
+        "SPEC-016"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-019",
+      "requirement_text": "Stats table: annualized return, best year, worst year.",
+      "source_location": "BRD \u00a75 Group D",
+      "covered_by": [
+        "SPEC-016"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-020",
+      "requirement_text": "Seed files in data/ are the single source of truth.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-002",
+        "SPEC-003"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-021",
+      "requirement_text": "No number without a citation.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-002",
+        "SPEC-003",
+        "SPEC-017"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-022",
+      "requirement_text": "Seed script loads files into Neon.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-002"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-023",
+      "requirement_text": "Per school per FY: allocations (normalized), return, market value (where soundly published).",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-001",
+        "SPEC-003"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-024",
+      "requirement_text": "Benchmark/asset-class returns and ETF proxy-mapping table stored.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-003",
+        "SPEC-005"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-025",
+      "requirement_text": "Coverage FY2000\u2013FY2025 subject to documented per-school limits.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-003",
+        "SPEC-012"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-026",
+      "requirement_text": "Yale coverage may extend deeper than FY2000 (could).",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-003"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-027",
+      "requirement_text": "Fiscal-year alignment; Stanford Aug-31 offset disclosed at display.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-001",
+        "SPEC-003",
+        "SPEC-010",
+        "SPEC-011",
+        "SPEC-012",
+        "SPEC-017"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-028",
+      "requirement_text": "Normalized allocation categories, auditable mapping.",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-001",
+        "SPEC-003",
+        "SPEC-010",
+        "SPEC-017"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-029",
+      "requirement_text": "Yearly by-hand update cadence (seed edit + re-seed, no code change).",
+      "source_location": "BRD \u00a75 Group E",
+      "covered_by": [
+        "SPEC-002"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-030",
+      "requirement_text": "Methodology page lists every source.",
+      "source_location": "BRD \u00a75 Group F",
+      "covered_by": [
+        "SPEC-017"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-031",
+      "requirement_text": "Deployed on Vercel from GitHub repo, auto-deploy on main.",
+      "source_location": "BRD \u00a75 Group G",
+      "covered_by": [
+        "SPEC-004",
+        "SPEC-019",
+        "SPEC-020"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-032",
+      "requirement_text": "Loads fast (quantified by spec: app perf default).",
+      "source_location": "BRD \u00a75 Group G",
+      "covered_by": [
+        "SPEC-019"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-033",
+      "requirement_text": "Works well on phone screens.",
+      "source_location": "BRD \u00a75 Group G",
+      "covered_by": [
+        "SPEC-006",
+        "SPEC-019"
+      ]
+    },
+    {
+      "brd_requirement_id": "BRD-034",
+      "requirement_text": "Neon Postgres production DB, seeded before launch.",
+      "source_location": "BRD \u00a75 Group G",
+      "covered_by": [
+        "SPEC-004",
+        "SPEC-019"
+      ]
+    }
+  ],
+  "release_plan": {
+    "milestones": [
+      {
+        "name": "M0 Foundation (verified)",
+        "goal": "Already-built substrate: repo, hosting, schema, seed pipeline, curated dataset",
+        "spec_ids": [
+          "SPEC-001",
+          "SPEC-002",
+          "SPEC-003",
+          "SPEC-004"
+        ],
+        "exit_criteria": [
+          "Already met per TASKS.md Phase 0\u20131 build logs (except 1.7 \u2192 M1)"
+        ]
+      },
+      {
+        "name": "M1 Data complete",
+        "goal": "Proxy mappings + final three benchmark series decided and seeded \u2014 unblocks all copycat math",
+        "spec_ids": [
+          "SPEC-005"
+        ],
+        "exit_criteria": [
+          "Every allocation category mapped or documented; benchmark/proxy instrument identity holds; re-seed idempotent; TASKS 1.7 checked"
+        ]
+      },
+      {
+        "name": "M2 Skeleton",
+        "goal": "Walking skeleton: shell + data access + glossary component, deployed on preview",
+        "spec_ids": [
+          "SPEC-006",
+          "SPEC-007",
+          "SPEC-008"
+        ],
+        "exit_criteria": [
+          "All routes render in shell with disclaimer; integration tests green against seeded DB"
+        ]
+      },
+      {
+        "name": "M3 History Explorer",
+        "goal": "All five school pages complete including Stanford's OI-1 variant",
+        "spec_ids": [
+          "SPEC-009",
+          "SPEC-010",
+          "SPEC-011",
+          "SPEC-012"
+        ],
+        "exit_criteria": [
+          "5 school pages render from DB; charts match seeded data; coverage annotations on-chart; phone-legible"
+        ]
+      },
+      {
+        "name": "M4 Translator",
+        "goal": "Backtest engine + translator page + vintage-labelled performance",
+        "spec_ids": [
+          "SPEC-013",
+          "SPEC-014",
+          "SPEC-015"
+        ],
+        "exit_criteria": [
+          "Engine unit tests green incl. hand-verified 60/40; translator renders every school/year; fine print complete"
+        ]
+      },
+      {
+        "name": "M5 Comparisons",
+        "goal": "Compare page complete",
+        "spec_ids": [
+          "SPEC-016"
+        ],
+        "exit_criteria": [
+          "Any combination renders; stats match engine"
+        ]
+      },
+      {
+        "name": "M6 Ship",
+        "goal": "Methodology, editorial pass, production readiness, public access",
+        "spec_ids": [
+          "SPEC-017",
+          "SPEC-018",
+          "SPEC-019",
+          "SPEC-020"
+        ],
+        "exit_criteria": [
+          "Cutover go/no-go criteria all green (see cutover_plan)"
+        ]
+      }
+    ],
+    "definition_of_done": [
+      "Item's acceptance criteria all pass",
+      "Tests named in the item green (unit/integration/e2e as applicable)",
+      "Lint clean, build succeeds",
+      "Deployed to preview and eyeballed at phone width",
+      "TASKS.md checkbox ticked with a build-log note (docs-conduct workflow)",
+      "No copy violates the advice rule; new terms have first-use definitions"
+    ]
+  },
+  "cutover_plan": {
+    "strategy": "Continuous-deploy greenfield: the site goes public by disabling Vercel Deployment Protection after M6 checks pass. No big-bang moment, no legacy system, no data migration (production Neon is already seeded and re-seedable from git).",
+    "prerequisites": [
+      "All M1\u2013M6 milestone exit criteria green",
+      "Production Neon seeded and idempotency-verified (done; re-verified at M6)",
+      "Page metadata replaced (SPEC-019)",
+      "Human available for the Deployment Protection change (SPEC-020, reserved matter)"
+    ],
+    "data_migration": {
+      "source": "None \u2014 greenfield. Production data flows only from git-versioned seed files via npm run seed.",
+      "method": "N/A",
+      "validation": "seed:dry + idempotent re-run check",
+      "dry_run_plan": "npm run seed:dry against production DATABASE_URL before any production seed"
+    },
+    "runbook": [
+      {
+        "step": "1. Verify M6 exit criteria: Lighthouse \u2265 90/95 every route, phone walkthrough clean, methodology source-check green",
+        "owner": "claude",
+        "verification": "Checklist in TASKS.md build log"
+      },
+      {
+        "step": "2. Re-run production seed dry-run; confirm no pending changes",
+        "owner": "claude",
+        "verification": "seed:dry reports clean"
+      },
+      {
+        "step": "3. Confirm latest main deploy is green on Vercel",
+        "owner": "claude",
+        "verification": "Vercel dashboard/CLI deployment state"
+      },
+      {
+        "step": "4. Disable Deployment Protection for production (Settings \u2192 Deployment Protection \u2192 Vercel Authentication \u2192 Disabled)",
+        "owner": "human",
+        "verification": "Human confirms in dashboard"
+      },
+      {
+        "step": "5. Verify public access: unauthenticated curl -I returns 200, no x-robots-tag: noindex",
+        "owner": "claude",
+        "verification": "curl output logged"
+      },
+      {
+        "step": "6. Full production walkthrough: all routes, phone width, disclaimer presence",
+        "owner": "claude",
+        "verification": "Walkthrough checklist logged"
+      },
+      {
+        "step": "7. Enter hypercare (see hypercare_plan)",
+        "owner": "claude",
+        "verification": "Hypercare start noted in TASKS.md"
+      }
+    ],
+    "rollback": "Trigger: any go/no-go criterion regresses post-launch or a correctness/honesty defect is found in displayed numbers. Procedure: (a) content/code defects \u2192 Vercel instant rollback to last good deployment; (b) data defects \u2192 fix seed files in git, re-seed, redeploy; (c) worst case \u2192 human re-enables Deployment Protection, taking the site private again while fixes land. No user data exists, so rollback has zero data implications.",
+    "go_no_go_criteria": [
+      "Unauthenticated production URL returns 200",
+      "All 5 school pages, translator, compare, methodology render correctly in production",
+      "Lighthouse perf \u2265 90 and a11y \u2265 95 on every route (production build)",
+      "Methodology source-completeness check green against production DB",
+      "Disclaimer on every route; translator fine print complete",
+      "Spot-check: 3 displayed numbers traced to their cited primary sources"
+    ],
+    "comms": [
+      "Owner announces availability personally when satisfied \u2014 no status page, mailing list, or launch comms exist for v1 (free public site, no users to migrate)."
+    ]
+  },
+  "hypercare_plan": {
+    "duration": "14 days post-cutover (through ~2 weekly usage cycles), extendable by owner",
+    "monitoring": [
+      {
+        "signal": "Vercel error rate (5xx / function errors) per route",
+        "threshold": "> 1% of requests on any route",
+        "check_cadence": "Daily during hypercare",
+        "response": "Diagnose from Vercel logs; hotfix via push to main"
+      },
+      {
+        "signal": "Production availability (unauthenticated 200 on homepage)",
+        "threshold": "Any non-200",
+        "check_cadence": "Daily",
+        "response": "Check Vercel status + Deployment Protection state; escalate to human if the setting regressed"
+      },
+      {
+        "signal": "Page-load performance (Lighthouse perf on /, /explore/yale, /compare)",
+        "threshold": "Perf < 85 on any of the three",
+        "check_cadence": "Twice during hypercare (day 3, day 10)",
+        "response": "Profile bundle/queries; fix; re-run"
+      },
+      {
+        "signal": "Neon database health (connection errors in logs, storage/compute limits)",
+        "threshold": "Any connection failure burst or plan-limit warning",
+        "check_cadence": "Daily via logs",
+        "response": "Investigate driver/limits; Neon dashboard is human-accessible if plan changes needed"
+      },
+      {
+        "signal": "Data-correctness reports (owner or reader spots a wrong number)",
+        "threshold": "Any report",
+        "check_cadence": "As reported",
+        "response": "Verify against cited source; if wrong: seed-file fix + re-seed + methodology note (honesty rule \u2014 corrections are visible, not silent)"
+      }
+    ],
+    "incident_response": {
+      "severity_levels": "SEV-1: site down or a materially wrong displayed number (honesty breach). SEV-2: broken feature/route or misleading label. SEV-3: cosmetic, copy, or performance degradation.",
+      "triage_procedure": "Reproduce \u2192 classify severity \u2192 SEV-1 gets same-session fix or rollback; SEV-2 within a day; SEV-3 queued to the known-issues log.",
+      "hotfix_procedure": "Branch \u2192 fix \u2192 run the affected item's tests plus the backtest suite (always, if math touched) \u2192 push to main (auto-deploys) \u2192 verify in production \u2192 log in TASKS.md build log. Reduced bar: skip full Lighthouse sweep unless the fix touches layout/bundles; never skip unit tests on financial math."
+    },
+    "known_issues_log": "TASKS.md Build log (docs-conduct workflow's single memory), tagged 'hypercare'",
+    "success_review": "At hypercare end: walk product_overview.success_metrics; verify each DoD item still holds in production; record the review in TASKS.md; owner decides normal-operations entry.",
+    "exit_criteria": [
+      "14 days elapsed with zero open SEV-1/SEV-2",
+      "All monitoring signals within thresholds for the final 7 consecutive days",
+      "Success review recorded; owner signs off in TASKS.md"
+    ]
+  },
+  "risk_register": [
+    {
+      "risk": "Readers mistake the copycat for advice despite disclaimers \u2014 reputational/ethical risk",
+      "likelihood": "medium",
+      "impact": "high",
+      "mitigation": "SPEC-018's dedicated advice-phrasing pass; fine print always visible (SPEC-014); descriptive voice rule in every UI item",
+      "related_spec_ids": [
+        "SPEC-014",
+        "SPEC-015",
+        "SPEC-018"
+      ]
+    },
+    {
+      "risk": "Hedge-fund/PE proxy decision (Q-001) makes the copycat look incoherent for Yale-style portfolios (~half the mix uncovered)",
+      "likelihood": "medium",
+      "impact": "medium",
+      "mitigation": "Explicit-gap sleeve labelling in engine output and both charts; methodology explains the choice; decision revisitable at SPEC-005 with owner",
+      "related_spec_ids": [
+        "SPEC-005",
+        "SPEC-013",
+        "SPEC-015"
+      ]
+    },
+    {
+      "risk": "Deployment Protection stays enabled and the 'public' site remains behind a login",
+      "likelihood": "low",
+      "impact": "high",
+      "mitigation": "SPEC-020 is a named human runbook step with a curl-verified acceptance criterion; go/no-go blocks on it",
+      "related_spec_ids": [
+        "SPEC-020",
+        "SPEC-019"
+      ]
+    },
+    {
+      "risk": "Chart-heavy pages blow the phone performance budget (5-series compare chart, 26-year stacked areas)",
+      "likelihood": "medium",
+      "impact": "medium",
+      "mitigation": "Server-side data prep, client bundle limited to chart components, Lighthouse gate per route in SPEC-019",
+      "related_spec_ids": [
+        "SPEC-010",
+        "SPEC-016",
+        "SPEC-019"
+      ]
+    },
+    {
+      "risk": "A displayed number is wrong despite curation QC (transcription or transform bug)",
+      "likelihood": "low",
+      "impact": "high",
+      "mitigation": "Transform unit tests against seeded values; hypercare data-correctness signal with visible-correction policy; every number traceable to its source for fast verification",
+      "related_spec_ids": [
+        "SPEC-010",
+        "SPEC-011",
+        "SPEC-013",
+        "SPEC-017"
+      ]
+    },
+    {
+      "risk": "Sparse/gapped school data (MIT, Princeton, Harvard) renders misleadingly if charts imply continuity",
+      "likelihood": "medium",
+      "impact": "medium",
+      "mitigation": "Explicit-gap rendering rules in SPEC-010/011; no interpolation ever; coverage stories on methodology page",
+      "related_spec_ids": [
+        "SPEC-010",
+        "SPEC-011",
+        "SPEC-017"
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question_id": "Q-001",
+      "question": "Final call on the hedge-fund / private-equity sleeve: explicit-gap (copycat covers only the publicly-replicable sleeve, remainder shown as a labelled gap) vs. any liquid-alt stand-in?",
+      "context": "Decides SPEC-005's curation and shapes SPEC-013 engine output and SPEC-014/015 labelling. TASKS 1.7 already frames explicit-gap as 'likely more honest' and no freely-citable investable series reaches FY2000.",
+      "proposed_default": "Explicit-gap sleeve, per the architecture decision record and TASKS 1.7 framing.",
+      "blocking": false,
+      "resolution": "Resolved 2026-08-04 by owner: explicit-gap sleeve confirmed \u2014 the copycat covers only the publicly-replicable sleeve; hedge funds / private equity render as a labelled gap, never a stand-in proxy."
+    },
+    {
+      "question_id": "Q-002",
+      "question": "Confirm Recharts as the chart library (PRD default suggestion), or pick another well-maintained React chart library at build time?",
+      "context": "Affects SPEC-010/011/012/015/016 implementation and bundle size. The dataviz skill governs the design either way.",
+      "proposed_default": "Recharts, unless the dataviz-skill review at M3 surfaces a concrete blocker (e.g. accessible-table alternative friction).",
+      "blocking": false,
+      "resolution": ""
+    },
+    {
+      "question_id": "Q-003",
+      "question": "Add lightweight observability (Vercel Analytics / Speed Insights, both Pro-included) and a test step in CI, or keep hypercare monitoring manual via Vercel logs?",
+      "context": "Hypercare_plan monitoring currently relies on manual daily checks of Vercel logs; Pro plan includes analytics toggles that need only dashboard enablement (human).",
+      "proposed_default": "Enable Vercel Analytics + Speed Insights at M6 (human toggles, one-line code add); keep CI as local pre-push tests for v1.",
+      "blocking": false,
+      "resolution": ""
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Endowment",
+      "definition": "A university's long-term investment fund, built from donations, that pays out a slice each year to support the school."
+    },
+    {
+      "term": "Asset allocation",
+      "definition": "How a portfolio is divided among investment types (stocks, bonds, real estate, etc.), usually percentages summing to 100."
+    },
+    {
+      "term": "Fiscal year (FY)",
+      "definition": "A school's 12-month accounting year. FY2025 = July 2024\u2013June 2025 for four schools; Sep 2024\u2013Aug 2025 for Stanford."
+    },
+    {
+      "term": "ETF",
+      "definition": "Exchange-traded fund \u2014 a fund holding a basket of investments that trades on a stock exchange like a single share."
+    },
+    {
+      "term": "Benchmark",
+      "definition": "A simple reference portfolio (like the S&P 500) used as a yardstick for performance."
+    },
+    {
+      "term": "60/40, 70/30",
+      "definition": "Classic simple portfolios: 60% (or 70%) stocks, 40% (or 30%) bonds."
+    },
+    {
+      "term": "Annualized return",
+      "definition": "The single per-year growth rate that would produce the same overall result as the actual year-by-year returns."
+    },
+    {
+      "term": "Rebalancing",
+      "definition": "Periodically trading back to target allocation after market moves; this project models it once per year."
+    },
+    {
+      "term": "Copycat / proxy portfolio",
+      "definition": "The DIY version of an endowment's allocation built from ordinary ETFs standing in for each asset class."
+    },
+    {
+      "term": "Market value",
+      "definition": "The total dollar size of the endowment at fiscal-year end."
+    },
+    {
+      "term": "Merged Pool",
+      "definition": "Stanford's commingled investment vehicle; larger than and distinct from the endowment itself (see BRD OI-1)."
+    },
+    {
+      "term": "Snapshot vintage",
+      "definition": "A school's allocation mix from a specific year, held unchanged by the copycat in forward runs past that year."
+    },
+    {
+      "term": "Explicit-gap sleeve",
+      "definition": "The honest handling of unreplicable categories (hedge funds, private equity): the copycat covers only what ordinary ETFs can replicate and labels the remainder as a gap instead of faking a proxy."
+    }
+  ],
+  "change_log": [
+    {
+      "date": "2026-08-03",
+      "version": "1.0.0",
+      "change": "Initial full spec generated from BRD 1.0 + PRD + data/README.md + TASKS.md. Deliberate protocol deviation: SPEC-001..004 emitted with status 'verified' (not 'draft') because TASKS.md Phase 0\u20131 build logs record that work as built, QC'd, and live \u2014 re-marking it draft would instruct build sessions to redo finished work.",
+      "reason": "Full-product spec requested by owner; statuses reflect verified repo state per honesty rules.",
+      "changed_by": "Claude Fable 5 (spec-generation session)"
+    },
+    {
+      "date": "2026-08-04",
+      "version": "1.0.0",
+      "change": "Owner approved spec v1.0.0: spec_meta.status -> approved; 16 draft items flipped to approved (SPEC-005..SPEC-020). Q-001 resolved (explicit-gap sleeve confirmed). No requirement content changed; version unchanged.",
+      "reason": "Owner instruction 2026-08-04: 'move forward with the recommendations' (readiness-report human_actions).",
+      "changed_by": "Claude Fable 5 (session of 2026-08-04), on owner's recorded approval"
+    }
+  ]
+}

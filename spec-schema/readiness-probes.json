@@ -1,0 +1,403 @@
+{
+  "$id": "readiness-probes.json",
+  "title": "Build-Readiness Probes — Docs + Spec → 'ready to build this slice?'",
+  "description": "Probe catalog run by Claude Code before starting build on a slice. A slice is a release_plan milestone name or an explicit list of spec_ids from spec.json (per engineering-spec.schema.json). Probes interrogate the source documents, the spec, their cross-links, and the execution environment, then aggregate into a single verdict. Probes never fix anything — they report; remediation is a separate step.",
+
+  "x-runner-protocol": {
+    "invocation": "Inputs: (1) spec.json, (2) the docs listed in spec.inputs, (3) a slice selector — milestone name or spec_id list. Resolve the slice to its item set PLUS the transitive closure of dependencies whose status is below 'deployed_staging' (the same threshold PRB-021 uses for 'already satisfied'); probes run over that closed set. Log the resolved set first.",
+    "execution_order": [
+      "1. STRUCTURAL (method: deterministic) — cheap mechanical checks on spec.json shape and cross-references. If any blocker fails here, still run the rest of this tier, then stop and report: judgment probes over a broken structure waste effort.",
+      "2. SEMANTIC (method: judgment) — LLM evaluation of content quality against each probe's rubric. Judge each item fresh; do not assume the spec author was right. Quote evidence verbatim for every failure.",
+      "3. ENVIRONMENT (method: runtime) — optional live checks (repo, CI, env vars, sandbox credentials). Skip with status 'skipped' if the runner has no environment access, and say so in the report."
+    ],
+    "honesty_rules": [
+      "A probe with no evidence either way fails closed for blockers (report 'cannot verify' as fail) and open for warnings (report 'cannot verify' as warning).",
+      "Never mark a judgment probe pass because the field is merely non-empty — the rubric is the bar, not presence.",
+      "Sample sizes: where a probe says 'spot-check N', pick the N highest-risk instances (money, auth, data deletion, third parties), not random ones."
+    ],
+    "output": "Emit readiness-report.json conforming to $defs.reportSchema, plus a short human summary leading with the verdict. Findings sorted blockers-first."
+  },
+
+  "x-verdict-model": {
+    "READY": "Zero failed blocker probes; warnings allowed and listed.",
+    "READY_WITH_CONDITIONS": "Failed blockers exist but every one has a remediation the runner classifies as 'mechanical' (fixable inside the spec/doc set without a human decision). Listed as preconditions to start.",
+    "NOT_READY": "At least one failed blocker requiring a human decision or missing external prerequisite.",
+    "note": "The verdict applies only to the probed slice, not the whole spec."
+  },
+
+  "probes": [
+
+    {
+      "probe_id": "PRB-001",
+      "name": "Input documents present and readable",
+      "category": "docs",
+      "scope": "global",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "Every doc in spec.inputs (brd + supporting_docs) exists at its stated location and is readable. Compare version_or_date against the file's actual state where detectable (frontmatter, title page, mtime).",
+      "pass_criteria": "All docs open; no version mismatch.",
+      "remediation": "Restore or re-link the missing doc; re-run spec generation if a binding doc changed version."
+    },
+    {
+      "probe_id": "PRB-002",
+      "name": "BRD extraction completeness",
+      "category": "docs",
+      "scope": "global",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Re-scan the BRD independently for requirement-bearing sentences (shall/must/should/needs to/users can, plus tables and bullet features). Diff that inventory against traceability_matrix. The spec author's own extraction must not be trusted as the baseline.",
+      "pass_criteria": "No requirement-bearing statement in the BRD is absent from the traceability_matrix.",
+      "remediation": "Add missed requirements as BRD-xxx rows and either cover them with spec_items or move them to out_of_scope with a reason."
+    },
+    {
+      "probe_id": "PRB-003",
+      "name": "Binding-document conflict scan",
+      "category": "docs",
+      "scope": "global",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Across all docs marked authority: 'binding', find contradictions relevant to the slice (different limits, different flows, different pricing). Check spec.architecture.decision_records / open_questions for a recorded resolution of each.",
+      "pass_criteria": "No unresolved contradiction touching any slice item.",
+      "remediation": "Raise an open_question with a proposed resolution; human decides which doc wins."
+    },
+    {
+      "probe_id": "PRB-004",
+      "name": "Quote fidelity spot-check",
+      "category": "docs",
+      "scope": "global",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "Spot-check 5 highest-risk traceability_matrix rows referenced by the slice: does requirement_text faithfully reflect the BRD at source_location, without strengthening, weakening, or inventing numbers?",
+      "pass_criteria": "All sampled rows faithful.",
+      "remediation": "Correct the paraphrase and re-check dependent spec_items for drift."
+    },
+    {
+      "probe_id": "PRB-005",
+      "name": "Glossary coverage for the slice",
+      "category": "docs",
+      "scope": "slice",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "Collect domain terms used in slice items (business_rules, user_stories, entity names). Each is either in spec.glossary or an everyday word.",
+      "pass_criteria": "No undefined domain term.",
+      "remediation": "Add glossary entries; if a term's meaning is genuinely unclear from the docs, escalate to open_questions."
+    },
+
+    {
+      "probe_id": "PRB-010",
+      "name": "Schema validity",
+      "category": "spec",
+      "scope": "global",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "spec.json validates against engineering-spec.schema.json (required fields, enums, patterns).",
+      "pass_criteria": "Zero validation errors.",
+      "remediation": "Fix the spec document; this is always mechanical."
+    },
+    {
+      "probe_id": "PRB-011",
+      "name": "Slice resolves cleanly",
+      "category": "spec",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "The slice selector matches a real milestone or real spec_ids; every referenced spec_id exists; dependency closure computes without dangling references.",
+      "pass_criteria": "Resolved item set is non-empty and fully linked.",
+      "remediation": "Fix milestone spec_ids lists or dependency entries."
+    },
+    {
+      "probe_id": "PRB-012",
+      "name": "No TBD / placeholder content in slice items",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "Scan every field of each slice item for 'TBD', 'TODO', 'FIXME', '???', 'placeholder', empty required arrays.",
+      "pass_criteria": "None found in required fields; occurrences in optional fields downgrade to warning.",
+      "remediation": "Fill from docs, or convert to an open_question with proposed default."
+    },
+    {
+      "probe_id": "PRB-013",
+      "name": "Acceptance criteria are testable",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Every acceptance_criteria entry: (a) Given/When/Then form, (b) observable outcome, (c) no subjective adjectives (fast, intuitive, robust) without a number, (d) a competent engineer could write the test without asking questions.",
+      "pass_criteria": "All entries pass all four; per-item failure lists the offending criterion verbatim.",
+      "remediation": "Rewrite criteria; pull numbers from business_rules or performance_targets."
+    },
+    {
+      "probe_id": "PRB-014",
+      "name": "Business rules are quantified",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Every business_rules entry contains exact values (limits, formulas, thresholds, rounding, currency/timezone handling) — no 'reasonable', 'several', 'appropriate'.",
+      "pass_criteria": "All rules deterministic enough to unit-test.",
+      "remediation": "Extract exact values from the BRD; if the BRD only has adjectives, open_question with a proposed number."
+    },
+    {
+      "probe_id": "PRB-015",
+      "name": "Flow coverage: errors and alternates",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "For each main_flow step that can fail (network, validation, permission, third party, concurrency), a matching entry exists in error_handling or alternate_flows. For user-facing items, ui_states covers loading/empty/error/denied.",
+      "pass_criteria": "No uncovered failure point on the happy path.",
+      "remediation": "Enumerate the missing failure handling before build, or accept as a listed warning."
+    },
+    {
+      "probe_id": "PRB-016",
+      "name": "API contract completeness",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "applies_when": "item has api_contract entries",
+      "check": "Each endpoint has method, path, auth (with explicit tenant scoping), request_shape, response_shape, non-empty error_codes; mutating endpoints state idempotency.",
+      "pass_criteria": "All endpoints complete.",
+      "remediation": "Fill contract gaps; tenant-scoping omissions escalate to PRB-031."
+    },
+    {
+      "probe_id": "PRB-017",
+      "name": "Data model completeness",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "applies_when": "item has data_entities",
+      "check": "Every entity: all fields typed with nullability; tenancy stated; retention stated; relationships resolve to entities defined somewhere in the spec.",
+      "pass_criteria": "All entities complete and internally consistent.",
+      "remediation": "Complete the model; unresolved relationships usually mean a missing spec_item."
+    },
+    {
+      "probe_id": "PRB-018",
+      "name": "Cross-item contradiction scan",
+      "category": "spec",
+      "scope": "slice",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Across slice items (plus already-built items they touch): same endpoint specified twice with different shapes; same entity field with different types; conflicting business rules; two items claiming the same feature_flag with different semantics.",
+      "pass_criteria": "No contradictions.",
+      "remediation": "Reconcile in the spec, bump versions of changed items, log in change_log."
+    },
+    {
+      "probe_id": "PRB-019",
+      "name": "Item sizing sane",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "deterministic",
+      "severity_on_fail": "warning",
+      "check": "No slice item has complexity_estimate XL; flag L items whose acceptance_criteria count exceeds ~10 as split candidates.",
+      "pass_criteria": "No XL items in the slice.",
+      "remediation": "Split into smaller spec_items with their own acceptance criteria."
+    },
+
+    {
+      "probe_id": "PRB-020",
+      "name": "Forward traceability of the slice",
+      "category": "cross",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "Every slice item lists brd_requirement_ids that exist in traceability_matrix, or has a technical item_type with a justification in summary. Reverse direction: every BRD row whose covered_by intersects the slice actually lists those items.",
+      "pass_criteria": "Bidirectional links intact.",
+      "remediation": "Repair links; unjustified untraceable items need a reason or removal."
+    },
+    {
+      "probe_id": "PRB-021",
+      "name": "Dependency closure buildable",
+      "category": "cross",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "Every dependency of every slice item is (a) in the slice, (b) already status ≥ deployed_staging, or (c) an ext: dependency handled by PRB-022. Detect cycles.",
+      "pass_criteria": "Topological order exists; no unmet internal dependency.",
+      "remediation": "Pull missing prerequisite items into the slice or re-scope the milestone."
+    },
+    {
+      "probe_id": "PRB-022",
+      "name": "External and human prerequisites satisfied",
+      "category": "cross",
+      "scope": "slice",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "check": "Collect all ext:/human dependencies, config_and_secrets marked human-provisioned, and third_party_integrations needing accounts/credentials for slice items. For each, find affirmative evidence of readiness (env var present, sandbox key documented, account confirmed in docs). Absence of evidence = not ready.",
+      "pass_criteria": "Every external prerequisite has evidence, or an explicit stub/mock plan lets build proceed without it (then warning, not blocker).",
+      "remediation": "Produce a human checklist of exactly what to provision; this is the most common NOT_READY cause."
+    },
+    {
+      "probe_id": "PRB-023",
+      "name": "No blocking open questions touch the slice",
+      "category": "cross",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "No open_questions entry with blocking: true and empty resolution whose question_id appears in any slice item's open_question_refs, or whose context field names a slice spec_id.",
+      "pass_criteria": "Zero unresolved blocking questions on the slice.",
+      "remediation": "Present the questions with their proposed defaults for one-word human approval."
+    },
+    {
+      "probe_id": "PRB-024",
+      "name": "Approval state",
+      "category": "cross",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "spec_meta.status is 'approved', and every slice item's status is 'approved' (not draft/deferred). Items with owner claude_with_human_gate are flagged in the report so the gate is scheduled.",
+      "pass_criteria": "Spec and all slice items approved.",
+      "remediation": "Route the spec through its approvers; drafts must not enter build."
+    },
+    {
+      "probe_id": "PRB-025",
+      "name": "Assumption exposure",
+      "category": "cross",
+      "scope": "slice",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "List every assumptions entry on slice items. Assess each: if wrong, would built work be discarded? High-consequence assumptions without evidence of human review get flagged.",
+      "pass_criteria": "No high-consequence unreviewed assumption.",
+      "remediation": "Surface the risky assumptions for explicit confirmation before build."
+    },
+
+    {
+      "probe_id": "PRB-030",
+      "name": "NFRs concrete for the slice",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "performance_targets, availability_slo, rate_limits_and_quotas on slice items contain numbers or an explicit inheritance statement ('app default: p95 < 400ms') — not adjectives, not blanks on items where load obviously matters (auth, search, list views, webhooks).",
+      "pass_criteria": "All applicable NFRs quantified or explicitly inherited.",
+      "remediation": "Set app-wide defaults once in architecture.decision_records and reference them."
+    },
+    {
+      "probe_id": "PRB-031",
+      "name": "Security and tenant isolation stated",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "blocker",
+      "applies_when": "item touches data, auth, or exposes endpoints",
+      "check": "security_requirements and permissions_model state: authz check location, tenant isolation mechanism consistent with architecture.multi_tenancy_model, input validation posture, and (where PII) privacy_compliance duties. Cross-tenant isolation must appear in integration_tests.",
+      "pass_criteria": "All data/auth/endpoint items carry explicit, consistent security statements with matching tests planned.",
+      "remediation": "This is never skippable for SaaS; write the missing statements before build."
+    },
+    {
+      "probe_id": "PRB-032",
+      "name": "Reversibility: migrations and rollback",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "applies_when": "item has db_changes",
+      "check": "migration_steps present and ordered; rollback_plan is specific (not 'redeploy previous release', which is valid only without db_changes); breaking changes use expand-migrate-contract.",
+      "pass_criteria": "Every schema-touching item is reversible on paper.",
+      "remediation": "Write the rollback before writing the migration."
+    },
+    {
+      "probe_id": "PRB-033",
+      "name": "Test plan executability",
+      "category": "spec",
+      "scope": "slice_item",
+      "method": "judgment",
+      "severity_on_fail": "warning",
+      "check": "unit/integration/e2e test lists cover the acceptance_criteria and edge_cases (each AC maps to at least one named test); test_data_requirements are satisfiable with the environments' data_policy; financial/billing math has hand-computable expected values stated.",
+      "pass_criteria": "QA could start from the spec alone.",
+      "remediation": "Backfill named test cases; missing hand-computed values for money math upgrade this to blocker."
+    },
+    {
+      "probe_id": "PRB-034",
+      "name": "High risks mitigated",
+      "category": "spec",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "warning",
+      "check": "Every risk_register entry with likelihood or impact 'high' whose related_spec_ids intersect the slice has a non-empty mitigation.",
+      "pass_criteria": "No unmitigated high risk on the slice.",
+      "remediation": "Write mitigations or accept the risk explicitly in the report."
+    },
+
+    {
+      "probe_id": "PRB-040",
+      "name": "Environment matrix supports the slice",
+      "category": "environment",
+      "scope": "slice",
+      "method": "deterministic",
+      "severity_on_fail": "blocker",
+      "check": "spec.environments defines at least local + one deployed env with deploy_trigger; every config_and_secrets var needed by slice items maps to a defined environment; feature_flag names are unique across the spec.",
+      "pass_criteria": "No slice item needs an environment or variable the matrix doesn't define.",
+      "remediation": "Extend the environment matrix or trim the item's needs."
+    },
+    {
+      "probe_id": "PRB-041",
+      "name": "Live workspace readiness",
+      "category": "environment",
+      "scope": "global",
+      "method": "runtime",
+      "severity_on_fail": "blocker",
+      "check": "In the actual workspace: repo exists and is clean or on a work branch; toolchain installs (deps resolve); test runner executes (even with zero tests); CI/deploy config present for the stated hosting; required env vars for local dev present (values not printed). Skip with 'skipped' if no workspace access.",
+      "pass_criteria": "A build session starting now would not stall on tooling.",
+      "remediation": "Scaffold/repair the workspace as its own precondition task before the slice."
+    },
+    {
+      "probe_id": "PRB-042",
+      "name": "Third-party sandbox reachability",
+      "category": "environment",
+      "scope": "slice",
+      "method": "runtime",
+      "severity_on_fail": "warning",
+      "applies_when": "slice items list third_party_integrations",
+      "check": "For each integration: sandbox/test credentials exist in env config and a harmless authenticated call succeeds (or a documented mock strategy exists). Never call live/production endpoints of payment or messaging providers.",
+      "pass_criteria": "Every integration is exercisable in a non-production mode.",
+      "remediation": "Provision sandbox credentials (usually human) or commit to the mock plan in writing."
+    }
+  ],
+
+  "$defs": {
+    "reportSchema": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "readiness-report.json",
+      "type": "object",
+      "required": ["slice", "resolved_spec_ids", "verdict", "run_date", "probe_results", "blockers_summary", "human_actions"],
+      "properties": {
+        "slice": { "type": "string" },
+        "resolved_spec_ids": { "type": "array", "items": { "type": "string" } },
+        "verdict": { "enum": ["READY", "READY_WITH_CONDITIONS", "NOT_READY"] },
+        "run_date": { "type": "string", "format": "date" },
+        "spec_version_probed": { "type": "string" },
+        "probe_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["probe_id", "status"],
+            "properties": {
+              "probe_id": { "type": "string" },
+              "status": { "enum": ["pass", "fail", "warning", "skipped", "not_applicable"] },
+              "findings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["severity", "evidence", "remediation"],
+                  "properties": {
+                    "spec_id": { "type": "string", "description": "Item the finding is anchored to, if item-scoped." },
+                    "severity": { "enum": ["blocker", "warning", "info"] },
+                    "evidence": { "type": "string", "description": "Verbatim quote or concrete observation — never just 'field looks weak'." },
+                    "remediation": { "type": "string" },
+                    "remediation_class": { "enum": ["mechanical", "human_decision", "external_provisioning"], "description": "Drives READY_WITH_CONDITIONS vs NOT_READY." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "blockers_summary": { "type": "array", "items": { "type": "string" }, "description": "One line per failed blocker, sorted by remediation_class." },
+        "human_actions": { "type": "array", "items": { "type": "string" }, "description": "The exact checklist a human must complete (approvals, credentials, decisions). Empty when READY." },
+        "warnings_accepted_note": { "type": "string", "description": "If build proceeds with warnings, record that acceptance here." }
+      }
+    }
+  }
+}

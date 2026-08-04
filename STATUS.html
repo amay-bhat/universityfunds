@@ -428,15 +428,15 @@
     <div class="provenance">
       <span>Rendered from TASKS.md</span>
       <span>4 August 2026</span>
-      <span>Phases 0&ndash;5 complete, Phase 6 all but one toggle &middot; Checkpoint B next</span>
+      <span>All 25 tasks done &middot; SITE IS LIVE &middot; Checkpoint B is the last gate</span>
     </div>
   </header>
 
   <div class="tiles">
     <div class="tile">
       <div class="tile-label">Tasks complete</div>
-      <div class="tile-value">24<span class="of">&thinsp;/&thinsp;25</span></div>
-      <div class="tile-note">Everything buildable is built &mdash; only your toggle remains</div>
+      <div class="tile-value">25<span class="of">&thinsp;/&thinsp;25</span></div>
+      <div class="tile-note">Live at universityfunds.vercel.app</div>
     </div>
     <div class="tile">
       <div class="tile-label">Schools curated</div>
@@ -462,16 +462,16 @@
       version-one review are both reserved to you.
     </p>
 
-    <div class="action">
-      <div class="action-idx">6.4</div>
+    <div class="action" style="border-left-color: var(--st-done)">
+      <div class="action-idx" style="color: var(--st-done)">6.4</div>
       <div class="action-body">
-        <div class="action-title">Turn off Vercel Deployment Protection<span class="ref">Settings &rarr; Deployment Protection</span></div>
+        <div class="action-title">Done &mdash; and it unmasked a real bug<span class="ref">resolved 4 Aug 2026</span></div>
         <p>
-          The production URL currently answers every logged-out visitor with a redirect to a
-          Vercel login, and sends <code>x-robots-tag: noindex</code>. Nobody outside the team can
-          see the site, which contradicts the &ldquo;free, public, no-login&rdquo; requirement.
-          Set Vercel Authentication to <strong>Disabled</strong> for Production. Verified still
-          gated as of this render.
+          You disabled Deployment Protection &mdash; which revealed that every deployment since
+          31 July had been silently dead: a zip archive committed to the repo makes Vercel
+          blackhole the whole deployment while reporting it healthy. Diagnosed by canary
+          bisection, fixed by removing the archive and rehoming the site on a clean project.
+          <strong>The site is now publicly live at universityfunds.vercel.app.</strong>
         </p>
       </div>
     </div>
@@ -605,22 +605,20 @@
       </div>
 
       <!-- Phase 6 -->
-      <div class="phase" style="--stripe: var(--st-block)">
+      <div class="phase" style="--stripe: var(--st-done)">
         <div class="phase-head">
           <div class="phase-num">06</div>
           <div class="phase-name">Polish and ship</div>
-          <div class="phase-count">3 / 4</div>
+          <div class="phase-count">4 / 4</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:75%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:100%"></div></div></div>
         <ul class="tasks">
           <li class="task is-done"><span class="task-id">6.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Methodology page &mdash; all 96 sources listed from the database itself, every gap&rsquo;s story in plain English</span></li>
           <li class="task is-done"><span class="task-id">6.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Disclaimer verified on every route including errors; plain-English pass done</span></li>
           <li class="task is-done"><span class="task-id">6.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Production checks &mdash; Lighthouse 94&ndash;98 speed / 100 accessibility, phone sweep clean, real title and icon</span>
             <span class="task-note">One check waits on 6.4: the public URL can&rsquo;t return 200 while Deployment Protection is on.</span>
           </li>
-          <li class="task is-part"><span class="task-id">6.4</span><span class="glyph g-block">&#9650;</span><span class="task-text">Turn off Deployment Protection so the site is actually reachable</span>
-            <span class="task-note">Yours &mdash; a dashboard setting a build session is not permitted to change.</span>
-          </li>
+          <li class="task is-done"><span class="task-id">6.4</span><span class="glyph g-done">&#10003;</span><span class="task-text">Deployment Protection off; zip-archive deployment bug found and fixed; site publicly reachable</span></li>
         </ul>
         <div class="gate">
           <span class="gate-tag">Gate &middot; Checkpoint B</span>
@@ -813,7 +811,7 @@
     </div>
     <div>
       Counts verified directly against the seed files and the live database at render time:
-      <code>24/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
+      <code>25/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
       checks and <code>36/36</code> unit tests passing, Lighthouse <code>94&ndash;98</code>/<code>100</code>. Not financial advice.
     </div>
   </footer>

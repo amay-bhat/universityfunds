@@ -1,0 +1,6 @@
+# Vercel silently blackholes any deployment whose UPLOAD BUNDLE contains a zip
+# archive: the platform serves NOT_FOUND for every host of the deployment while
+# all APIs report READY/PROMOTED/aliased. Diagnosed 2026-08-04 by binary-search
+# canary deploys (see TASKS.md build log). The work-bundle zip lives in git for
+# the record but must never ride along in a deployment upload.
+*.zip

@@ -17,7 +17,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "verify:term-bubble": "node scripts/verify-term-bubble.mjs",
-    "verify:alloc-annotations": "node scripts/verify-allocation-annotations.mjs"
+    "verify:alloc-annotations": "node scripts/verify-allocation-annotations.mjs",
+    "verify:a11y": "node scripts/verify-a11y.mjs",
+    "verify:figures": "node scripts/verify-figure-reconciliation.mjs",
+    "verify:palette": "node scripts/validate_palette.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

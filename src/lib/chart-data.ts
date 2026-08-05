@@ -37,6 +37,12 @@ export type AllocationChartData = {
   targetsFormPrefix: boolean;
   // Disclosed years measuring a wider pot than the endowment proper, ascending.
   poolYears: number[];
+  // True only when the pool-universe years are a contiguous prefix of the
+  // disclosed years (MIT's shape). Same discipline as targetsFormPrefix: a
+  // boundary annotation asserts "everything before here is the other universe",
+  // which is only true of a prefix. Where it is false the chart must mark the
+  // years individually instead.
+  poolYearsFormPrefix: boolean;
 };
 
 export function toAllocationChartData(rows: AllocationRow[]): AllocationChartData | null {
@@ -81,9 +87,8 @@ export function toAllocationChartData(rows: AllocationRow[]): AllocationChartDat
     years.push({ fiscalYear: fy, basis, universe, values });
   }
   const disclosedAsc = disclosed;
-  const targetsFormPrefix =
-    targetYears.length > 0 &&
-    targetYears.every((fy, i) => disclosedAsc[i] === fy);
+  const isPrefix = (subset: number[]) =>
+    subset.length > 0 && subset.every((fy, i) => disclosedAsc[i] === fy);
   return {
     years,
     categoriesUsed,
@@ -91,8 +96,9 @@ export function toAllocationChartData(rows: AllocationRow[]): AllocationChartDat
     coverageEnd,
     gapYears,
     targetYears,
-    targetsFormPrefix,
+    targetsFormPrefix: isPrefix(targetYears),
     poolYears,
+    poolYearsFormPrefix: isPrefix(poolYears),
   };
 }
 

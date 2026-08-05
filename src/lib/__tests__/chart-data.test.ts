@@ -102,6 +102,34 @@ describe("toAllocationChartData", () => {
     expect(data.poolYears).toEqual([]);
     expect(data.years[0].universe).toBe("endowment");
   });
+
+  // The on-chart boundary annotation (pool-basis ruling obligation 5, limb 2) is
+  // only honest for a prefix, so the prefix test gates which treatment is used.
+  it("reports MIT's pool years as a prefix, so a boundary annotation is legitimate", () => {
+    const data = toAllocationChartData([
+      alloc(2001, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2003, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2004, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2008, "public_equity", 100, "target"),
+      alloc(2013, "public_equity", 100, "actual"),
+    ])!;
+    expect(data.poolYears).toEqual([2001, 2003, 2004]);
+    expect(data.poolYearsFormPrefix).toBe(true);
+    // Gap years between pool years do not become pool years.
+    expect(data.poolYears).not.toContain(2002);
+  });
+
+  it("refuses the prefix claim when a pool year sits mid-series", () => {
+    const data = toAllocationChartData([
+      alloc(2001, "public_equity", 100, "actual"),
+      alloc(2003, "public_equity", 100, "actual", POOL_SRC),
+      alloc(2005, "public_equity", 100, "actual"),
+    ])!;
+    expect(data.poolYears).toEqual([2003]);
+    // FY2001 is endowment-basis and precedes the pool year, so no boundary line
+    // may be drawn; the chart must mark FY2003 individually instead.
+    expect(data.poolYearsFormPrefix).toBe(false);
+  });
 });
 
 const ret = (fiscalYear: number, returnPct: number | null): EndowmentReturnRow => ({

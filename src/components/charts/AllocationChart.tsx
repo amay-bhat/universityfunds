@@ -35,6 +35,7 @@ export function AllocationChart({
   const rows = data.years.map((y) => ({
     fiscalYear: y.fiscalYear,
     basis: y.basis,
+    universe: y.universe,
     ...y.values,
   }));
 
@@ -72,6 +73,24 @@ export function AllocationChart({
         ? `Through FY${data.targetYears[data.targetYears.length - 1]} these are the school's published target mixes (its policy portfolio); later years are what it actually held.`
         : `${fyList(data.targetYears)} ${data.targetYears.length === 1 ? "shows the mix the school said it was targeting" : "show the mixes the school said it was targeting"} (its policy portfolio); every other year is what it actually held.`;
 
+  // The pool-universe break is annotated ON the chart (pool-basis [PROXY
+  // DECISION], obligation 5 limb 2; Article 4). Channel choice: `fillOpacity` is
+  // already spent on target-vs-actual, and the dataviz skill's "one distinction,
+  // one channel" rule sends a second distinction to position / a reference line
+  // / a marker. A reference line is also the mechanism class the ruling pinned
+  // ("the Harvard mixed-basis treatment"), and it needs no new colour — which
+  // matters while `scripts/validate_palette.js` is missing and no new hue can be
+  // certified.
+  //
+  // A boundary line asserts "everything before this is the other universe", so
+  // it may only be drawn for a prefix. Otherwise each pool year is marked at its
+  // own tick, which claims nothing about the years between.
+  const poolBoundaryYear =
+    data.poolYears.length > 0 && data.poolYearsFormPrefix
+      ? data.poolYears[data.poolYears.length - 1]
+      : null;
+  const poolTickYears = new Set(poolBoundaryYear === null ? data.poolYears : []);
+
   // Article 4: a different measurement universe drawn in the same series needs a
   // caveat where the reader sees the chart, not in fine print.
   const poolSentence =
@@ -93,6 +112,12 @@ export function AllocationChart({
               publish a mix — nothing is estimated or filled in.{" "}
             </span>
           )}
+          {poolTickYears.size > 0 && (
+            <span>
+              Years marked &dagger; describe the school&rsquo;s investment pool rather than the
+              endowment itself.{" "}
+            </span>
+          )}
           <span>Percentages are the school&rsquo;s own reported figures.</span>
         </>
       }
@@ -110,7 +135,9 @@ export function AllocationChart({
             tick={{ fontSize: 11, fill: "var(--viz-muted)" }}
             tickLine={false}
             axisLine={{ stroke: "var(--viz-axis)" }}
-            tickFormatter={(v: number) => `'${String(v).slice(2)}`}
+            tickFormatter={(v: number) =>
+              `'${String(v).slice(2)}${poolTickYears.has(v) ? "\u2020" : ""}`
+            }
             interval="preserveStartEnd"
           />
           <YAxis
@@ -130,10 +157,19 @@ export function AllocationChart({
             cursor={{ fill: "var(--viz-grid)", fillOpacity: 0.4 }}
             content={({ active, payload, label }) => {
               if (!active || !payload || payload.length === 0) return null;
-              const basis = (payload[0]?.payload as { basis?: string | null })?.basis;
+              const point = payload[0]?.payload as {
+                basis?: string | null;
+                universe?: string | null;
+              };
+              // Both distinctions surface here, since the tooltip is where a
+              // reader interrogates one specific year.
+              const marks = [
+                point?.basis === "target" ? "published target" : null,
+                point?.universe === "investment_pool" ? "investment pool" : null,
+              ].filter(Boolean);
               return (
                 <VizTooltipBox
-                  title={`FY${label}${basis === "target" ? " — published target" : ""}`}
+                  title={`FY${label}${marks.length > 0 ? ` — ${marks.join(", ")}` : ""}`}
                   rows={[...payload]
                     .reverse()
                     .filter((p) => typeof p.value === "number")
@@ -182,6 +218,35 @@ export function AllocationChart({
               <Label
                 value={`targets through FY${data.targetYears[data.targetYears.length - 1]} →`}
                 position="top"
+                stroke="var(--viz-surface)"
+                strokeWidth={3}
+                paintOrder="stroke"
+                fill="var(--viz-text-2)"
+                fontSize={11}
+              />
+            </ReferenceLine>
+          )}
+          {/* On-chart labels carry a surface-coloured halo (paintOrder=stroke):
+              they sit over columns whenever a stack reaches the top of the plot.
+              Step 7 caught MIT's coverage-end label rendered unreadably over its
+              100%-tall FY2013–FY2015 columns — Yale's was legible only because
+              its stacks top out near 87%, so the defect is data-dependent. */}
+          {poolBoundaryYear !== null && (
+            <ReferenceLine
+              x={poolBoundaryYear}
+              stroke="var(--viz-axis)"
+              strokeWidth={1}
+              strokeDasharray="4 3"
+            >
+              <Label
+                value={`investment pool through FY${poolBoundaryYear} \u2192`}
+                position="top"
+                stroke="var(--viz-surface)"
+                strokeWidth={3}
+                paintOrder="stroke"
+                // Offset so this never collides with the targets boundary label
+                // if a school ever carries both distinctions as prefixes.
+                dy={data.targetsFormPrefix ? -14 : 0}
                 fill="var(--viz-text-2)"
                 fontSize={11}
               />
@@ -192,6 +257,9 @@ export function AllocationChart({
               <Label
                 value={`last disclosed: FY${lastDisclosed}`}
                 position="insideTopRight"
+                stroke="var(--viz-surface)"
+                strokeWidth={3}
+                paintOrder="stroke"
                 fill="var(--viz-text)"
                 fontSize={11}
               />

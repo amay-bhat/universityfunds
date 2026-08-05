@@ -16,7 +16,8 @@
     "seed:verify": "tsx scripts/verify-seed-validator.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify:term-bubble": "node scripts/verify-term-bubble.mjs"
+    "verify:term-bubble": "node scripts/verify-term-bubble.mjs",
+    "verify:alloc-annotations": "node scripts/verify-allocation-annotations.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

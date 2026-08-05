@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { NO_PROXY_TICKER } from "@/lib/constants";
 import { getProxyMappings, getSources } from "@/lib/queries";
 import { categoryLabel } from "@/lib/chart-theme";
@@ -42,6 +43,11 @@ export default async function MethodologyPage() {
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
           The rule behind everything here: <strong>no citation, no number</strong>. This page
           lists every source, explains every known gap in plain English, and spells out the math.
+          Any finance word on this site is defined in the{" "}
+          <Link href="/glossary" className="underline underline-offset-4">
+            glossary
+          </Link>
+          .
         </p>
         <nav aria-label="On this page" className="flex flex-wrap gap-x-4 gap-y-1 pt-2 text-sm">
           {sections.map((s) => (

@@ -1,7 +1,10 @@
 // One shared glossary so a term is defined identically everywhere it appears
 // (PRD rule 3: define any term a smart 22-year-old outside finance wouldn't
-// know, on first use). Pages surface these through <Term> — see
-// src/components/Term.tsx.
+// know, on first use). Pages surface these two ways, both reading this object,
+// so a definition can never drift between them:
+//   - inline, through <Term> (src/components/Term.tsx), which floats the
+//     definition in a bubble beside the word;
+//   - all together, on the /glossary page.
 
 export const GLOSSARY = {
   endowment:
@@ -45,3 +48,29 @@ export const GLOSSARY = {
 } as const;
 
 export type GlossaryTerm = keyof typeof GLOSSARY;
+
+/**
+ * URL-fragment id for a term, so a definition on the glossary page can be
+ * linked to directly (/glossary#fiscal-year). Uniqueness across the glossary is
+ * asserted in src/lib/__tests__/glossary.test.ts — two terms colliding here
+ * would silently make one anchor unreachable.
+ */
+export function glossarySlug(term: string): string {
+  return term
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Every term, alphabetized for display. Numeric-aware so "60/40" sorts as sixty
+ * rather than as the characters 6 and 0, and case-insensitive so "ETF" files
+ * under E rather than ahead of every lowercase term.
+ */
+export const GLOSSARY_ENTRIES: {
+  term: GlossaryTerm;
+  slug: string;
+  definition: string;
+}[] = (Object.keys(GLOSSARY) as GlossaryTerm[])
+  .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base", numeric: true }))
+  .map((term) => ({ term, slug: glossarySlug(term), definition: GLOSSARY[term] }));

@@ -31,6 +31,7 @@ export const FEATURE_ACCENT = {
   translate: { text: "text-amber-700 dark:text-amber-400", border: "hover:border-amber-400 dark:hover:border-amber-600", chip: "bg-amber-600" },
   compare: { text: "text-emerald-700 dark:text-emerald-400", border: "hover:border-emerald-400 dark:hover:border-emerald-600", chip: "bg-emerald-600" },
   methodology: { text: "text-violet-700 dark:text-violet-400", border: "hover:border-violet-400 dark:hover:border-violet-600", chip: "bg-violet-600" },
+  glossary: { text: "text-rose-700 dark:text-rose-400", border: "hover:border-rose-400 dark:hover:border-rose-600", chip: "bg-rose-600" },
 } as const;
 
 // The five school colors as one hairline gradient — the site's quiet

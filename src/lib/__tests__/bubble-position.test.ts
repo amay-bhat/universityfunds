@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { bubbleWidth, computeBubblePosition, isTriggerOffscreen } from "../bubble-position";
+import {
+  bubbleMaxHeight,
+  bubbleWidth,
+  computeBubblePosition,
+  isTriggerOffscreen,
+} from "../bubble-position";
 
 // Every expected value below is computed by hand from the constants
-// (GAP 8, MARGIN 12, MAX_WIDTH 320, ARROW_INSET 14), never by running the code
-// under test.
+// (GAP 8, MARGIN 12, MAX_WIDTH 320), never by running the code under test.
 
 describe("bubbleWidth", () => {
   it("caps at the max width on wide viewports", () => {
@@ -18,6 +22,32 @@ describe("bubbleWidth", () => {
 
   it("never goes negative", () => {
     expect(bubbleWidth(10)).toBe(0);
+  });
+});
+
+describe("bubbleMaxHeight", () => {
+  it("leaves a margin at top and bottom", () => {
+    expect(bubbleMaxHeight(800)).toBe(776);
+    expect(bubbleMaxHeight(340)).toBe(316); // landscape phone
+  });
+
+  it("never goes negative", () => {
+    expect(bubbleMaxHeight(10)).toBe(0);
+  });
+
+  // The point of the cap: at 200% text zoom a long definition can measure taller
+  // than the whole viewport. Capped, it scrolls inside the bubble; uncapped, the
+  // screen edge cut it off with no way to reach the rest (WCAG 1.4.4).
+  it("bounds the bubble so a placement always fits on screen", () => {
+    const viewport = { width: 667, height: 340 };
+    const height = bubbleMaxHeight(viewport.height);
+    const p = computeBubblePosition(
+      { left: 100, right: 200, top: 140, bottom: 171 },
+      { width: bubbleWidth(viewport.width), height },
+      viewport,
+    );
+    expect(p.top).toBeGreaterThanOrEqual(12);
+    expect(p.top + height).toBeLessThanOrEqual(340 - 12);
   });
 });
 
@@ -41,17 +71,16 @@ describe("isTriggerOffscreen", () => {
 });
 
 describe("computeBubblePosition", () => {
-  it("sits below the word when there is room, arrow pointing at it", () => {
+  it("sits below the word when there is room", () => {
     // roomBelow = 800 - 316 - 8 - 12 = 464 > height 100, so no flip.
     // top = 316 + 8 = 324. center = 120. left = clamp(120 - 160, 12, 948) = 12.
-    // arrowLeft = clamp(120 - 12, 14, 306) = 108.
     expect(
       computeBubblePosition(
         { left: 100, right: 140, top: 300, bottom: 316 },
         { width: 320, height: 100 },
         { width: 1280, height: 800 },
       ),
-    ).toEqual({ left: 12, top: 324, arrowLeft: 108, above: false });
+    ).toEqual({ left: 12, top: 324, above: false });
   });
 
   it("flips above when it does not fit below and above is roomier", () => {
@@ -63,27 +92,12 @@ describe("computeBubblePosition", () => {
         { width: 320, height: 120 },
         { width: 1280, height: 800 },
       ),
-    ).toEqual({ left: 465, top: 572, arrowLeft: 160, above: true });
+    ).toEqual({ left: 465, top: 572, above: true });
   });
 
-  it("stays below when it fits nowhere, pinned so the definition starts on screen", () => {
-    // roomBelow = 400 - 196 - 20 = 184; roomAbove = 180 - 20 = 160.
-    // Height 300 exceeds both, and flipping would be worse, so it stays below —
-    // but 196 + 8 = 204 would hang 116px off the bottom, so the vertical clamp
-    // pulls it to 400 - 300 - 12 = 88, putting the whole bubble on screen.
-    const p = computeBubblePosition(
-      { left: 100, right: 140, top: 180, bottom: 196 },
-      { width: 320, height: 300 },
-      { width: 1280, height: 400 },
-    );
-    expect(p.above).toBe(false);
-    expect(p.top).toBe(88);
-    expect(p.top + 300).toBeLessThanOrEqual(400 - 12);
-  });
-
-  it("prefers a roomier flip over clamping (a low word on a tall window)", () => {
+  it("prefers a roomier flip over squeezing the bubble", () => {
     // roomBelow = 800 - 700 - 20 = 80 < height 100, and roomAbove = 664 is far
-    // roomier, so it flips rather than being squeezed: 684 - 8 - 100 = 576.
+    // roomier: 684 - 8 - 100 = 576.
     const p = computeBubblePosition(
       { left: 100, right: 140, top: 684, bottom: 700 },
       { width: 320, height: 100 },
@@ -93,8 +107,7 @@ describe("computeBubblePosition", () => {
     expect(p.top).toBe(576);
   });
 
-  it("clamps the bottom edge when neither side fits and above is tighter", () => {
-    // A tall definition on a short window, word near the top:
+  it("clamps into the viewport when neither side fits and above is tighter", () => {
     // roomBelow = 300 - 56 - 20 = 224 < height 260, but roomAbove = 20 is worse,
     // so it stays below — and 56 + 8 = 64 would hang 36px off the bottom, so the
     // clamp pulls it to 300 - 260 - 12 = 28.
@@ -120,27 +133,15 @@ describe("computeBubblePosition", () => {
     expect(p.top).toBe(12);
   });
 
-  it("keeps a phone-width bubble on screen, arrow still tracking the word", () => {
-    // A word near the right edge at 375px: left clamps to 375 - 320 - 12 = 43,
-    // and the arrow shifts to 345 - 43 = 302 so it still points at the word.
+  it("keeps a phone-width bubble on screen", () => {
+    // A word near the right edge at 375px: left clamps to 375 - 320 - 12 = 43.
     expect(
       computeBubblePosition(
         { left: 330, right: 360, top: 100, bottom: 116 },
         { width: 320, height: 90 },
         { width: 375, height: 667 },
       ),
-    ).toEqual({ left: 43, top: 124, arrowLeft: 302, above: false });
-  });
-
-  it("holds the arrow inside the rounded corners", () => {
-    // center - left = 3, below the 14px inset, so the arrow is pushed in.
-    const p = computeBubblePosition(
-      { left: 10, right: 20, top: 50, bottom: 66 },
-      { width: 276, height: 80 },
-      { width: 300, height: 500 },
-    );
-    expect(p.left).toBe(12);
-    expect(p.arrowLeft).toBe(14);
+    ).toEqual({ left: 43, top: 124, above: false });
   });
 
   it("never lands off the left edge when the bubble is wider than the viewport", () => {
@@ -151,5 +152,32 @@ describe("computeBubblePosition", () => {
       { width: 300, height: 500 },
     );
     expect(p.left).toBe(12);
+  });
+
+  // Invariant over a spread of positions and sizes rather than one case: the
+  // bubble must always be fully on screen, whatever the word does. The bubble is
+  // allowed to overlap its own word (which is why it carries no arrow), but it
+  // may never leave the viewport.
+  it("keeps every placement inside the viewport across a sweep", () => {
+    for (const vh of [200, 340, 667, 800]) {
+      for (const vw of [320, 375, 768, 1280]) {
+        const width = bubbleWidth(vw);
+        for (const h of [40, 90, 160, bubbleMaxHeight(vh)]) {
+          const height = Math.min(h, bubbleMaxHeight(vh));
+          for (let y = 0; y < vh; y += 17) {
+            const p = computeBubblePosition(
+              { left: 10, right: 90, top: y, bottom: y + 16 },
+              { width, height },
+              { width: vw, height: vh },
+            );
+            const where = `vw${vw} vh${vh} h${height} y${y}`;
+            expect(p.left, where).toBeGreaterThanOrEqual(0);
+            expect(p.top, where).toBeGreaterThanOrEqual(0);
+            expect(p.left + width, where).toBeLessThanOrEqual(vw);
+            expect(p.top + height, where).toBeLessThanOrEqual(vh);
+          }
+        }
+      }
+    }
   });
 });

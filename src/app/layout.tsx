@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SCHOOL_GRADIENT } from "@/lib/school-theme";
+import { TermAnnouncer } from "@/components/TermAnnouncer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -73,6 +74,8 @@ export default function RootLayout({
         <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
           {children}
         </main>
+        {/* One always-mounted live region that speaks <Term> definitions. */}
+        <TermAnnouncer />
         <footer>
           <div aria-hidden="true" className="h-0.5" style={{ background: SCHOOL_GRADIENT }} />
           <div className="mx-auto flex max-w-5xl flex-wrap items-baseline gap-x-2 gap-y-1 px-4 py-3.5 text-xs text-zinc-500 sm:px-6 dark:text-zinc-400">

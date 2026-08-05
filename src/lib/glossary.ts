@@ -16,6 +16,8 @@ export const GLOSSARY = {
   ETF: "Exchange-traded fund — a fund holding a basket of investments that trades on a stock exchange like a single share. The kind of thing anyone with a brokerage account can buy.",
   benchmark:
     "A simple reference portfolio, like the S&P 500, used as a yardstick to judge performance against.",
+  "index fund":
+    "A fund that simply holds everything in a market index, such as the S&P 500, instead of paying managers to pick winners. Usually very cheap, and the plain alternative this site measures the endowments against.",
   "S&P 500":
     "An index of about 500 of the largest US companies — the standard shorthand for 'the US stock market.' We use its total-return version, which includes reinvested dividends.",
   "60/40":

@@ -23,13 +23,13 @@ export default function GlossaryPage() {
         </p>
         <h1 className="text-3xl font-semibold tracking-tight">Glossary</h1>
         <p className="max-w-2xl text-zinc-600 dark:text-zinc-400">
-          Finance has a lot of jargon, and none of it is hard once someone says what it means. Every
-          term this site uses is here, in plain English. Where one of them turns up in the
-          site&rsquo;s own writing it carries a small{" "}
-          <span className="text-rose-700 dark:text-rose-400">°</span> mark — click the word and its
-          definition floats up beside it.
+          Finance has a lot of jargon, and none of it is hard once someone says what it means. These
+          are the finance words this site uses, in plain English. Many of them carry a small{" "}
+          <span className="text-sky-700 dark:text-sky-400">°</span> mark where they appear in the
+          site&rsquo;s own writing — click the word and its definition floats up beside it. This page
+          is the full list either way.
         </p>
-        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           {GLOSSARY_ENTRIES.length} terms, alphabetically.
         </p>
       </header>

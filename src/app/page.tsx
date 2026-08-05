@@ -127,7 +127,7 @@ export default async function HomePage() {
             </li>
           ))}
         </ul>
-        <p className="text-sm text-zinc-500 dark:text-zinc-500">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           Endowment sizes as each school last reported them. Data runs FY2000–FY2025 and is
           updated by hand once a year.
         </p>

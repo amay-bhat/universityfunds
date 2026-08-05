@@ -24,7 +24,10 @@ import { ComparePicker, type CompareSchoolOption } from "@/components/ComparePic
 import { FEATURE_ACCENT } from "@/lib/school-theme";
 import { GrowthChart, type GrowthSeries } from "@/components/charts/GrowthChart";
 
-export const revalidate = 3600;
+// NOTE: no `revalidate` here on purpose. This route awaits `searchParams`,
+// which makes it fully dynamic (build legend: f Dynamic, no revalidate
+// value). An `export const revalidate` line was present until 2026-08-05
+// and was dead code implying caching that never happened.
 const MAX_YEAR = 2025;
 
 export const metadata: Metadata = {
@@ -218,9 +221,21 @@ export default async function ComparePage({
 
       <section className="viz-root space-y-3">
         <h2 className="text-xl font-semibold">The numbers</h2>
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        {/* tabIndex: a scroll container with no focusable descendants is not
+            keyboard-operable (WCAG 2.1.1). Chrome >=127 focuses scrollers
+            implicitly, which is why this was invisible in Chrome-only testing;
+            Firefox and Safari do not. Cross-browser audit 2026-08-05 found this
+            container an orphan below ~700px - every phone, and desktop at 400%
+            zoom. Labelled by the table's own caption so the tab stop announces
+            what it is. */}
+        <div
+          className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800"
+          tabIndex={0}
+          role="group"
+          aria-labelledby="compare-summary-table-caption"
+        >
           <table className="w-full min-w-[36rem] border-collapse text-sm">
-            <caption className="sr-only">
+            <caption id="compare-summary-table-caption" className="sr-only">
               Annualized return and best/worst years, FY{from + 1}–FY{to}
             </caption>
             <thead>

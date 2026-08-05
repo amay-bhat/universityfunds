@@ -25,7 +25,10 @@ import { SchoolYearPicker, type PickerSchool } from "@/components/SchoolYearPick
 import { FEATURE_ACCENT } from "@/lib/school-theme";
 import { GrowthChart, type GrowthSeries } from "@/components/charts/GrowthChart";
 
-export const revalidate = 3600;
+// NOTE: no `revalidate` here on purpose. This route awaits `searchParams`,
+// which makes it fully dynamic (build legend: f Dynamic, no revalidate
+// value). An `export const revalidate` line was present until 2026-08-05
+// and was dead code implying caching that never happened.
 
 export const metadata: Metadata = {
   alternates: { canonical: "/translate" },
@@ -282,9 +285,21 @@ async function TranslationResult({
             endowment itself &mdash; because that is the only mix it published for this year.
           </p>
         )}
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        {/* tabIndex: a scroll container with no focusable descendants is not
+            keyboard-operable (WCAG 2.1.1). Chrome >=127 focuses scrollers
+            implicitly, which is why this was invisible in Chrome-only testing;
+            Firefox and Safari do not. Cross-browser audit 2026-08-05 found this
+            container an orphan below ~700px - every phone, and desktop at 400%
+            zoom. Labelled by the table's own caption so the tab stop announces
+            what it is. */}
+        <div
+          className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800"
+          tabIndex={0}
+          role="group"
+          aria-labelledby="translate-etf-table-caption"
+        >
           <table className="w-full min-w-[42rem] border-collapse text-sm">
-            <caption className="sr-only">
+            <caption id="translate-etf-table-caption" className="sr-only">
               {schoolName}&rsquo;s FY{year} allocation translated into ETFs
             </caption>
             <thead>

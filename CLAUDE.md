@@ -21,7 +21,10 @@ Free, public, no-login web app showing everyday DIY investors how famous univers
 
 ## Stack
 
-- Next.js (App Router, TypeScript, Tailwind) on Vercel (Pro). Prefer Vercel-native components/integrations.
+- Next.js (App Router, TypeScript, Tailwind) on Vercel (**Hobby plan** — corrected 2026-08-05; PRD and this file both said Pro,
+  while `TASKS.md:306` records the team is on Hobby. This decides whether an overrun
+  is a bill or a hard outage, so do not assume Pro limits). Prefer Vercel-native
+  components/integrations.
 - Neon Postgres via Vercel's native integration; connection string in `.env.local` (gitignored) via `vercel env pull`.
 - Hand-curated seed data in `data/` is the **source of truth**; `npm run seed` loads it into Neon. Never edit the DB directly — edit seed files and re-seed.
 - Repo: https://github.com/amaybhat-creator/universityfunds — pushing to main auto-deploys.

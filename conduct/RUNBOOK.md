@@ -18,8 +18,8 @@ most important fact in this file:
 | `/explore/{school}` | **200** |
 | `/methodology` | **200** |
 | `/glossary` | **200** |
-| `/compare` | 500 |
-| `/translate` | 500 |
+| `/compare` | 200 (streaming shell, then the error boundary) |
+| `/translate` | 200 (streaming shell, then the error boundary) |
 | `/api/health` | **503** |
 
 **Five of eight routes return 200 during a total database outage**, because they
@@ -40,14 +40,50 @@ features were hard-failing.
   `Error reference:` digest, and **that digest is the correlation key** — a reader
   quoting it lets you find the exact stack in Vercel logs. This is the whole
   reporting loop; treat the digest as load-bearing, not decoration.
+- **There is NO query timeout or retry, anywhere in the stack.** This is a known
+  open risk, and a *slow* Neon is worse than a dead one: dead fails in ~10ms, slow
+  holds the function open until Vercel's own timeout ends it. **A slow-but-alive
+  Neon is the untested scenario**, and simulating it needs driver-level or
+  privileged network interception.
+
+  A fix was attempted on 2026-08-05 and **reverted**, because the obvious form of
+  it is a trap worth knowing about:
+  `neon(url, { fetchOptions: { signal: AbortSignal.timeout(3000) } })` puts ONE
+  signal in a static object merged into every fetch, so it aborts 3s after module
+  load and then poisons every query for the life of the process. Measured:
+  `/api/health` reported `db: "unreachable"` within seconds of boot while the
+  static routes kept serving 200 — page-level monitoring would never have caught
+  it. The correct shape is `neonConfig.fetchFunction` returning a fresh signal per
+  call; it is recorded in `src/lib/db/index.ts` and left unapplied until its abort
+  path can actually be observed firing.
 - Client-side errors are logged to the browser console only and are **not**
   transmitted. That is deliberate: there is no privacy policy on the site yet, so
   adding beaconing would widen a known gap to buy telemetry. Revisit once a
   privacy policy exists.
 
-**Graceful degradation, as measured:** static routes keep serving stale-but-true
-data, dynamic routes render the friendly error boundary with a 500 status. Nobody
-sees a raw stack. That is acceptable behaviour, not a bug to fix.
+**Graceful degradation, as measured — and this section was wrong when first
+written on 2026-08-05.** The original claim was that dynamic routes "render the
+friendly error boundary with a 500 status. Nobody sees a raw stack. That is
+acceptable behaviour, not a bug to fix." Only the status code had been checked,
+never the response body. When the load-resilience audit looked at the body, it
+found `/compare` returned **500 whose only visible text was the `<title>`** — no
+`<main>`, no navigation, no footer, and **not the site-wide disclaimer**. The
+`error.tsx` boundary is a client component, so it renders only after hydration:
+a no-JS visitor or a crawler got a blank white page. Blessing that as acceptable
+was the same premature-completion error this audit exists to catch.
+
+Root cause was a missing `loading.tsx`, not `error.tsx`. Without a loading
+boundary Next buffers the whole response, so a throw means the shell never
+reaches the client. With `src/app/loading.tsx` added, the same outage now yields
+**200 with the full layout** — skip link, navigation, `<main>`, `<footer>`, and
+the disclaimer — followed by the error boundary once JS runs. Re-measured after
+the fix.
+
+**Note the consequence for monitoring:** those two routes now return **200**
+during a database outage rather than 500, because streaming flushes the shell
+before the page can fail. That makes page-level uptime checks even less
+informative than the table above already showed, and is another reason the probe
+must be `/api/health`.
 
 ---
 

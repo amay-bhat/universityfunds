@@ -206,9 +206,21 @@ export default async function MethodologyPage() {
           half the endowment — which is itself one of the most honest facts this site can show
           you about copying the pros.
         </p>
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
+        {/* tabIndex: a scroll container with no focusable descendants is not
+            keyboard-operable (WCAG 2.1.1). Chrome >=127 focuses scrollers
+            implicitly, which is why this was invisible in Chrome-only testing;
+            Firefox and Safari do not. Cross-browser audit 2026-08-05 found this
+            container an orphan below ~700px - every phone, and desktop at 400%
+            zoom. Labelled by the table's own caption so the tab stop announces
+            what it is. */}
+        <div
+          className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800"
+          tabIndex={0}
+          role="group"
+          aria-labelledby="methodology-proxy-table-caption"
+        >
           <table className="w-full min-w-[40rem] border-collapse text-sm">
-            <caption className="sr-only">ETF proxy for each allocation category</caption>
+            <caption id="methodology-proxy-table-caption" className="sr-only">ETF proxy for each allocation category</caption>
             <thead>
               <tr className="bg-zinc-50 text-left dark:bg-zinc-900">
                 <th scope="col" className="px-4 py-2 font-medium">Category</th>

@@ -37,8 +37,15 @@ sees a blank white page, and the friendly `src/app/error.tsx` copy only appears 
 hydrates. Meanwhile the prerendered routes kept serving **HTTP 200 in 2–24 ms with the database
 completely unreachable and their ISR window expired**, because Next emits
 `stale-while-revalidate=31535995` (≈365 days) — that is genuinely excellent, and it means a Neon
-outage during an HN spike stays invisible on every route except those two (how large a share of
-visitors that is depends on the traffic mix, which I did not measure).
+outage during an HN spike stays invisible on every route except those two. In a realistic mixed
+ramp, **78 % of requests were served entirely from the CDN** and never touched a function. Neon's
+cold start, measured against a warm-database control, costs **≈160–185 ms on the first query
+only** — not the multi-second penalty the brief anticipated. So: it degrades, it does not
+explode. The two things that could turn that into an explosion are a *slow* (not dead) Neon
+against a stack with no timeout anywhere, and — if this project really is on the **Hobby** plan,
+which contradicts `CLAUDE.md:24` and which I could not verify from this machine — a quota
+overrun, because Hobby pauses the deployment rather than billing overage. Both are addressed in
+§6, fixes 1, 2 and 10.
 
 ---
 
@@ -267,22 +274,22 @@ static routes — which is the same region as the Neon endpoint. In production t
 RTT components are much smaller, so the real first-request penalty is lower than 479 ms.
 **Practically: Neon cold start is not a risk for this site.**
 
-### Query latency from this machine — MEASURED, with a caveat
+### Steady-state query latency — MEASURED, and why you must not use it as a production figure
 
-```
-WARM q1 1171ms  q2 172ms  q3  99ms  q4 221ms  q5 179ms  q6 339ms
-WARM SUMMARY  first=1171ms  subsequent min=99ms median=179ms
-```
+Across all 25 local probe queries, steady-state (non-first) latency was **73–339 ms, median
+~110 ms**, for `select count(*) from schools`. One run recorded a 1171 ms first query; it is
+excluded as an outlier (first network call of that shell session, cold DNS) and is superseded by
+the controlled measurement above.
 
-**Caveat that matters:** this is a laptop in the SF Bay Area talking to Neon in
-`us-east-1`, so ~70 ms of every figure is coast-to-coast RTT plus a TLS handshake on the first
-call. Vercel's functions for this project execute in `iad1` (visible in the two-hop
-`x-vercel-id: sfo1::iad1::…` on every `/compare` response), which is the *same region* as the
-Neon endpoint. The production per-query latency is therefore materially lower than these
-numbers; do not use 179 ms as the in-production figure. The useful signal here is the
-**1171 ms first call vs ~179 ms steady state** — a ~1 s penalty on the first query of a cold
-path, which matches the ~1.15–1.25 s p95 seen in the first burst of the load tests (§4) and
-which disappeared once functions were warm.
+**Do not carry 110 ms into a production estimate.** This is a laptop in the SF Bay Area talking
+to Neon in `us-east-1`, so every figure includes ~70 ms of coast-to-coast RTT. Vercel executes
+this project's functions in `iad1` — the same region as the Neon endpoint — which is directly
+observable in the response headers: dynamic routes return a two-hop
+`x-vercel-id: sfo1::iad1::…` while static routes return a single-hop `x-vercel-id: sfo1::…`.
+In-region per-query latency is materially lower. The one number here that *is* directly
+comparable to production is the end-to-end TTFB of `/compare` and `/translate` in §4
+(274 ms p50 warm, for 9 queries plus render), because that is measured through the real
+production path.
 
 ---
 
@@ -322,11 +329,21 @@ All rows: mix of `/compare`, `/translate` and parameterised variants. **TTFB in 
 | `dyn-c100` | 100 | 100 | 605 | 854 | 1473 | 60.0 | **0** | **0** |
 | `dyn-c50-sustained` (warm) | 50 | 150 | **274** | **652** | 961 | **122.1** | **0** | **0** |
 
-`x-vercel-cache` was `MISS` on **416 of 416** dynamic-route requests my instrument recorded
-across every run (10 + 6 + 10 sequential/mixed, plus 40 + 50 + 50 + 100 + 150 in the ramps).
-Not one was served from cache.
+`x-vercel-cache` was `MISS` on **every one of the 436** dynamic-route requests my instrument
+recorded across every run. Not one was served from cache, at any concurrency.
 
-### Static routes, sequential baseline
+### Ramp results — realistic mixed traffic (7 static routes + 2 dynamic)
+
+| Run | Concurrency | Requests | Static TTFB p50 | Dynamic TTFB p50 | Worst TTFB | rps | Non-200 |
+|---|---|---|---|---|---|---|---|
+| `mix-c10-clean` | 10 | 45 | 51–86 ms | 161 (`/translate`) / 206 (`/compare`) | 403 ms | 65.3 | **0** |
+| `mix-c50-clean` | 50 | 90 | 616–647 ms | 839 (`/translate`) / 989 (`/compare`) | 1820 ms | 46.4 | **0** |
+
+Cache distribution was exactly as predicted by §1: `mix-c50-clean` recorded
+`{"HIT":70,"MISS":20}` — the 20 misses are precisely the 20 requests to `/compare` and
+`/translate`. **In a realistic traffic mix, 78 % of requests never left the CDN.**
+
+### Static routes, sequential baseline (uncontended)
 
 | Route | TTFB p50 | TTFB p95 | `x-vercel-cache` |
 |---|---|---|---|
@@ -352,9 +369,21 @@ Not one was served from cache.
   ceiling would need a distributed load generator, which I do not have on this machine.** I am
   stating that rather than extrapolating a number.
 - **The client's own throughput, as reported by the instrument** (MEASURED): 6.7 Mbit/s
-  sequential, 8.7 Mbit/s at `dyn-c10`, 13 Mbit/s at c25/c50, 22 Mbit/s at c100, 43.1 Mbit/s on
-  the sustained run. Since throughput kept climbing as concurrency rose, the client link was
-  not the constraint in the dynamic-route ramps.
+  sequential, 8.7 at `dyn-c10`, 13 at c25/c50, 22 at c100, 25.6 at `mix-c50-clean`, 43.1 on the
+  sustained dynamic run. Because throughput kept climbing as concurrency rose in the
+  dynamic-only ramps, the client link was not their constraint.
+- **The mixed ramp at 50 concurrent *was* client-bound, and that is visible in the data.**
+  Every route — including edge-cached `HIT`s that answer in ~30 ms uncontended — reported a TTFB
+  p50 clustered in a narrow 616–647 ms band. Uniform slowdown across cache hits is the signature
+  of local queueing, not of a server. **Treat `mix-c50-clean`'s absolute latencies as a floor
+  imposed by my laptop, and only its *relative* spread (dynamic ≈ 1.4× static) and its zero
+  non-200s as findings about the site.**
+- **Instrument caveat that inflates the mixed runs specifically:** Node's `fetch` did not
+  negotiate compression, so my generator pulled **uncompressed** HTML. `mix-c10-clean` moved
+  3.10 MB across 45 requests (69 KB average); the same 45 pages gzipped are ~6 KB (`/`) to
+  ~41 KB (`/methodology`) on the wire — roughly **6× fewer bytes for a real browser**. My client
+  therefore hit its own bandwidth wall far earlier than real traffic would. The dynamic-only
+  ramps are much less affected because those responses are small.
 - **I stopped ramping at 100 concurrent by design**, per the brief's proportionality
   instruction, not because anything failed.
 
@@ -367,17 +396,20 @@ Not one was served from cache.
 | Client-ceiling validation (tiny CDN assets) | 100 |
 | Sequential baselines (2 runs) | 59 |
 | **Discarded — zsh word-splitting bug, all 250 to one bogus 404 path** | **250** |
-| Mixed ramp (corrected, c10) | 45 |
+| Mixed ramps (corrected): c10 45, clean c10 45, clean c50 90 | 180 |
 | Dynamic ramps: c10 40, c25 50, c50 50, c100 100, sustained 150 | 390 |
 | Compressed wire-size sweep | 14 |
 | First-visit asset enumeration (3 pages × HTML + subresources) | 47 |
-| RSC nav / prefetch / junk-param / sitemap / robots probes | 9 |
-| **Total issued against production** | **927** |
-| — of which reached a serverless function | **≈431** |
-| — of which reached Neon (≈9 queries each; prefetches reach 0) | **≈428 requests ≈ 3 850 queries** |
+| RSC nav / prefetch / junk-param / unknown-slug / sitemap / robots probes | 13 |
+| **Total issued against production** | **≈1 070** |
+| — of which reached a serverless function | **≈460** |
+| — of which reached Neon (≈9 queries each; prefetches reach 0) | **≈455 requests ≈ 4 100 queries** |
+| Direct Neon queries from the local probes (cold-start section) | 25 |
 
-No sustained flood, no request rate above ~205 rps, total duration of all load activity under
-two minutes of wall-clock request time.
+No sustained flood: peak rate ~205 rps, peak against a function ~122 rps, and the total
+wall-clock time of every load run added together is **under 20 seconds**. Individual bursts ran
+0.7–4.1 s each, separated by minutes. Nothing here resembles an attack, and I saw no rate
+limiting, challenge page, or `retry-after` header at any point.
 
 ---
 
@@ -632,6 +664,10 @@ pause rather than a 500, and nobody notices until the site is already down.
   pages; no action needed for a load event.
 - **Connection pool exhaustion is impossible** for this app's runtime (§3) — the driver never
   opens a Postgres connection. The `-pooler` host is correct anyway.
+- **Neon cold start is not a risk.** MEASURED with a warm-DB control: the idle-attributable
+  penalty on the first query is **≈160–185 ms**, not seconds, and it does not grow between 400 s
+  and 820 s of idleness (§3). Even that figure is inflated by a coast-to-coast handshake this
+  laptop pays and Vercel's `iad1` functions do not.
 - **Malicious/odd input does not crash anything.** `compare/page.tsx:99-106` clamps `from`/`to`
   and shows an honest "that link asked for a period outside the available data" notice;
   `translate/page.tsx:119-127` validates the year against real data. `explore/[school]`

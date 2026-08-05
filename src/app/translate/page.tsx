@@ -28,6 +28,7 @@ import { GrowthChart, type GrowthSeries } from "@/components/charts/GrowthChart"
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/translate" },
   title: "Copy the Pros — the Translator",
   description:
     "A school's endowment mix translated into ordinary ETFs, what the copycat would have returned, and — honestly — the part no copycat can replicate.",

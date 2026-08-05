@@ -1,5 +1,14 @@
 import Link from "next/link";
 
+import type { Metadata } from "next";
+
+// The 404 previously inherited the site default title, so an error page announced
+// itself as the homepage to both screen readers and crawlers.
+export const metadata: Metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
+
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-xl space-y-4 py-16 text-center">

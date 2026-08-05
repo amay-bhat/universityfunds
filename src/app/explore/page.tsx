@@ -9,6 +9,7 @@ import { SchoolMark } from "@/components/SchoolMark";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/explore" },
   title: "Explore the endowments",
   description:
     "Pick a school and see how its investment mix and returns actually moved across 25 years of public records.",

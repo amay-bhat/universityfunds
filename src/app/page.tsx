@@ -3,6 +3,13 @@ import { getEndowmentReturns, getSchools } from "@/lib/queries";
 import { formatUsdMillions } from "@/lib/format";
 import { FEATURE_ACCENT, SCHOOL_THEME } from "@/lib/school-theme";
 import { SchoolMark } from "@/components/SchoolMark";
+import type { Metadata } from "next";
+
+// Title and description come from the root layout; this exists only to declare the
+// homepage's canonical so it does not compete with its deployment aliases.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export const revalidate = 3600;
 

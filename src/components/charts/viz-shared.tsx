@@ -72,7 +72,18 @@ export function ChartFrame({
         <summary className="cursor-pointer text-[var(--viz-text-2)] underline-offset-4 hover:underline">
           View this chart as a table
         </summary>
-        <div className="mt-2 max-h-80 overflow-auto">
+        {/* A scroll container holding no focusable children needs an explicit
+            tabindex, or keyboard users cannot scroll it (WCAG 2.1.1). Chrome >=127
+            focuses scrollers implicitly, which is why this passed local testing —
+            Firefox and Safari do not implement that, so without tabIndex the
+            table twin is unreachable for keyboard users on those browsers. Named
+            via the table's own caption so the tab stop announces what it is. */}
+        <div
+          className="mt-2 max-h-80 overflow-auto"
+          tabIndex={0}
+          role="group"
+          aria-label={table.caption}
+        >
           <table className="w-full min-w-[24rem] border-collapse text-xs">
             <caption className="sr-only">{table.caption}</caption>
             <thead>

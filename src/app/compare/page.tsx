@@ -28,6 +28,7 @@ export const revalidate = 3600;
 const MAX_YEAR = 2025;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/compare" },
   title: "Head to Head — Compare",
   description:
     "Endowment vs. ETF copycat vs. the S&P 500, 60/40 and 70/30 — growth of $10,000 over any period, even when the fancy strategy loses.",

@@ -38,6 +38,9 @@ export async function generateMetadata({
     ? {
         title: row.name,
         description: `How ${row.name}'s endowment invested and performed, from its own published records.`,
+        // Each school page must claim its own canonical, or all five compete with
+        // their per-deployment aliases.
+        alternates: { canonical: `/explore/${school}` },
       }
     : {};
 }

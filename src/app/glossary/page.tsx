@@ -4,6 +4,7 @@ import { GLOSSARY_ENTRIES } from "@/lib/glossary";
 import { FEATURE_ACCENT } from "@/lib/school-theme";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/glossary" },
   title: "Glossary",
   description:
     "Every finance term this site uses, defined in plain English — from asset allocation to REITs.",

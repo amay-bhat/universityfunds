@@ -9,6 +9,7 @@ import { FEATURE_ACCENT } from "@/lib/school-theme";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/methodology" },
   title: "Methodology and sources",
   description:
     "Every source behind every number on this site, every known gap in the record, and exactly how the copycat math works.",

@@ -53,7 +53,13 @@ export function ChartFrame({
   table: { caption: string; headers: string[]; rows: string[][] };
 }) {
   return (
-    <figure className="viz-root rounded-lg border border-zinc-200 bg-[var(--viz-surface)] p-4 dark:border-zinc-800">
+    <figure
+      // Chrome does not compute an accessible name from <figcaption>, so without
+      // this every chart reached the a11y tree unnamed. Verified by control
+      // experiment during the 2026-08-05 audit.
+      aria-label={title}
+      className="viz-root rounded-lg border border-zinc-200 bg-[var(--viz-surface)] p-4 dark:border-zinc-800"
+    >
       <figcaption>
         <div className="font-medium text-[var(--viz-text)]">{title}</div>
         {subtitle && <div className="text-sm text-[var(--viz-text-2)]">{subtitle}</div>}
@@ -85,14 +91,30 @@ export function ChartFrame({
             <tbody>
               {table.rows.map((row, i) => (
                 <tr key={i}>
-                  {row.map((cell, j) => (
-                    <td
-                      key={j}
-                      className={`border-b border-zinc-200 px-2 py-1 dark:border-zinc-800 ${j > 0 ? "tabular-nums" : ""}`}
-                    >
-                      {cell}
-                    </td>
-                  ))}
+                  {row.map((cell, j) =>
+                    // Column 0 is the row's label (the fiscal year) and must be a
+                    // row HEADER, not a cell. Without scope="row" a screen reader
+                    // reads a bare percentage out of an 8x21 grid with no way to
+                    // recover which year it belongs to — which silently voided the
+                    // table twin's whole purpose as the relief mechanism for the
+                    // three low-contrast light-mode palette slots.
+                    j === 0 ? (
+                      <th
+                        key={j}
+                        scope="row"
+                        className="border-b border-zinc-200 px-2 py-1 text-left font-normal dark:border-zinc-800"
+                      >
+                        {cell}
+                      </th>
+                    ) : (
+                      <td
+                        key={j}
+                        className="border-b border-zinc-200 px-2 py-1 tabular-nums dark:border-zinc-800"
+                      >
+                        {cell}
+                      </td>
+                    ),
+                  )}
                 </tr>
               ))}
             </tbody>

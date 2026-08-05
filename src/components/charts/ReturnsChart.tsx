@@ -67,7 +67,16 @@ export function ReturnsChart({
         </button>
       </div>
       <ResponsiveContainer width="100%" height={320}>
-        <ComposedChart data={points} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+        <ComposedChart data={points} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+          // recharts@3 defaults accessibilityLayer to true, which injects an
+          // UNNAMED role="application" wrapper. That role drops NVDA and JAWS out
+          // of browse mode, and recharts then fills it with loose text nodes (the
+          // bare axis ticks) while its arrow-key tooltip has no live region and no
+          // aria-activedescendant — so it is keyboard-only and silent. One good
+          // access path beats two broken ones: the table twin below every chart is
+          // the documented relief mechanism and now carries proper row headers.
+          accessibilityLayer={false}
+        >
           <CartesianGrid stroke="var(--viz-grid)" strokeWidth={1} vertical={false} />
           <XAxis
             dataKey="fiscalYear"

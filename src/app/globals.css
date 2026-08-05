@@ -25,17 +25,28 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ---- Data-viz role tokens (dataviz skill, reference palette — validated
-   light+dark via scripts/validate_palette.js; see build log task 3.2). The
-   chart components reference roles, never raw hex. ---- */
+/* ---- Data-viz role tokens (dataviz skill, reference palette). The chart
+   components reference roles, never raw hex.
+
+   Re-validated 2026-08-05 via scripts/validate_palette.mjs (npm run
+   verify:palette), which restores the capability of the original
+   validate_palette.js after it was found missing from the repo.
+
+   Three tokens were darkened on that pass because they carry MEANING and sat
+   below WCAG threshold: --viz-muted light 3.50:1 -> 5.03:1 (it draws the
+   fiscal-year tick labels on every chart, 1.4.3 needs 4.5:1), and --viz-axis
+   1.75:1 -> 3.24:1 light / 1.48:1 -> 3.20:1 dark (it draws the coverage-end and
+   basis-break reference lines, which 1.4.11 needs at 3:1 because a reader cannot
+   understand the chart without them). --viz-grid is left alone: it is purely
+   decorative and 1.4.11 exempts it. ---- */
 .viz-root {
   color-scheme: light;
   --viz-surface: #fcfcfb;
   --viz-text: #0b0b0b;
   --viz-text-2: #52514e;
-  --viz-muted: #898781;
+  --viz-muted: #6f6d68;
   --viz-grid: #e1e0d9;
-  --viz-axis: #c3c2b7;
+  --viz-axis: #8f8d85;
   --series-1: #2a78d6;
   --series-2: #eb6834;
   --series-3: #1baf7a;
@@ -53,7 +64,7 @@ body {
     --viz-text-2: #c3c2b7;
     --viz-muted: #898781;
     --viz-grid: #2c2c2a;
-    --viz-axis: #383835;
+    --viz-axis: #6a6a65;
     --series-1: #3987e5;
     --series-2: #d95926;
     --series-3: #199e70;

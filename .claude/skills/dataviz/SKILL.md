@@ -73,9 +73,34 @@ each defined for light **and** dark.
   validator required "relief" for them, and the relief is the mandatory
   table-view twin (below). If you add a series, you owe it the same relief.
 
-**`validate_palette.js` is missing.** Until it is restored, do not treat a new
-colour as validated. If you must add one, say in the build log that it is
-unvalidated, and prefer reusing an existing slot or a non-colour channel.
+**The validator is `npm run verify:palette`** (`scripts/validate_palette.mjs`,
+restored 2026-08-05 after the original was found missing). Run it before and after
+any colour change; it exits non-zero on a meaning-bearing colour below threshold,
+and checks text roles at 4.5:1, meaning-bearing graphics at 3:1, adjacent-stack-pair
+separation, and colour-vision-deficiency simulation for deuteranopia, protanopia
+and tritanopia.
+
+**"Meaning-bearing" includes reference lines.** The audit found `--viz-axis` at
+1.75:1 light and 1.48:1 dark while drawing the coverage-end and basis-break
+annotations a reader cannot understand the chart without. Both were darkened to
+clear 3:1. `--viz-grid` stays exempt as purely decorative — that exemption is
+about the grid specifically, not a licence to reclassify anything inconvenient.
+
+**The three low-contrast light-mode slots are ACCEPTED, not passing.** The original
+validator never required them to clear 3:1; it required *relief*, which is the
+table twin. If you add a series, you owe it the same.
+
+**Do not trust a charting library's built-in accessibility layer without reading
+what it emits.** `recharts@3` defaults `accessibilityLayer: true`, injecting an
+**unnamed `role="application"`** wrapper — a role that drops NVDA and JAWS out of
+browse mode — then filling it with loose text nodes (bare axis ticks), while its
+arrow-key tooltip has no live region and no `aria-activedescendant`. Keyboard-only
+and silent, which is worse than absent because it looks handled. All four chart
+components set `accessibilityLayer={false}` and rely on the table twin instead.
+
+**Chrome does not compute an accessible name from `<figcaption>`.** `ChartFrame`
+sets `aria-label` on the `<figure>`. Verify names from the accessibility tree;
+never assume markup implies a name.
 
 ## Honesty rules
 
@@ -122,8 +147,15 @@ Use `ChartFrame` and `VizTooltipBox` from `src/components/charts/viz-shared.tsx`
   **required** `table`. The subtitle carries the reading instruction; the
   footnote carries provenance and gap notes.
 - **Every chart ships a table-view twin.** Values must be reachable without
-  hover — this serves keyboard and screen-reader users and is the palette
-  relief for the low-contrast light-mode slots.
+  hover — this serves keyboard and screen-reader users and is the palette relief
+  for the three low-contrast light-mode slots.
+- **The twin needs a `<caption>`, `scope="col"` on every column header, AND
+  `<th scope="row">` on the first cell of every body row.** All three, or the
+  relief does not work. This file previously stated the requirement as though
+  column headers were enough; the 2026-08-05 audit found all eight tables shipping
+  with every body cell as `<td>`, so a screen reader read a bare percentage out of
+  an 8x21 grid with no way to recover its fiscal year. The relief was documented as
+  complete for months while being half-built.
 - **Tooltips** list every series at the hovered X. **Values lead, labels
   follow.** Series are keyed by a short line of the series colour, never by
   colouring the text. Numbers are `tabular-nums`.

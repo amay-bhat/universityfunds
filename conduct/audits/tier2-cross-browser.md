@@ -451,3 +451,83 @@ node scripts/xb-debug.mjs https://universityfunds.vercel.app/methodology 375  # 
    run. Failing that, installing Firefox is the cheaper of the two Gecko options. **Until one of
    those happens this site has no verified cross-browser coverage at all** — this audit narrows
    *where* to look, but it cannot substitute for looking.
+
+---
+
+# Appendix: WebKit measured (2026-08-11)
+
+The human enabled `safaridriver` ("Allow remote automation" via `sudo safaridriver
+--enable`), and the `--engine safari` adapter ran against production: 13 routes ×
+three widths (1280 / 768 / 375), Safari 26.5.2 on macOS. **R1–R5 are now
+measurements.** Firefox/Gecko remains explicitly skipped per the human's ruling.
+
+## Verdicts on the ranked risks
+
+- **R1 — scroll containers (the headline risk): PASS, 32/32.** Every scrollable
+  container was reached by Tab and scrolled with arrow keys in Safari — an engine
+  with **no** implicit-focusable-scroller fallback — across all widths. Zero
+  keyboard orphans remain. This is the first genuine cross-engine verification of
+  both the original `viz-shared.tsx` fix and the three page-table fixes from
+  finding 1, which were applied the same day.
+- **R2 — sticky `<th>` under `border-collapse: collapse`: PASS.** All nine real
+  sticky headers (`position: sticky` computed) stayed pinned with the opaque
+  `--viz-surface` background. The pre-emptive box-shadow fix was not needed.
+  *Instrument note:* the first analysis pass flagged nine "transparent sticky
+  headers" — every one was `position: static`, i.e. a plain page-table header
+  swept into the detector because finding 1's fix added `role="group"` to those
+  wrappers, which the detector uses as a selector. The Chrome baseline predates
+  that fix, which is why Chrome "missed" them. Filter on `position === "sticky"`.
+- **R3 — `var()` in SVG `fill` attributes: PASS.** All 72 sampled bars computed
+  to the palette colour, none black or empty.
+- **R4 — `paint-order` halos: PASS.** All 15 halo labels return byte-identical
+  values to Chrome (`paint-order: stroke`, 3px surface-colour stroke).
+  *Instrument note:* the first pass flagged all 15 as failures because it parsed
+  `strokeWidth` with `Number("3px")` → `NaN`. The failure was in the check, not
+  the halos.
+- **R5 — SVG text metrics: PASS.** 0 clipped labels of 38 in Safari at every
+  width (Chrome control: 0/38).
+- **R7 — tap targets: confirmed cross-engine, unchanged.** Nav links measure
+  ~20px tall in Safari too. Known, not Safari-specific.
+- `<details>/<summary>` chart twins open correctly; `background-clip: text`,
+  `100dvh`, `overflow: clip`, `color-scheme: dark` all report supported.
+
+## The one real discovery: occluded windows freeze streamed routes — in the harness, not the site
+
+The dynamic routes (`/compare`, `/translate?…`) initially measured as broken in
+Safari: charts absent, table-twin `<details>` at 0×0 height, `<main>` showing
+only the `loading.tsx` fallback. Six hypotheses were tested before the true
+mechanism emerged:
+
+1. Not cold-start (fails warm, back-to-back loads).
+2. Not width (768 fails too when re-run unattended; the original 768/375 passes
+   happened because the windows were actually being watched at the time).
+3. Not script blocking (`window.$RC` is defined — inline scripts ran).
+4. Not a broken reveal call (manual `$RC("B:0","S:0")` returns ok — it enqueues).
+5. Not fixable by `open -a Safari`, WebDriver fullscreen (silently ignored), or
+   spoofing `document.visibilityState` + dispatching `visibilitychange` (state
+   reads "visible", queue still does not drain).
+6. **Mechanism, confirmed by measurement:** macOS freezes the rendering pipeline
+   of occluded windows — `requestAnimationFrame` never fires (measured: 0 frames
+   in 1.5s). React marks the Suspense boundary `$~` (reveal deferred) and drains
+   the reveal queue on real compositor frames, so streamed content stays in its
+   `<div hidden id="S:0">` segment forever. Screenshots of such windows come back
+   **solid black** — all thirteen 1280px screenshots in the first sweep share one
+   md5. Layout still computes on demand, which is why every static-route
+   measurement (R1–R5 above) is valid from the same runs.
+
+**This is not a user-facing bug.** A real Safari user's window is visible; the
+original sweep's watched 768/375 runs are themselves the proof that the streamed
+routes reveal correctly in a visible Safari. A background-tab load reveals on
+focus. Chrome against today's production (post-`loading.tsx`) renders both
+routes fully — the streaming change did not regress it.
+
+**Consequences recorded:**
+- The harness now records `env.visibility` per route and prints a loud warning
+  when a run is degraded (`verify-cross-browser.mjs`).
+- The 2026-08-11 re-run **overwrote the good 768 file with a degraded one**
+  before the mechanism was understood; the harness overwrites its output path
+  silently. 375 retains valid dynamic-route data; 1280 never had it. A clean
+  full set needs one attended re-run with the Safari window kept visible.
+- Unattended/CI Safari runs cannot measure streamed reveals at all. Either keep
+  the window visible, or treat dynamic-route results as unmeasurable in Safari
+  and rely on the static-route evidence plus one attended pass.

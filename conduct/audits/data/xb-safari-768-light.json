@@ -1,0 +1,1793 @@
+{
+  "engine": "safari",
+  "width": 768,
+  "height": 900,
+  "scheme": "light",
+  "base": "https://universityfunds.vercel.app",
+  "routes": {
+    "/": {
+      "overflowX": {
+        "docScrollWidth": 751,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 751,
+        "docClientWidth": 751
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [
+        {
+          "color": "rgba(0, 0, 0, 0)",
+          "webkitBackgroundClip": "text",
+          "backgroundClip": "text",
+          "text": "do-it-yourself version",
+          "rect": {
+            "y": 134,
+            "w": 693,
+            "x": 24,
+            "h": 81
+          },
+          "backgroundImage": "linear-gradient(to right, lab(41.601299 -9.10804 -42.564701) 0%, lab(44.487099 -41.0396 11",
+          "atRiskInvisible": false
+        }
+      ],
+      "href": "/",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-home-top.png"
+      }
+    },
+    "/explore": {
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [],
+      "href": "/explore",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore-top.png"
+      }
+    },
+    "/explore/yale": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/explore/yale",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        },
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Asset allocation percentages for Yale University by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        },
+        {
+          "staysPinned": true,
+          "label": "Annual returns for Yale University and the S&P 500 by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore_yale-top.png"
+      }
+    },
+    "/explore/harvard": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/explore/harvard",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        },
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Asset allocation percentages for Harvard University by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        },
+        {
+          "staysPinned": true,
+          "label": "Annual returns for Harvard University and the S&P 500 by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore_harvard-top.png"
+      }
+    },
+    "/explore/stanford": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/explore/stanford",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Endowment market value for Stanford University by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore_stanford-top.png"
+      }
+    },
+    "/explore/mit": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/explore/mit",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        },
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Asset allocation percentages for Massachusetts Institute of Technology by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        },
+        {
+          "staysPinned": true,
+          "label": "Annual returns for Massachusetts Institute of Technology and the S&P 500 by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore_mit-top.png"
+      }
+    },
+    "/explore/princeton": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/explore/princeton",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        },
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Asset allocation percentages for Princeton University by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        },
+        {
+          "staysPinned": true,
+          "label": "Annual returns for Princeton University and the S&P 500 by fiscal year",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-explore_princeton-top.png"
+      }
+    },
+    "/translate": {
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [],
+      "href": "/translate",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-translate-top.png"
+      }
+    },
+    "/translate?school=yale&year=2020": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/translate?school=yale&year=2020",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": null,
+          "position": "static",
+          "borderBottom": "0px rgb(23, 23, 23)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": true,
+          "tableBorderCollapse": "collapse",
+          "background": "rgba(0, 0, 0, 0)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "auto"
+        },
+        {
+          "staysPinned": true,
+          "label": "Growth of $10,000 from FY2020",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-translate_school_yale_year_2020-top.png"
+      }
+    },
+    "/compare": {
+      "scrollers": [],
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "svg": [],
+      "href": "/compare",
+      "details": [
+        {
+          "summaryListStyle": "disclosure-closed",
+          "markerContent": "normal",
+          "summaryCursor": "pointer",
+          "closedHeight": 0,
+          "openHeight": 0,
+          "opensAndRevealsBody": false,
+          "webkitDetailsMarkerDisplay": "list-item",
+          "summaryDisplay": "list-item",
+          "summaryText": "View this chart as a table",
+          "summaryTabIndex": 0
+        }
+      ],
+      "gradientText": [],
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "vizTokens": {
+        "colorScheme": "light",
+        "axis": "#8f8d85",
+        "surface": "#fcfcfb",
+        "series1": "#2a78d6",
+        "text2": "#52514e",
+        "series8": "#e34948"
+      },
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": "Growth of $10,000, end of FY2000 through FY2025",
+          "position": "sticky",
+          "borderBottom": "1px lab(84.983704 0.601262 -2.17986)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": false,
+          "tableBorderCollapse": "collapse",
+          "background": "rgb(252, 252, 251)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "0px"
+        },
+        {
+          "staysPinned": true,
+          "label": null,
+          "position": "static",
+          "borderBottom": "0px rgb(23, 23, 23)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": true,
+          "tableBorderCollapse": "collapse",
+          "background": "rgba(0, 0, 0, 0)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "auto"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-compare-top.png"
+      }
+    },
+    "/methodology": {
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [],
+      "href": "/methodology",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [
+        {
+          "staysPinned": true,
+          "label": null,
+          "position": "static",
+          "borderBottom": "0px rgb(23, 23, 23)",
+          "thTopAfterScroll": 0,
+          "transparentBackground": true,
+          "tableBorderCollapse": "collapse",
+          "background": "rgba(0, 0, 0, 0)",
+          "scrolledBy": 0,
+          "zIndex": "auto",
+          "thTopBeforeScroll": 0,
+          "top": "auto"
+        }
+      ],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-methodology-top.png"
+      }
+    },
+    "/glossary": {
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [],
+      "href": "/glossary",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-glossary-top.png"
+      }
+    },
+    "/this-route-does-not-exist": {
+      "overflowX": {
+        "docScrollWidth": 768,
+        "overflows": false,
+        "offenders": [],
+        "bodyScrollWidth": 768,
+        "docClientWidth": 768
+      },
+      "details": [],
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5.2 Safari/605.1.15",
+      "supports": {
+        "color-scheme:dark": true,
+        "background-clip:text": true,
+        "position:sticky": true,
+        "overflow:clip": true,
+        "-webkit-background-clip:text": true,
+        "text-size-adjust:100%": false,
+        "-webkit-text-size-adjust:100%": false,
+        "height:100dvh": true,
+        "paint-order:stroke": true
+      },
+      "gradientText": [],
+      "href": "/this-route-does-not-exist",
+      "env": {
+        "bodyBg": "rgb(255, 255, 255)",
+        "bodyColor": "rgb(23, 23, 23)",
+        "dark": false,
+        "innerHeight": 900,
+        "dpr": 2,
+        "htmlTextSizeAdjust": null,
+        "innerWidth": 768
+      },
+      "svg": [],
+      "smallTapTargets": [
+        {
+          "cls": "sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-",
+          "h": 1,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Skip to content",
+          "w": 1
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 47
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Translate",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Compare",
+          "w": 58
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Glossary",
+          "w": 55
+        },
+        {
+          "cls": "text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:t",
+          "h": 20,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Methodology",
+          "w": 80
+        },
+        {
+          "cls": "underline underline-offset-4",
+          "h": 17,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Explore",
+          "w": 54
+        },
+        {
+          "cls": "text-sky-700 underline underline-offset-4 dark:text-sky-400",
+          "h": 17,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "Back to the start",
+          "w": 116
+        },
+        {
+          "cls": "underline underline-offset-4 hover:text-zinc-800 dark:hover:text-zinc-200",
+          "h": 14,
+          "tag": "A",
+          "label": null,
+          "type": null,
+          "text": "sources & methodology",
+          "w": 125
+        }
+      ],
+      "scrollers": [],
+      "stickyHeaders": [],
+      "screenshots": {
+        "top": "/Users/amayb/Projects/dashboardProject/conduct/audits/screens/safari-768-light-this_route_does_not_exist-top.png"
+      }
+    }
+  }
+}

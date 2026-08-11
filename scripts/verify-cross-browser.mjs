@@ -74,6 +74,16 @@ const PROBE = function () {
     innerWidth: innerWidth,
     innerHeight: innerHeight,
     dpr: devicePixelRatio,
+    // If "hidden", this run's data is DEGRADED for streamed (dynamic) routes and
+    // screenshots. macOS freezes the rendering pipeline of occluded windows: rAF
+    // never fires, so React's Suspense reveal queue never drains and /compare +
+    // /translate sit on their loading fallback forever, while screenshots come
+    // back solid black. Layout still computes on demand, so DOM measurements of
+    // server-rendered (static) routes remain valid. Measured 2026-08-11; no JS
+    // workaround exists (visibilityState spoof + visibilitychange does not drain
+    // the queue — it waits on real compositor frames). Keep the Safari window
+    // visible on screen during a run, or discard dynamic-route data.
+    visibility: document.visibilityState,
     dark: matchMedia("(prefers-color-scheme: dark)").matches,
     bodyBg: getComputedStyle(document.body).backgroundColor,
     bodyColor: getComputedStyle(document.body).color,
@@ -624,6 +634,14 @@ try {
     try {
       await drv.goto(url);
       const data = await drv.evaluate(PROBE);
+      if (data?.env?.visibility === "hidden") {
+        process.stderr.write(
+          `[${ENGINE} ${WIDTH} ${scheme}] ${route}  WARNING: window is occluded ` +
+            `(visibilityState=hidden). Streamed routes will sit on their loading ` +
+            `fallback and screenshots will be black — see the env.visibility ` +
+            `comment in this script. Keep the browser window visible and re-run.\n`,
+        );
+      }
       // keyboard reach only where there is something to reach
       if ((data.scrollers || []).length > 0) {
         data.keyboard = await keyboardReach(drv, route === "/glossary" ? 60 : 45);

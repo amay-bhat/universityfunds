@@ -449,3 +449,19 @@
 - **Verified:** `tsc` clean · `lint` 0 errors · 64 tests · `build` compiled · `seed:dry` unchanged, 2 warnings · `git diff --stat -- data/` empty · `verify:figures` 0 · `verify:palette` 0 · `verify:seo` 0 · `/api/health` `ok:true, schools:5` at boot **and** after 10s, proving no signal poisoning · `.env.local` restored byte-identical after four outage simulations.
 - **Not pushed.** Part 2 §2 reserves it.
 
+**2026-08-11 — Three human rulings recorded (do not re-raise these):**
+
+- **Yahoo Finance benchmark licensing: deferred by the human.** Asked directly after the Tier 1 legal review; the answer was "don't worry about the yahoo finance data." The JSON-LD `license` field stays absent and `verify:seo` keeps asserting its absence. The finding itself stands unretracted in `conduct/audits/tier1-legal-review.md` — this ruling defers action, it does not overturn the analysis. Revisit only if the human raises it or monetization is proposed.
+- **Typeface stays as-is: Arial renders, Geist downloads.** Ruled "leave the fonts as is." The known cost (two unused woff2 downloads per page load) is accepted. Do not apply Geist and do not remove the download without a new ruling — this is Part 2 §6 territory and the human has now exercised it.
+- **No contact line in the footer.** Ruled for the second time (first: 2026-08-05 "do not worry about contact info"). `CORRECTIONS.md`'s reader-reporting gap stays open by explicit choice.
+
+Next: Safari/WebKit testing per the human ("lets go about adding this to safari"), Firefox explicitly skipped.
+
+**2026-08-11 — WebKit/Safari testing done: all five ranked risks PASS; one deep rabbit hole that ended in the instrument, not the site.**
+
+- Human enabled `safaridriver`; ran 13 routes × 3 widths (1280/768/375) on Safari 26.5.2 against production. **R1 scroll containers 32/32 reached-and-scrolled by keyboard** — first cross-engine proof of both tabIndex fixes, on an engine with no implicit-focus fallback. R2 sticky headers pinned and opaque (9/9 real ones). R3 `var()` SVG fills resolve (72/72). R4 paint-order halos byte-identical to Chrome (15/15). R5 zero clipped labels. R7 small tap targets confirmed cross-engine.
+- **`[JUDGMENT CALL]` The dynamic routes looked broken in Safari and were not — six hypotheses died before the real mechanism.** macOS freezes the rendering pipeline of occluded windows (rAF measured at 0 fires/1.5s); React 19 defers Suspense reveals to compositor frames (`$~` marker), so `/compare` and `/translate` sat on the `loading.tsx` fallback forever **in the automation window only**, and all thirteen 1280px screenshots were one identical solid-black PNG. Not cold-start, not width, not script blocking, not the reveal call, not spoofable from JS. The original watched 768/375 runs are the proof the site is fine for real (visible) Safari. Full autopsy in `conduct/audits/tier2-cross-browser.md` appendix.
+- **Two instrument bugs in my own analysis pass, disclosed:** `Number("3px")`→NaN falsely failed all 15 halos; and the sticky detector swept in non-sticky page-table headers *because my own role="group" fix that morning widened its selector match* — the Chrome baseline predates the fix, which is why only Safari "showed" them. Filter on `position === "sticky"`.
+- **Harness hardened:** records `env.visibility` per route and warns loudly when a run is degraded. Known cost: the 2026-08-11 re-run silently overwrote the good 768 JSON with a degraded one before the mechanism was understood; 375 still holds valid dynamic-route data. One attended re-run (Safari window kept visible, ~4 min) would yield a clean full set + real screenshots.
+- **Not pushed.** Part 2 §2 reserves it.
+

@@ -22,6 +22,16 @@ import { MarketValueChart } from "@/components/charts/MarketValueChart";
 
 export const revalidate = 3600;
 
+// Closes the param set: any slug not returned by generateStaticParams below is
+// 404'd by the router BEFORE rendering starts. Without this, adding
+// src/app/loading.tsx on 2026-08-05 turned unknown slugs into soft-404s —
+// streaming flushes the shell (committing HTTP 200) before the page body runs,
+// so the later notFound() could no longer change the status. Measured: the same
+// slug returns 404 with loading.tsx removed and 200 with it present. The school
+// set is closed and known at build time, so there is no reason to render
+// unknown slugs on demand.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return SCHOOL_IDS.map((school) => ({ school }));
 }

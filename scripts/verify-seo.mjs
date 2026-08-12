@@ -107,6 +107,19 @@ ok(
   "404 is marked noindex",
 );
 
+// ---- an unknown school slug must be a real 404, not a soft-404
+// Regression guard: adding src/app/loading.tsx (2026-08-05) made this route
+// stream its shell before the page body ran, committing HTTP 200 before
+// notFound() could set a status. The check above only ever exercised an
+// UNMATCHED path, which is resolved by the router and was never affected.
+const badSlug = await get("/explore/definitely-not-a-school");
+ok(badSlug.status === 404, `unknown school slug returns 404 (got ${badSlug.status})`);
+const badSlugRobots = [...badSlug.body.matchAll(/<meta name="robots" content="([^"]*)"/g)].map((m) => m[1]);
+ok(
+  !(badSlugRobots.some((r) => /noindex/i.test(r)) && badSlugRobots.some((r) => /^index/i.test(r))),
+  `unknown school slug has no contradictory robots directives (got ${JSON.stringify(badSlugRobots)})`,
+);
+
 // ---- structured data
 const home = await get("/");
 const ld = home.body.match(

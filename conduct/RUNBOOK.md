@@ -22,10 +22,18 @@ most important fact in this file:
 | `/translate` | 200 (streaming shell, then the error boundary) |
 | `/api/health` | **503** |
 
-**Five of eight routes return 200 during a total database outage**, because they
-are statically rendered or ISR and keep serving the last good build from the CDN.
-An uptime checker pointed at the homepage would report the site healthy while two
-features were hard-failing.
+**Seven of eight routes return 200 during a total database outage.** Five are
+static or ISR and keep serving the last good build from the CDN; `/compare` and
+`/translate` joined them once `loading.tsx` was added (see the correction at the
+end of this section), because streaming flushes the shell before the page can
+fail. Only `/api/health` reports the outage. An uptime checker pointed at any
+page — including the two that are genuinely broken — reads green throughout.
+
+Note the stale-serving is not merely "cached until the window expires": Next
+emits `stale-while-revalidate` of ~365 days, so the five cached routes keep
+serving *across* the revalidate boundary indefinitely while the background
+regeneration throws into stderr, unseen. That is simultaneously this site's best
+resilience property and its worst observability property.
 
 - **Point any uptime check at `/api/health`, not at a page.** It is the only
   surface that proves the data path works. It returns `200` when the database is

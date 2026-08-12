@@ -2,11 +2,6 @@ import { drizzle } from "drizzle-orm/neon-http";
 import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema";
 
-// A 3s ceiling on every query. There was no timeout or retry anywhere in the
-// stack until 2026-08-05, which made a SLOW Neon more dangerous than a dead one:
-// a dead endpoint fails in ~10ms, a slow one held the function open until the
-// platform killed it. Measured Neon cold start is ~160-185ms on the first query
-// only, so 3s is generous headroom rather than a tight budget.
 // NO QUERY TIMEOUT — a deliberate, documented gap, not an oversight.
 //
 // The load-resilience audit (2026-08-05) correctly found there is no timeout or

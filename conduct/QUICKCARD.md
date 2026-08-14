@@ -81,7 +81,7 @@ scope** · editing the kernel or a constitution · anything marked `[H]` ·
 If a session asks you one of these, that's the system working. There is no
 timeout that defaults past them.
 
-## Two rules that keep the data honest
+## Three rules that keep the site honest
 
 - **A gap stays a gap.** Every school is curated to its real disclosure limit.
   Never let a session fill one with a derived, interpolated, or
@@ -90,6 +90,11 @@ timeout that defaults past them.
 - **Numbers can be right while the reasoning is wrong.** That was every defect
   the pilot's QC caught. When you read a build-log entry, read the *why*, not
   just the figure.
+- **One reader decides the copy.** Someone will read the Translator page as "so
+  I should buy this" however carefully it is written. Before you bless a new
+  Translator or Compare sentence, read it as that person — if it can be read as
+  a recommendation, send it back. `PERSONAS.md` names them, and the two other
+  readers this site refuses to serve.
 
 ## Three commands that bite
 

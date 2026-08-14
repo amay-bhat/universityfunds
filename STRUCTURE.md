@@ -13,6 +13,25 @@
 This is a **snapshot**, not a live view. If it disagrees with the repo, the repo
 is right — regenerate by re-running the commands in the last section.
 
+**Re-measured 13 August 2026 — it disagrees, and not by a little.** `HEAD` is
+`0ac05b0`; the repo tracks **315 files, not 73**, plus 8 untracked ones
+(`AGENTS.md` and the `.agents/` skill mirror) where the table above says none,
+and it is level with `origin/main`, not 4 ahead. `conduct/` has gone from 24
+files to 196 (139 of them audit screenshots), `src/` from 7 to 48, `scripts/`
+from 3 to 13; `spec-schema/`, `drizzle/`, `conduct/audits/`,
+`conduct/RUNBOOK.md`, `CORRECTIONS.md` and `PERSONAS.md` do not appear in the
+tree at all; six of the seven page routes are missing from it;
+`src/app/favicon.ico` is listed and has been deleted; and the annotations still
+call Phases 2–6 unstarted and `proxy_mappings.json` empty, both of which are now
+false.
+
+**Nothing was patched in.** Adding a line to a tree short by 240-odd files would
+make every other line read as re-verified. The whole file needs regenerating, and
+that job is already written up as `conduct/audits/2026-07-31/WP6-structure.md`
+(three open defects, `A-35`–`A-37`, deliberately sequenced last), with the debt
+logged in `TASKS.md` under 2026-08-04 and 2026-08-13. Until it runs, read the
+tree below as a record of 31 July, not as a map of what is here.
+
 ---
 
 ## Read in this order if you are new (or a fresh session)
@@ -23,6 +42,11 @@ is right — regenerate by re-running the commands in the last section.
 4. `TASKS.md` — the ledger: what is done, what is next, and every decision ever made
 5. `MANUAL.html` — how to actually drive it (or `conduct/QUICKCARD.md` for one page)
 6. `data/README.md` — the data methodology, before touching any figure
+
+Audience detail beyond `PRD.md § Audience` lives in `PERSONAS.md` — the secondary
+personas, the three anti-personas, and the shareability consequence (adopted
+13 August 2026). Deliberately not a numbered step: it is read before writing
+copy, not at the start of every session.
 
 ---
 

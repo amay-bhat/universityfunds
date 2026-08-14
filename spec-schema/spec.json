@@ -14,7 +14,7 @@
       "doc_id": "BRD",
       "title": "BRD \u2014 University Endowment Investing Explorer (v1)",
       "location": "spec-schema/inputs/BRD.md",
-      "version_or_date": "1.0 / 2026-08-03",
+      "version_or_date": "1.0 / 2026-08-03 (spec v1.0.0 was generated from BRD 1.0 and has not been re-derived against BRD 1.1 of 2026-08-13; see BRD section 9, OI-3)",
       "authority": "binding"
     },
     "supporting_docs": [
@@ -52,6 +52,13 @@
         "location": "plan.html",
         "version_or_date": "as of 2026-08-03",
         "authority": "informative"
+      },
+      {
+        "doc_id": "PERSONAS",
+        "title": "PERSONAS.md \u2014 audience personas and anti-personas, expanding PRD \u00a7Audience",
+        "location": "PERSONAS.md",
+        "version_or_date": "adopted 2026-08-13",
+        "authority": "informative"
       }
     ]
   },
@@ -61,6 +68,10 @@
       {
         "persona": "DIY investor",
         "needs": "Manages own retirement/brokerage accounts; curious, not professional; needs plain English with every finance term defined."
+      },
+      {
+        "persona": "smart 22-year-old outside finance",
+        "needs": "Not a separate audience but the reading-level bar every sentence must clear (BRD-004); needs any unfamiliar finance term defined where it appears, without leaving the page."
       }
     ],
     "success_metrics": [
@@ -2295,6 +2306,13 @@
       "change": "Owner approved spec v1.0.0: spec_meta.status -> approved; 16 draft items flipped to approved (SPEC-005..SPEC-020). Q-001 resolved (explicit-gap sleeve confirmed). No requirement content changed; version unchanged.",
       "reason": "Owner instruction 2026-08-04: 'move forward with the recommendations' (readiness-report human_actions).",
       "changed_by": "Claude Fable 5 (session of 2026-08-04), on owner's recorded approval"
+    },
+    {
+      "date": "2026-08-13",
+      "version": "1.0.0",
+      "change": "product_overview.target_users gains the literacy-floor persona 'smart 22-year-old outside finance', resolving the standing violation of engineering-spec.schema.json:256 (a user_stories persona must exist in target_users) that SPEC-008's story has carried since generation. The persona is BRD-sourced, not new: BRD-004 states the bar in those words. PERSONAS.md registered in inputs.supporting_docs as an informative input. The six secondary personas and three anti-personas adopted in PERSONAS.md on 2026-08-13 are deliberately NOT added to target_users: none traces to a BRD requirement, and target_users is the field that licenses user_stories, so listing them would invite stories for audiences the owner never scoped features for. No spec_item added, no requirement content changed, no scope change; version unchanged, per the 2026-08-04 precedent.",
+      "reason": "Owner instruction 2026-08-13 to fold PERSONAS.md into the project documentation; the TASKS.md build log of 2026-08-13 queued exactly these two edits for the next spec revision.",
+      "changed_by": "Claude Opus 5 (session of 2026-08-13), on owner's recorded instruction"
     }
   ]
 }

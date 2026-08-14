@@ -262,6 +262,17 @@
       "pass_criteria": "No high-consequence unreviewed assumption.",
       "remediation": "Surface the risky assumptions for explicit confirmation before build."
     },
+    {
+      "probe_id": "PRB-026",
+      "name": "Persona cross-reference",
+      "category": "cross",
+      "scope": "global",
+      "method": "deterministic",
+      "severity_on_fail": "warning",
+      "check": "Every persona phrase named in a spec_item.user_stories entry appears verbatim as a product_overview.target_users[].persona value. The rule is stated only inside the user_stories description string in engineering-spec.schema.json; JSON Schema cannot express a cross-field constraint, so no validator enforces it and a violation will pass schema validity (PRB-010) cleanly.",
+      "pass_criteria": "Zero user-story personas absent from target_users.",
+      "remediation": "Promote the persona into target_users where the story is doing real work as written; otherwise reword the story to name an existing persona. Do not add a persona that no BRD requirement supports — target_users is what licenses user_stories, and padding it inverts the dependency."
+    },
 
     {
       "probe_id": "PRB-030",

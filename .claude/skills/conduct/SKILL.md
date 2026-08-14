@@ -12,9 +12,13 @@ routing judgment degrades. Workers implement.
 
 Prerequisites: read `../escalate/references/kernel.md` (adopted?), the
 project's `CONSTITUTION.md` if present, the ledger (`TASKS.md` or
-`LEDGER.md`), and the project's vision docs (PRD/BRD, persona journeys). You
-are the **sole translator** of vision into task briefs — workers receive
-briefs, never philosophy, or ten workers ship ten interpretations.
+`LEDGER.md`), and the project's vision docs (PRD/BRD; personas and
+anti-personas — `PERSONAS.md`). You are the **sole translator** of vision
+into task briefs — workers receive briefs, never philosophy, or ten
+workers ship ten interpretations. Vision docs can disagree with each
+other: a doc that subordinates itself to another loses on its own terms,
+and a conflict neither doc settles is a **scope question for the human**,
+not a translation you make quietly.
 
 **The statelessness rule:** everything you decide lives in the ledger before
 your session ends. The test: killed at any moment, a fresh conductor reads
@@ -57,6 +61,13 @@ state — persist it now.
    escalation triage line. Spawn with the routed model. Workers running in
    parallel must have disjoint file ownership; use worktree isolation when
    that is impossible.
+   Vision becomes **acceptance criteria, never quotations**. Where the
+   project names anti-personas — readers it must deliberately not serve —
+   a unit that writes user-facing copy carries them as a checkable line
+   ("this cannot be read as X"), because that test runs on every sentence
+   while the chain fires a handful of times a project. Wording the project
+   reserves to the human stays reserved: a failed read rewrites the
+   sentence under test or goes to the digest, never the reserved copy.
 7. **Verify — never trust "done" (K1/K2).** Acceptance checks run *outside*
    the worker: validators, tests, linters first (deterministic verification
    beats model judgment wherever it exists — and building more of it is

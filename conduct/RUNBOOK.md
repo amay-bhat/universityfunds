@@ -100,6 +100,13 @@ must be `/api/health`.
 Schools publish fiscal-year results in the autumn. The methodology page promises
 readers the data is updated once a year, so this is a commitment, not a chore.
 
+Do it in **October–November**, not "sometime after autumn". That is when the
+fiscal-year reports land *and* when the personal-finance write-ups that link
+here get made (`PERSONAS.md` §4) — the site's only distribution channel is
+someone else citing it, so a refresh that slips past that window misses the
+one period the site is most read and leaves the most recent disclosed year
+looking a full year staler than it is.
+
 **Order matters — the gates only work if run in this sequence.**
 
 1. **Curate.** Add rows to `data/schools/<school>.json` and the corresponding

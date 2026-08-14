@@ -3,17 +3,19 @@
 | | |
 |---|---|
 | **doc_id** | `BRD` |
-| **Version** | 1.0 |
-| **Date** | 2026-08-03 |
+| **Version** | 1.1 |
+| **Date** | 2026-08-13 (v1.0: 2026-08-03) |
 | **Authority** | binding |
 | **Derived from** | `PRD.md` (2026-07-23, approved) — see Provenance |
-| **Companion docs** | `data/README.md` (binding for data-domain facts), `CLAUDE.md`, `plan.html` (informative) |
+| **Companion docs** | `data/README.md` (binding for data-domain facts), `CLAUDE.md`, `PERSONAS.md` (informative — audience lenses adopted 2026-08-13; `PRD.md` §Audience wins on conflict), `plan.html` (informative) |
 
 ## Provenance
 
 This BRD was reverse-derived from the approved PRD, because this project began at the product level. Requirement wording therefore restates the PRD's intent in atomic, testable form; nothing here introduces new scope. Where the verified state of the curated data contradicts the PRD, this BRD records the verified fact and flags the conflict in **§9 Known conflicts and open items** instead of silently repeating the PRD. On any conflict between this BRD and the PRD, the conflict must be raised, not resolved unilaterally.
 
 Requirement IDs (`BRD-xxx`) are stable: never renumber, never reuse. Priorities use MoSCoW.
+
+**Revision 1.1 (2026-08-13)** — §3 expanded to carry the secondary personas and anti-personas the owner adopted in `PERSONAS.md`, and BRD-035 added to Group A. No existing requirement was changed or removed and no scope was widened: the §4 exclusion list still matches `PRD.md` §Out of scope word for word, and the five schools and three features are untouched. BRD-035 sits with the posture requirements by topic rather than at the end of the file — IDs are never renumbered, so a new requirement joins its group out of numeric order. Approved spec v1.0.0 predates this revision; see OI-3.
 
 ---
 
@@ -31,7 +33,12 @@ Everyday DIY investors hear that universities like Yale grew their endowments wi
 ## 3. Target users and stakeholders
 
 - **Primary users:** everyday DIY investors managing their own retirement/brokerage accounts; curious, not professional. *(PRD §Audience)*
+- **Reading-level floor:** a smart 22-year-old outside finance. Not a separate audience — the bar every sentence must clear, already binding as BRD-004. *(PRD §Rules 3; PERSONAS.md §The literacy floor)*
+- **Secondary users:** real audiences served as a side effect of building well for the primary user, never a source of requirements — finance students and CFA candidates; personal-finance content creators (the only audience that redistributes the product, and therefore how the primary user finds it at all); index-fund skeptics arriving to test the claim against the numbers; financial advisors showing a client a neutral third-party page; alumni, students and employees of the five schools; econ and finance teachers assigning it as classroom material. Each is already served by something the product does for the primary user — cited figures, stable URLs, honest gaps — and `PERSONAS.md` records an explicit refusal beside every one of them. *(PERSONAS.md §Secondary personas)*
+- **Anti-personas:** audiences the product will attract and deliberately does not serve — the active trader looking for an edge (fiscal-year allocation history is not a trading signal — BRD-035); the "just tell me what to buy" visitor (the reader BRD-002 and BRD-003 exist for, and the one every line of Translator and Comparison copy is written to survive); the institutional or professional allocator (the dataset is deliberately too coarse for them, and no requirement here is added to change that). *(PERSONAS.md §Anti-personas)*
 - **Stakeholders:** project owner (content and go-live decisions); no paying customers, advertisers, or institutional partners in v1.
+
+Personas are design lenses, not segments. **No requirement in this BRD is conditioned on which persona a visitor is, and none may be satisfied by tailoring what a visitor sees** — the product is one public artifact that serves everyone identically (BRD-001, BRD-002). No user research sits behind the persona set: the owner adopted it as informed hypotheses on 2026-08-13, and `PERSONAS.md` says so in its own opening. *(PERSONAS.md — adopted 2026-08-13)*
 
 ## 4. Scope
 
@@ -52,6 +59,7 @@ Everyday DIY investors hear that universities like Yale grew their endowments wi
 | BRD-003 | must | A disclaimer stating the education-not-advice posture shall be visible site-wide (every page). | PRD §Rules 1, §DoD |
 | BRD-004 | must | All copy shall be plain English; any term a smart 22-year-old outside finance wouldn't know shall be defined on first use. | PRD §Rules 3 |
 | BRD-005 | must | Results shall be reported honestly even when unflattering to endowments: if simple indexing beat an endowment over a period, the product says so plainly. | PRD §Rules 4 |
+| BRD-035 | must | No copy, label, or chart annotation shall present the data as current positioning or as a timely signal — no 'latest moves' framing, no momentum language, nothing implying that a displayed allocation is what a school holds now. The data is historical and fiscal-year-grained by construction. | PERSONAS.md §Anti-personas; PRD §Out of scope |
 
 ### Group B — History Explorer
 
@@ -145,6 +153,7 @@ v1 ships when all of the following hold *(PRD §Definition of done)*:
 |---|---|---|---|
 | OI-1 | **Stanford: market-value-only presentation (DECIDED)** | The PRD's DoD asks for allocation + returns charts for all 5 schools. Verified curation finding (`data/README.md` §Stanford): Stanford's investment office publishes allocation and return figures only for the **Merged Pool**, which is ~73–75% endowment and ~25% other money — using it would misrepresent "Stanford's endowment" (confirmed ~2.9pp return divergence in FY2024). Only endowment **market values** are curated for Stanford. **Decision: Stanford's History Explorer shows endowment market value (total size) over time, with a plain-English explanation of why allocation and returns are unavailable (Merged Pool mismatch, detailed on methodology page).** Translator and Comparisons features remain available for Stanford where proxy mappings exist. | **Resolved 2026-08-03.** Does not block any slice. |
 | OI-2 | Fiscal-year statement in PRD is oversimplified | PRD §Data says "Fiscal years end June 30"; verified state is June 30 for four schools, **August 31 for Stanford**. This BRD records the verified fact (BRD-027). | **Resolved in this BRD** — `data/README.md` wins on data-domain facts; PRD text should be corrected at next PRD revision. |
+| OI-3 | **Persona expansion postdates approved spec v1.0.0** | §3 now names the secondary personas and anti-personas the owner adopted in `PERSONAS.md` (2026-08-13), and this revision adds BRD-035. The approved spec was generated from BRD 1.0, and two things follow: the traceability matrix has no BRD-035 row, and `product_overview.target_users` was written against the primary persona alone. A related defect sat inside the spec: SPEC-008's user story names the 'smart 22-year-old outside finance', and the schema's `user_stories` description (`engineering-spec.schema.json:256`) says personas must exist in `product_overview.target_users` — a stated convention, not a validator-enforced rule, which is why nothing caught it. That one is now closed by promotion, recorded in the spec's own change log on 2026-08-13 with the version left at 1.0.0 per the 2026-08-04 precedent (no requirement content changed), BRD-004 having already stated the same bar as a requirement. No build behaviour changes while the rest stays open: BRD-035's substance is already enforced by SPEC-015's vintage-label rule ('…held unchanged by this copycat through FY2025' — never 'held since'). | **Open.** The remaining limb — a traceability row for BRD-035 — closes at the next spec revision, a human review gate. |
 
 ## 10. Glossary
 

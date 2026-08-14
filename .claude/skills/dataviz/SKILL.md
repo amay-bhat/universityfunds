@@ -138,6 +138,17 @@ preferences and they outrank aesthetics.
   the explanation at that moment.
 - **Percentages are the school's own reported figures**; say so, and never
   rescale to make a stack reach 100.
+- **Never frame a figure as current positioning.** Titles, subtitles,
+  footnotes, annotations and tooltip labels describe a *fiscal year*, never
+  "now": no "latest moves", no "currently holds", no momentum or trend-arrow
+  framing, no present-tense verb attached to a year the school stopped
+  disclosing. The most recent disclosed year is the most recent *disclosed*
+  year, not today's portfolio — Yale's allocations end at FY2020, and a chart
+  whose chrome reads otherwise is lying by tense even when every number in it
+  is right. This is the active-trader anti-persona (`PERSONAS.md` §A) and
+  BRD-035 expressed as a chart rule. It constrains chart chrome only: the
+  site-wide disclaimer and fine print are worded by the human
+  (`CONSTITUTION.md` Part 2 §4) and nothing here licenses rewording them.
 
 ## Chrome
 

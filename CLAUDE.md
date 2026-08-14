@@ -9,6 +9,8 @@ Free, public, no-login web app showing everyday DIY investors how famous univers
 3. `TASKS.md` — the task checklist. Pick the first unchecked task, do only it, check it off, log notes.
 4. `plan.html` — human-readable overview (context only; PRD wins on conflicts).
 
+Audience detail beyond `PRD.md § Audience` lives in `PERSONAS.md` — secondary personas, anti-personas, and the shareability consequence (adopted 2026-08-13; PRD wins on conflicts).
+
 ## Workflow (important)
 
 - This project uses a **docs-conduct workflow**: no conversation history carries between sessions. These files are the only memory. Keep them true: check off finished tasks, append to the Build log in `TASKS.md`.

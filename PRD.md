@@ -1,6 +1,6 @@
 # PRD — University Endowment Investing Explorer (v1)
 
-**Repo:** github.com/amaybhat-creator/universityfunds · **Hosting:** Vercel (Pro) · **DB:** Neon Postgres
+**Repo:** github.com/amaybhat-creator/universityfunds · **Hosting:** Vercel (Hobby — corrected by human ruling 2026-08-18; the plan originally said Pro) · **DB:** Neon Postgres
 **Status:** Approved plan, pre-build · **Last updated:** 2026-07-23
 
 ## Problem

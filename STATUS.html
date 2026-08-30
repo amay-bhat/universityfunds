@@ -427,16 +427,16 @@
     </p>
     <div class="provenance">
       <span>Rendered from TASKS.md</span>
-      <span>4 August 2026</span>
-      <span>All 25 tasks done &middot; SITE IS LIVE &middot; Checkpoint B is the last gate</span>
+      <span>29 August 2026</span>
+      <span>All 25 v1 tasks done &middot; SITE IS LIVE &middot; Checkpoint B PASSED 18 Aug 2026</span>
     </div>
   </header>
 
   <div class="tiles">
     <div class="tile">
-      <div class="tile-label">Tasks complete</div>
+      <div class="tile-label">v1 tasks complete</div>
       <div class="tile-value">25<span class="of">&thinsp;/&thinsp;25</span></div>
-      <div class="tile-note">Live at universityfunds.vercel.app</div>
+      <div class="tile-note">Shipped; Phase 7 is post-v1 work</div>
     </div>
     <div class="tile">
       <div class="tile-label">Schools curated</div>
@@ -450,47 +450,42 @@
     </div>
     <div class="tile">
       <div class="tile-label">Waiting on you</div>
-      <div class="tile-value attn">2</div>
-      <div class="tile-note">A toggle, a review gate, a push</div>
+      <div class="tile-value attn">1</div>
+      <div class="tile-note">An uptime monitor</div>
     </div>
   </div>
 
   <section>
     <h2>Waiting on you</h2>
     <p class="lede">
-      Neither of these can be done by a build session &mdash; a dashboard setting and the final
-      version-one review are both reserved to you.
+      One thing, and it is not urgent. Everything else that was reserved to you has been ruled
+      &mdash; this section listed three closed items for the fortnight after they closed, which is
+      how a status page teaches you to stop reading it.
     </p>
 
-    <div class="action" style="border-left-color: var(--st-done)">
-      <div class="action-idx" style="color: var(--st-done)">6.4</div>
+    <div class="action">
+      <div class="action-idx">7.5</div>
       <div class="action-body">
-        <div class="action-title">Done &mdash; and it unmasked a real bug<span class="ref">resolved 4 Aug 2026</span></div>
+        <div class="action-title">Point an uptime monitor at <code>/api/health</code><span class="ref">dashboard work &middot; yours</span></div>
         <p>
-          You disabled Deployment Protection &mdash; which revealed that every deployment since
-          31 July had been silently dead: a zip archive committed to the repo makes Vercel
-          blackhole the whole deployment while reporting it healthy. Diagnosed by canary
-          bisection, fixed by removing the archive and rehoming the site on a clean project.
-          <strong>The site is now publicly live at universityfunds.vercel.app.</strong>
+          The endpoint is live and honest &mdash; it returns <code>ok</code>, whether the database
+          is reachable, whether it is seeded, the school count and a latency figure &mdash; but
+          <strong>nothing watches it.</strong> The site also serves stale pages happily during an
+          outage, which is its best resilience property and its worst observability one: seven of
+          eight routes keep returning 200 with a full layout while the database is gone. Without an
+          external check, a silent outage stays silent indefinitely. Any free pinger will do.
         </p>
       </div>
     </div>
 
-        <div class="action">
-      <div class="action-idx">B</div>
-      <div class="action-body">
-        <div class="action-title">Checkpoint B &mdash; final review against the definition of done<span class="ref">after the 6.4 toggle</span></div>
-        <p>
-          The site is live and every definition-of-done box is now checkable against production:
-          five school pages, the Translator with its honest gaps, the head-to-head Compare, the
-          methodology page listing all 96 sources, and a plain-English glossary. Two rounds of
-          your review have already landed &mdash; the aesthetic pass (school colours, monogram
-          badges, compact footer) and the floating definition bubbles plus the glossary tab.
-          Lighthouse: performance 89&ndash;98, accessibility 100 on every route; 62/62 tests green.
-          Walk it and call it version one &mdash; or send back more fixes.
-        </p>
-      </div>
-    </div>
+    <p class="lede" style="margin-top:1.25rem">
+      <strong>Closed since this section last changed:</strong> Deployment Protection and the zip-archive
+      outage it unmasked (4 Aug), Checkpoint A (4 Aug), Checkpoint B &mdash; all five
+      definition-of-done lines verified against production (18 Aug), the hosting-plan correction
+      (18 Aug), and the PRD's status line and coverage wording (29 Aug). The Yahoo Finance licensing
+      question, the typeface and the footer contact line were each ruled deliberately and should not
+      be re-raised without new evidence.
+    </p>
   </section>
 
   <section>
@@ -531,10 +526,10 @@
           <li class="task is-done"><span class="task-id">1.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Seed script with validation &mdash; a number without a citation is rejected outright</span>
             <span class="task-note">Later hardened after a code review: writing is now opt-in, the write is one transaction, and 30 validator rules are regression-tested.</span>
           </li>
-          <li class="task is-done"><span class="task-id">1.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Yale curated &mdash; 25 years of allocations and returns from the annual reports</span></li>
+          <li class="task is-done"><span class="task-id">1.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Yale curated &mdash; allocations FY2000&ndash;FY2020 (21 years, 126 rows), returns and market values FY2000&ndash;FY2025 (26 years), from the annual reports</span></li>
           <li class="task is-done"><span class="task-id">1.4</span><span class="glyph g-done">&#10003;</span><span class="task-text">Benchmark series curated &mdash; what the S&amp;P 500, bonds, international equity, REITs and cash actually returned each fiscal year</span></li>
           <li class="task is-done"><span class="task-id">1.5</span><span class="glyph g-done">&#10003;</span><span class="task-text">Harvard complete &mdash; 77 allocation rows, and the returns series now runs unbroken FY2000&ndash;FY2025</span></li>
-          <li class="task is-done"><span class="task-id">1.6</span><span class="glyph g-done">&#10003;</span><span class="task-text">Stanford, MIT and Princeton curated &mdash; four parallel workers, each row re-verified against independently fetched documents before landing</span>
+          <li class="task is-done"><span class="task-id">1.6</span><span class="glyph g-done">&#10003;</span><span class="task-text">Stanford, MIT and Princeton curated &mdash; four parallel workers, then per-unit QC one tier above the producer against independently re-fetched documents: MIT and the Harvard tail verified in full, Princeton and Stanford sampled (a random year plus every regime boundary)</span>
             <span class="task-note">MIT&rsquo;s only published allocation tables turned out to live in its answers to Congress; Stanford&rsquo;s allocations are an honest, documented gap.</span>
           </li>
           <li class="task is-done"><span class="task-id">1.7</span><span class="glyph g-done">&#10003;</span><span class="task-text">ETF stand-ins chosen for every asset class, with plain words where the stand-in is weak &mdash; and two honest &ldquo;no stand-in exists&rdquo; gaps</span>
@@ -616,13 +611,36 @@
           <li class="task is-done"><span class="task-id">6.1</span><span class="glyph g-done">&#10003;</span><span class="task-text">Methodology page &mdash; all 96 sources listed from the database itself, every gap&rsquo;s story in plain English</span></li>
           <li class="task is-done"><span class="task-id">6.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Disclaimer verified on every route including errors; plain-English pass done</span></li>
           <li class="task is-done"><span class="task-id">6.3</span><span class="glyph g-done">&#10003;</span><span class="task-text">Production checks &mdash; Lighthouse 94&ndash;98 speed / 100 accessibility, phone sweep clean, real title and icon</span>
-            <span class="task-note">One check waits on 6.4: the public URL can&rsquo;t return 200 while Deployment Protection is on.</span>
+            <span class="task-note">Its last check was gated on 6.4 and cleared once Deployment Protection came off: the public URL returns 200 to a logged-out visitor.</span>
           </li>
           <li class="task is-done"><span class="task-id">6.4</span><span class="glyph g-done">&#10003;</span><span class="task-text">Deployment Protection off; zip-archive deployment bug found and fixed; site publicly reachable</span></li>
         </ul>
         <div class="gate">
-          <span class="gate-tag">Gate &middot; Checkpoint B</span>
-          <span>Final review against the definition of done.</span>
+          <span class="gate-tag">Gate &middot; Checkpoint B &mdash; PASSED 18 Aug 2026</span>
+          <span>All five definition-of-done lines verified against production. v1 is done.</span>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <div class="phase-num">7</div>
+          <div class="phase-name">Post-v1</div>
+          <div class="phase-count">1 part-way</div>
+        </div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:14%"></div></div></div>
+        <ul class="tasks">
+          <li class="task is-part"><span class="task-id">1.8</span><span class="glyph g-part">&#9686;</span><span class="task-text">Audit remediation, scoped to the failing gate assertions &mdash; 12 findings closed, and two bugs found in the audit&rsquo;s own verification script</span>
+            <span class="task-note">The gate now reads 23/23. The wider 74-site remediation and 37 unverified leads stay open on purpose &mdash; the audit warns its own refutation rate was 24 in 63.</span>
+          </li>
+          <li class="task"><span class="task-id">7.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Source watcher and citation-rot check &mdash; a third of the 96 citations are already Internet Archive captures</span></li>
+          <li class="task"><span class="task-id">7.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Prose-staleness and disclosure-flip guards, before the October&ndash;November data refresh</span></li>
+          <li class="task"><span class="task-id">7.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Compare&rsquo;s period picker is bounded by allocation coverage where it should use returns coverage</span></li>
+          <li class="task"><span class="task-id">7.4</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Rehearse the disaster-recovery path end to end &mdash; it has never actually been run</span></li>
+          <li class="task"><span class="task-id">7.5</span><span class="glyph g-block">&#9650;</span><span class="task-text">Uptime monitor on <code>/api/health</code> &mdash; yours</span></li>
+        </ul>
+        <div class="gate">
+          <span class="gate-tag">No gate</span>
+          <span>None of this blocks the site. The one real deadline is the autumn data refresh.</span>
         </div>
       </div>
 
@@ -633,8 +651,10 @@
     <h2>What is actually in the database</h2>
     <p class="lede">
       Every figure below is loaded from hand-curated files and carries a citation to a specific
-      document and page. Gaps are real gaps &mdash; nothing is estimated, interpolated, or carried
-      forward from a neighbouring year to make a series look complete.
+      document, with a page or a direct URL &mdash; which is what the validator actually enforces,
+      and what 29 of the 96 sources rely on, being web pages with no page number to give. Gaps are
+      real gaps: nothing is estimated, interpolated, or carried forward from a neighbouring year to
+      make a series look complete.
     </p>
     <div class="scroller">
       <table>
@@ -721,10 +741,12 @@
   <section>
     <h2>Judgement calls made along the way</h2>
     <p class="lede">
-      Five questions were too consequential to answer casually and too specific to guess at.
-      Each was escalated to a stronger model for an independent answer, and each is recorded in
-      full &mdash; the question, the options, both recommendations, and what would justify
-      revisiting it.
+      Six questions were too consequential to answer casually and too specific to guess at. Each
+      was put to an independent model for its own answer and each is recorded in full &mdash; the
+      question, the options, both recommendations, and what would justify revisiting it. Five went
+      <em>up</em> a tier. The sixth could not: it was already at Fable, the top of the chain, so it
+      was ruled by a fresh-context model at the same tier under the two-phase blind protocol, with
+      no senior above it to appeal to.
     </p>
     <div class="decisions">
       <div class="decision">
@@ -753,14 +775,14 @@
       </div>
       <div class="decision">
         <div class="decision-head">
-          <span class="decision-q">Six Harvard tables carry no date. Which fiscal year do they belong to?</span>
+          <span class="decision-q">Five Harvard tables carry no date. Which fiscal year do they belong to?</span>
           <span class="decision-by">Settled with evidence</span>
         </div>
         <p>
           Rather than ruling on it, each undated table was reconciled against Harvard&rsquo;s
           audited statements. FY2021 was decisive on its own: the 34% private-equity figure did
           not exist at the start of that year and did at the end. Guessing by publication year
-          would have shifted six years of the series by one, invisibly.
+          would have shifted five years of the series by one, invisibly.
         </p>
       </div>
       <div class="decision">
@@ -810,9 +832,11 @@
       work lands, never edited by hand into disagreement.
     </div>
     <div>
-      Counts verified directly against the seed files and the live database at render time:
-      <code>25/25</code> tasks, <code>624</code> cited data points, <code>30/30</code> validator
-      checks and <code>62/62</code> unit tests passing, Lighthouse <code>89&ndash;98</code>/<code>100</code>. Not financial advice.
+      Counts verified directly against the seed files and the live database at render time,
+      29 August 2026: <code>25/25</code> v1 tasks, <code>624</code> cited data points across
+      <code>96</code> source documents, <code>30/30</code> validator checks, <code>64/64</code>
+      unit tests, Lighthouse <code>94&ndash;98</code> speed / <code>100</code> accessibility, and
+      the 31 July audit&rsquo;s own gate at <code>23/23</code>. Not financial advice.
     </div>
   </footer>
 

@@ -121,7 +121,12 @@ else
 fi
 
 # --- A-02 / WP1: undated-table count in the ledger and downstream
-n=$(grep -c 'six undated\|six HMC reports\|All six undated' TASKS.md data/README.md STATUS.html 2>/dev/null | awk -F: '{s+=$2} END{print s+0}')
+# Pattern widened 2026-08-29: the original three alternatives missed the two
+# actual renderings of the same error in STATUS.html ("Six Harvard tables carry
+# no date", "shifted six years of the series"), so the gate reported clean on the
+# very sites WP4b's A-32 work order names. A gate that matches the ledger's
+# phrasing but not the rendering's is how a corrected fact comes back.
+n=$(grep -ci 'six undated\|six HMC reports\|All six undated\|six Harvard\|six years of the series' TASKS.md data/README.md STATUS.html 2>/dev/null | awk -F: '{s+=$2} END{print s+0}')
 check "stale \"six undated tables\" phrasings across ledger+README+STATUS" 0 "$n"
 
 # --- A-10: RESERVED (kernel Part 2 §5 / CONSTITUTION Part 2 §5).

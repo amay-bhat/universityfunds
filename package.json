@@ -21,6 +21,7 @@
     "verify:a11y": "node scripts/verify-a11y.mjs",
     "verify:figures": "node scripts/verify-figure-reconciliation.mjs",
     "verify:prose": "node scripts/verify-prose-facts.mjs",
+    "check:sources": "node scripts/check-sources.mjs",
     "verify:palette": "node scripts/validate_palette.mjs",
     "verify:seo": "node scripts/verify-seo.mjs"
   },

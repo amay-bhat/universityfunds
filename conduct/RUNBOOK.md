@@ -109,6 +109,20 @@ looking a full year staler than it is.
 
 **Order matters — the gates only work if run in this sequence.**
 
+0. **`npm run check:sources`** — before curating anything, check that the
+   citations already published still resolve. The methodology page shows all of
+   them to readers, and **31 of the 96 are Internet Archive captures already**;
+   Harvard's are archival in their entirety, because `hmc.harvard.edu` dropped
+   the originals. This fingerprints content rather than trusting status codes,
+   so it catches a **soft-404** — a 200 response carrying a generic error page,
+   which is what Yale's old report paths used to serve for every year. Results
+   are four-way: `DEAD` fails the run, `CHANGED` means the bytes moved and wants
+   one document opened by hand, `BLOCKED` means the host refuses automated
+   clients (**not** a pass — check those in a browser), and `UNREACHED` is a
+   transport failure and never fails the run. Baseline lives at
+   `conduct/source-fingerprints.json`; re-baseline with `-- --update` only after
+   reviewing what moved.
+
 1. **Curate.** Add rows to `data/schools/<school>.json` and the corresponding
    source records to `data/sources.json`. Every figure needs a citation that
    resolves; every allocation row needs `basis`; endowment-return rows need

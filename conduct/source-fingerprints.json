@@ -1,0 +1,651 @@
+{
+  "_comment": "Content fingerprints for the cited documents, written by scripts/check-sources.mjs. An operations baseline, NOT curation — data/sources.json is the source of truth and is never written by this script. Re-baseline with `npm run check:sources -- --update` only after reviewing what CHANGED and why.",
+  "updated": "2026-08-30",
+  "note": "92 of 96 probed sources fingerprinted; dead and unreachable ones are omitted rather than recorded as good.",
+  "sources": {
+    "yale-endowment-report-2004": {
+      "url": "https://web.archive.org/web/20141101074609/http://investments.yale.edu/images/documents/Yale_Endowment_04.pdf",
+      "type": "application/pdf",
+      "bytes": 685011,
+      "hash": "71606c3b7cce6521",
+      "checked": "2026-08-30"
+    },
+    "yale-endowment-report-2009": {
+      "url": "https://web.archive.org/web/20130918135313/http://investments.yale.edu/images/documents/Yale_Endowment_09.pdf",
+      "type": "application/pdf",
+      "bytes": 5800576,
+      "hash": "60995c7021a8c6d1",
+      "checked": "2026-08-30"
+    },
+    "yale-endowment-report-2014": {
+      "url": "https://web.archive.org/web/20150330053124/http://investments.yale.edu/images/documents/Yale_Endowment_14.pdf",
+      "type": "application/pdf",
+      "bytes": 7594572,
+      "hash": "d42bc83775d97d67",
+      "checked": "2026-08-30"
+    },
+    "yale-endowment-report-2015": {
+      "url": "https://web.archive.org/web/20160417083659/http://investments.yale.edu/images/documents/Yale_Endowment_15.pdf",
+      "type": "application/pdf",
+      "bytes": 8852010,
+      "hash": "6f66a985b7048718",
+      "checked": "2026-08-30"
+    },
+    "yale-endowment-report-2020": {
+      "url": "https://web.archive.org/web/20250322044125/https://investments.yale.edu/wp-content/uploads/2024/10/2020YaleEndowment.pdf",
+      "type": "application/pdf",
+      "bytes": 7195230,
+      "hash": "8ec9dc77fd30c9bb",
+      "checked": "2026-08-30"
+    },
+    "yale-endowment-report-2021": {
+      "url": "https://web.archive.org/web/20230312023702/https://investments.yale.edu/s/2021-Endowment-Report.pdf",
+      "type": "application/pdf",
+      "bytes": 8470875,
+      "hash": "7c5dec55c10eea9d",
+      "checked": "2026-08-30"
+    },
+    "yale-news-fy2022-return": {
+      "url": "https://news.yale.edu/2022/10/04/yale-reports-investment-return-fiscal-2022",
+      "type": "text/html",
+      "bytes": 20861,
+      "hash": "4b1ce97b485cdcfd",
+      "checked": "2026-08-30"
+    },
+    "yale-news-fy2023-return": {
+      "url": "https://news.yale.edu/2023/10/10/yale-reports-investment-return-fiscal-2023",
+      "type": "text/html",
+      "bytes": 20541,
+      "hash": "293bb3c7a6f6caaf",
+      "checked": "2026-08-30"
+    },
+    "yale-news-fy2024-return": {
+      "url": "https://news.yale.edu/2024/10/25/yale-reports-investment-return-fiscal-2024",
+      "type": "text/html",
+      "bytes": 20865,
+      "hash": "01314e09846d5433",
+      "checked": "2026-08-30"
+    },
+    "yale-news-fy2025-return": {
+      "url": "https://news.yale.edu/2025/10/24/yale-reports-investment-return-fiscal-2025",
+      "type": "text/html",
+      "bytes": 21313,
+      "hash": "a8525218a2eefe5e",
+      "checked": "2026-08-30"
+    },
+    "bench-tb3ms": {
+      "url": "https://fred.stlouisfed.org/series/TB3MS",
+      "type": "text/html",
+      "bytes": 14941,
+      "hash": "4199922c22c790f6",
+      "checked": "2026-08-30"
+    },
+    "hmc-endowment-report-2009": {
+      "url": "https://web.archive.org/web/20100701225821/http://www.hmc.harvard.edu/docs/2009%20HMC%20Endowment%20Report.pdf",
+      "type": "application/pdf",
+      "bytes": 1053964,
+      "hash": "b3b16e3e699a8691",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2011": {
+      "url": "https://web.archive.org/web/20111002035753/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2011.pdf",
+      "type": "application/pdf",
+      "bytes": 391071,
+      "hash": "f9bf5f8ebe2dbd74",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2012": {
+      "url": "https://web.archive.org/web/20121020232526/http://hmc.harvard.edu/docs/Final_Annual_Report_2012.pdf",
+      "type": "application/pdf",
+      "bytes": 199389,
+      "hash": "cef13ad826b035d5",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2013": {
+      "url": "https://web.archive.org/web/20131107005725/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2013.pdf",
+      "type": "application/pdf",
+      "bytes": 280660,
+      "hash": "5edb4741438b07c8",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2014": {
+      "url": "https://web.archive.org/web/20141006032720/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2014.pdf",
+      "type": "application/pdf",
+      "bytes": 455072,
+      "hash": "ead1efaed567d997",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2015": {
+      "url": "https://web.archive.org/web/20151010065845/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2015.pdf",
+      "type": "application/pdf",
+      "bytes": 1698505,
+      "hash": "92224226094f5a0c",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2016": {
+      "url": "https://web.archive.org/web/20160924085600/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2016.pdf",
+      "type": "application/pdf",
+      "bytes": 325517,
+      "hash": "974550ec07cbc708",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2017": {
+      "url": "https://web.archive.org/web/20171115181133/http://www.hmc.harvard.edu/docs/Final_Annual_Report_2017.pdf",
+      "type": "application/pdf",
+      "bytes": 142811,
+      "hash": "a18e806ac2d7fe76",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2018": {
+      "url": "https://web.archive.org/web/20230606132304/https://www.hmc.harvard.edu/wp-content/uploads/2019/03/FY18_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 157985,
+      "hash": "3964b48d48e8be8e",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2019": {
+      "url": "https://web.archive.org/web/20230316162404/https://www.hmc.harvard.edu/wp-content/uploads/2019/10/FY19-HMC-Annual-Report.pdf",
+      "type": "application/pdf",
+      "bytes": 174136,
+      "hash": "48f4b64c22de69f9",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2020": {
+      "url": "https://web.archive.org/web/20230606125623/https://www.hmc.harvard.edu/wp-content/uploads/2020/10/FY20_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 159075,
+      "hash": "47784b3889e15d7c",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2021": {
+      "url": "https://web.archive.org/web/20211125233549/https://www.hmc.harvard.edu/wp-content/uploads/2021/10/FY21_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 171025,
+      "hash": "d8b7394f901db5f5",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2022": {
+      "url": "https://web.archive.org/web/20221013171304/https://www.hmc.harvard.edu/wp-content/uploads/2022/10/FY22_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 156239,
+      "hash": "1ccae9aebe698c5b",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2023": {
+      "url": "https://web.archive.org/web/20231101153537/https://www.hmc.harvard.edu/wp-content/uploads/2023/10/FY23_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 78203,
+      "hash": "d3e23c24a49fc1ef",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2024": {
+      "url": "https://web.archive.org/web/20241024074042/https://www.hmc.harvard.edu/wp-content/uploads/2024/10/FY24_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 75007,
+      "hash": "50803a2b9eca7821",
+      "checked": "2026-08-30"
+    },
+    "hmc-annual-report-2025": {
+      "url": "https://web.archive.org/web/20251016224657/https://www.hmc.harvard.edu/wp-content/uploads/2025/10/FY25_HMC_Annual_Report.pdf",
+      "type": "application/pdf",
+      "bytes": 85647,
+      "hash": "8878a4abb68ac881",
+      "checked": "2026-08-30"
+    },
+    "hmc-john-harvard-letter-2007": {
+      "url": "https://web.archive.org/web/20100701214927/http://www.hmc.harvard.edu/docs/John%20Harvard%20Letter%20FY07%20-%20Final.pdf",
+      "type": "application/pdf",
+      "bytes": 161082,
+      "hash": "03d382112e7fef29",
+      "checked": "2026-08-30"
+    },
+    "hmc-john-harvard-letter-2008": {
+      "url": "https://web.archive.org/web/20100701230216/http://www.hmc.harvard.edu/docs/2008%20John%20Harvard%20Letter.pdf",
+      "type": "application/pdf",
+      "bytes": 128748,
+      "hash": "e8247d57b8540335",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2001": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2001.pdf",
+      "type": "application/pdf",
+      "bytes": 1959753,
+      "hash": "42e3a9ca98c74bd8",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2003": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2003.pdf",
+      "type": "application/pdf",
+      "bytes": 1070694,
+      "hash": "ea29a77ebf49e69f",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2005": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2005.pdf",
+      "type": "application/pdf",
+      "bytes": 957046,
+      "hash": "205a4b5e6f41ae32",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2007": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2007.pdf",
+      "type": "application/pdf",
+      "bytes": 836151,
+      "hash": "b450bca4725b0d0a",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2012": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2012.pdf",
+      "type": "application/pdf",
+      "bytes": 3940160,
+      "hash": "229b908cf488ffc9",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2014": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2014.pdf",
+      "type": "application/pdf",
+      "bytes": 861529,
+      "hash": "09fb0ca4109a2ea6",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2015": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2015.pdf",
+      "type": "application/pdf",
+      "bytes": 1570310,
+      "hash": "5ea161fd8ea54534",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2017": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2017.pdf",
+      "type": "application/pdf",
+      "bytes": 1108955,
+      "hash": "5ff86a03bd55ef84",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2019": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/stanford-annual-financial-report-2019.pdf",
+      "type": "application/pdf",
+      "bytes": 1344883,
+      "hash": "0c5232eb54d6a430",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2021": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy21-stanford-annual-financial-report.pdf",
+      "type": "application/pdf",
+      "bytes": 1476535,
+      "hash": "293b2e0abf5cdfa9",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2023": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy23-stanford-annual-financial-report.pdf",
+      "type": "application/pdf",
+      "bytes": 1547697,
+      "hash": "7109314552334b5a",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2024": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy24-annual-financial-report_0.pdf",
+      "type": "application/pdf",
+      "bytes": 1307856,
+      "hash": "96c3563dc490216c",
+      "checked": "2026-08-30"
+    },
+    "smc-annual-financial-report-2025": {
+      "url": "https://bondholder-information.stanford.edu/sites/g/files/sbiybj21416/files/media/file/fy25-annual-financial-report.pdf",
+      "type": "application/pdf",
+      "bytes": 6068926,
+      "hash": "124a5ed7be61683d",
+      "checked": "2026-08-30"
+    },
+    "mitimco-senate-finance-response-2008": {
+      "url": "https://news.mit.edu/newsoffice/2008/baucus-grassley-qa.pdf",
+      "type": "application/pdf",
+      "bytes": 513449,
+      "hash": "92331e770f25c530",
+      "checked": "2026-08-30"
+    },
+    "mitimco-congressional-response-2016": {
+      "url": "https://orgchart.mit.edu/system/files/reports/MIT_Congressional_Endowment_Inquiry_Response.pdf",
+      "type": "application/pdf",
+      "bytes": 2643986,
+      "hash": "ceaa3939ba72f283",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2010": {
+      "url": "https://web.archive.org/web/20110601060345id_/http://vpf.mit.edu/site/content/download/7658/41219/file/FY10%20Treasurer's%20Report.pdf",
+      "type": "application/pdf",
+      "bytes": 3806109,
+      "hash": "856725d09597f38f",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2011": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2011.pdf",
+      "type": "application/pdf",
+      "bytes": 2491544,
+      "hash": "7420a8abb79490a9",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2012": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2012.pdf",
+      "type": "application/pdf",
+      "bytes": 1060505,
+      "hash": "45ec58243451ec56",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2013": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2013.pdf",
+      "type": "application/pdf",
+      "bytes": 1731869,
+      "hash": "cefd43b624acc8da",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2014": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2014.pdf",
+      "type": "application/pdf",
+      "bytes": 4390002,
+      "hash": "ac8da4d3596b47df",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2015": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2015.pdf",
+      "type": "application/pdf",
+      "bytes": 2847044,
+      "hash": "926b06ae9002c91b",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2016": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2016.pdf",
+      "type": "application/pdf",
+      "bytes": 4200861,
+      "hash": "7a94632f5825fb3a",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2017": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2017.pdf",
+      "type": "application/pdf",
+      "bytes": 2723277,
+      "hash": "90d03876552759b7",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2018": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2018.pdf",
+      "type": "application/pdf",
+      "bytes": 3315626,
+      "hash": "81b0fd8c6d90979d",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2019": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2019.pdf",
+      "type": "application/pdf",
+      "bytes": 7566780,
+      "hash": "53ec7e8b0fef994f",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2020": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2020.pdf",
+      "type": "application/pdf",
+      "bytes": 6347683,
+      "hash": "0ca65b7d9663061c",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2021": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2021.pdf",
+      "type": "application/pdf",
+      "bytes": 3259496,
+      "hash": "159bdfb18bd1cab4",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2022": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2022.pdf",
+      "type": "application/pdf",
+      "bytes": 4298072,
+      "hash": "a4ba473c17ee6602",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2023": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2023.pdf",
+      "type": "application/pdf",
+      "bytes": 3102662,
+      "hash": "dd13b98110955eac",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2024": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2024.pdf",
+      "type": "application/pdf",
+      "bytes": 3049993,
+      "hash": "371fc91525e65abe",
+      "checked": "2026-08-30"
+    },
+    "mitimco-treasurers-report-2025": {
+      "url": "https://vpf.mit.edu/sites/default/files/downloads/TreasurersReport/MITTreasurersReport2025.pdf",
+      "type": "application/pdf",
+      "bytes": 4418672,
+      "hash": "c1b01f7ee629958d",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2001": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2000-2001.pdf",
+      "type": "application/pdf",
+      "bytes": 703968,
+      "hash": "daa47d218474e163",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2002": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2001-2002.pdf",
+      "type": "application/pdf",
+      "bytes": 222980,
+      "hash": "718100e746decfc8",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2004": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2003-2004.pdf",
+      "type": "application/pdf",
+      "bytes": 1573921,
+      "hash": "f647637e6c6ac603",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2005": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2004-2005.pdf",
+      "type": "application/pdf",
+      "bytes": 1233812,
+      "hash": "5e9e4c7e566b0c3a",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2006": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2005-2006.pdf",
+      "type": "application/pdf",
+      "bytes": 1365938,
+      "hash": "eff1ea289997c4b5",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2007": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2006-2007.pdf",
+      "type": "application/pdf",
+      "bytes": 1563299,
+      "hash": "d812d6fc81bfaa44",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2008": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2007-2008.pdf",
+      "type": "application/pdf",
+      "bytes": 1715677,
+      "hash": "816a475858dd7608",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2009": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2008-2009.pdf",
+      "type": "application/pdf",
+      "bytes": 1496699,
+      "hash": "f78b29d92db7aab2",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2010": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2009-2010.pdf",
+      "type": "application/pdf",
+      "bytes": 1037642,
+      "hash": "4cf1154475262570",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2011": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2010-2011.pdf",
+      "type": "application/pdf",
+      "bytes": 6355796,
+      "hash": "ba9580500165da3a",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2012": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-10/2011-2012.pdf",
+      "type": "application/pdf",
+      "bytes": 17389062,
+      "hash": "a71163fb18817f97",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2013": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-10/2012-2013.pdf",
+      "type": "application/pdf",
+      "bytes": 34738925,
+      "hash": "0003387f7de264dc",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2014": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2013-2014.pdf",
+      "type": "application/pdf",
+      "bytes": 5798812,
+      "hash": "f989cedcab456ad7",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2015": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2014-2015.pdf",
+      "type": "application/pdf",
+      "bytes": 10080776,
+      "hash": "597bd842f64aca43",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2016": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2015-2016.pdf",
+      "type": "application/pdf",
+      "bytes": 6689515,
+      "hash": "c73c995ff27241ba",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2017": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2016-2017.pdf",
+      "type": "application/pdf",
+      "bytes": 2469753,
+      "hash": "ac3e1cda5224c2c8",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2018": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2019-09/2017-2018.pdf",
+      "type": "application/pdf",
+      "bytes": 1963594,
+      "hash": "d9ebe7531c3e6f68",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2020": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/2020-12/Report%20of%20the%20Treasurer%202019-2020.pdf",
+      "type": "application/pdf",
+      "bytes": 4636327,
+      "hash": "216f671d82ec52cc",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2021": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202020-21.pdf",
+      "type": "application/pdf",
+      "bytes": 6972636,
+      "hash": "0f0a20bcd4d2f65d",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2022": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202021-22%20FlipBK.pdf",
+      "type": "application/pdf",
+      "bytes": 8149949,
+      "hash": "092b1632f7db40af",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2023": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf151/files/documents/Report%20of%20the%20Treasurer%202022-23%20FlipBk_0.pdf",
+      "type": "application/pdf",
+      "bytes": 11574119,
+      "hash": "1dff1d70f8418187",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2024": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf8101/files/documents/2024%20Report%20of%20the%20Treasurer%20WEB.pdf",
+      "type": "application/pdf",
+      "bytes": 10666999,
+      "hash": "0b2ac553b0ccffc2",
+      "checked": "2026-08-30"
+    },
+    "princo-rot-2025": {
+      "url": "https://finance.princeton.edu/sites/g/files/toruqf8101/files/documents/2024-25%20Report%20of%20the%20Treasurer%20Final.pdf",
+      "type": "application/pdf",
+      "bytes": 27695035,
+      "hash": "4f93b0ef50cc97db",
+      "checked": "2026-08-30"
+    },
+    "princo-press-release-2019": {
+      "url": "https://www.princeton.edu/news/2019/10/11/princeton-endowment-earns-62-percent-return",
+      "type": "text/html",
+      "bytes": 11829,
+      "hash": "f22991fb920f5e29",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2002": {
+      "url": "https://web.archive.org/web/20040723023250/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2002discussion.pdf",
+      "type": "application/pdf",
+      "bytes": 833967,
+      "hash": "48374a8f070bc247",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2003": {
+      "url": "https://web.archive.org/web/20051102064157/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2003discussion.pdf",
+      "type": "application/pdf",
+      "bytes": 531159,
+      "hash": "1264ca9acd39930f",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2004": {
+      "url": "https://web.archive.org/web/20051102054103/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2004discussion.pdf",
+      "type": "application/pdf",
+      "bytes": 1488278,
+      "hash": "fd0870f847b735bb",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2005": {
+      "url": "https://web.archive.org/web/20060519002455/http://vpf-web.harvard.edu:80/annualfinancial/pdfs/2005discussion.pdf",
+      "type": "application/pdf",
+      "bytes": 1294034,
+      "hash": "69ef5f75dac2ee79",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2006": {
+      "url": "https://web.archive.org/web/20100706200457/http://vpf-web.harvard.edu/annualfinancial/pdfs/2006discussion.pdf",
+      "type": "application/pdf",
+      "bytes": 727373,
+      "hash": "3017a04ba3fefd9c",
+      "checked": "2026-08-30"
+    },
+    "hmc-university-financial-report-2010": {
+      "url": "https://web.archive.org/web/20130108013513/http://vpf-web.harvard.edu/annualfinancial/pdfs/2010fullreport.pdf",
+      "type": "application/pdf",
+      "bytes": 923778,
+      "hash": "93f203ecb346e60b",
+      "checked": "2026-08-30"
+    },
+    "mitimco-fnl-bufferd-2004": {
+      "url": "https://web.mit.edu/fnl/vol/171/fnl171.pdf",
+      "type": "application/pdf",
+      "bytes": 824064,
+      "hash": "138350e3fb7bebf4",
+      "checked": "2026-08-30"
+    },
+    "bench-vt": {
+      "url": "https://finance.yahoo.com/quote/VT/history",
+      "type": "text/html",
+      "bytes": 65536,
+      "hash": "4dacc29711ba4bf9",
+      "checked": "2026-08-30"
+    }
+  }
+}

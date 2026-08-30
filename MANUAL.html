@@ -202,7 +202,7 @@
 <div class="wrap">
 
 <header>
-  <div class="kicker">Operator manual · Conduct v1.0.0</div>
+  <div class="kicker">Operator manual · Conduct v1.1.0</div>
   <h1>Driving the endowment explorer to v1</h1>
   <p class="stand">
     How to run the rest of this project: what you type, what the machine does on its own,
@@ -210,12 +210,40 @@
     at the keyboard, not for the sessions.
   </p>
   <div class="meta">
-    <span>31 July 2026</span>
+    <span>31 July 2026 &middot; partially corrected 29 Aug 2026</span>
     <span>Commands verified by execution</span>
     <span>Rules quoted from source</span>
     <span>State lives in TASKS.md</span>
   </div>
 </header>
+
+<div class="box care">
+  <span class="tag">Read this first &mdash; parts of this manual describe a project that has since shipped</span>
+  <p>
+    This was written on <strong>31 July 2026</strong>, when the road to v1 still lay ahead.
+    <strong>v1 shipped and passed Checkpoint B on 18 August 2026.</strong> The
+    <em>procedure</em> here &mdash; how the loop runs, what is reserved to you, what to do when it
+    breaks, and the data and sourcing traps in &sect;11 &mdash; is still accurate and still worth
+    reading; it is the most valuable part of the document and none of it has expired.
+  </p>
+  <p>
+    <strong>Three sections are now history rather than instruction</strong>, and are kept for the
+    record rather than deleted: <strong>&sect;5</strong> opens &ldquo;three are open right now&rdquo;
+    and all three are closed (Deployment Protection came off 4 Aug, Checkpoint A was ruled 4 Aug,
+    and nothing is unpushed); <strong>&sect;9</strong> is a route to a destination already reached;
+    and several rows in <strong>&sect;10</strong> have been fixed &mdash; there <em>is</em> a test
+    runner now, with 64 passing tests. The live counts in &sect;3 and &sect;4 predate task 1.7:
+    <code>seed:dry</code> now reports <strong>2</strong> warnings, not 10, and the build produces 17
+    routes, not two.
+  </p>
+  <p>
+    <strong>For current state, read the status page</strong>, which was regenerated on 29 August, or
+    <code>TASKS.md</code> itself, which outranks both. A full rewrite of this manual is tracked as
+    task 7.6. Corrected in place on 29 August: the <code>npm audit</code> figure, the unpushed-commit
+    count, the governance-tag greps in &sect;7, and the PRD row in &sect;10 &mdash; every one of them
+    a number that drifts on its own, now replaced by the command that re-derives it.
+  </p>
+</div>
 
 <nav class="toc" aria-label="Contents">
   <ol>

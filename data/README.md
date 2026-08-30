@@ -91,13 +91,13 @@ Returns and market values are curated for the **complete FY2000–FY2025 range (
 
 #### Harvard as-of dating (why these years and not others)
 
-HMC printed an as-of date on exactly two of its allocation tables and none of the rest, so the dating had to be established by evidence. Getting it wrong would shift six years of the series by one year, invisibly.
+HMC printed an as-of date on exactly two of its allocation tables and none of the rest, so the dating had to be established by evidence. Getting it wrong would shift five years of the series by one year, invisibly.
 
 - **FY2018 report** — explicit: "Asset Class **July 1, 2017** Allocation". Start-of-year, and the only such table. Curated as FY2017.
 - **FY2025 report** — explicit: "**As of June 30, 2025**, the portfolio composition was as follows". Year-end.
 - **FY2019–FY2024 reports** — no as-of wording anywhere in the document.
 
-The six undated tables were assigned to **fiscal-year end** by reconciling each against Harvard's own audited financial statements, comparing only the overlay-free asset classes (private equity, real estate, natural resources) where fair value ≈ exposure. Public equity and hedge funds are *excluded* from the test because HMC's percentages are exposure-based and include index hedges, so NAV cannot check them.
+The five undated tables — the FY2019, FY2020, FY2021, FY2023 and FY2024 reports; the FY2022 report prints no allocation table at all — were assigned to **fiscal-year end** by reconciling each against Harvard's own audited financial statements, comparing only the overlay-free asset classes (private equity, real estate, natural resources) where fair value ≈ exposure. Public equity and hedge funds are *excluded* from the test because HMC's percentages are exposure-based and include index hedges, so NAV cannot check them.
 
 | HMC table (PE / RE / NR) | vs its own June 30 | vs prior July 1 |
 |---|---|---|

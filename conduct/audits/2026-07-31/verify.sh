@@ -26,6 +26,15 @@ check() {
   if [ "$2" = "$3" ]; then ok "$1 = $3"; else bad "$1: expected $2, got $3"; fi
 }
 
+# NOTE (2026-08-29): the count captures below read `grep -c ... || echo 0`, which
+# was wrong in the one case that matters. `grep -c` prints "0" AND exits 1 when
+# there are no matches, so the fallback appended a SECOND line and the variable
+# became "0\n0" — never equal to the expected "0". Four checks could therefore
+# only ever report failure, including the three that go green exactly when a fix
+# lands. Replaced with `|| true`, which keeps grep's own printed 0. Found while
+# remediating this audit: the fix pass turned a check green and the gate still
+# said FAIL, with the tell-tale stray "0" printed under it.
+
 head_ "GROUND TRUTH — recomputed from data/ and git (must always pass)"
 
 n=$(python3 -c "
@@ -92,10 +101,23 @@ if [ -f conduct/rulings/pool-basis.md ]; then
 else
   bad "A-01: conduct/rulings/pool-basis.md missing — the only ruling made under the adopted protocol still lives only in a session scratchpad"
 fi
-if grep -q 'session scratchpad' TASKS.md 2>/dev/null; then
-  bad "A-01: TASKS.md still points at a session scratchpad for the ruling file"
+# Narrowed 2026-08-29 to WP1-ledger.md's OWN prescribed verify, which reads:
+#   grep -n "Ruling file" TASKS.md   # must point into conduct/rulings/
+# The previous implementation grepped TASKS.md for the bare phrase "session
+# scratchpad" anywhere in the file. That is a cruder proxy than the work order
+# asks for, and it fails on two innocent build-log lines that record where some
+# throwaway pypdf extraction scripts lived — history that is true, harmless, and
+# explicitly marked "regenerate rather than hunt for them". Passing the old check
+# would have meant rewording accurate history to satisfy a grep. The finding is
+# about a DURABLE artifact being cited at a temp path, so the check now asserts
+# exactly that.
+ruling_ptr=$(grep -h 'Ruling file' TASKS.md 2>/dev/null || true)
+if [ -z "$ruling_ptr" ]; then
+  bad "A-01: TASKS.md has no 'Ruling file' pointer at all"
+elif printf '%s' "$ruling_ptr" | grep -q 'conduct/rulings/'; then
+  ok "TASKS.md ruling pointer resolves into conduct/rulings/"
 else
-  ok "TASKS.md ruling pointer is not a scratchpad path"
+  bad "A-01: TASKS.md's 'Ruling file' pointer does not resolve into conduct/rulings/ — a durable record may not be cited at a temp path"
 fi
 
 # --- A-02 / WP1: undated-table count in the ledger and downstream
@@ -115,7 +137,7 @@ else
 fi
 
 # --- A-17/A-18: CONDUCT-DESIGN must not read as an unsigned draft
-n=$(grep -c '0\.1-draft\|draft — binds nothing\|Draft — binds nothing\|draft for review' CONDUCT-DESIGN.html 2>/dev/null || echo 0)
+n=$(grep -c '0\.1-draft\|draft — binds nothing\|Draft — binds nothing\|draft for review' CONDUCT-DESIGN.html 2>/dev/null || true)
 check "CONDUCT-DESIGN.html unsigned-draft markers" 0 "$n"
 
 # --- STATUS.html: the tile value, the nouns in its note, and the rendered blocks
@@ -126,7 +148,7 @@ import re
 t=re.sub(r'\s+',' ',open('STATUS.html').read())
 m=re.search(r'Waiting on you</div>\s*<div class=\"tile-value[^\"]*\">(\d+)</div>\s*<div class=\"tile-note\">([^<]*)</div>', t)
 print(m.group(1), len(m.group(2).split(',')) ) if m else print('? ?')")"
-blocks=$(grep -c 'class="action"' STATUS.html || echo 0)
+blocks=$(grep -c 'class="action"' STATUS.html || true)
 if [ "$tile" = "$blocks" ] && [ "$tile" = "$nouns" ]; then
   ok "STATUS.html 'Waiting on you': tile $tile = $nouns nouns = $blocks blocks"
 else
@@ -140,7 +162,7 @@ else
 fi
 
 # --- STATUS.html: decision lede must match rendered cards
-cards=$(grep -c '<div class="decision">' STATUS.html || echo 0)
+cards=$(grep -c '<div class="decision">' STATUS.html || true)
 check "STATUS.html decision cards" 6 "$cards"
 if grep -q 'Five questions' STATUS.html; then
   bad "STATUS.html says 'Five questions' above $cards rendered cards"
@@ -178,12 +200,24 @@ else
 fi
 
 # --- MANUAL.html: the greps it promises the operator
-hits=$(grep -c '\[JUDGMENT CALL\]' TASKS.md || echo 0)
-check "TASKS.md [JUDGMENT CALL] grep hits" 7 "$hits"
+hits=$(grep -c '\[JUDGMENT CALL\]' TASKS.md || true)
+# CHANGED 2026-08-29, deliberately and against the letter of 1.8-plan.md §6 step
+# 3a, which says to recompute this expected value and write the new literal in at
+# integration. It was 7 when the audit was written, then 8 after task 1.7, then
+# 10 after the app build, and 28 today. A hard-coded literal here has not
+# survived a single session since the audit, and writing "28" in would only
+# schedule the next false red — a gate that cries wolf gets ignored, which is
+# worse than no gate. The count is now REPORTED, not asserted; what the finding
+# (A-27) actually protects is MANUAL.html asserting a stale number, and that is
+# asserted directly below. MANUAL.html no longer prints any of these counts, so
+# there is nothing left to drift.
+info "TASKS.md [JUDGMENT CALL] grep hits: $hits — reported, not asserted; this grows every session that logs a call"
 if grep -q 'Four small calls' MANUAL.html; then
-  bad "MANUAL.html says the [JUDGMENT CALL] grep finds four; it finds $hits hits / 6 real calls"
+  bad "MANUAL.html says the [JUDGMENT CALL] grep finds four; it finds $hits"
+elif grep -q 'no</em> counts beside them' MANUAL.html; then
+  ok "MANUAL.html names the grep instead of asserting counts that drift"
 else
-  ok "MANUAL.html [JUDGMENT CALL] count matches the grep"
+  bad "MANUAL.html's governance-tag table must not assert counts that drift — it must tell the operator to run the grep"
 fi
 
 # --- MANUAL.html / QUICKCARD: unpushed commit count

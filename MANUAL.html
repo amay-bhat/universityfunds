@@ -392,7 +392,14 @@ npm run seed:dry                # the data fingerprint (see §4)</code></pre>
   <div class="box care">
     <span class="tag">Also true</span>
     <p>
-      <code>npm audit</code> reports 16 findings (4 moderate, 12 high), all build-time only.
+      <code>npm audit</code> is registry-live: its count moves on its own, with no change to this
+      repo and no change to the lockfile. So re-derive it &mdash; run <code>npm audit</code> &mdash;
+      rather than trusting a number printed here. It read 10 findings (4 moderate, 6 high) on
+      2026-08-29, having read 16 when this page was written.
+      Nothing is currently reachable at runtime: what would put <code>sharp</code> on the request
+      path is <code>next/image</code>&rsquo;s optimizer, and this site never routes an image through
+      it &mdash; the SVG icon and the build-time OG card both bypass it. That is a property of how
+      the site currently uses images, not a guarantee.
       <code>npm audit fix --force</code> installs Next.js&nbsp;9 and destroys the app. The
       leave-it-alone decision is deliberate and logged.
     </p>
@@ -504,12 +511,15 @@ npm run seed:dry      → Validation passed (10 warning(s)).</code></pre>
   </div>
 
   <div class="stage">
-    <div class="stage-head"><span class="who human">Yours</span><span class="stage-title">Push</span><span class="stage-num">3 commits local</span></div>
+    <div class="stage-head"><span class="who human">Yours</span><span class="stage-title">Push</span><span class="stage-num">re-derive the count</span></div>
     <div class="stage-body">
       <p>
-        Pushing auto-deploys, so it stays your call. But note what is currently only on one machine:
-        the kernel adoption, the citation-split schema change, and all of the task 1.5/1.6 curation
-        &mdash; five recorded rulings and 607 cited data points.
+        Pushing auto-deploys, so it stays your call. <strong>How much is waiting is a live number,
+        not a fact this page can hold</strong> &mdash; run
+        <code>git rev-list --count origin/main..HEAD</code>. This page asserted &ldquo;3 commits
+        local&rdquo; long after the real answer had moved twice, which is exactly why it now names
+        the command instead of an answer. When the count is non-zero, weigh what only one machine
+        holds: rulings and curated data points are not recoverable from a redeploy.
       </p>
     </div>
   </div>
@@ -571,13 +581,16 @@ npm run seed:dry      → Validation passed (10 warning(s)).</code></pre>
 
 <section id="audit">
   <h2><span class="n">07</span>Auditing what was decided for you</h2>
-  <p>The whole point of proxied decisions is that they stay reversible. Four greps:</p>
+  <p>The whole point of proxied decisions is that they stay reversible. Four greps &mdash; and
+  deliberately <em>no</em> counts beside them. Every count this table once carried had drifted by the
+  time anyone read it (the four were 8, 4, 1 and 0; on 2026-08-29 they were 12, 28, 8 and 0). Run the
+  grep; don&rsquo;t trust a printed answer, and don&rsquo;t re-add one:</p>
   <div class="scroller"><table>
     <thead><tr><th>Grep</th><th>Finds</th></tr></thead>
     <tbody>
-      <tr><td class="cmd">grep -n "\[PROXY DECISION\]" TASKS.md</td><td>Eight hits, of which <strong>five are actual rulings</strong> &mdash; the others are the tag&rsquo;s own definition, a task-line mention, and a replay reference.</td></tr>
-      <tr><td class="cmd">grep -n "\[JUDGMENT CALL\]" TASKS.md</td><td>Four small calls made without escalation, each with its reasoning.</td></tr>
-      <tr><td class="cmd">grep -n "\[HITL\]" TASKS.md</td><td>Your own recorded answers. One so far.</td></tr>
+      <tr><td class="cmd">grep -n "\[PROXY DECISION\]" TASKS.md</td><td>Escalated rulings. Not every hit is a ruling &mdash; the tag&rsquo;s own definition, task-line mentions and replay references match too, so read the hits rather than counting them.</td></tr>
+      <tr><td class="cmd">grep -n "\[JUDGMENT CALL\]" TASKS.md</td><td>Small calls made without escalation, each with its reasoning beside it. One hit is the tag&rsquo;s own definition.</td></tr>
+      <tr><td class="cmd">grep -n "\[HITL\]" TASKS.md</td><td>Your own recorded answers &mdash; the decisions no model was allowed to make.</td></tr>
       <tr><td class="cmd">grep -n "\[DISSENT\]" TASKS.md</td><td>Zero &mdash; never used yet. It exists so a losing argument that turns out right is on the record.</td></tr>
     </tbody>
   </table></div>
@@ -773,8 +786,8 @@ npm run seed:dry      → Validation passed (10 warning(s)).</code></pre>
       <tr><td><strong>Importing the seed script runs it</strong></td><td>There is no main-module guard, so importing <code>scripts/seed.ts</code> executes it &mdash; with <code>--write</code> in argv, that means a pruning write. Import only the validator module.</td></tr>
       <tr><td><strong>Fragments were not cleaned up</strong></td><td>The conductor skill says it deletes them after merging; 15 files from task 1.6 are still there, including duplicate copies of curated school data. Decide deliberately: delete, or amend the skill.</td></tr>
       <tr><td><strong>Task 0.5 is checked off against an unmet check</strong></td><td>Its check says a migration runs against the database; only a schema push ever happened. Cosmetic, but it is the kind of untruth this project otherwise doesn&rsquo;t tolerate.</td></tr>
-      <tr><td><strong>Three commits unpushed</strong></td><td>One machine holds five rulings and 607 cited data points.</td></tr>
-      <tr><td><strong>Do not &ldquo;fix&rdquo; the PRD&rsquo;s FY2000&ndash;FY2025 promise</strong></td><td>It disagrees with reality on purpose &mdash; that disagreement <em>is</em> the Checkpoint A question. Editing it before you rule would violate the reserved list.</td></tr>
+      <tr><td><strong>Unpushed work is invisible to the deploy</strong></td><td>Run <code>git rev-list --count origin/main..HEAD</code> rather than trusting a number here. Rulings and curated figures live only in the repo, so a non-zero count means one machine holds work nothing else has.</td></tr>
+      <tr><td><strong>The PRD&rsquo;s FY2000&ndash;FY2025 promise is ruled, no longer open</strong></td><td>It disagreed with reality on purpose while the question was pending &mdash; that disagreement <em>was</em> the Checkpoint A question. The human ruled it on 2026-08-29 and <code>PRD.md</code> now states the ruled reading in the line itself. Amending that file is still reserved: it moves only on a named human ruling, never on a session&rsquo;s initiative.</td></tr>
     </tbody>
   </table></div>
 </section>

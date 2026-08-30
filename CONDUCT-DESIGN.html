@@ -74,7 +74,7 @@
   }
 
   /* ---------- masthead ---------- */
-  .draft-banner {
+  .status-banner {
     font-family: var(--mono);
     font-size: .72rem;
     letter-spacing: .1em;
@@ -278,14 +278,14 @@
 <div class="wrap">
 
 <header>
-  <div class="draft-banner">Draft — binds nothing until the human signs the Kernel</div>
+  <div class="status-banner">Adopted — kernel v1.1.0, signed 4 August 2026</div>
   <h1>Conduct</h1>
   <p class="subtitle">An operating system for autonomous engineering work: a governance kernel, an escalation chain, a work ledger, and a conductor — one human at the top.</p>
   <div class="provenance">
     <span>Drafted 30 July 2026</span>
     <span>Author: Fable 5, from a brainstorm with the owner</span>
     <span>Pilot ground: universityfunds repo</span>
-    <span>kernel-version: 0.1-draft</span>
+    <span>kernel-version: 1.1.0 · adopted</span>
   </div>
 </header>
 
@@ -552,7 +552,7 @@ provenance:  commits, decisions, artifacts produced</code></pre>
       <tr><td><strong>A</strong></td><td>Decision plane: kernel + <code>escalate</code> skill + brief templates; pilot repo's constitution refactored to kernel-reference + project articles</td><td><strong>Golden replay</strong> — the four historically-logged escalations re-run through the new protocol on paper; outcomes should reproduce; every divergence adjudicated as bug or improvement</td></tr>
       <tr><td><strong>B</strong></td><td>Work-plane rails: routing rubric (1 page), task-brief template, lease conventions in the existing ledger, <code>conduct</code> skill</td><td>Conductor decomposes the pilot task into briefs <em>without executing</em>; the human eyeballs them</td></tr>
       <tr><td><strong>C</strong></td><td>Decision plane goes live</td><td>Next real escalation runs two-phase; telemetry fields populated</td></tr>
-      <tr><td><strong>D</strong></td><td>Work-plane pilot: 3 Sonnet workers (one school each, file-ownership isolation), 1 Opus sampler, Chain live, validator as acceptance gate</td><td>Validator green; sampler clean; telemetry captured; one coalesced digest to the human</td></tr>
+      <tr><td><strong>D</strong></td><td>Work-plane pilot: 4 workers (one unit each, file-ownership isolation) &mdash; three Sonnet plus MIT routed up to Opus for its pool-basis judgement &mdash; per-unit QC above the producer, Chain live, validator as acceptance gate</td><td>Validator green; QC clean; telemetry captured; one coalesced digest to the human</td></tr>
       <tr><td><strong>E</strong></td><td>Checkpoint review + system retrospective</td><td>Scope questions answered; floor and rubric tuned; kernel v1.0 → v1.1</td></tr>
       <tr><td><strong>F</strong></td><td>User-scope install, both machines, via one dotfiles repo; fresh-project template</td><td>Same kernel version resolves on Mac and Windows</td></tr>
       <tr><td><strong>G</strong></td><td>Remaining product phases run under the full system</td><td>Serial phases stay serial (no fan-out theater); parallel phases fan out; telemetry per phase</td></tr>
@@ -621,10 +621,13 @@ provenance:  commits, decisions, artifacts produced</code></pre>
 
 <footer>
   <div class="signature">
-    Kernel v1.0 binds only on human adoption (Part 2 §5 — including its birth).<br><br>
-    Signed: <span class="sig-line">&nbsp;</span> Date: <span class="sig-line" style="min-width:8rem">&nbsp;</span>
+    The kernel binds only on human adoption (Part 2 §5 — including its own birth). It has been adopted.<br><br>
+    Signed: <strong>Amay Bhatnagar</strong> (explicit in-session approval) &nbsp;·&nbsp;
+    Date: <strong>30 July 2026</strong> for v1.0.0, amended and re-signed <strong>4 August 2026</strong> for v1.1.0 (amendments 1A/2A/3A/4B/5A).
+    Record: <code>conduct/ADOPTION.md</code>.
   </div>
-  <p><strong>Status:</strong> draft for review. Next concrete step on the owner's word: Phase A — write the kernel and <code>escalate</code> skill, run the golden replay, present for signature.</p>
+  <p><strong>Status:</strong> adopted and in service. Phases A&ndash;E are complete — kernel and <code>escalate</code> skill shipped, golden replay run, decision plane live, the work-plane pilot curated task 1.6 with four workers, and Phase E's checkpoint review plus retrospective carried the kernel to v1.1.0. Phase G is complete too: product phases 2&ndash;6 ran under the full system and the site shipped. <strong>Phase F is the one outstanding step</strong> — the user-scope install across both machines via a dotfiles repo, so the same kernel version resolves outside this repo. Today the skills are project-scoped only; there is no <code>~/.claude/skills</code>. The retrospective and the fresh-project template live in <code>~/Projects/playbook</code>, which is Phase F's raw material, not Phase F.</p>
+  <p class="prov-note"><em>Page corrected 2026-08-29 (audit findings A-17/A-18). It had described itself as an unsigned draft awaiting Phase A for four weeks after the kernel was signed, the pilot run and the site shipped.</em></p>
   <p>Sources:</p>
   <ul class="sources">
     <li><a href="https://arxiv.org/html/2604.22891v2">Quantifying and Mitigating Self-Preference Bias of LLM Judges</a></li>

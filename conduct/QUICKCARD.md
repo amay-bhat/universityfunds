@@ -35,28 +35,42 @@ npx tsc --noEmit        # silent
 npm run lint            # silent
 npm run build           # ✓ Compiled successfully
 npm run seed:verify     # 30/30 validator checks passed
-npm run seed:dry        # Validation passed (10 warning(s))
+npm run seed:dry        # Validation passed (2 warning(s))
 ```
 
-Those 10 warnings are expected **until task 1.7** — 7 missing proxy mappings +
-3 empty benchmark series. An 11th is new and real. **This baseline expires when
-1.7 lands**; whoever integrates it must record the new count in the build log.
-Read the counts line too (`5 school(s), 95 source(s), 349 allocation row(s),
-128 endowment return row(s), 130 benchmark return row(s)`) — a change there
-means someone edited `data/`.
+Those 2 warnings are **decided gaps, not defects**: `hedge_fund_index` and
+`public_pe_index` are permanently empty because neither `absolute_return` nor
+`private_equity_vc` has an honest ETF proxy, so the copycat shows those slices as
+a labelled gap instead of backtesting them (task 1.7). A third warning means
+someone changed `data/` — read it, don't silence it.
+
+Read the counts line too (`5 school(s), 96 source(s), 349 allocation row(s),
+128 endowment return row(s), 147 benchmark return row(s), 7 proxy mapping(s)`) —
+a change there means someone edited `data/`. *Baseline re-derived 2026-08-29; the
+previous one predated task 1.7 and had been stale since 2026-08-04.*
 
 ## Waiting on you right now
 
-1. **Vercel Deployment Protection → Disabled** (task 6.4). Until then the
-   production URL redirects every visitor to a login; nobody can see the site.
-2. **Checkpoint A**, after task 1.7 — one reserved question in three parts:
-   Yale's allocations stop at FY2020, Harvard's early years are *targets* not
-   holdings, MIT has 7 scattered years and Stanford none. Does that count as
-   v1? Only you can answer; no model tier may.
-3. **`git push`** when you want the site to deploy. Commits are local by
-   design — pushing is outward-facing. Three are pending, and they carry the
-   kernel adoption, the schema change, and all of the 1.5/1.6 curation: one
-   machine currently holds 5 rulings and 607 cited data points.
+*Re-derived 2026-08-29. The three items previously listed here — Deployment
+Protection, Checkpoint A, and three pending commits — were all closed by
+2026-08-18 and had sat here as false urgency ever since. Keep this list true or
+delete it; a stale "waiting on you" is worse than none, because it trains you to
+skim the section that exists to be read.*
+
+1. **An external uptime monitor pointed at `/api/health`.** The endpoint is live
+   and returns `{ok, db, seeded, schools, latencyMs}`; nothing watches it, so a
+   silent outage stays silent. Dashboard work, so it is yours.
+
+Everything else that was reserved has been ruled: Deployment Protection
+(2026-08-04), Checkpoint A (2026-08-04), the Yahoo Finance licensing deferral,
+the typeface, the footer contact line (twice), Checkpoint B hosting (2026-08-18),
+and the PRD's status and coverage wording (2026-08-29). Those are settled — do
+not re-raise them without new evidence.
+
+**`git push` remains yours by default.** Commits are local by design because
+pushing is outward-facing and auto-deploys; run
+`git rev-list --count origin/main..HEAD` for the live count rather than trusting
+a number written here.
 
 ## When it breaks
 

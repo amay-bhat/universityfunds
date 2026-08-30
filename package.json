@@ -20,6 +20,7 @@
     "verify:alloc-annotations": "node scripts/verify-allocation-annotations.mjs",
     "verify:a11y": "node scripts/verify-a11y.mjs",
     "verify:figures": "node scripts/verify-figure-reconciliation.mjs",
+    "verify:prose": "node scripts/verify-prose-facts.mjs",
     "verify:palette": "node scripts/validate_palette.mjs",
     "verify:seo": "node scripts/verify-seo.mjs"
   },

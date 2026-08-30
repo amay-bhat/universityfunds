@@ -126,12 +126,26 @@ looking a full year staler than it is.
    exceptions go in that script's `ACCEPTED` map **with a citation to where the
    cause is documented** — never as a bare silencing.
 5. **`npm run seed`** to write to Neon, then re-run `seed:dry` to confirm.
-6. **Update the prose that quotes coverage.** This is the step that gets
-   forgotten. Several user-facing strings hard-code the coverage end or a
-   headline figure — `src/lib/blurbs.ts`, `src/app/methodology/page.tsx`, and the
-   PRD's FY range. The sitemap's `lastModified` and the JSON-LD
-   `temporalCoverage` derive from the data automatically via `src/lib/site.ts`
-   and need no edit; the prose does not.
+6. **`npm run verify:prose`** — the guard for the step that used to get
+   forgotten. It fails on three things: a school's disclosed coverage moving
+   away from `conduct/coverage-snapshot.json`; any numeric literal in
+   `src/lib/blurbs.ts` that no longer reproduces from `data/`; and the specific
+   coverage sentences ("the last year it disclosed a mix", "the returns run to
+   FY…") going false. **A failure here is a work order, not a puzzle** — it
+   names the school, what moved, and which files to re-read.
+
+   Then **update the prose it names.** Several user-facing strings hard-code the
+   coverage end or a headline figure — `src/lib/blurbs.ts`,
+   `src/app/methodology/page.tsx`, and the PRD's FY range. The sitemap's
+   `lastModified` and the JSON-LD `temporalCoverage` derive from the data
+   automatically via `src/lib/site.ts` and need no edit; the prose does not.
+
+   **Only once the prose is true again**, re-baseline the snapshot with
+   `npm run verify:prose -- --update-snapshot` and re-run the guard clean.
+   Updating the snapshot first turns the gate off, which is the one way to
+   misuse it. The guard covers `blurbs.ts` literally; for
+   `methodology/page.tsx` it tells you to re-read, because that page's coverage
+   story is prose rather than figures.
 7. **Re-run the display gates**, because a new year can change which annotations
    apply: `node scripts/verify-allocation-annotations.mjs`,
    `npm run verify:palette`, and with a server running, `npm run verify:seo`.

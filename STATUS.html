@@ -625,22 +625,27 @@
         <div class="phase-head">
           <div class="phase-num">7</div>
           <div class="phase-name">Post-v1</div>
-          <div class="phase-count">1 part-way</div>
+          <div class="phase-count">1 done &middot; 2 part-way</div>
         </div>
-        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:14%"></div></div></div>
+        <div class="meter-row"><div class="meter"><div class="meter-fill" style="width:29%"></div></div></div>
         <ul class="tasks">
           <li class="task is-part"><span class="task-id">1.8</span><span class="glyph g-part">&#9686;</span><span class="task-text">Audit remediation, scoped to the failing gate assertions &mdash; 12 findings closed, and two bugs found in the audit&rsquo;s own verification script</span>
             <span class="task-note">The gate now reads 23/23. The wider 74-site remediation and 37 unverified leads stay open on purpose &mdash; the audit warns its own refutation rate was 24 in 63.</span>
           </li>
-          <li class="task"><span class="task-id">7.1</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Source watcher and citation-rot check &mdash; a third of the 96 citations are already Internet Archive captures</span></li>
-          <li class="task"><span class="task-id">7.2</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Prose-staleness and disclosure-flip guards, before the October&ndash;November data refresh</span></li>
+          <li class="task is-part"><span class="task-id">7.1</span><span class="glyph g-part">&#9686;</span><span class="task-text">Citation-rot check shipped &mdash; <code>npm run check:sources</code> probed all 96 cited documents: <strong>92 healthy, 0 dead</strong></span>
+            <span class="task-note">Fingerprints content, not status codes, so it catches a soft-404 &mdash; a 200 carrying a generic error page, which is what Yale&rsquo;s old report paths used to serve for every year. The 4 Yahoo Finance citations are unverifiable rather than broken: that host refuses automated clients, diagnosed rather than assumed. Detecting newly published reports is the remaining half.</span>
+          </li>
+          <li class="task is-done"><span class="task-id">7.2</span><span class="glyph g-done">&#10003;</span><span class="task-text">Prose-staleness and disclosure-flip guard shipped &mdash; <code>npm run verify:prose</code>, before the autumn refresh rather than after it</span>
+            <span class="task-note">Every number in the school blurbs now has to reproduce from the seed files, which finally enforces a claim that file has made about itself since August. A simulated FY2026 refresh was run to prove the guard fails when it should.</span>
+          </li>
           <li class="task"><span class="task-id">7.3</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Compare&rsquo;s period picker is bounded by allocation coverage where it should use returns coverage</span></li>
           <li class="task"><span class="task-id">7.4</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Rehearse the disaster-recovery path end to end &mdash; it has never actually been run</span></li>
           <li class="task"><span class="task-id">7.5</span><span class="glyph g-block">&#9650;</span><span class="task-text">Uptime monitor on <code>/api/health</code> &mdash; yours</span></li>
+          <li class="task"><span class="task-id">7.6</span><span class="glyph g-idle">&#9675;</span><span class="task-text">Rewrite the operator manual for the post-ship project; it still describes the road to v1</span></li>
         </ul>
         <div class="gate">
           <span class="gate-tag">No gate</span>
-          <span>None of this blocks the site. The one real deadline is the autumn data refresh.</span>
+          <span>None of this blocks the site. The one real deadline is the autumn data refresh, and the two guards it needed are now in place.</span>
         </div>
       </div>
 

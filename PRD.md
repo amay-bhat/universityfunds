@@ -1,7 +1,15 @@
 # PRD — University Endowment Investing Explorer (v1)
 
 **Repo:** github.com/amaybhat-creator/universityfunds · **Hosting:** Vercel (Hobby — corrected by human ruling 2026-08-18; the plan originally said Pro) · **DB:** Neon Postgres
-**Status:** Approved plan, pre-build · **Last updated:** 2026-07-23
+**Status:** v1 shipped and live — definition of done met and verified at Checkpoint B · **Last updated:** 2026-08-29
+
+> **Amendment note.** This file was written as the approved pre-build plan and was deliberately left
+> frozen through the whole build, because amending it touches product identity (`CONSTITUTION.md`
+> Part 2 §6) and only the human may do that. Every amendment since has been made by an explicit human
+> ruling and recorded in `TASKS.md`: the hosting plan (2026-08-18), then the status line, the coverage
+> wording and the definition of done (2026-08-29). Each amended passage says so where it sits, so this
+> note never needs to carry a count. Everything else stands as originally approved. Where this file and
+> `CLAUDE.md` disagree on an operational detail, `CLAUDE.md` is the newer document.
 
 ## Problem
 
@@ -35,7 +43,10 @@ A free, public, no-login website with three thin features:
 
 - **Source of truth:** hand-curated seed files in `data/` in the repo. Every number carries a citation (source document + page/URL). A seed script loads them into Neon.
 - **Contents:** per school per fiscal year: asset allocation percentages (normalized category set), annual return, endowment market value. Plus: annual returns for benchmark indexes/asset-class proxies, and the ETF proxy-mapping table.
-- **Coverage target:** FY2000–FY2025 for all 5 schools (deeper for Yale if easy). Fiscal years end June 30.
+- **Coverage target:** FY2000–FY2025 for all 5 schools (deeper for Yale if easy), understood as *full
+  coverage where the school disclosed it, gaps labelled at the point of display* — see the definition of
+  done below. Fiscal years end **June 30 for four of the five schools; Stanford's ends August 31**, so its
+  market values sit roughly two months offset (corrected 2026-08-29; the original plan said June 30 for all).
 - **Update cadence:** yearly, by hand.
 
 ## Non-negotiable rules
@@ -51,11 +62,25 @@ Accounts/login · personalization of any kind · brokerage connections · live m
 
 ## Definition of done (v1 ships when…)
 
-- [ ] All 5 schools browsable in the History Explorer with allocation + returns charts, FY2000–FY2025.
-- [ ] Translator works for every school/year with data, with visible proxy mapping and fine print.
-- [ ] Comparisons render for any school vs. proxy vs. all 3 benchmarks over any sub-period.
-- [ ] Methodology page lists every source; disclaimer visible site-wide.
-- [ ] Deployed on Vercel from the GitHub repo, database seeded on Neon, loads fast, works on phone screens.
+**All five met and verified at Checkpoint B on 2026-08-18** against production, with evidence in the
+`TASKS.md` build log entry of that date.
+
+- [x] All 5 schools browsable in the History Explorer with allocation + returns charts, covering **each
+      school's full disclosed range within FY2000–FY2025, with every gap labelled at the point of
+      display**. *Amended 2026-08-29 by human ruling, recording the reading already ruled at Checkpoint A
+      on 2026-08-04. The original line read simply "FY2000–FY2025", which no school's disclosure supports:
+      Yale stopped publishing an allocation table after FY2020, Harvard skipped FY2018 and FY2022, MIT
+      published 7 scattered years of 26, and Stanford has never published a percentage for the endowment
+      alone. Inventing the missing years would breach rules 2 and 4, so the gaps ship visible and
+      explained instead. Returns coverage does reach FY2025 for every school.*
+- [x] Translator works for every school/year with data, with visible proxy mapping and fine print.
+- [x] Comparisons render for any school vs. proxy vs. all 3 benchmarks over any sub-period. *One recorded
+      caveat: the period picker's earliest year is bounded by each school's first allocation year rather
+      than its first returns year, so Harvard and Princeton cannot be compared before FY2005 nor MIT
+      before FY2001, though returns and all three benchmarks exist from FY2000. Known limit, not a
+      blocker — see `PERSONAS.md` §5.*
+- [x] Methodology page lists every source; disclaimer visible site-wide.
+- [x] Deployed on Vercel from the GitHub repo, database seeded on Neon, loads fast, works on phone screens.
 
 ## Tech constraints
 
